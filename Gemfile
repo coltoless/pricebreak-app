@@ -48,6 +48,9 @@ gem "devise"
 # Encryption
 gem 'attr_encrypted', '~> 4.0.0'
 
+# Email Marketing
+gem 'gibbon', '~> 3.4'
+
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri windows ], require: "debug/prelude"
