@@ -84,7 +84,7 @@
       <div class="results-header">
         <div class="results-count">
           <h2>Search Results</h2>
-          <span class="count">0 events found</span>
+          <span class="count"><%= @total_events %> events found</span>
         </div>
         <div class="sort-container">
           <label for="sort">Sort by:</label>
@@ -97,11 +97,31 @@
       </div>
 
       <div class="results-grid">
-        <!-- Results will be populated here -->
-        <div class="no-results">
-          <p>No events found matching your criteria.</p>
-          <p>Try adjusting your filters or search terms.</p>
-        </div>
+        <% if @events.any? %>
+          <% @events.each do |event| %>
+            <div class="event-card">
+              <div class="event-image">
+                <img src="<%= event[:image_url] || 'https://via.placeholder.com/300x200' %>" alt="<%= event[:name] %>">
+                <div class="event-price">From $<%= event[:price] %></div>
+              </div>
+              <div class="event-details">
+                <h3 class="event-name"><%= event[:name] %></h3>
+                <p class="event-venue"><%= event[:venue] %></p>
+                <p class="event-date"><%= event[:date].strftime("%B %d, %Y at %I:%M %p") %></p>
+                <div class="event-category">
+                  <span class="category-tag"><%= event[:category] %></span>
+                  <span class="subcategory-tag"><%= event[:subcategory] %></span>
+                </div>
+                <a href="<%= event[:ticket_url] %>" class="event-link" target="_blank">View Tickets</a>
+              </div>
+            </div>
+          <% end %>
+        <% else %>
+          <div class="no-results">
+            <p>No events found matching your criteria.</p>
+            <p>Try adjusting your filters or search terms.</p>
+          </div>
+        <% end %>
       </div>
     </main>
   </div>
@@ -325,6 +345,100 @@
     color: #6c757d;
   }
 
+  .event-card {
+    background: white;
+    border-radius: 0.5rem;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+
+  .event-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  }
+
+  .event-image {
+    position: relative;
+    padding-top: 56.25%; /* 16:9 aspect ratio */
+  }
+
+  .event-image img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .event-price {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 0.5rem 1rem;
+    font-weight: 600;
+    border-top-left-radius: 0.5rem;
+  }
+
+  .event-details {
+    padding: 1rem;
+  }
+
+  .event-name {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: #212529;
+    margin-bottom: 0.5rem;
+    line-height: 1.4;
+  }
+
+  .event-venue {
+    color: #6c757d;
+    font-size: 0.875rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .event-date {
+    color: #495057;
+    font-size: 0.875rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .event-category {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .category-tag,
+  .subcategory-tag {
+    background: #e9ecef;
+    color: #495057;
+    padding: 0.25rem 0.5rem;
+    border-radius: 1rem;
+    font-size: 0.75rem;
+    font-weight: 500;
+  }
+
+  .event-link {
+    display: block;
+    background: #4f46e5;
+    color: white;
+    text-align: center;
+    padding: 0.75rem;
+    border-radius: 0.25rem;
+    text-decoration: none;
+    font-weight: 500;
+    transition: background-color 0.2s;
+  }
+
+  .event-link:hover {
+    background: #4338ca;
+  }
+
   @media (max-width: 768px) {
     .search-content {
       flex-direction: column;
@@ -346,6 +460,10 @@
 
     .sort-select {
       width: 100%;
+    }
+
+    .event-card {
+      max-width: 100%;
     }
   }
 </style>
