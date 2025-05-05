@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <div style="max-width: 600px; margin: 0 auto; padding: 20px; font-family: Arial, sans-serif;">
+      <h1 style="color: #4f46e5; margin-bottom: 20px;">Price Alert Triggered!</h1>
+      
+      <p style="font-size: 16px; line-height: 1.5; color: #374151;">
+        Hello <%= @user.name %>,
+      </p>
+
+      <p style="font-size: 16px; line-height: 1.5; color: #374151;">
+        Good news! We've found tickets that match your price alert criteria:
+      </p>
+
+      <div style="background: #f3f4f6; padding: 20px; border-radius: 8px; margin: 20px 0;">
+        <h2 style="color: #1f2937; margin-top: 0;">Alert Details</h2>
+        
+        <% if @price_alert.query.present? %>
+          <p><strong>Search:</strong> <%= @price_alert.query %></p>
+        <% end %>
+
+        <% if @price_alert.category.any? %>
+          <p><strong>Categories:</strong> <%= @price_alert.category.join(', ') %></p>
+        <% end %>
+
+        <% if @price_alert.venue_type.any? %>
+          <p><strong>Venue Types:</strong> <%= @price_alert.venue_type.join(', ') %></p>
+        <% end %>
+
+        <% if @price_alert.artist.present? %>
+          <p><strong>Artist:</strong> <%= @price_alert.artist %></p>
+        <% end %>
+
+        <% if @price_alert.team.present? %>
+          <p><strong>Team:</strong> <%= @price_alert.team %></p>
+        <% end %>
+
+        <% if @price_alert.from.present? && @price_alert.to.present? %>
+          <p><strong>Flight Route:</strong> <%= @price_alert.from %> to <%= @price_alert.to %></p>
+        <% end %>
+
+        <p><strong>Target Price:</strong> $<%= @price_alert.target_price %></p>
+        <p><strong>Current Price:</strong> $<%= @current_price %></p>
+      </div>
+
+      <div style="text-align: center; margin: 30px 0;">
+        <a href="<%= search_url(q: @price_alert.query, price_max: @current_price) %>" 
+           style="background: #4f46e5; color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px; font-weight: bold;">
+          View Available Tickets
+        </a>
+      </div>
+
+      <p style="font-size: 14px; color: #6b7280; margin-top: 30px;">
+        This alert will remain active until you view the tickets or cancel the alert.
+        To manage your price alerts, visit your account settings.
+      </p>
+
+      <hr style="border: none; border-top: 1px solid #e5e7eb; margin: 30px 0;">
+
+      <p style="font-size: 12px; color: #9ca3af; text-align: center;">
+        © <%= Time.current.year %> PriceBreak. All rights reserved.
+      </p>
+    </div>
+  </body>
+</html> 

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>PriceBreak Dev - Search Testing</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <style>
+      .dev-header {
+        background: #f8f9fa;
+        border-bottom: 1px solid #dee2e6;
+        padding: 1rem;
+        margin-bottom: 2rem;
+      }
+      
+      .dev-header h1 {
+        margin: 0;
+        font-size: 1.5rem;
+        color: #495057;
+      }
+      
+      .dev-header p {
+        margin: 0.5rem 0 0;
+        color: #6c757d;
+      }
+      
+      .dev-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 1rem;
+      }
+      
+      .dev-footer {
+        margin-top: 3rem;
+        padding: 1rem;
+        border-top: 1px solid #dee2e6;
+        text-align: center;
+        color: #6c757d;
+      }
+    </style>
+  </head>
+
+  <body>
+    <header class="dev-header">
+      <div class="dev-container">
+        <h1>PriceBreak Development Environment</h1>
+        <p>Testing interface for search functionality</p>
+      </div>
+    </header>
+
+    <main class="dev-container">
+      <%= yield %>
+    </main>
+
+    <footer class="dev-footer">
+      <div class="dev-container">
+        <p>Development Environment - Not for Production Use</p>
+      </div>
+    </footer>
+  </body>
+</html> 

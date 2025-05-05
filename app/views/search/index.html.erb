@@ -1,499 +1,431 @@
-<div class="search-page">
-  <div class="search-header">
-    <div class="search-bar-container">
-      <form class="search-form" action="/search" method="get">
-        <input type="text" name="q" value="<%= params[:q] %>" placeholder="Search events, venues, artists..." class="search-input">
-        <button type="submit" class="search-button">
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="11" cy="11" r="8"></circle>
-            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-          </svg>
-        </button>
-      </form>
+<div class="search-container">
+  <div class="filters-sidebar">
+    <div class="search-header">
+      <h2>Filters</h2>
+      <button class="clear-filters">Clear All</button>
+    </div>
+
+    <div class="filter-section">
+      <h3>Categories</h3>
+      <div class="filter-options">
+        <label>
+          <input type="checkbox" name="category[]" value="concerts" <%= 'checked' if @category&.include?('concerts') %>>
+          Concerts
+        </label>
+        <label>
+          <input type="checkbox" name="category[]" value="sports" <%= 'checked' if @category&.include?('sports') %>>
+          Sports
+        </label>
+        <label>
+          <input type="checkbox" name="category[]" value="comedy" <%= 'checked' if @category&.include?('comedy') %>>
+          Comedy
+        </label>
+        <label>
+          <input type="checkbox" name="category[]" value="flights" <%= 'checked' if @category&.include?('flights') %>>
+          Flights
+        </label>
+      </div>
+    </div>
+
+    <div class="filter-section">
+      <h3>Venue Type</h3>
+      <div class="filter-options">
+        <label>
+          <input type="checkbox" name="venue_type[]" value="stadium" <%= 'checked' if @venue_type&.include?('stadium') %>>
+          Stadium
+        </label>
+        <label>
+          <input type="checkbox" name="venue_type[]" value="arena" <%= 'checked' if @venue_type&.include?('arena') %>>
+          Arena
+        </label>
+        <label>
+          <input type="checkbox" name="venue_type[]" value="theater" <%= 'checked' if @venue_type&.include?('theater') %>>
+          Theater
+        </label>
+        <label>
+          <input type="checkbox" name="venue_type[]" value="club" <%= 'checked' if @venue_type&.include?('club') %>>
+          Club
+        </label>
+        <label>
+          <input type="checkbox" name="venue_type[]" value="concert_hall" <%= 'checked' if @venue_type&.include?('concert_hall') %>>
+          Concert Hall
+        </label>
+      </div>
+    </div>
+
+    <div class="filter-section">
+      <h3>Artists/Teams</h3>
+      <div class="filter-options">
+        <input type="text" name="artist" placeholder="Search artists..." value="<%= @artist %>" class="filter-input">
+        <input type="text" name="team" placeholder="Search teams..." value="<%= @team %>" class="filter-input">
+      </div>
+    </div>
+
+    <div class="filter-section">
+      <h3>Destinations (Flights)</h3>
+      <div class="filter-options">
+        <input type="text" name="from" placeholder="From..." value="<%= @from %>" class="filter-input">
+        <input type="text" name="to" placeholder="To..." value="<%= @to %>" class="filter-input">
+      </div>
+    </div>
+
+    <div class="filter-section">
+      <h3>Price Range</h3>
+      <div class="filter-options">
+        <div class="price-inputs">
+          <input type="number" name="price_min" placeholder="Min" value="<%= @price_min %>" class="filter-input">
+          <span>to</span>
+          <input type="number" name="price_max" placeholder="Max" value="<%= @price_max %>" class="filter-input">
+        </div>
+        <div class="price-presets">
+          <label>
+            <input type="radio" name="price_preset" value="0-25" <%= 'checked' if @price_range == '0-25' %>>
+            Under $25
+          </label>
+          <label>
+            <input type="radio" name="price_preset" value="25-50" <%= 'checked' if @price_range == '25-50' %>>
+            $25 - $50
+          </label>
+          <label>
+            <input type="radio" name="price_preset" value="50-100" <%= 'checked' if @price_range == '50-100' %>>
+            $50 - $100
+          </label>
+          <label>
+            <input type="radio" name="price_preset" value="100-200" <%= 'checked' if @price_range == '100-200' %>>
+            $100 - $200
+          </label>
+          <label>
+            <input type="radio" name="price_preset" value="200+" <%= 'checked' if @price_range == '200+' %>>
+            $200+
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <div class="filter-section">
+      <h3>Date</h3>
+      <div class="filter-options">
+        <div class="date-presets">
+          <label>
+            <input type="radio" name="date_preset" value="today" <%= 'checked' if @date_range == 'today' %>>
+            Today
+          </label>
+          <label>
+            <input type="radio" name="date_preset" value="tomorrow" <%= 'checked' if @date_range == 'tomorrow' %>>
+            Tomorrow
+          </label>
+          <label>
+            <input type="radio" name="date_preset" value="this_week" <%= 'checked' if @date_range == 'this_week' %>>
+            This Week
+          </label>
+          <label>
+            <input type="radio" name="date_preset" value="this_weekend" <%= 'checked' if @date_range == 'this_weekend' %>>
+            This Weekend
+          </label>
+          <label>
+            <input type="radio" name="date_preset" value="next_month" <%= 'checked' if @date_range == 'next_month' %>>
+            Next Month
+          </label>
+          <label>
+            <input type="radio" name="date_preset" value="custom" <%= 'checked' if @date_range == 'custom' %>>
+            Custom Range
+          </label>
+        </div>
+        <div class="date-inputs" style="<%= @date_range == 'custom' ? 'display: flex;' : 'display: none;' %>">
+          <input type="date" name="start_date" value="<%= @start_date %>" class="filter-input">
+          <span>to</span>
+          <input type="date" name="end_date" value="<%= @end_date %>" class="filter-input">
+        </div>
+      </div>
+    </div>
+
+    <div class="filter-section">
+      <h3>Notifications</h3>
+      <div class="filter-options">
+        <label class="notification-toggle">
+          <input type="checkbox" name="enable_notifications" <%= 'checked' if @enable_notifications %>>
+          Enable Price Alerts
+        </label>
+        <div class="notification-settings" style="<%= @enable_notifications ? 'display: block;' : 'display: none;' %>">
+          <label>
+            <input type="number" name="target_price" placeholder="Target price" value="<%= @target_price %>" class="filter-input">
+          </label>
+          <label>
+            <select name="notification_method" class="filter-input">
+              <option value="email" <%= 'selected' if @notification_method == 'email' %>>Email</option>
+              <option value="push" <%= 'selected' if @notification_method == 'push' %>>Push Notification</option>
+              <option value="both" <%= 'selected' if @notification_method == 'both' %>>Both</option>
+            </select>
+          </label>
+        </div>
+      </div>
     </div>
   </div>
 
-  <div class="search-content">
-    <aside class="filters-sidebar">
-      <div class="filter-section">
-        <h3>Categories</h3>
-        <% @categories.each do |category, subcategories| %>
-          <div class="filter-group">
-            <div class="filter-header">
-              <h4><%= category %></h4>
-              <button class="toggle-button" aria-expanded="true">▼</button>
-            </div>
-            <div class="filter-options">
-              <% subcategories.each do |subcategory| %>
-                <label class="filter-option">
-                  <input type="checkbox" name="category[]" value="<%= subcategory %>">
-                  <span><%= subcategory %></span>
-                </label>
-              <% end %>
-            </div>
-          </div>
-        <% end %>
+  <div class="results-container">
+    <div class="results-header">
+      <h2>Search Results</h2>
+      <div class="sort-options">
+        <select name="sort_by" id="sort_by">
+          <option value="best_match" <%= 'selected' if @sort_by == 'best_match' %>>Best Match</option>
+          <option value="price_asc" <%= 'selected' if @sort_by == 'price_asc' %>>Price: Low to High</option>
+          <option value="price_desc" <%= 'selected' if @sort_by == 'price_desc' %>>Price: High to Low</option>
+          <option value="date_asc" <%= 'selected' if @sort_by == 'date_asc' %>>Date: Soonest First</option>
+          <option value="date_desc" <%= 'selected' if @sort_by == 'date_desc' %>>Date: Latest First</option>
+          <option value="popularity" <%= 'selected' if @sort_by == 'popularity' %>>Most Popular</option>
+        </select>
       </div>
+    </div>
 
-      <div class="filter-section">
-        <h3>Price Range</h3>
-        <div class="filter-options">
-          <% @price_ranges.each do |range| %>
-            <label class="filter-option">
-              <input type="radio" name="price_range" value="<%= range %>">
-              <span><%= range %></span>
-            </label>
-          <% end %>
-        </div>
-      </div>
-
-      <div class="filter-section">
-        <h3>Date</h3>
-        <div class="filter-options">
-          <% @date_ranges.each do |range| %>
-            <label class="filter-option">
-              <input type="radio" name="date_range" value="<%= range %>">
-              <span><%= range %></span>
-            </label>
-          <% end %>
-        </div>
-        <div class="date-range-inputs" style="display: none;">
-          <input type="date" name="start_date" class="date-input">
-          <span>to</span>
-          <input type="date" name="end_date" class="date-input">
-        </div>
-      </div>
-
-      <div class="filter-section">
-        <h3>Venue Type</h3>
-        <div class="filter-options">
-          <% @venues.each do |venue| %>
-            <label class="filter-option">
-              <input type="checkbox" name="venue[]" value="<%= venue %>">
-              <span><%= venue %></span>
-            </label>
-          <% end %>
-        </div>
-      </div>
-
-      <button class="apply-filters">Apply Filters</button>
-      <button class="reset-filters">Reset All</button>
-    </aside>
-
-    <main class="search-results">
-      <div class="results-header">
-        <div class="results-count">
-          <h2>Search Results</h2>
-          <span class="count"><%= @total_events %> events found</span>
-        </div>
-        <div class="sort-container">
-          <label for="sort">Sort by:</label>
-          <select id="sort" name="sort" class="sort-select">
-            <% @sort_options.each do |option| %>
-              <option value="<%= option %>"><%= option %></option>
-            <% end %>
-          </select>
-        </div>
-      </div>
-
-      <div class="results-grid">
-        <% if @events.any? %>
-          <% @events.each do |event| %>
-            <div class="event-card">
-              <div class="event-image">
-                <img src="<%= event[:image_url] || 'https://via.placeholder.com/300x200' %>" alt="<%= event[:name] %>">
-                <div class="event-price">From $<%= event[:price] %></div>
-              </div>
-              <div class="event-details">
-                <h3 class="event-name"><%= event[:name] %></h3>
-                <p class="event-venue"><%= event[:venue] %></p>
-                <p class="event-date"><%= event[:date].strftime("%B %d, %Y at %I:%M %p") %></p>
-                <div class="event-category">
-                  <span class="category-tag"><%= event[:category] %></span>
-                  <span class="subcategory-tag"><%= event[:subcategory] %></span>
-                </div>
-                <a href="<%= event[:ticket_url] %>" class="event-link" target="_blank">View Tickets</a>
-              </div>
-            </div>
-          <% end %>
-        <% else %>
-          <div class="no-results">
-            <p>No events found matching your criteria.</p>
-            <p>Try adjusting your filters or search terms.</p>
-          </div>
-        <% end %>
-      </div>
-    </main>
+    <div class="results-grid" id="results">
+      <%= render partial: 'results', locals: { results: @results } %>
+    </div>
   </div>
 </div>
 
+<%= content_for :javascript do %>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const resultsContainer = document.getElementById('results');
+      const filterForm = document.querySelector('.filters-sidebar');
+      const sortSelect = document.getElementById('sort_by');
+      const clearFiltersBtn = document.querySelector('.clear-filters');
+      const notificationToggle = document.querySelector('input[name="enable_notifications"]');
+      const notificationSettings = document.querySelector('.notification-settings');
+      const datePresets = document.querySelectorAll('input[name="date_preset"]');
+      const dateInputs = document.querySelector('.date-inputs');
+      const pricePresets = document.querySelectorAll('input[name="price_preset"]');
+      const priceInputs = document.querySelector('.price-inputs');
+
+      // Handle filter changes
+      filterForm.addEventListener('change', function(e) {
+        if (e.target.matches('input[type="checkbox"], input[type="radio"], select')) {
+          updateResults();
+        }
+      });
+
+      // Handle input changes with debounce
+      let debounceTimer;
+      filterForm.addEventListener('input', function(e) {
+        if (e.target.matches('input[type="text"], input[type="number"], input[type="date"]')) {
+          clearTimeout(debounceTimer);
+          debounceTimer = setTimeout(updateResults, 500);
+        }
+      });
+
+      // Handle sort changes
+      sortSelect.addEventListener('change', function() {
+        updateResults();
+      });
+
+      // Clear all filters
+      clearFiltersBtn.addEventListener('click', function() {
+        filterForm.reset();
+        updateResults();
+      });
+
+      // Toggle notification settings
+      notificationToggle.addEventListener('change', function() {
+        notificationSettings.style.display = this.checked ? 'block' : 'none';
+      });
+
+      // Handle date preset changes
+      datePresets.forEach(preset => {
+        preset.addEventListener('change', function() {
+          dateInputs.style.display = this.value === 'custom' ? 'flex' : 'none';
+        });
+      });
+
+      // Handle price preset changes
+      pricePresets.forEach(preset => {
+        preset.addEventListener('change', function() {
+          const [min, max] = this.value.split('-');
+          const minInput = priceInputs.querySelector('input[name="price_min"]');
+          const maxInput = priceInputs.querySelector('input[name="price_max"]');
+          
+          if (this.value === '200+') {
+            minInput.value = '200';
+            maxInput.value = '';
+          } else {
+            minInput.value = min;
+            maxInput.value = max || '';
+          }
+        });
+      });
+
+      function updateResults() {
+        const formData = new FormData(filterForm);
+        formData.append('sort_by', sortSelect.value);
+        formData.append('q', '<%= @query %>');
+
+        fetch('/search?' + new URLSearchParams(formData))
+          .then(response => response.json())
+          .then(data => {
+            resultsContainer.innerHTML = data.html;
+          })
+          .catch(error => console.error('Error:', error));
+      }
+
+      // Set up ActionCable for real-time updates
+      const consumer = new ActionCable.Consumer();
+      const subscription = consumer.subscriptions.create("TicketApiChannel", {
+        received: function(data) {
+          if (data.status === 'success') {
+            updateResults();
+          }
+        }
+      });
+    });
+  </script>
+<% end %>
+
 <style>
-  .search-page {
-    min-height: 100vh;
-    background: #f8f9fa;
+  .search-container {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    gap: 2rem;
+    padding: 2rem;
+    max-width: 1600px;
+    margin: 0 auto;
   }
 
   .search-header {
-    background: white;
-    padding: 1rem;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-    position: sticky;
-    top: 0;
-    z-index: 100;
-  }
-
-  .search-bar-container {
-    max-width: 1200px;
-    margin: 0 auto;
-  }
-
-  .search-form {
-    display: flex;
-    align-items: center;
-    background: #f8f9fa;
-    border-radius: 2rem;
-    padding: 0.5rem;
-    transition: background-color 0.2s;
-  }
-
-  .search-form:focus-within {
-    background: #e9ecef;
-  }
-
-  .search-input {
-    background: transparent;
-    border: none;
-    padding: 0.5rem 1rem;
-    font-size: 1rem;
-    width: 100%;
-    outline: none;
-  }
-
-  .search-button {
-    background: transparent;
-    border: none;
-    color: #495057;
-    padding: 0.5rem;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .search-content {
-    display: flex;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 2rem 1rem;
-    gap: 2rem;
-  }
-
-  .filters-sidebar {
-    width: 300px;
-    flex-shrink: 0;
-  }
-
-  .filter-section {
-    background: white;
-    border-radius: 0.5rem;
-    padding: 1.5rem;
-    margin-bottom: 1rem;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  }
-
-  .filter-section h3 {
-    font-size: 1.125rem;
-    font-weight: 600;
-    margin-bottom: 1rem;
-    color: #212529;
-  }
-
-  .filter-group {
-    margin-bottom: 1rem;
-  }
-
-  .filter-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 0.5rem;
-  }
-
-  .filter-header h4 {
-    font-size: 1rem;
-    font-weight: 500;
-    color: #495057;
-  }
-
-  .toggle-button {
-    background: none;
-    border: none;
-    color: #6c757d;
-    cursor: pointer;
-    padding: 0.25rem;
-  }
-
-  .filter-options {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-  }
-
-  .filter-option {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    color: #495057;
-    cursor: pointer;
-  }
-
-  .filter-option input[type="checkbox"],
-  .filter-option input[type="radio"] {
-    width: 1rem;
-    height: 1rem;
-  }
-
-  .date-range-inputs {
-    margin-top: 1rem;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-  }
-
-  .date-input {
-    padding: 0.5rem;
-    border: 1px solid #dee2e6;
-    border-radius: 0.25rem;
-  }
-
-  .apply-filters,
-  .reset-filters {
-    width: 100%;
-    padding: 0.75rem;
-    border-radius: 0.25rem;
-    font-weight: 500;
-    cursor: pointer;
-    transition: background-color 0.2s;
-  }
-
-  .apply-filters {
-    background: #4f46e5;
-    color: white;
-    border: none;
-    margin-bottom: 0.5rem;
-  }
-
-  .apply-filters:hover {
-    background: #4338ca;
-  }
-
-  .reset-filters {
-    background: transparent;
-    color: #6c757d;
-    border: 1px solid #dee2e6;
-  }
-
-  .reset-filters:hover {
-    background: #f8f9fa;
-  }
-
-  .search-results {
-    flex: 1;
-  }
-
-  .results-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 1.5rem;
   }
 
-  .results-count h2 {
-    font-size: 1.5rem;
+  .clear-filters {
+    background: none;
+    border: none;
+    color: #4f46e5;
+    cursor: pointer;
+    font-size: 0.875rem;
+    font-weight: 500;
+  }
+
+  .clear-filters:hover {
+    text-decoration: underline;
+  }
+
+  .filters-sidebar {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    height: fit-content;
+    position: sticky;
+    top: 2rem;
+  }
+
+  .filter-section {
+    margin-bottom: 2rem;
+    border-bottom: 1px solid #e5e7eb;
+    padding-bottom: 1.5rem;
+  }
+
+  .filter-section:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+  }
+
+  .filter-section h3 {
+    font-size: 1.1rem;
     font-weight: 600;
-    color: #212529;
-    margin-bottom: 0.25rem;
+    margin-bottom: 1rem;
   }
 
-  .count {
-    color: #6c757d;
+  .filter-options {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
   }
 
-  .sort-container {
+  .filter-options label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+  }
+
+  .filter-input {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #e2e8f0;
+    border-radius: 0.25rem;
+    font-size: 0.875rem;
+  }
+
+  .price-inputs,
+  .date-inputs {
     display: flex;
     align-items: center;
     gap: 0.5rem;
   }
 
-  .sort-select {
+  .price-inputs input,
+  .date-inputs input {
+    flex: 1;
+  }
+
+  .notification-settings {
+    margin-top: 0.75rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid #e5e7eb;
+  }
+
+  .results-container {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  }
+
+  .results-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+  }
+
+  .sort-options select {
     padding: 0.5rem;
-    border: 1px solid #dee2e6;
+    border: 1px solid #e2e8f0;
     border-radius: 0.25rem;
     background: white;
   }
 
   .results-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 1.5rem;
   }
 
-  .no-results {
-    grid-column: 1 / -1;
-    text-align: center;
-    padding: 3rem;
-    color: #6c757d;
-  }
-
-  .event-card {
-    background: white;
-    border-radius: 0.5rem;
-    overflow: hidden;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-    transition: transform 0.2s, box-shadow 0.2s;
-  }
-
-  .event-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-  }
-
-  .event-image {
-    position: relative;
-    padding-top: 56.25%; /* 16:9 aspect ratio */
-  }
-
-  .event-image img {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-
-  .event-price {
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    background: rgba(0, 0, 0, 0.8);
-    color: white;
-    padding: 0.5rem 1rem;
-    font-weight: 600;
-    border-top-left-radius: 0.5rem;
-  }
-
-  .event-details {
-    padding: 1rem;
-  }
-
-  .event-name {
-    font-size: 1.125rem;
-    font-weight: 600;
-    color: #212529;
-    margin-bottom: 0.5rem;
-    line-height: 1.4;
-  }
-
-  .event-venue {
-    color: #6c757d;
-    font-size: 0.875rem;
-    margin-bottom: 0.25rem;
-  }
-
-  .event-date {
-    color: #495057;
-    font-size: 0.875rem;
-    margin-bottom: 0.75rem;
-  }
-
-  .event-category {
-    display: flex;
-    gap: 0.5rem;
-    margin-bottom: 1rem;
-  }
-
-  .category-tag,
-  .subcategory-tag {
-    background: #e9ecef;
-    color: #495057;
-    padding: 0.25rem 0.5rem;
-    border-radius: 1rem;
-    font-size: 0.75rem;
-    font-weight: 500;
-  }
-
-  .event-link {
-    display: block;
-    background: #4f46e5;
-    color: white;
-    text-align: center;
-    padding: 0.75rem;
-    border-radius: 0.25rem;
-    text-decoration: none;
-    font-weight: 500;
-    transition: background-color 0.2s;
-  }
-
-  .event-link:hover {
-    background: #4338ca;
-  }
-
-  @media (max-width: 768px) {
-    .search-content {
-      flex-direction: column;
+  @media (max-width: 1024px) {
+    .search-container {
+      grid-template-columns: 1fr;
     }
 
     .filters-sidebar {
-      width: 100%;
+      position: static;
+      margin-bottom: 2rem;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .search-container {
+      padding: 1rem;
     }
 
     .results-header {
       flex-direction: column;
-      align-items: flex-start;
       gap: 1rem;
     }
 
-    .sort-container {
+    .sort-options select {
       width: 100%;
-    }
-
-    .sort-select {
-      width: 100%;
-    }
-
-    .event-card {
-      max-width: 100%;
     }
   }
-</style>
-
-<script>
-  document.addEventListener('DOMContentLoaded', function() {
-    // Toggle filter groups
-    document.querySelectorAll('.toggle-button').forEach(button => {
-      button.addEventListener('click', function() {
-        const options = this.closest('.filter-group').querySelector('.filter-options');
-        const isExpanded = this.getAttribute('aria-expanded') === 'true';
-        
-        options.style.display = isExpanded ? 'none' : 'flex';
-        this.setAttribute('aria-expanded', !isExpanded);
-        this.textContent = isExpanded ? '▶' : '▼';
-      });
-    });
-
-    // Show/hide date range inputs
-    document.querySelector('input[name="date_range"][value="Custom Range"]').addEventListener('change', function() {
-      const dateInputs = document.querySelector('.date-range-inputs');
-      dateInputs.style.display = this.checked ? 'flex' : 'none';
-    });
-
-    // Reset filters
-    document.querySelector('.reset-filters').addEventListener('click', function() {
-      document.querySelectorAll('input[type="checkbox"], input[type="radio"]').forEach(input => {
-        input.checked = false;
-      });
-      document.querySelector('.date-range-inputs').style.display = 'none';
-    });
-  });
-</script> 
+</style> 

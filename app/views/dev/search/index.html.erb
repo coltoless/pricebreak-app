@@ -1,0 +1,241 @@
+<div class="search-container">
+  <div class="search-filters">
+    <h2>Search Filters</h2>
+    <%= form_with url: dev_search_path, method: :get, data: { controller: "search", turbo_frame: "results" } do |f| %>
+      <div class="form-group">
+        <%= f.label :q, "Search" %>
+        <%= f.text_field :q, value: @query, class: "form-control", placeholder: "Search events, venues, artists..." %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :category, "Categories" %>
+        <div class="checkbox-group">
+          <% ["concerts", "sports", "comedy", "theater", "family"].each do |category| %>
+            <div class="checkbox-item">
+              <%= f.check_box :category, { multiple: true, checked: @category&.include?(category) }, category, nil %>
+              <%= f.label "category_#{category}", category.titleize %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :venue_type, "Venue Types" %>
+        <div class="checkbox-group">
+          <% ["arena", "stadium", "theater", "club", "outdoor"].each do |type| %>
+            <div class="checkbox-item">
+              <%= f.check_box :venue_type, { multiple: true, checked: @venue_type&.include?(type) }, type, nil %>
+              <%= f.label "venue_type_#{type}", type.titleize %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :artist, "Artist" %>
+        <%= f.text_field :artist, value: @artist, class: "form-control", placeholder: "Search by artist..." %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :team, "Team" %>
+        <%= f.text_field :team, value: @team, class: "form-control", placeholder: "Search by team..." %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :price_range, "Price Range" %>
+        <%= f.select :price_preset, 
+            options_for_select([
+              ["Any Price", ""],
+              ["Under $50", "0-50"],
+              ["$50 - $100", "50-100"],
+              ["$100 - $200", "100-200"],
+              ["$200 - $500", "200-500"],
+              ["$500+", "500-999999"]
+            ], @price_range),
+            { include_blank: "Custom Range" },
+            class: "form-control",
+            data: { price_range_target: "preset" } %>
+        
+        <div class="custom-range" data-controller="price-range">
+          <%= f.label :price_min, "Min Price" %>
+          <%= f.number_field :price_min, value: @price_min, class: "form-control", data: { price_range_target: "min" } %>
+          
+          <%= f.label :price_max, "Max Price" %>
+          <%= f.number_field :price_max, value: @price_max, class: "form-control", data: { price_range_target: "max" } %>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :date_range, "Date Range" %>
+        <%= f.select :date_preset,
+            options_for_select([
+              ["Any Date", ""],
+              ["Today", "today"],
+              ["Tomorrow", "tomorrow"],
+              ["This Weekend", "weekend"],
+              ["Next 7 Days", "7days"],
+              ["Next 30 Days", "30days"]
+            ], @date_range),
+            { include_blank: "Custom Range" },
+            class: "form-control",
+            data: { date_range_target: "preset" } %>
+        
+        <div class="custom-range" data-controller="date-range">
+          <%= f.label :start_date, "Start Date" %>
+          <%= f.date_field :start_date, value: @start_date, class: "form-control", data: { date_range_target: "start" } %>
+          
+          <%= f.label :end_date, "End Date" %>
+          <%= f.date_field :end_date, value: @end_date, class: "form-control", data: { date_range_target: "end" } %>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :sort_by, "Sort By" %>
+        <%= f.select :sort_by,
+            options_for_select([
+              ["Best Match", "best_match"],
+              ["Price: Low to High", "price_asc"],
+              ["Price: High to Low", "price_desc"],
+              ["Date: Soonest First", "date_asc"],
+              ["Date: Latest First", "date_desc"]
+            ], @sort_by),
+            {},
+            class: "form-control" %>
+      </div>
+
+      <div class="form-group">
+        <div class="notification-settings" data-controller="price-alert">
+          <h3>Price Alert</h3>
+          <div class="checkbox-item">
+            <%= f.check_box :enable_notifications, checked: @enable_notifications, data: { price_alert_target: "checkbox", action: "change->price-alert#toggleChanged" } %>
+            <%= f.label :enable_notifications, "Enable Price Alert" %>
+          </div>
+
+          <div class="alert-settings" data-price-alert-target="settings">
+            <%= f.label :target_price, "Target Price" %>
+            <%= f.number_field :target_price, value: @target_price, class: "form-control" %>
+
+            <%= f.label :notification_method, "Notification Method" %>
+            <%= f.select :notification_method,
+                options_for_select([
+                  ["Email", "email"],
+                  ["Push Notification", "push"],
+                  ["Both", "both"]
+                ], @notification_method),
+                {},
+                class: "form-control" %>
+          </div>
+        </div>
+      </div>
+
+      <%= f.submit "Search", class: "btn btn-primary" %>
+    <% end %>
+  </div>
+
+  <div class="search-results">
+    <h2>Search Results</h2>
+    <%= turbo_frame_tag "results" do %>
+      <%= render partial: "results", locals: { results: @results } %>
+    <% end %>
+  </div>
+</div>
+
+<style>
+  .search-container {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    gap: 2rem;
+  }
+
+  .search-filters {
+    background: #f8f9fa;
+    padding: 1.5rem;
+    border-radius: 8px;
+    position: sticky;
+    top: 2rem;
+    height: fit-content;
+  }
+
+  .form-group {
+    margin-bottom: 1.5rem;
+  }
+
+  .form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+  }
+
+  .form-control {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #dee2e6;
+    border-radius: 4px;
+  }
+
+  .checkbox-group {
+    display: grid;
+    gap: 0.5rem;
+  }
+
+  .checkbox-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .custom-range {
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid #dee2e6;
+  }
+
+  .notification-settings {
+    background: #e9ecef;
+    padding: 1rem;
+    border-radius: 4px;
+  }
+
+  .notification-settings h3 {
+    margin: 0 0 1rem;
+    font-size: 1rem;
+  }
+
+  .alert-settings {
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid #dee2e6;
+  }
+
+  .btn {
+    width: 100%;
+    padding: 0.75rem;
+    border: none;
+    border-radius: 4px;
+    font-weight: 500;
+    cursor: pointer;
+  }
+
+  .btn-primary {
+    background: #007bff;
+    color: white;
+  }
+
+  .btn-primary:hover {
+    background: #0056b3;
+  }
+
+  .search-results {
+    min-height: 500px;
+  }
+
+  @media (max-width: 768px) {
+    .search-container {
+      grid-template-columns: 1fr;
+    }
+
+    .search-filters {
+      position: static;
+    }
+  }
+</style> 
