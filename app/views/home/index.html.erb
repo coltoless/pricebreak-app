@@ -4,26 +4,34 @@
     <p class="tagline">Tickets at Your Price</p>
     <p class="message">We're working hard to bring you the best ticket deals. Come back soon!</p>
 
-    <div class="notification-form">
-      <h2>Get Notified When We Launch</h2>
-      <% if flash[:notice] %>
-        <div class="alert success">
-          <%= flash[:notice] %>
-        </div>
-      <% end %>
-      <% if flash[:alert] %>
-        <div class="alert error">
-          <%= flash[:alert] %>
-        </div>
-      <% end %>
-      <form action="/notify" method="post">
-        <%= csrf_meta_tags %>
-        <div class="input-group">
-          <input type="email" name="email" placeholder="Enter your email" required>
-          <button type="submit">Notify Me</button>
-        </div>
-      </form>
-    </div>
+    <% if flash[:success] %>
+      <div class="text-center py-12">
+        <h2 class="text-3xl font-bold text-gray-900">Coming Soon!</h2>
+        <p class="mt-4 text-lg text-gray-600"><%= flash[:success] %></p>
+      </div>
+    <% else %>
+      <div class="text-center py-12">
+        <h2 class="text-3xl font-bold text-gray-900">Get Notified on Launch</h2>
+        <p class="mt-4 text-lg text-gray-600">Be the first to know when we launch and get early access!</p>
+        
+        <%= form_tag launch_subscribers_path, method: :post, class: "mt-8 sm:mx-auto sm:max-w-lg" do %>
+          <div class="min-w-0 flex-1">
+            <%= email_field_tag :email, nil, 
+                class: "block w-full rounded-md border-0 px-4 py-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6",
+                placeholder: "Enter your email",
+                required: true %>
+          </div>
+          <div class="mt-4">
+            <%= submit_tag "Notify Me", 
+                class: "flex w-full justify-center rounded-md bg-indigo-600 px-3 py-3 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600" %>
+          </div>
+        <% end %>
+        
+        <% if flash[:error] %>
+          <p class="mt-2 text-sm text-red-600"><%= flash[:error] %></p>
+        <% end %>
+      </div>
+    <% end %>
 
     <div class="social-links">
       <a href="#" class="social-link" aria-label="Twitter">

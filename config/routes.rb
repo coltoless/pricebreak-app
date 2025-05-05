@@ -24,4 +24,6 @@ Rails.application.routes.draw do
       resources :price_alerts, only: [:index, :create, :destroy]
     end
   end
+
+  resources :launch_subscribers, only: [:create]
 end

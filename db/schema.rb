@@ -10,9 +10,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_05_05_020402) do
+ActiveRecord::Schema[8.0].define(version: 2025_05_05_043145) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
+
+  create_table "auto_buy_settings", force: :cascade do |t|
+    t.bigint "price_alert_id", null: false
+    t.bigint "user_id", null: false
+    t.boolean "enabled", default: false
+    t.integer "max_attempts", default: 3
+    t.integer "attempts_count", default: 0
+    t.string "payment_method_type"
+    t.string "payment_method_id"
+    t.text "billing_address"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["price_alert_id", "user_id"], name: "index_auto_buy_settings_on_price_alert_id_and_user_id", unique: true
+    t.index ["price_alert_id"], name: "index_auto_buy_settings_on_price_alert_id"
+    t.index ["user_id"], name: "index_auto_buy_settings_on_user_id"
+  end
 
   create_table "events", force: :cascade do |t|
     t.string "name"
@@ -26,6 +42,13 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_05_020402) do
     t.string "ticket_url"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "launch_subscribers", force: :cascade do |t|
+    t.string "email"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["email"], name: "index_launch_subscribers_on_email", unique: true
   end
 
   create_table "price_alerts", force: :cascade do |t|
@@ -45,6 +68,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_05_020402) do
     t.datetime "triggered_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.decimal "min_price", precision: 10, scale: 2
+    t.decimal "max_price", precision: 10, scale: 2
     t.index ["status"], name: "index_price_alerts_on_status"
     t.index ["user_id", "status"], name: "index_price_alerts_on_user_id_and_status"
     t.index ["user_id"], name: "index_price_alerts_on_user_id"
@@ -70,5 +95,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_05_020402) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "auto_buy_settings", "price_alerts"
+  add_foreign_key "auto_buy_settings", "users"
   add_foreign_key "price_alerts", "users"
 end
