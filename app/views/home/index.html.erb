@@ -1,7 +1,31 @@
 <div class="landing-container">
   <div class="hero-section">
-    <h1 class="main-title">PriceBreak</h1>
+    <h1 class="main-title">priceBreak</h1>
     <h2 class="tagline">Tickets at Your Price!</h2>
+    
+    <div class="categories">
+      <a href="#" class="category-card">
+        <span class="category-icon">🎵</span>
+        <span class="category-name">Music</span>
+      </a>
+      <a href="#" class="category-card">
+        <span class="category-icon">🏟️</span>
+        <span class="category-name">Sports</span>
+      </a>
+      <a href="#" class="category-card">
+        <span class="category-icon">🎭</span>
+        <span class="category-name">Comedy</span>
+      </a>
+      <a href="#" class="category-card">
+        <span class="category-icon">✈️</span>
+        <span class="category-name">Flights</span>
+      </a>
+      <a href="#" class="category-card">
+        <span class="category-icon">🎪</span>
+        <span class="category-name">All Events</span>
+      </a>
+    </div>
+
     <div class="cta-buttons">
       <a href="#" class="cta-button primary">Find Tickets</a>
       <a href="#" class="cta-button secondary">How It Works</a>
@@ -39,10 +63,47 @@
     opacity: 0.9;
   }
 
+  .categories {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 1rem;
+    margin: 2rem 0;
+    padding: 0 1rem;
+  }
+
+  .category-card {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 1rem;
+    padding: 1.5rem 1rem;
+    text-decoration: none;
+    color: white;
+    transition: transform 0.2s, background-color 0.2s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .category-card:hover {
+    transform: translateY(-4px);
+    background: rgba(255, 255, 255, 0.2);
+  }
+
+  .category-icon {
+    font-size: 2rem;
+  }
+
+  .category-name {
+    font-size: 1rem;
+    font-weight: 500;
+  }
+
   .cta-buttons {
     display: flex;
     gap: 1rem;
     justify-content: center;
+    margin-top: 2rem;
   }
 
   .cta-button {
@@ -77,6 +138,10 @@
 
     .tagline {
       font-size: 1.5rem;
+    }
+
+    .categories {
+      grid-template-columns: repeat(2, 1fr);
     }
 
     .cta-buttons {
