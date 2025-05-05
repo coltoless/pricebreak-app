@@ -8,8 +8,8 @@ class AutoBuySetting < ApplicationRecord
   validates :payment_method_id, presence: true
   validates :billing_address, presence: true
 
-  attr_encrypted :payment_method_id, key: Rails.application.credentials.secret_key_base[0..31]
-  attr_encrypted :billing_address, key: Rails.application.credentials.secret_key_base[0..31]
+  attr_encrypted :payment_method_id, key: ENV['ENCRYPTION_KEY'] || 'development_key_32_chars_long_12345'
+  attr_encrypted :billing_address, key: ENV['ENCRYPTION_KEY'] || 'development_key_32_chars_long_12345'
 
   def payment_method_present?
     payment_method_id.present? && billing_address.present?
