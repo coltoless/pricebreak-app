@@ -1,0 +1,60 @@
+# PriceBreak - Product Requirements Document
+
+## Project Overview
+PriceBreak is a ticket search and price alert application built with Ruby on Rails. The application aggregates ticket data from multiple vendors (Ticketmaster, SeatGeek, StubHub, VividSeats) and provides price monitoring and auto-buy capabilities.
+
+## Core Features
+
+### 1. Ticket Search & Aggregation
+- Search across multiple ticket vendors
+- Filter by category, venue type, artist, team
+- Price range filtering
+- Date range filtering
+- Sort by various criteria (best match, price, date)
+
+### 2. Price Alerts
+- Set target prices for specific events
+- Email notifications when prices drop
+- Auto-buy functionality with configurable settings
+- Multiple notification methods
+
+### 3. User Management
+- User authentication with Devise
+- User profiles and preferences
+- Launch subscriber management
+
+### 4. Real-time Updates
+- WebSocket integration for live price updates
+- Background job processing for API calls
+- Caching system for improved performance
+
+## Technical Stack
+- Ruby on Rails 8.0.2
+- PostgreSQL database
+- Redis for caching and background jobs
+- ActionCable for WebSocket connections
+- Devise for authentication
+- Importmap for JavaScript management
+- Turbo and Stimulus for frontend interactions
+
+## API Integrations
+- Ticketmaster API
+- SeatGeek API
+- StubHub API
+- VividSeats API
+- Skyscanner API (for flights)
+
+## Development Goals
+- Improve search performance and accuracy
+- Enhance user experience with better UI/UX
+- Add more ticket vendors
+- Implement advanced price prediction algorithms
+- Mobile app development
+- Enhanced notification system
+
+## Success Metrics
+- User engagement with price alerts
+- Successful auto-buy transactions
+- Search result accuracy
+- API response times
+- User retention rates 

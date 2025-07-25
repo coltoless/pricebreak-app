@@ -1,0 +1,80 @@
+# PriceBreak - Airline Ticket Search & Auto-Buy for Destination Weddings
+
+## Project Overview
+PriceBreak is an airline ticket search and price alert application built with Ruby on Rails, specifically designed for destination wedding guests to find and purchase flights at the best possible prices. The application aggregates flight data from multiple airlines and travel agencies, providing dynamic pricing filters and auto-buy capabilities.
+
+## Core Features
+
+### 1. Flight Search & Aggregation
+- Search across multiple airlines and travel agencies
+- Filter by departure/arrival airports, dates, and travel preferences
+- Dynamic pricing filters (price ranges, layover preferences, airline preferences)
+- Sort by price, duration, departure time, or best value
+- Multi-city and round-trip search capabilities
+
+### 2. Destination Wedding Focus
+- Wedding-specific search templates (e.g., "Wedding Weekend Package")
+- Group booking coordination features
+- Wedding date integration for optimal flight timing
+- Guest list management and sharing capabilities
+- Special rates for wedding parties
+
+### 3. Price Alerts & Auto-Buy
+- Set target prices for specific routes and dates
+- Email notifications when prices drop
+- Auto-buy functionality with configurable settings
+- Price trend analysis and predictions
+- Flexible date range alerts
+
+### 4. User Management
+- User authentication with Devise
+- Wedding guest profiles and preferences
+- Group coordination features
+- Travel preferences and loyalty program integration
+
+### 5. Real-time Updates
+- WebSocket integration for live price updates
+- Background job processing for flight API calls
+- Caching system for improved performance
+- Price change notifications
+
+## Technical Stack
+- Ruby on Rails 8.0.2
+- PostgreSQL database
+- Redis for caching and background jobs
+- ActionCable for WebSocket connections
+- Devise for authentication
+- Importmap for JavaScript management
+- Turbo and Stimulus for frontend interactions
+
+## Flight API Integrations
+- Skyscanner API (primary)
+- Amadeus API
+- Google Flights API
+- Kiwi.com API
+- Expedia API
+- Kayak API
+
+## Development Goals
+- Launch by wedding invitation date
+- Optimize for mobile-first experience
+- Implement advanced price prediction algorithms
+- Add group booking coordination features
+- Enhanced notification system for price drops
+- Integration with popular travel loyalty programs
+
+## Success Metrics
+- Successful flight bookings through the platform
+- Price savings achieved for wedding guests
+- User engagement with price alerts
+- Auto-buy transaction success rate
+- Guest satisfaction and ease of use
+- Time saved in flight coordination
+
+## Wedding-Specific Features
+- Wedding date integration for optimal booking windows
+- Group rate negotiations with airlines
+- Guest list management and communication
+- Travel insurance recommendations
+- Accommodation integration for wedding packages
+- RSVP integration with flight booking status 

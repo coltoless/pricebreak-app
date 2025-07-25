@@ -1,0 +1,33 @@
+{
+  "project": {
+    "name": "PriceBreak",
+    "description": "Airline ticket search and auto-buy application for destination weddings",
+    "type": "web-application",
+    "framework": "ruby-on-rails",
+    "language": "ruby",
+    "focus": "flight-search",
+    "target": "destination-wedding-guests"
+  },
+  "taskmaster": {
+    "version": "0.21.0",
+    "prd_path": ".taskmaster/docs/prd.txt",
+    "tasks_path": ".taskmaster/tasks",
+    "templates_path": ".taskmaster/templates"
+  },
+  "ai": {
+    "main_model": "claude-3-5-sonnet",
+    "research_model": "perplexity",
+    "fallback_model": "gpt-4"
+  },
+  "rules": [
+    "cursor",
+    "rails",
+    "ruby",
+    "javascript",
+    "postgresql",
+    "flight-apis",
+    "travel-industry"
+  ],
+  "deadline": "wedding-invitation-date",
+  "priority": "high"
+} 

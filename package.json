@@ -1,0 +1,32 @@
+{
+  "name": "pricebreak",
+  "version": "1.0.0",
+  "description": "<<<<<<< HEAD # README",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib",
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "taskmaster": "npx task-master-ai",
+    "taskmaster:init": "npx task-master-ai init",
+    "taskmaster:parse": "npx task-master-ai parse-prd .taskmaster/docs/prd.txt",
+    "taskmaster:list": "npx task-master-ai list",
+    "taskmaster:next": "npx task-master-ai next"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/coltoless/pricebreak-app.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/coltoless/pricebreak-app/issues"
+  },
+  "homepage": "https://github.com/coltoless/pricebreak-app#readme",
+  "dependencies": {
+    "task-master-ai": "^0.21.0"
+  }
+}

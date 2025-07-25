@@ -32,3 +32,11 @@
 
 # Ignore master key for decrypting credentials and more.
 /config/master.key
+node_modules
+
+# TaskMaster AI
+.taskmaster/tasks/*.md
+!.taskmaster/tasks/sample-task.md
+
+# Nested repository
+pricebreak-app/
