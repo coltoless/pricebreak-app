@@ -68,35 +68,7 @@
     </div>
   </section>
 
-  <!-- Bottom Section -->
-  <section class="bottom-section">
-    <div class="bottom-content">
-      <div class="category-item">
-        <div class="category-icon">🎫</div>
-        <span>Concerts</span>
-      </div>
-      <div class="category-item">
-        <div class="category-icon">🏟️</div>
-        <span>Sports</span>
-      </div>
-      <div class="category-item">
-        <div class="category-icon">🎭</div>
-        <span>Theater</span>
-      </div>
-      <div class="category-item">
-        <div class="category-icon">✈️</div>
-        <span>Travel</span>
-      </div>
-      <div class="category-item">
-        <div class="category-icon">🎪</div>
-        <span>Events</span>
-      </div>
-      <div class="category-item">
-        <div class="category-icon">🎨</div>
-        <span>Museums</span>
-      </div>
-    </div>
-  </section>
+
 </div>
 
 <style>
@@ -339,44 +311,7 @@
     background: rgba(255, 255, 255, 0.05);
   }
 
-  /* Bottom Section */
-  .bottom-section {
-    position: relative;
-    z-index: 5;
-    padding: 3rem 0;
-    text-align: center;
-  }
 
-  .bottom-content {
-    max-width: 800px;
-    margin: 0 auto;
-    display: flex;
-    justify-content: center;
-    gap: 2rem;
-    flex-wrap: wrap;
-  }
-
-  .category-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.5rem;
-    opacity: 0.8;
-    transition: opacity 0.2s ease;
-  }
-
-  .category-item:hover {
-    opacity: 1;
-  }
-
-  .category-icon {
-    font-size: 2rem;
-  }
-
-  .category-item span {
-    font-size: 0.875rem;
-    font-weight: 500;
-  }
 
   /* Responsive Design */
   @media (max-width: 768px) {
@@ -411,30 +346,22 @@
       border: 1px solid rgba(255, 255, 255, 0.2);
     }
 
-    .partners-content {
-      gap: 2rem;
-    }
+         .partners-content {
+       gap: 2rem;
+     }
+   }
 
-    .bottom-content {
-      gap: 1.5rem;
-    }
-  }
+   @media (max-width: 480px) {
+     .hero-title {
+       font-size: 2rem;
+     }
 
-  @media (max-width: 480px) {
-    .hero-title {
-      font-size: 2rem;
-    }
+     .hero-subtitle {
+       font-size: 1rem;
+     }
 
-    .hero-subtitle {
-      font-size: 1rem;
-    }
-
-    .partners-content {
-      gap: 1rem;
-    }
-
-    .bottom-content {
-      gap: 1rem;
-    }
-  }
+     .partners-content {
+       gap: 1rem;
+     }
+   }
 </style> 
