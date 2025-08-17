@@ -19,6 +19,11 @@
 
     <%# Includes all stylesheet files in app/assets/stylesheets %>
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    
+    <%# Include our built JavaScript bundle %>
+    <script type="module" src="/assets/application.js"></script>
+    
+    <%# Keep importmap for other dependencies %>
     <%= javascript_importmap_tags %>
   </head>
 

@@ -1,13 +1,16 @@
 {
   "name": "pricebreak",
   "version": "1.0.0",
-  "description": "<<<<<<< HEAD # README",
+  "description": "AI-Powered Price Intelligence for Smart Ticket Shopping",
   "main": "index.js",
   "directories": {
     "lib": "lib",
     "test": "test"
   },
   "scripts": {
+    "build": "esbuild app/javascript/application.js --bundle --outdir=app/assets/builds --public-path=/assets --format=esm --loader:.js=jsx --external:@hotwired/turbo-rails --external:./controllers",
+    "build:css": "tailwindcss -i ./app/assets/stylesheets/application.css -o ./app/assets/builds/application.css --watch",
+    "dev": "npm run build -- --watch",
     "test": "echo \"Error: no test specified\" && exit 1",
     "taskmaster": "npx task-master-ai",
     "taskmaster:init": "npx task-master-ai init",
@@ -19,7 +22,12 @@
     "type": "git",
     "url": "git+https://github.com/coltoless/pricebreak-app.git"
   },
-  "keywords": [],
+  "keywords": [
+    "price-monitoring",
+    "ai",
+    "tickets",
+    "flight-alerts"
+  ],
   "author": "",
   "license": "ISC",
   "bugs": {
@@ -27,6 +35,19 @@
   },
   "homepage": "https://github.com/coltoless/pricebreak-app#readme",
   "dependencies": {
-    "task-master-ai": "^0.21.0"
+    "@babel/preset-react": "^7.27.1",
+    "@babel/preset-typescript": "^7.27.1",
+    "@types/react": "^19.1.10",
+    "@types/react-dom": "^19.1.7",
+    "lucide-react": "^0.539.0",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1",
+    "task-master-ai": "^0.21.0",
+    "typescript": "^5.9.2"
+  },
+  "devDependencies": {
+    "esbuild": "^0.25.9",
+    "esbuild-rails": "^1.0.7",
+    "tailwindcss": "^4.1.12"
   }
 }
