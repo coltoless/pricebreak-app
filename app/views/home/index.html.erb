@@ -41,7 +41,7 @@
         Never overpay for tickets again. Our advanced AI analyzes prices across all major platforms to find you the best deals on concerts, sports, and events.
       </p>
       
-      <div class="email-signup">
+      <div class="email-signup" id="email-signup">
         <% if flash[:success] %>
           <div class="notification-success">
             <p><%= flash[:success] %></p>
@@ -80,6 +80,50 @@
       </div>
       <div class="partner-logo">
         <div class="logo-placeholder">SeatGeek</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section id="about" class="py-16 text-center">
+    <div class="max-w-4xl mx-auto px-6">
+      <h2 class="text-3xl font-bold text-white mb-6">About PriceBreak</h2>
+      <p class="text-xl text-gray-200">
+        PriceBreak is revolutionizing how people find and book tickets. Our AI-powered platform 
+        analyzes prices across all major ticketing platforms in real-time.
+      </p>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section id="features" class="py-16 text-center">
+    <div class="max-w-4xl mx-auto px-6">
+      <h2 class="text-3xl font-bold text-white mb-6">Features</h2>
+      <p class="text-xl text-gray-200">
+        Flight price monitoring, multi-platform search, AI predictions, and smart notifications.
+      </p>
+      <div class="mt-8">
+        <a href="/flight-filter" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-semibold">
+          Try Flight Filter
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Get Started Section -->
+  <section id="get-started" class="py-16 text-center">
+    <div class="max-w-4xl mx-auto px-6">
+      <h2 class="text-3xl font-bold text-white mb-6">Ready to Get Started?</h2>
+      <p class="text-xl text-gray-200 mb-8">
+        Join thousands of smart shoppers who are already saving money with PriceBreak
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="/flight-filter" class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-lg font-semibold text-lg">
+          Try Flight Filter
+        </a>
+        <a href="#email-signup" class="bg-white bg-opacity-20 hover:bg-opacity-30 text-white px-8 py-4 rounded-lg font-semibold text-lg">
+          Get Early Access
+        </a>
       </div>
     </div>
   </section>
@@ -393,7 +437,136 @@
     background: rgba(255, 255, 255, 0.05);
   }
 
+  /* About Section */
+  .about-section {
+    background-color: rgba(255, 255, 255, 0.05);
+    padding: 4rem 2rem;
+    text-align: center;
+  }
 
+  .about-section h2 {
+    color: white;
+  }
+
+  .about-section p {
+    color: rgba(255, 255, 255, 0.8);
+  }
+
+  .about-section .grid {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+  }
+
+  .about-section .grid div {
+    padding: 2rem;
+    border-radius: 1rem;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .about-section .grid div .text-3xl {
+    color: #8B5CF6;
+    margin-bottom: 1rem;
+  }
+
+  .about-section .grid div h3 {
+    color: white;
+    margin-bottom: 0.5rem;
+  }
+
+  .about-section .grid div p {
+    color: rgba(255, 255, 255, 0.7);
+  }
+
+  /* Features Section */
+  .features-section {
+    background-color: rgba(255, 255, 255, 0.05);
+    padding: 4rem 2rem;
+  }
+
+  .features-section h2 {
+    color: white;
+  }
+
+  .features-section .grid {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+  }
+
+  .features-section .grid div {
+    padding: 2rem;
+    border-radius: 1rem;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .features-section .grid div h3 {
+    color: white;
+    margin-bottom: 0.5rem;
+  }
+
+  .features-section .grid div p {
+    color: rgba(255, 255, 255, 0.7);
+  }
+
+  .features-section .grid div a {
+    color: #8B5CF6;
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.2s ease;
+  }
+
+  .features-section .grid div a:hover {
+    color: #7C3AED;
+  }
+
+  /* Get Started Section */
+  .get-started-section {
+    background-color: rgba(255, 255, 255, 0.05);
+    padding: 4rem 2rem;
+    text-align: center;
+  }
+
+  .get-started-section h2 {
+    color: white;
+  }
+
+  .get-started-section p {
+    color: rgba(255, 255, 255, 0.8);
+  }
+
+  .get-started-section .flex {
+    gap: 1rem;
+  }
+
+  .get-started-section .flex a {
+    flex: 1;
+    padding: 1rem 2rem;
+    border-radius: 0.75rem;
+    font-weight: 600;
+    text-align: center;
+    transition: all 0.2s ease;
+  }
+
+  .get-started-section .flex a:first-child {
+    background-color: #8B5CF6;
+    color: white;
+  }
+
+  .get-started-section .flex a:first-child:hover {
+    background-color: #7C3AED;
+  }
+
+  .get-started-section .flex a:last-child {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  .get-started-section .flex a:last-child:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.4);
+  }
 
   /* Responsive Design */
   @media (max-width: 768px) {
