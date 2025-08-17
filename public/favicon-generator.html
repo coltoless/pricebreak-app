@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PriceBreak Favicon Generator</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; }
+        .favicon-preview { display: flex; gap: 20px; margin: 20px 0; }
+        .favicon-size { text-align: center; }
+        canvas { border: 1px solid #ccc; margin: 10px; }
+        button { background: #2563eb; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; }
+        button:hover { background: #1d4ed8; }
+    </style>
+</head>
+<body>
+    <h1>PriceBreak Favicon Generator</h1>
+    <p>This tool helps generate PNG favicons from the SVG logo for development.</p>
+    
+    <div class="favicon-preview">
+        <div class="favicon-size">
+            <h3>16x16</h3>
+            <canvas id="canvas16" width="16" height="16"></canvas>
+            <br><button onclick="downloadFavicon(16)">Download 16x16</button>
+        </div>
+        <div class="favicon-size">
+            <h3>32x32</h3>
+            <canvas id="canvas32" width="32" height="32"></canvas>
+            <br><button onclick="downloadFavicon(32)">Download 32x32</button>
+        </div>
+        <div class="favicon-size">
+            <h3>48x48</h3>
+            <canvas id="canvas48" width="48" height="48"></canvas>
+            <br><button onclick="downloadFavicon(48)">Download 48x48</button>
+        </div>
+    </div>
+    
+    <div class="favicon-preview">
+        <div class="favicon-size">
+            <h3>192x192</h3>
+            <canvas id="canvas192" width="192" height="192"></canvas>
+            <br><button onclick="downloadFavicon(192)">Download 192x192</button>
+        </div>
+        <div class="favicon-size">
+            <h3>512x512</h3>
+            <canvas id="canvas192" width="512" height="512"></canvas>
+            <br><button onclick="downloadFavicon(512)">Download 512x512</button>
+        </div>
+    </div>
+
+    <script>
+        // PriceBreak logo design
+        function drawLogo(canvas, size) {
+            const ctx = canvas.getContext('2d');
+            const scale = size / 32; // Base size is 32x32
+            
+            // Clear canvas
+            ctx.clearRect(0, 0, size, size);
+            
+            // Background square with rounded corners
+            ctx.fillStyle = '#2563eb';
+            ctx.beginPath();
+            ctx.roundRect(2 * scale, 2 * scale, 28 * scale, 28 * scale, 4 * scale);
+            ctx.fill();
+            
+            // Inner square
+            ctx.fillStyle = 'white';
+            ctx.beginPath();
+            ctx.roundRect(8 * scale, 8 * scale, 16 * scale, 16 * scale, 2 * scale);
+            ctx.fill();
+            
+            // Center dot
+            ctx.fillStyle = '#8B5CF6';
+            ctx.beginPath();
+            ctx.arc(16 * scale, 16 * scale, 2 * scale, 0, 2 * Math.PI);
+            ctx.fill();
+        }
+        
+        // Generate all favicon sizes
+        function generateFavicons() {
+            const sizes = [16, 32, 48, 192, 512];
+            sizes.forEach(size => {
+                const canvas = document.getElementById(`canvas${size}`);
+                if (canvas) {
+                    drawLogo(canvas, size);
+                }
+            });
+        }
+        
+        // Download favicon
+        function downloadFavicon(size) {
+            const canvas = document.getElementById(`canvas${size}`);
+            const link = document.createElement('a');
+            link.download = `favicon-${size}x${size}.png`;
+            link.href = canvas.toDataURL();
+            link.click();
+        }
+        
+        // Initialize when page loads
+        window.addEventListener('load', generateFavicons);
+    </script>
+</body>
+</html>
