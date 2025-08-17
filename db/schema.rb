@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_05_05_043145) do
+ActiveRecord::Schema[8.0].define(version: 2025_07_25_055604) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -42,6 +42,33 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_05_043145) do
     t.string "ticket_url"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "flight_alerts", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "origin", null: false
+    t.string "destination", null: false
+    t.date "departure_date", null: false
+    t.date "return_date"
+    t.integer "passengers", default: 1
+    t.string "cabin_class", default: "economy"
+    t.decimal "price_min", precision: 10, scale: 2
+    t.decimal "price_max", precision: 10, scale: 2
+    t.decimal "target_price", precision: 10, scale: 2, null: false
+    t.string "notification_method", default: "email"
+    t.boolean "wedding_mode", default: false
+    t.date "wedding_date"
+    t.integer "guest_count", default: 1
+    t.string "status", default: "active"
+    t.jsonb "auto_buy_settings", default: {}
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["auto_buy_settings"], name: "index_flight_alerts_on_auto_buy_settings", using: :gin
+    t.index ["departure_date"], name: "index_flight_alerts_on_departure_date"
+    t.index ["origin", "destination"], name: "index_flight_alerts_on_origin_and_destination"
+    t.index ["status"], name: "index_flight_alerts_on_status"
+    t.index ["user_id"], name: "index_flight_alerts_on_user_id"
+    t.index ["wedding_mode"], name: "index_flight_alerts_on_wedding_mode"
   end
 
   create_table "launch_subscribers", force: :cascade do |t|
@@ -97,5 +124,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_05_043145) do
 
   add_foreign_key "auto_buy_settings", "price_alerts"
   add_foreign_key "auto_buy_settings", "users"
+  add_foreign_key "flight_alerts", "users"
   add_foreign_key "price_alerts", "users"
 end

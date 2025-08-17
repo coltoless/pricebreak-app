@@ -10,7 +10,9 @@ class ApplicationController < ActionController::Base
     return if controller_name == 'home' && action_name == 'index'
     return if controller_name == 'notifications' && action_name == 'create'
     return if controller_name == 'launch_subscribers' && action_name == 'create'
+    return if controller_name == 'flight_filters'
     return if controller_path.start_with?('dev/')
+    return if controller_path.start_with?('api/')
     
     redirect_to root_path
   end
