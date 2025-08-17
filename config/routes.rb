@@ -16,11 +16,11 @@ Rails.application.routes.draw do
   post 'notify', to: 'notifications#create'
   get 'search', to: 'search#index'
   
-  # Flight Price Filter routes
-  get 'flight-filter', to: 'flight_filters#index'
-  namespace :api do
-    resources :flight_filters, only: [:create, :index, :show, :destroy]
-  end
+  # Flight Price Filter routes - Commented out for coming soon mode
+  # get 'flight-filter', to: 'flight_filters#index'
+  # namespace :api do
+  #   resources :flight_filters, only: [:create, :index, :show, :destroy]
+  # end
 
   # Development-only routes
   if Rails.env.development?

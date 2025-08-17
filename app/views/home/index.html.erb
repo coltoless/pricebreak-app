@@ -17,12 +17,13 @@
         <span class="logo-text">priceBreak</span>
       </div>
       
-      <nav class="nav">
+      <!-- Navigation removed for coming soon mode -->
+      <!-- <nav class="nav">
         <a href="#about" class="nav-link">About</a>
         <a href="#features" class="nav-link">Features</a>
         <a href="/flight-filter" class="nav-link">Flight Filter</a>
         <a href="#get-started" class="nav-button">Get Started →</a>
-      </nav>
+      </nav> -->
     </div>
   </header>
 
@@ -45,6 +46,17 @@
         Never overpay for tickets again. Our advanced AI analyzes prices across all major platforms to find you the best deals on concerts, sports, and events.
       </p>
       
+      <!-- Coming Soon Message -->
+      <div class="coming-soon-message">
+        <div class="coming-soon-badge">
+          <span>🚀</span>
+          <span>Coming Soon</span>
+        </div>
+        <p class="coming-soon-text">
+          Be notified when we launch and get early access to exclusive deals
+        </p>
+      </div>
+      
       <div class="email-signup" id="email-signup">
         <% if flash[:success] %>
           <div class="notification-success">
@@ -59,18 +71,18 @@
         <%= form_tag launch_subscribers_path, method: :post, class: "signup-form" do %>
           <div class="input-group">
             <%= email_field_tag :email, nil, 
-                placeholder: "Enter your email", 
+                placeholder: "Enter your email for early access", 
                 class: "email-input", 
                 required: true %>
-            <%= submit_tag "Subscribe", class: "subscribe-button" %>
+            <%= submit_tag "Notify Me", class: "subscribe-button" %>
           </div>
         <% end %>
-        <p class="signup-text">Get early access and exclusive deals</p>
+        <p class="signup-text">Get early access and exclusive deals when we launch</p>
       </div>
     </div>
   </main>
 
-  <!-- Partner Logos Section -->
+  <!-- Partner Logos Section - Kept for credibility -->
   <section class="partners">
     <div class="partners-content">
       <div class="partner-logo">
@@ -88,8 +100,8 @@
     </div>
   </section>
 
-  <!-- About Section -->
-  <section id="about" class="py-16 text-center">
+  <!-- About Section - Commented out for coming soon mode -->
+  <!-- <section id="about" class="py-16 text-center">
     <div class="max-w-4xl mx-auto px-6">
       <h2 class="text-3xl font-bold text-white mb-6">About PriceBreak</h2>
       <p class="text-xl text-gray-200">
@@ -97,10 +109,10 @@
         analyzes prices across all major ticketing platforms in real-time.
       </p>
     </div>
-  </section>
+  </section> -->
 
-  <!-- Features Section -->
-  <section id="features" class="py-16 text-center">
+  <!-- Features Section - Commented out for coming soon mode -->
+  <!-- <section id="features" class="py-16 text-center">
     <div class="max-w-4xl mx-auto px-6">
       <h2 class="text-3xl font-bold text-white mb-6">Features</h2>
       <p class="text-xl text-gray-200">
@@ -112,10 +124,10 @@
         </a>
       </div>
     </div>
-  </section>
+  </section> -->
 
-  <!-- Get Started Section -->
-  <section id="get-started" class="py-16 text-center">
+  <!-- Get Started Section - Commented out for coming soon mode -->
+  <!-- <section id="get-started" class="py-16 text-center">
     <div class="max-w-4xl mx-auto px-6">
       <h2 class="text-3xl font-bold text-white mb-6">Ready to Get Started?</h2>
       <p class="text-xl text-gray-200 mb-8">
@@ -130,7 +142,7 @@
         </a>
       </div>
     </div>
-  </section>
+  </section> -->
 
   <!-- LinkedIn Link -->
   <div class="linkedin-link">
@@ -570,6 +582,42 @@
   .get-started-section .flex a:last-child:hover {
     background-color: rgba(255, 255, 255, 0.2);
     border-color: rgba(255, 255, 255, 0.4);
+  }
+
+  /* Coming Soon Message */
+  .coming-soon-message {
+    text-align: center;
+    margin: 2rem 0;
+    padding: 1.5rem;
+    background: rgba(139, 92, 246, 0.1);
+    border: 1px solid rgba(139, 92, 246, 0.3);
+    border-radius: 1rem;
+    backdrop-filter: blur(10px);
+  }
+
+  .coming-soon-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: linear-gradient(135deg, #8B5CF6, #7C3AED);
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 2rem;
+    font-weight: 600;
+    font-size: 0.875rem;
+    margin-bottom: 1rem;
+    box-shadow: 0 4px 15px rgba(139, 92, 246, 0.3);
+  }
+
+  .coming-soon-badge span:first-child {
+    font-size: 1.25rem;
+  }
+
+  .coming-soon-text {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 1.125rem;
+    margin: 0;
+    font-weight: 500;
   }
 
   /* Responsive Design */
