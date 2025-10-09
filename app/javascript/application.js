@@ -1,59 +1,55 @@
-// Entry point for the build script in your package.json
+// Import Rails and Stimulus
 import "@hotwired/turbo-rails"
 import "./controllers"
 
-// Import React components - Commented out for coming soon mode
-// import React from 'react'
-// import { createRoot } from 'react-dom/client'
-// import { FlightPriceFilter } from './components'
+// Import React and components
+import React from 'react'
+import { createRoot } from 'react-dom/client'
 
-// Configure your import map in config/importmap.rb
+// Import our components
+import FlightSearchInterface from './components/FlightSearchInterface'
+import AirportAutocompleteTest from './components/AirportAutocompleteTest'
+import SimpleTest from './components/SimpleTest'
 
-// Initialize React components when DOM is ready - Commented out for coming soon mode
-// document.addEventListener('DOMContentLoaded', () => {
-//   // Initialize Flight Price Filter if the container exists
-//   const flightFilterContainer = document.getElementById('flight-price-filter')
-//   if (flightFilterContainer) {
-//     const root = createRoot(flightFilterContainer)
-//     root.render(
-//       <FlightPriceFilter
-//         onSaveFilter={(filter) => {
-//           console.log('Saving filter:', filter)
-//           // Here you can send the filter data to your Rails backend
-//           fetch('/api/flight_filters', {
-//             method: 'POST',
-//             headers: {
-//               'Content-Type': 'application/json',
-//               'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content')
-//             },
-//             body: JSON.stringify(filter)
-//           })
-//           .then(response => response.json())
-//           .then(data => {
-//             console.log('Filter saved:', data)
-//             alert('Filter saved successfully!')
-//           })
-//           .catch(error => {
-//             console.error('Error saving filter:', error)
-//             alert('Error saving filter. Please try again.')
-//           })
-//         }}
-//         onPreviewAlert={(filter) => {
-//           console.log('Previewing alert for filter:', filter)
-//           alert('Alert preview generated! Check the console for details.')
-//         }}
-//         onTestAlert={(filter) => {
-//           console.log('Testing alert for filter:', filter)
-//           alert('Test alert sent! Check your notification methods.')
-//         }}
-//       />
-//     )
-//   }
-// })
+console.log('🚀 priceBreak - JavaScript loading with React support...')
 
-// Coming soon mode - simple console message
+// Initialize when DOM is ready
 document.addEventListener('DOMContentLoaded', () => {
-  console.log('PriceBreak - Coming Soon! 🚀')
-  console.log('All functionality has been temporarily disabled for the coming soon phase.')
-  console.log('Users can only access the landing page and email signup.')
+  console.log('✅ DOM Content Loaded')
+  
+  // Mount Simple Test first to verify React works
+  const flightFilterContainer = document.getElementById('flight-search-interface')
+  if (flightFilterContainer) {
+    console.log('✅ Found flight-search-interface container')
+    console.log('✅ Mounting Simple Test component...')
+    try {
+      const root = createRoot(flightFilterContainer)
+      root.render(React.createElement(SimpleTest))
+      console.log('✅ Simple Test component mounted successfully')
+    } catch (error) {
+      console.error('❌ Error mounting Simple Test:', error)
+      console.error('❌ Error stack:', error.stack)
+      flightFilterContainer.innerHTML = `<div style="padding: 20px; background: #fed7d7; border: 2px solid #e53e3e; border-radius: 8px; color: #c53030;"><h2>❌ React Error</h2><p>Error: ${error.message}</p><pre>${error.stack}</pre></div>`
+    }
+  } else {
+    console.log('❌ flight-search-interface container not found')
+  }
+  
+  // Mount Airport Autocomplete Test
+  const airportTestContainer = document.getElementById('airport-autocomplete-test')
+  if (airportTestContainer) {
+    console.log('✅ Found airport-autocomplete-test container')
+    console.log('✅ Mounting Airport Autocomplete Test...')
+    try {
+      const root = createRoot(airportTestContainer)
+      root.render(React.createElement(AirportAutocompleteTest))
+      console.log('✅ Airport Autocomplete Test mounted successfully')
+    } catch (error) {
+      console.error('❌ Error mounting Airport Autocomplete Test:', error)
+      console.error('❌ Error stack:', error.stack)
+      airportTestContainer.innerHTML = `<div style="padding: 20px; background: #fed7d7; border: 2px solid #e53e3e; border-radius: 8px; color: #c53030;"><h2>❌ React Error</h2><p>Error: ${error.message}</p><pre>${error.stack}</pre></div>`
+    }
+  } else {
+    console.log('❌ airport-autocomplete-test container not found')
+  }
 }) 

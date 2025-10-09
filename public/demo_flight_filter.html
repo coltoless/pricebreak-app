@@ -1,0 +1,909 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PriceBreak Flight Filter Demo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+</head>
+<body class="bg-gray-50">
+    <div class="min-h-screen">
+        <!-- Header -->
+        <header class="bg-white shadow-sm border-b">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex justify-between items-center py-6">
+                    <div class="flex items-center">
+                        <div class="flex-shrink-0">
+                            <h1 class="text-2xl font-bold text-blue-600">PriceBreak</h1>
+                        </div>
+                        <div class="ml-6">
+                            <span class="text-sm text-gray-500">Flight Filter Demo</span>
+                        </div>
+                    </div>
+                    <div class="flex items-center space-x-4">
+                        <button class="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50">
+                            Sign In
+                        </button>
+                        <button class="px-4 py-2 text-sm font-medium text-white bg-blue-600 border border-transparent rounded-md hover:bg-blue-700">
+                            Get Started
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <div class="text-center mb-8">
+                <h2 class="text-3xl font-bold text-gray-900 mb-4">Enhanced Airport Autocomplete Demo</h2>
+                <p class="text-lg text-gray-600 max-w-3xl mx-auto">
+                    Experience the new intelligent airport search system with comprehensive database, 
+                    smart caching, and responsive design for both desktop and mobile.
+                </p>
+            </div>
+
+            <!-- Demo Container -->
+            <div id="demo-container" class="bg-white rounded-lg shadow-lg overflow-hidden">
+                <!-- Demo will be rendered here -->
+            </div>
+
+            <!-- Features Showcase -->
+            <div class="mt-12 grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="text-center">
+                    <div class="bg-blue-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-semibold text-gray-900 mb-2">Intelligent Search</h3>
+                    <p class="text-gray-600">Smart scoring system prioritizes exact matches and provides relevant results across airport codes, names, cities, and countries.</p>
+                </div>
+                <div class="text-center">
+                    <div class="bg-green-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-semibold text-gray-900 mb-2">Lightning Fast</h3>
+                    <p class="text-gray-600">Advanced caching system delivers results in under 50ms for repeated queries, with intelligent fallback strategies.</p>
+                </div>
+                <div class="text-center">
+                    <div class="bg-purple-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-8 h-8 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-semibold text-gray-900 mb-2">Mobile Optimized</h3>
+                    <p class="text-gray-600">Responsive design automatically adapts to desktop and mobile with touch-optimized interfaces and proper accessibility.</p>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script type="text/babel">
+        const { useState, useEffect, useRef, useCallback, useMemo } = React;
+
+        // Comprehensive airport database
+        const airportDatabase = [
+            { iata_code: 'ATL', name: 'Hartsfield-Jackson Atlanta International Airport', city: 'Atlanta', country: 'USA', icao_code: 'KATL' },
+            { iata_code: 'LAX', name: 'Los Angeles International Airport', city: 'Los Angeles', country: 'USA', icao_code: 'KLAX' },
+            { iata_code: 'ORD', name: 'O\'Hare International Airport', city: 'Chicago', country: 'USA', icao_code: 'KORD' },
+            { iata_code: 'DFW', name: 'Dallas/Fort Worth International Airport', city: 'Dallas', country: 'USA', icao_code: 'KDFW' },
+            { iata_code: 'DEN', name: 'Denver International Airport', city: 'Denver', country: 'USA', icao_code: 'KDEN' },
+            { iata_code: 'JFK', name: 'John F. Kennedy International Airport', city: 'New York', country: 'USA', icao_code: 'KJFK' },
+            { iata_code: 'SFO', name: 'San Francisco International Airport', city: 'San Francisco', country: 'USA', icao_code: 'KSFO' },
+            { iata_code: 'SEA', name: 'Seattle-Tacoma International Airport', city: 'Seattle', country: 'USA', icao_code: 'KSEA' },
+            { iata_code: 'LHR', name: 'London Heathrow Airport', city: 'London', country: 'UK', icao_code: 'EGLL' },
+            { iata_code: 'CDG', name: 'Charles de Gaulle Airport', city: 'Paris', country: 'France', icao_code: 'LFPG' },
+            { iata_code: 'FRA', name: 'Frankfurt Airport', city: 'Frankfurt', country: 'Germany', icao_code: 'EDDF' },
+            { iata_code: 'AMS', name: 'Amsterdam Airport Schiphol', city: 'Amsterdam', country: 'Netherlands', icao_code: 'EHAM' },
+            { iata_code: 'NRT', name: 'Narita International Airport', city: 'Tokyo', country: 'Japan', icao_code: 'RJAA' },
+            { iata_code: 'ICN', name: 'Incheon International Airport', city: 'Seoul', country: 'South Korea', icao_code: 'RKSI' },
+            { iata_code: 'PEK', name: 'Beijing Capital International Airport', city: 'Beijing', country: 'China', icao_code: 'ZBAA' },
+            { iata_code: 'PVG', name: 'Shanghai Pudong International Airport', city: 'Shanghai', country: 'China', icao_code: 'ZSPD' },
+            { iata_code: 'HKG', name: 'Hong Kong International Airport', city: 'Hong Kong', country: 'Hong Kong', icao_code: 'VHHH' },
+            { iata_code: 'SIN', name: 'Singapore Changi Airport', city: 'Singapore', country: 'Singapore', icao_code: 'WSSS' },
+            { iata_code: 'DXB', name: 'Dubai International Airport', city: 'Dubai', country: 'UAE', icao_code: 'OMDB' },
+            { iata_code: 'SYD', name: 'Sydney Airport', city: 'Sydney', country: 'Australia', icao_code: 'YSSY' }
+        ];
+
+        const popularAirports = airportDatabase.slice(0, 8);
+
+        function searchAirports(searchTerm) {
+            if (!searchTerm || searchTerm.trim().length < 2) {
+                return [];
+            }
+            
+            const query = searchTerm.trim().toUpperCase();
+            
+            // Score airports based on match quality
+            const scoredAirports = airportDatabase.map(airport => {
+                let score = 0;
+                
+                if (airport.iata_code === query) score += 1000;
+                if (airport.iata_code.startsWith(query)) score += 500;
+                if (airport.iata_code.includes(query)) score += 200;
+                if (airport.name.toUpperCase().startsWith(query)) score += 300;
+                if (airport.name.toUpperCase().includes(query)) score += 150;
+                if (airport.city.toUpperCase().startsWith(query)) score += 250;
+                if (airport.city.toUpperCase().includes(query)) score += 100;
+                if (airport.country.toUpperCase().startsWith(query)) score += 200;
+                if (airport.country.toUpperCase().includes(query)) score += 50;
+                
+                return { airport, score };
+            }).filter(item => item.score > 0);
+            
+            return scoredAirports
+                .sort((a, b) => b.score - a.score)
+                .slice(0, 15)
+                .map(item => item.airport);
+        }
+
+        // Enhanced Airport Autocomplete Component
+        function AirportAutocomplete({ value, onChange, onSelect, placeholder, label, selectedAirport, showPopularAirports = true }) {
+            const [isOpen, setIsOpen] = useState(false);
+            const [airports, setAirports] = useState([]);
+            const [isLoading, setIsLoading] = useState(false);
+            const [highlightedIndex, setHighlightedIndex] = useState(-1);
+            const [hasSearched, setHasSearched] = useState(false);
+            
+            const inputRef = useRef(null);
+            const debounceTimeout = useRef(null);
+
+            const handleInputChange = (e) => {
+                const newValue = e.target.value;
+                onChange(newValue);
+                
+                if (selectedAirport && newValue !== `${selectedAirport.iata_code} - ${selectedAirport.city}`) {
+                    onSelect(null);
+                }
+                
+                clearTimeout(debounceTimeout.current);
+                debounceTimeout.current = setTimeout(() => {
+                    if (newValue.trim().length >= 2) {
+                        setIsLoading(true);
+                        setHasSearched(true);
+                        setTimeout(() => {
+                            const results = searchAirports(newValue);
+                            setAirports(results);
+                            setIsLoading(false);
+                        }, 300);
+                    } else {
+                        setAirports([]);
+                        setHasSearched(false);
+                    }
+                }, 300);
+            };
+
+            const handleSelectAirport = (airport) => {
+                const displayValue = `${airport.iata_code} - ${airport.city}`;
+                onChange(displayValue);
+                onSelect(airport);
+                setIsOpen(false);
+                setHighlightedIndex(-1);
+            };
+
+            const handleFocus = () => {
+                setIsOpen(true);
+                if (value && value.trim().length >= 2) {
+                    setAirports(searchAirports(value));
+                }
+            };
+
+            const handleKeyDown = (e) => {
+                const currentAirports = airports.length > 0 ? airports : (!hasSearched ? popularAirports.slice(0, 8) : []);
+                
+                if (!isOpen || currentAirports.length === 0) {
+                    if (e.key === 'ArrowDown') {
+                        e.preventDefault();
+                        setIsOpen(true);
+                        setAirports(searchAirports(value));
+                    }
+                    return;
+                }
+
+                switch (e.key) {
+                    case 'ArrowDown':
+                        e.preventDefault();
+                        setHighlightedIndex(prev => 
+                            prev < currentAirports.length - 1 ? prev + 1 : 0
+                        );
+                        break;
+                    case 'ArrowUp':
+                        e.preventDefault();
+                        setHighlightedIndex(prev => 
+                            prev > 0 ? prev - 1 : currentAirports.length - 1
+                        );
+                        break;
+                    case 'Enter':
+                        e.preventDefault();
+                        if (highlightedIndex >= 0 && highlightedIndex < currentAirports.length) {
+                            handleSelectAirport(currentAirports[highlightedIndex]);
+                        }
+                        break;
+                    case 'Escape':
+                        setIsOpen(false);
+                        setHighlightedIndex(-1);
+                        break;
+                }
+            };
+
+            const handleClear = () => {
+                onChange('');
+                onSelect(null);
+                setIsOpen(false);
+                setHighlightedIndex(-1);
+                inputRef.current?.focus();
+            };
+
+            const dropdownContent = () => {
+                if (isLoading) {
+                    return (
+                        <div className="px-4 py-6 text-center">
+                            <div className="h-6 w-6 border-2 border-blue-500 border-t-transparent rounded-full animate-spin mx-auto mb-2"></div>
+                            <p className="text-sm text-gray-600">Searching airports...</p>
+                        </div>
+                    );
+                }
+
+                if (hasSearched && airports.length === 0) {
+                    return (
+                        <div className="px-4 py-6 text-center">
+                            <svg className="h-6 w-6 text-gray-400 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                            </svg>
+                            <p className="text-sm text-gray-600">No airports found</p>
+                            <p className="text-xs text-gray-500 mt-1">Try searching by city, country, or airport code</p>
+                        </div>
+                    );
+                }
+
+                if (airports.length > 0) {
+                    return airports.map((airport, index) => (
+                        <button
+                            key={`${airport.iata_code}-${index}`}
+                            type="button"
+                            onClick={() => handleSelectAirport(airport)}
+                            className={`w-full text-left px-4 py-3 hover:bg-gray-50 border-b border-gray-100 last:border-b-0 transition-colors ${
+                                index === highlightedIndex ? 'bg-blue-50 border-blue-200' : ''
+                            }`}
+                        >
+                            <div className="flex items-center justify-between">
+                                <div className="flex-1 min-w-0">
+                                    <div className="flex items-center space-x-2">
+                                        <span className="font-semibold text-gray-900 text-sm">
+                                            {airport.iata_code}
+                                        </span>
+                                        <span className="text-xs text-gray-500">
+                                            {airport.icao_code}
+                                        </span>
+                                    </div>
+                                    <div className="text-sm text-gray-700 font-medium truncate">
+                                        {airport.city}, {airport.country}
+                                    </div>
+                                    <div className="text-xs text-gray-500 truncate">
+                                        {airport.name}
+                                    </div>
+                                </div>
+                                <div className="flex-shrink-0 ml-3">
+                                    <svg className="h-4 w-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                                    </svg>
+                                </div>
+                            </div>
+                        </button>
+                    ));
+                }
+
+                if (!hasSearched) {
+                    return (
+                        <div>
+                            <div className="px-4 py-2 bg-gray-50 border-b border-gray-200">
+                                <div className="flex items-center space-x-2">
+                                    <svg className="h-4 w-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                    </svg>
+                                    <span className="text-xs font-medium text-gray-700">Popular Destinations</span>
+                                </div>
+                            </div>
+                            {popularAirports.map((airport, index) => (
+                                <button
+                                    key={`popular-${airport.iata_code}-${index}`}
+                                    type="button"
+                                    onClick={() => handleSelectAirport(airport)}
+                                    className={`w-full text-left px-4 py-3 hover:bg-gray-50 border-b border-gray-100 last:border-b-0 transition-colors ${
+                                        index === highlightedIndex ? 'bg-blue-50 border-blue-200' : ''
+                                    }`}
+                                >
+                                    <div className="flex items-center justify-between">
+                                        <div className="flex-1 min-w-0">
+                                            <div className="flex items-center space-x-2">
+                                                <span className="font-semibold text-gray-900 text-sm">
+                                                    {airport.iata_code}
+                                                </span>
+                                                <span className="text-xs text-gray-500">
+                                                    {airport.icao_code}
+                                                </span>
+                                            </div>
+                                            <div className="text-sm text-gray-700 font-medium truncate">
+                                                {airport.city}, {airport.country}
+                                            </div>
+                                            <div className="text-xs text-gray-500 truncate">
+                                                {airport.name}
+                                            </div>
+                                        </div>
+                                        <div className="flex-shrink-0 ml-3">
+                                            <svg className="h-4 w-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+                                            </svg>
+                                        </div>
+                                    </div>
+                                </button>
+                            ))}
+                        </div>
+                    );
+                }
+
+                return null;
+            };
+
+            return (
+                <div className="relative">
+                    {label && (
+                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                            {label}
+                        </label>
+                    )}
+                    
+                    <div className="relative">
+                        <input
+                            ref={inputRef}
+                            type="text"
+                            value={value}
+                            onChange={handleInputChange}
+                            onFocus={handleFocus}
+                            onKeyDown={handleKeyDown}
+                            placeholder={placeholder}
+                            className="w-full px-4 py-3 pr-12 text-base border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                            autoComplete="off"
+                        />
+                        
+                        <div className="absolute right-3 top-1/2 transform -translate-y-1/2 flex items-center space-x-1">
+                            {isLoading && (
+                                <div className="h-4 w-4 border-2 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
+                            )}
+                            
+                            {!isLoading && !selectedAirport && (
+                                <svg className="h-4 w-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                                </svg>
+                            )}
+                            
+                            {selectedAirport && (
+                                <button
+                                    type="button"
+                                    onClick={handleClear}
+                                    className="h-4 w-4 text-gray-400 hover:text-gray-600 transition-colors"
+                                >
+                                    <svg className="h-3 w-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                                    </svg>
+                                </button>
+                            )}
+                        </div>
+                    </div>
+                    
+                    {isOpen && (
+                        <div className="absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded-lg shadow-xl max-h-80 overflow-y-auto">
+                            {dropdownContent()}
+                        </div>
+                    )}
+                </div>
+            );
+        }
+
+        // Flight Filter Demo Component
+        function FlightFilterDemo() {
+            const [currentStep, setCurrentStep] = useState(1);
+            const [filter, setFilter] = useState({
+                origin: null,
+                destination: null,
+                tripType: 'round-trip',
+                departureDate: null,
+                returnDate: null,
+                flexibleDates: false,
+                dateFlexibility: 3,
+                cabinClass: 'economy',
+                passengers: { adults: 1, children: 0, infants: 0 },
+                airlinePreferences: [],
+                maxStops: 'nonstop',
+                preferredTimes: { departure: [], arrival: [] },
+                targetPrice: 0,
+                currency: 'USD',
+                instantPriceBreakAlerts: {
+                    enabled: false,
+                    type: 'exact-match',
+                    flexibilityOptions: {
+                        airline: false,
+                        stops: false,
+                        times: false,
+                        dates: false
+                    }
+                },
+                priceDropPercentage: 20,
+                budgetRange: { min: 0, max: 1000 },
+                priceBreakConfidence: 'medium',
+                monitorFrequency: 'daily',
+                alertUrgency: 'moderate',
+                instantAlertPriority: 'high',
+                alertDetailLevel: 'exact-matches-only',
+                notificationMethods: {
+                    email: true,
+                    sms: false,
+                    push: true,
+                    browser: true
+                },
+                filterName: '',
+                description: '',
+                createdAt: new Date(),
+                isActive: true
+            });
+
+            const [originSearch, setOriginSearch] = useState('');
+            const [destinationSearch, setDestinationSearch] = useState('');
+
+            const updateFilter = (updates) => {
+                setFilter(prev => ({ ...prev, ...updates }));
+            };
+
+            const handleOriginSelect = (airport) => {
+                updateFilter({ origin: airport });
+            };
+
+            const handleDestinationSelect = (airport) => {
+                updateFilter({ destination: airport });
+            };
+
+            const formatDate = (date) => {
+                if (!date) return '';
+                return date.toISOString().split('T')[0];
+            };
+
+            const getMinDate = () => {
+                return new Date().toISOString().split('T')[0];
+            };
+
+            const getMaxDate = () => {
+                const maxDate = new Date();
+                maxDate.setFullYear(maxDate.getFullYear() + 1);
+                return maxDate.toISOString().split('T')[0];
+            };
+
+            return (
+                <div className="max-w-4xl mx-auto">
+                    {/* Step Indicator */}
+                    <div className="mb-8">
+                        <div className="flex items-center justify-center space-x-4">
+                            {[1, 2, 3, 4].map((step) => (
+                                <div key={step} className="flex items-center">
+                                    <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium ${
+                                        step === currentStep 
+                                            ? 'bg-blue-600 text-white' 
+                                            : step < currentStep 
+                                                ? 'bg-green-500 text-white' 
+                                                : 'bg-gray-200 text-gray-600'
+                                    }`}>
+                                        {step < currentStep ? '✓' : step}
+                                    </div>
+                                    {step < 4 && (
+                                        <div className={`w-16 h-1 mx-2 ${
+                                            step < currentStep ? 'bg-green-500' : 'bg-gray-200'
+                                        }`}></div>
+                                    )}
+                                </div>
+                            ))}
+                        </div>
+                        <div className="text-center mt-4">
+                            <h2 className="text-xl font-semibold text-gray-900">
+                                {currentStep === 1 && 'Route & Dates'}
+                                {currentStep === 2 && 'Flight Preferences'}
+                                {currentStep === 3 && 'Price Settings'}
+                                {currentStep === 4 && 'Alert Preferences'}
+                            </h2>
+                        </div>
+                    </div>
+
+                    {/* Step Content */}
+                    <div className="bg-white rounded-lg shadow-lg p-8">
+                        {currentStep === 1 && (
+                            <div className="space-y-6">
+                                {/* Trip Type */}
+                                <div>
+                                    <h3 className="text-lg font-semibold text-gray-900 mb-4">Trip Type</h3>
+                                    <div className="grid grid-cols-3 gap-3">
+                                        {(['one-way', 'round-trip', 'multi-city']).map((type) => (
+                                            <button
+                                                key={type}
+                                                onClick={() => updateFilter({ tripType: type })}
+                                                className={`p-4 rounded-lg border-2 transition-colors ${
+                                                    filter.tripType === type
+                                                        ? 'border-blue-500 bg-blue-50 text-blue-700'
+                                                        : 'border-gray-300 bg-white text-gray-700 hover:border-gray-400'
+                                                }`}
+                                            >
+                                                <div className="text-sm font-medium capitalize">{type.replace('-', ' ')}</div>
+                                            </button>
+                                        ))}
+                                    </div>
+                                </div>
+
+                                {/* Route Selection */}
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    <AirportAutocomplete
+                                        value={originSearch}
+                                        onChange={setOriginSearch}
+                                        onSelect={handleOriginSelect}
+                                        placeholder="Search origin airports..."
+                                        label="Origin Airport"
+                                        selectedAirport={filter.origin}
+                                        showPopularAirports={true}
+                                    />
+
+                                    <AirportAutocomplete
+                                        value={destinationSearch}
+                                        onChange={setDestinationSearch}
+                                        onSelect={handleDestinationSelect}
+                                        placeholder="Search destination airports..."
+                                        label="Destination Airport"
+                                        selectedAirport={filter.destination}
+                                        showPopularAirports={true}
+                                    />
+                                </div>
+
+                                {/* Date Selection */}
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    <div>
+                                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                                            Departure Date
+                                        </label>
+                                        <input
+                                            type="date"
+                                            value={formatDate(filter.departureDate)}
+                                            onChange={(e) => updateFilter({ departureDate: e.target.value ? new Date(e.target.value) : null })}
+                                            min={getMinDate()}
+                                            max={getMaxDate()}
+                                            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                                        />
+                                    </div>
+
+                                    {filter.tripType === 'round-trip' && (
+                                        <div>
+                                            <label className="block text-sm font-medium text-gray-700 mb-2">
+                                                Return Date
+                                            </label>
+                                            <input
+                                                type="date"
+                                                value={formatDate(filter.returnDate)}
+                                                onChange={(e) => updateFilter({ returnDate: e.target.value ? new Date(e.target.value) : null })}
+                                                min={filter.departureDate ? formatDate(filter.departureDate) : getMinDate()}
+                                                max={getMaxDate()}
+                                                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                                            />
+                                        </div>
+                                    )}
+                                </div>
+
+                                {/* Flexible Dates */}
+                                <div className="flex items-center space-x-3">
+                                    <input
+                                        type="checkbox"
+                                        id="flexibleDates"
+                                        checked={filter.flexibleDates}
+                                        onChange={(e) => updateFilter({ flexibleDates: e.target.checked })}
+                                        className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                                    />
+                                    <label htmlFor="flexibleDates" className="text-sm text-gray-700">
+                                        Flexible dates (±{filter.dateFlexibility} days)
+                                    </label>
+                                </div>
+                            </div>
+                        )}
+
+                        {currentStep === 2 && (
+                            <div className="space-y-6">
+                                <h3 className="text-lg font-semibold text-gray-900">Flight Preferences</h3>
+                                
+                                {/* Cabin Class */}
+                                <div>
+                                    <label className="block text-sm font-medium text-gray-700 mb-2">Cabin Class</label>
+                                    <div className="grid grid-cols-4 gap-3">
+                                        {(['economy', 'premium-economy', 'business', 'first']).map((cabin) => (
+                                            <button
+                                                key={cabin}
+                                                onClick={() => updateFilter({ cabinClass: cabin })}
+                                                className={`p-3 rounded-lg border-2 transition-colors ${
+                                                    filter.cabinClass === cabin
+                                                        ? 'border-blue-500 bg-blue-50 text-blue-700'
+                                                        : 'border-gray-300 bg-white text-gray-700 hover:border-gray-400'
+                                                }`}
+                                            >
+                                                <div className="text-sm font-medium capitalize">{cabin.replace('-', ' ')}</div>
+                                            </button>
+                                        ))}
+                                    </div>
+                                </div>
+
+                                {/* Passengers */}
+                                <div>
+                                    <label className="block text-sm font-medium text-gray-700 mb-2">Passengers</label>
+                                    <div className="grid grid-cols-3 gap-4">
+                                        {(['adults', 'children', 'infants']).map((type) => (
+                                            <div key={type} className="flex items-center justify-between">
+                                                <span className="text-sm text-gray-700 capitalize">{type}</span>
+                                                <div className="flex items-center space-x-2">
+                                                    <button
+                                                        onClick={() => updateFilter({
+                                                            passengers: {
+                                                                ...filter.passengers,
+                                                                [type]: Math.max(0, filter.passengers[type] - 1)
+                                                            }
+                                                        })}
+                                                        className="w-8 h-8 rounded-full border border-gray-300 flex items-center justify-center hover:bg-gray-50"
+                                                    >
+                                                        -
+                                                    </button>
+                                                    <span className="w-8 text-center">{filter.passengers[type]}</span>
+                                                    <button
+                                                        onClick={() => updateFilter({
+                                                            passengers: {
+                                                                ...filter.passengers,
+                                                                [type]: filter.passengers[type] + 1
+                                                            }
+                                                        })}
+                                                        className="w-8 h-8 rounded-full border border-gray-300 flex items-center justify-center hover:bg-gray-50"
+                                                    >
+                                                        +
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+
+                                {/* Max Stops */}
+                                <div>
+                                    <label className="block text-sm font-medium text-gray-700 mb-2">Maximum Stops</label>
+                                    <div className="grid grid-cols-3 gap-3">
+                                        {(['nonstop', '1-stop', '2+']).map((stops) => (
+                                            <button
+                                                key={stops}
+                                                onClick={() => updateFilter({ maxStops: stops })}
+                                                className={`p-3 rounded-lg border-2 transition-colors ${
+                                                    filter.maxStops === stops
+                                                        ? 'border-blue-500 bg-blue-50 text-blue-700'
+                                                        : 'border-gray-300 bg-white text-gray-700 hover:border-gray-400'
+                                                }`}
+                                            >
+                                                <div className="text-sm font-medium">{stops}</div>
+                                            </button>
+                                        ))}
+                                    </div>
+                                </div>
+                            </div>
+                        )}
+
+                        {currentStep === 3 && (
+                            <div className="space-y-6">
+                                <h3 className="text-lg font-semibold text-gray-900">Price Settings</h3>
+                                
+                                {/* Target Price */}
+                                <div>
+                                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                                        Target Price (USD)
+                                    </label>
+                                    <input
+                                        type="number"
+                                        value={filter.targetPrice}
+                                        onChange={(e) => updateFilter({ targetPrice: parseInt(e.target.value) || 0 })}
+                                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                                        placeholder="Enter your target price"
+                                    />
+                                </div>
+
+                                {/* Budget Range */}
+                                <div className="grid grid-cols-2 gap-4">
+                                    <div>
+                                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                                            Min Budget (USD)
+                                        </label>
+                                        <input
+                                            type="number"
+                                            value={filter.budgetRange.min}
+                                            onChange={(e) => updateFilter({
+                                                budgetRange: {
+                                                    ...filter.budgetRange,
+                                                    min: parseInt(e.target.value) || 0
+                                                }
+                                            })}
+                                            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                                        />
+                                    </div>
+                                    <div>
+                                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                                            Max Budget (USD)
+                                        </label>
+                                        <input
+                                            type="number"
+                                            value={filter.budgetRange.max}
+                                            onChange={(e) => updateFilter({
+                                                budgetRange: {
+                                                    ...filter.budgetRange,
+                                                    max: parseInt(e.target.value) || 1000
+                                                }
+                                            })}
+                                            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                                        />
+                                    </div>
+                                </div>
+
+                                {/* Price Drop Percentage */}
+                                <div>
+                                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                                        Price Drop Alert (%)
+                                    </label>
+                                    <input
+                                        type="range"
+                                        min="5"
+                                        max="50"
+                                        value={filter.priceDropPercentage}
+                                        onChange={(e) => updateFilter({ priceDropPercentage: parseInt(e.target.value) })}
+                                        className="w-full"
+                                    />
+                                    <div className="text-center text-sm text-gray-600 mt-1">
+                                        Alert when price drops by {filter.priceDropPercentage}%
+                                    </div>
+                                </div>
+                            </div>
+                        )}
+
+                        {currentStep === 4 && (
+                            <div className="space-y-6">
+                                <h3 className="text-lg font-semibold text-gray-900">Alert Preferences</h3>
+                                
+                                {/* Monitor Frequency */}
+                                <div>
+                                    <label className="block text-sm font-medium text-gray-700 mb-2">Monitor Frequency</label>
+                                    <div className="grid grid-cols-4 gap-3">
+                                        {(['real-time', 'hourly', 'daily', 'weekly']).map((frequency) => (
+                                            <button
+                                                key={frequency}
+                                                onClick={() => updateFilter({ monitorFrequency: frequency })}
+                                                className={`p-3 rounded-lg border-2 transition-colors ${
+                                                    filter.monitorFrequency === frequency
+                                                        ? 'border-blue-500 bg-blue-50 text-blue-700'
+                                                        : 'border-gray-300 bg-white text-gray-700 hover:border-gray-400'
+                                                }`}
+                                            >
+                                                <div className="text-sm font-medium capitalize">{frequency}</div>
+                                            </button>
+                                        ))}
+                                    </div>
+                                </div>
+
+                                {/* Notification Methods */}
+                                <div>
+                                    <label className="block text-sm font-medium text-gray-700 mb-2">Notification Methods</label>
+                                    <div className="space-y-3">
+                                        {(['email', 'sms', 'push', 'browser']).map((method) => (
+                                            <div key={method} className="flex items-center space-x-3">
+                                                <input
+                                                    type="checkbox"
+                                                    id={method}
+                                                    checked={filter.notificationMethods[method]}
+                                                    onChange={(e) => updateFilter({
+                                                        notificationMethods: {
+                                                            ...filter.notificationMethods,
+                                                            [method]: e.target.checked
+                                                        }
+                                                    })}
+                                                    className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                                                />
+                                                <label htmlFor={method} className="text-sm text-gray-700 capitalize">
+                                                    {method === 'push' ? 'Push Notifications' : method}
+                                                </label>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+
+                                {/* Filter Name */}
+                                <div>
+                                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                                        Filter Name
+                                    </label>
+                                    <input
+                                        type="text"
+                                        value={filter.filterName}
+                                        onChange={(e) => updateFilter({ filterName: e.target.value })}
+                                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                                        placeholder="Give your filter a name"
+                                    />
+                                </div>
+                            </div>
+                        )}
+
+                        {/* Navigation */}
+                        <div className="flex justify-between mt-8 pt-6 border-t border-gray-200">
+                            <button
+                                onClick={() => setCurrentStep(Math.max(1, currentStep - 1))}
+                                disabled={currentStep === 1}
+                                className="px-6 py-3 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+                            >
+                                Previous
+                            </button>
+                            
+                            {currentStep < 4 ? (
+                                <button
+                                    onClick={() => setCurrentStep(Math.min(4, currentStep + 1))}
+                                    className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+                                >
+                                    Next
+                                </button>
+                            ) : (
+                                <button
+                                    onClick={() => {
+                                        alert('Filter saved! Check the console for the complete filter data.');
+                                        console.log('Complete Filter:', filter);
+                                    }}
+                                    className="px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700"
+                                >
+                                    Save Filter
+                                </button>
+                            )}
+                        </div>
+                    </div>
+
+                    {/* Filter Summary */}
+                    <div className="mt-8 bg-gray-50 rounded-lg p-6">
+                        <h3 className="text-lg font-semibold text-gray-900 mb-4">Current Filter Summary</h3>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                            <div>
+                                <span className="font-medium">Origin:</span> {filter.origin ? `${filter.origin.iata_code} - ${filter.origin.city}` : 'Not selected'}
+                            </div>
+                            <div>
+                                <span className="font-medium">Destination:</span> {filter.destination ? `${filter.destination.iata_code} - ${filter.destination.city}` : 'Not selected'}
+                            </div>
+                            <div>
+                                <span className="font-medium">Trip Type:</span> {filter.tripType}
+                            </div>
+                            <div>
+                                <span className="font-medium">Cabin Class:</span> {filter.cabinClass}
+                            </div>
+                            <div>
+                                <span className="font-medium">Passengers:</span> {filter.passengers.adults + filter.passengers.children + filter.passengers.infants}
+                            </div>
+                            <div>
+                                <span className="font-medium">Target Price:</span> ${filter.targetPrice}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            );
+        }
+
+        // Render the demo
+        ReactDOM.render(<FlightFilterDemo />, document.getElementById('demo-container'));
+    </script>
+</body>
+</html>
+
+
+
+
+

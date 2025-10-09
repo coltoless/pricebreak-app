@@ -1,0 +1,900 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enhanced Airport Autocomplete Test</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+</head>
+<body class="bg-gray-50 p-4 md:p-8">
+    <div class="max-w-6xl mx-auto">
+        <h1 class="text-3xl font-bold text-gray-900 mb-8">Enhanced Airport Autocomplete Test</h1>
+        
+        <!-- Desktop vs Mobile Toggle -->
+        <div class="mb-8 bg-white rounded-lg shadow-lg p-6">
+            <h2 class="text-xl font-semibold mb-4">Responsive Testing</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                    <h3 class="font-medium text-gray-900 mb-3">Desktop Version</h3>
+                    <div id="desktop-test-container"></div>
+                </div>
+                <div>
+                    <h3 class="font-medium text-gray-900 mb-3">Mobile Version</h3>
+                    <div id="mobile-test-container"></div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Comprehensive Airport Database Test -->
+        <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
+            <h2 class="text-xl font-semibold mb-4">Comprehensive Airport Database Test</h2>
+            <div id="comprehensive-test-container"></div>
+        </div>
+        
+        <!-- Performance Test -->
+        <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
+            <h2 class="text-xl font-semibold mb-4">Performance & Caching Test</h2>
+            <div id="performance-test-container"></div>
+        </div>
+        
+        <!-- Instructions -->
+        <div class="bg-blue-50 p-6 rounded-lg">
+            <h3 class="font-semibold text-blue-900 mb-3">Test Instructions:</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm text-blue-800">
+                <div>
+                    <h4 class="font-medium mb-2">Search Tests:</h4>
+                    <ul class="space-y-1">
+                        <li>• Try searching for: "JFK", "LAX", "London", "New York"</li>
+                        <li>• Test partial matches: "Los", "Fran", "Sin"</li>
+                        <li>• Test country searches: "USA", "Japan", "Germany"</li>
+                        <li>• Test airport codes: "ATL", "CDG", "SIN"</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-medium mb-2">Interaction Tests:</h4>
+                    <ul class="space-y-1">
+                        <li>• Use arrow keys to navigate results</li>
+                        <li>• Press Enter to select an airport</li>
+                        <li>• Press Escape to close dropdown</li>
+                        <li>• Test clear button functionality</li>
+                        <li>• Test popular airports display</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/babel">
+        const { useState, useEffect, useRef, useCallback, useMemo } = React;
+
+        // Comprehensive airport database (subset for demo)
+        const airportDatabase = [
+            { iata_code: 'ATL', name: 'Hartsfield-Jackson Atlanta International Airport', city: 'Atlanta', country: 'USA', icao_code: 'KATL' },
+            { iata_code: 'LAX', name: 'Los Angeles International Airport', city: 'Los Angeles', country: 'USA', icao_code: 'KLAX' },
+            { iata_code: 'ORD', name: 'O\'Hare International Airport', city: 'Chicago', country: 'USA', icao_code: 'KORD' },
+            { iata_code: 'DFW', name: 'Dallas/Fort Worth International Airport', city: 'Dallas', country: 'USA', icao_code: 'KDFW' },
+            { iata_code: 'DEN', name: 'Denver International Airport', city: 'Denver', country: 'USA', icao_code: 'KDEN' },
+            { iata_code: 'JFK', name: 'John F. Kennedy International Airport', city: 'New York', country: 'USA', icao_code: 'KJFK' },
+            { iata_code: 'SFO', name: 'San Francisco International Airport', city: 'San Francisco', country: 'USA', icao_code: 'KSFO' },
+            { iata_code: 'SEA', name: 'Seattle-Tacoma International Airport', city: 'Seattle', country: 'USA', icao_code: 'KSEA' },
+            { iata_code: 'LHR', name: 'London Heathrow Airport', city: 'London', country: 'UK', icao_code: 'EGLL' },
+            { iata_code: 'CDG', name: 'Charles de Gaulle Airport', city: 'Paris', country: 'France', icao_code: 'LFPG' },
+            { iata_code: 'FRA', name: 'Frankfurt Airport', city: 'Frankfurt', country: 'Germany', icao_code: 'EDDF' },
+            { iata_code: 'AMS', name: 'Amsterdam Airport Schiphol', city: 'Amsterdam', country: 'Netherlands', icao_code: 'EHAM' },
+            { iata_code: 'NRT', name: 'Narita International Airport', city: 'Tokyo', country: 'Japan', icao_code: 'RJAA' },
+            { iata_code: 'ICN', name: 'Incheon International Airport', city: 'Seoul', country: 'South Korea', icao_code: 'RKSI' },
+            { iata_code: 'PEK', name: 'Beijing Capital International Airport', city: 'Beijing', country: 'China', icao_code: 'ZBAA' },
+            { iata_code: 'PVG', name: 'Shanghai Pudong International Airport', city: 'Shanghai', country: 'China', icao_code: 'ZSPD' },
+            { iata_code: 'HKG', name: 'Hong Kong International Airport', city: 'Hong Kong', country: 'Hong Kong', icao_code: 'VHHH' },
+            { iata_code: 'SIN', name: 'Singapore Changi Airport', city: 'Singapore', country: 'Singapore', icao_code: 'WSSS' },
+            { iata_code: 'DXB', name: 'Dubai International Airport', city: 'Dubai', country: 'UAE', icao_code: 'OMDB' },
+            { iata_code: 'SYD', name: 'Sydney Airport', city: 'Sydney', country: 'Australia', icao_code: 'YSSY' }
+        ];
+
+        const popularAirports = airportDatabase.slice(0, 8);
+
+        function searchAirports(searchTerm) {
+            if (!searchTerm || searchTerm.trim().length < 2) {
+                return [];
+            }
+            
+            const query = searchTerm.trim().toUpperCase();
+            
+            // Score airports based on match quality
+            const scoredAirports = airportDatabase.map(airport => {
+                let score = 0;
+                
+                // Exact IATA code match gets highest score
+                if (airport.iata_code === query) {
+                    score += 1000;
+                }
+                
+                // IATA code starts with query
+                if (airport.iata_code.startsWith(query)) {
+                    score += 500;
+                }
+                
+                // IATA code contains query
+                if (airport.iata_code.includes(query)) {
+                    score += 200;
+                }
+                
+                // Airport name starts with query
+                if (airport.name.toUpperCase().startsWith(query)) {
+                    score += 300;
+                }
+                
+                // Airport name contains query
+                if (airport.name.toUpperCase().includes(query)) {
+                    score += 150;
+                }
+                
+                // City starts with query
+                if (airport.city.toUpperCase().startsWith(query)) {
+                    score += 250;
+                }
+                
+                // City contains query
+                if (airport.city.toUpperCase().includes(query)) {
+                    score += 100;
+                }
+                
+                // Country starts with query
+                if (airport.country.toUpperCase().startsWith(query)) {
+                    score += 200;
+                }
+                
+                // Country contains query
+                if (airport.country.toUpperCase().includes(query)) {
+                    score += 50;
+                }
+                
+                return { airport, score };
+            }).filter(item => item.score > 0);
+            
+            // Sort by score (highest first) and return top 15 results
+            return scoredAirports
+                .sort((a, b) => b.score - a.score)
+                .slice(0, 15)
+                .map(item => item.airport);
+        }
+
+        // Desktop Airport Autocomplete Component
+        function DesktopAirportAutocomplete() {
+            const [value, setValue] = useState('');
+            const [airports, setAirports] = useState([]);
+            const [isOpen, setIsOpen] = useState(false);
+            const [isLoading, setIsLoading] = useState(false);
+            const [highlightedIndex, setHighlightedIndex] = useState(-1);
+            const [selectedAirport, setSelectedAirport] = useState(null);
+            const [hasSearched, setHasSearched] = useState(false);
+            
+            const inputRef = useRef(null);
+            const debounceTimeout = useRef(null);
+
+            const handleInputChange = (e) => {
+                const newValue = e.target.value;
+                setValue(newValue);
+                
+                // Clear selection if user is typing
+                if (selectedAirport && newValue !== `${selectedAirport.iata_code} - ${selectedAirport.city}`) {
+                    setSelectedAirport(null);
+                }
+                
+                // Debounce search
+                clearTimeout(debounceTimeout.current);
+                debounceTimeout.current = setTimeout(() => {
+                    if (newValue.trim().length >= 2) {
+                        setIsLoading(true);
+                        setHasSearched(true);
+                        setTimeout(() => {
+                            const results = searchAirports(newValue);
+                            setAirports(results);
+                            setIsLoading(false);
+                        }, 300);
+                    } else {
+                        setAirports([]);
+                        setHasSearched(false);
+                    }
+                }, 300);
+            };
+
+            const handleSelectAirport = (airport) => {
+                const displayValue = `${airport.iata_code} - ${airport.city}`;
+                setValue(displayValue);
+                setSelectedAirport(airport);
+                setIsOpen(false);
+                setHighlightedIndex(-1);
+            };
+
+            const handleFocus = () => {
+                setIsOpen(true);
+                if (value && value.trim().length >= 2) {
+                    setAirports(searchAirports(value));
+                }
+            };
+
+            const handleKeyDown = (e) => {
+                const currentAirports = airports.length > 0 ? airports : (!hasSearched ? popularAirports.slice(0, 8) : []);
+                
+                if (!isOpen || currentAirports.length === 0) {
+                    if (e.key === 'ArrowDown') {
+                        e.preventDefault();
+                        setIsOpen(true);
+                        setAirports(searchAirports(value));
+                    }
+                    return;
+                }
+
+                switch (e.key) {
+                    case 'ArrowDown':
+                        e.preventDefault();
+                        setHighlightedIndex(prev => 
+                            prev < currentAirports.length - 1 ? prev + 1 : 0
+                        );
+                        break;
+                    case 'ArrowUp':
+                        e.preventDefault();
+                        setHighlightedIndex(prev => 
+                            prev > 0 ? prev - 1 : currentAirports.length - 1
+                        );
+                        break;
+                    case 'Enter':
+                        e.preventDefault();
+                        if (highlightedIndex >= 0 && highlightedIndex < currentAirports.length) {
+                            handleSelectAirport(currentAirports[highlightedIndex]);
+                        }
+                        break;
+                    case 'Escape':
+                        setIsOpen(false);
+                        setHighlightedIndex(-1);
+                        break;
+                }
+            };
+
+            const handleClear = () => {
+                setValue('');
+                setSelectedAirport(null);
+                setIsOpen(false);
+                setHighlightedIndex(-1);
+                inputRef.current?.focus();
+            };
+
+            const dropdownContent = () => {
+                if (isLoading) {
+                    return (
+                        <div className="px-4 py-6 text-center">
+                            <div className="h-6 w-6 border-2 border-blue-500 border-t-transparent rounded-full animate-spin mx-auto mb-2"></div>
+                            <p className="text-sm text-gray-600">Searching airports...</p>
+                        </div>
+                    );
+                }
+
+                if (hasSearched && airports.length === 0) {
+                    return (
+                        <div className="px-4 py-6 text-center">
+                            <svg className="h-6 w-6 text-gray-400 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                            </svg>
+                            <p className="text-sm text-gray-600">No airports found</p>
+                            <p className="text-xs text-gray-500 mt-1">Try searching by city, country, or airport code</p>
+                        </div>
+                    );
+                }
+
+                if (airports.length > 0) {
+                    return airports.map((airport, index) => (
+                        <button
+                            key={`${airport.iata_code}-${index}`}
+                            type="button"
+                            onClick={() => handleSelectAirport(airport)}
+                            className={`w-full text-left px-4 py-3 hover:bg-gray-50 border-b border-gray-100 last:border-b-0 transition-colors ${
+                                index === highlightedIndex ? 'bg-blue-50 border-blue-200' : ''
+                            }`}
+                        >
+                            <div className="flex items-center justify-between">
+                                <div className="flex-1 min-w-0">
+                                    <div className="flex items-center space-x-2">
+                                        <span className="font-semibold text-gray-900 text-sm">
+                                            {airport.iata_code}
+                                        </span>
+                                        <span className="text-xs text-gray-500">
+                                            {airport.icao_code}
+                                        </span>
+                                    </div>
+                                    <div className="text-sm text-gray-700 font-medium truncate">
+                                        {airport.city}, {airport.country}
+                                    </div>
+                                    <div className="text-xs text-gray-500 truncate">
+                                        {airport.name}
+                                    </div>
+                                </div>
+                                <div className="flex-shrink-0 ml-3">
+                                    <svg className="h-4 w-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                                    </svg>
+                                </div>
+                            </div>
+                        </button>
+                    ));
+                }
+
+                // Show popular airports when no search has been performed
+                if (!hasSearched) {
+                    return (
+                        <div>
+                            <div className="px-4 py-2 bg-gray-50 border-b border-gray-200">
+                                <div className="flex items-center space-x-2">
+                                    <svg className="h-4 w-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                    </svg>
+                                    <span className="text-xs font-medium text-gray-700">Popular Destinations</span>
+                                </div>
+                            </div>
+                            {popularAirports.map((airport, index) => (
+                                <button
+                                    key={`popular-${airport.iata_code}-${index}`}
+                                    type="button"
+                                    onClick={() => handleSelectAirport(airport)}
+                                    className={`w-full text-left px-4 py-3 hover:bg-gray-50 border-b border-gray-100 last:border-b-0 transition-colors ${
+                                        index === highlightedIndex ? 'bg-blue-50 border-blue-200' : ''
+                                    }`}
+                                >
+                                    <div className="flex items-center justify-between">
+                                        <div className="flex-1 min-w-0">
+                                            <div className="flex items-center space-x-2">
+                                                <span className="font-semibold text-gray-900 text-sm">
+                                                    {airport.iata_code}
+                                                </span>
+                                                <span className="text-xs text-gray-500">
+                                                    {airport.icao_code}
+                                                </span>
+                                            </div>
+                                            <div className="text-sm text-gray-700 font-medium truncate">
+                                                {airport.city}, {airport.country}
+                                            </div>
+                                            <div className="text-xs text-gray-500 truncate">
+                                                {airport.name}
+                                            </div>
+                                        </div>
+                                        <div className="flex-shrink-0 ml-3">
+                                            <svg className="h-4 w-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+                                            </svg>
+                                        </div>
+                                    </div>
+                                </button>
+                            ))}
+                        </div>
+                    );
+                }
+
+                return null;
+            };
+
+            return (
+                <div className="space-y-4">
+                    <div className="relative">
+                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                            Search Airports (Desktop)
+                        </label>
+                        <div className="relative">
+                            <input
+                                ref={inputRef}
+                                type="text"
+                                value={value}
+                                onChange={handleInputChange}
+                                onFocus={handleFocus}
+                                onKeyDown={handleKeyDown}
+                                placeholder="Search airports..."
+                                className="w-full px-4 py-3 pr-12 text-base border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                                autoComplete="off"
+                            />
+                            
+                            <div className="absolute right-3 top-1/2 transform -translate-y-1/2 flex items-center space-x-1">
+                                {isLoading && (
+                                    <div className="h-4 w-4 border-2 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
+                                )}
+                                
+                                {!isLoading && !selectedAirport && (
+                                    <svg className="h-4 w-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                                    </svg>
+                                )}
+                                
+                                {selectedAirport && (
+                                    <button
+                                        type="button"
+                                        onClick={handleClear}
+                                        className="h-4 w-4 text-gray-400 hover:text-gray-600 transition-colors"
+                                    >
+                                        <svg className="h-3 w-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                                        </svg>
+                                    </button>
+                                )}
+                            </div>
+                        </div>
+                        
+                        {isOpen && (
+                            <div className="absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded-lg shadow-xl max-h-80 overflow-y-auto">
+                                {dropdownContent()}
+                            </div>
+                        )}
+                    </div>
+                    
+                    {selectedAirport && (
+                        <div className="p-3 bg-green-50 rounded-lg border border-green-200">
+                            <h4 className="font-medium text-green-900 mb-1">Selected Airport:</h4>
+                            <p className="text-sm text-green-800">
+                                <strong>{selectedAirport.iata_code}</strong> - {selectedAirport.name}
+                            </p>
+                            <p className="text-xs text-green-700">
+                                {selectedAirport.city}, {selectedAirport.country}
+                            </p>
+                        </div>
+                    )}
+                </div>
+            );
+        }
+
+        // Mobile Airport Autocomplete Component
+        function MobileAirportAutocomplete() {
+            const [value, setValue] = useState('');
+            const [airports, setAirports] = useState([]);
+            const [isOpen, setIsOpen] = useState(false);
+            const [isLoading, setIsLoading] = useState(false);
+            const [highlightedIndex, setHighlightedIndex] = useState(-1);
+            const [selectedAirport, setSelectedAirport] = useState(null);
+            const [hasSearched, setHasSearched] = useState(false);
+            
+            const inputRef = useRef(null);
+            const debounceTimeout = useRef(null);
+
+            const handleInputChange = (e) => {
+                const newValue = e.target.value;
+                setValue(newValue);
+                
+                // Clear selection if user is typing
+                if (selectedAirport && newValue !== `${selectedAirport.iata_code} - ${selectedAirport.city}`) {
+                    setSelectedAirport(null);
+                }
+                
+                // Debounce search
+                clearTimeout(debounceTimeout.current);
+                debounceTimeout.current = setTimeout(() => {
+                    if (newValue.trim().length >= 2) {
+                        setIsLoading(true);
+                        setHasSearched(true);
+                        setTimeout(() => {
+                            const results = searchAirports(newValue);
+                            setAirports(results);
+                            setIsLoading(false);
+                        }, 300);
+                    } else {
+                        setAirports([]);
+                        setHasSearched(false);
+                    }
+                }, 300);
+            };
+
+            const handleSelectAirport = (airport) => {
+                const displayValue = `${airport.iata_code} - ${airport.city}`;
+                setValue(displayValue);
+                setSelectedAirport(airport);
+                setIsOpen(false);
+                setHighlightedIndex(-1);
+            };
+
+            const handleFocus = () => {
+                setIsOpen(true);
+                if (value && value.trim().length >= 2) {
+                    setAirports(searchAirports(value));
+                }
+            };
+
+            const handleKeyDown = (e) => {
+                const currentAirports = airports.length > 0 ? airports : (!hasSearched ? popularAirports.slice(0, 8) : []);
+                
+                if (!isOpen || currentAirports.length === 0) {
+                    if (e.key === 'ArrowDown') {
+                        e.preventDefault();
+                        setIsOpen(true);
+                        setAirports(searchAirports(value));
+                    }
+                    return;
+                }
+
+                switch (e.key) {
+                    case 'ArrowDown':
+                        e.preventDefault();
+                        setHighlightedIndex(prev => 
+                            prev < currentAirports.length - 1 ? prev + 1 : 0
+                        );
+                        break;
+                    case 'ArrowUp':
+                        e.preventDefault();
+                        setHighlightedIndex(prev => 
+                            prev > 0 ? prev - 1 : currentAirports.length - 1
+                        );
+                        break;
+                    case 'Enter':
+                        e.preventDefault();
+                        if (highlightedIndex >= 0 && highlightedIndex < currentAirports.length) {
+                            handleSelectAirport(currentAirports[highlightedIndex]);
+                        }
+                        break;
+                    case 'Escape':
+                        setIsOpen(false);
+                        setHighlightedIndex(-1);
+                        break;
+                }
+            };
+
+            const handleClear = () => {
+                setValue('');
+                setSelectedAirport(null);
+                setIsOpen(false);
+                setHighlightedIndex(-1);
+                inputRef.current?.focus();
+            };
+
+            const dropdownContent = () => {
+                if (isLoading) {
+                    return (
+                        <div className="px-4 py-8 text-center">
+                            <div className="h-8 w-8 border-2 border-blue-500 border-t-transparent rounded-full animate-spin mx-auto mb-3"></div>
+                            <p className="text-base text-gray-600">Searching airports...</p>
+                        </div>
+                    );
+                }
+
+                if (hasSearched && airports.length === 0) {
+                    return (
+                        <div className="px-4 py-8 text-center">
+                            <svg className="h-8 w-8 text-gray-400 mx-auto mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                            </svg>
+                            <p className="text-base text-gray-600">No airports found</p>
+                            <p className="text-sm text-gray-500 mt-2">Try searching by city, country, or airport code</p>
+                        </div>
+                    );
+                }
+
+                if (airports.length > 0) {
+                    return airports.map((airport, index) => (
+                        <button
+                            key={`${airport.iata_code}-${index}`}
+                            type="button"
+                            onClick={() => handleSelectAirport(airport)}
+                            className={`w-full text-left px-4 py-4 hover:bg-gray-50 border-b border-gray-100 last:border-b-0 transition-colors ${
+                                index === highlightedIndex ? 'bg-blue-50 border-blue-200' : ''
+                            }`}
+                        >
+                            <div className="flex items-center justify-between">
+                                <div className="flex-1 min-w-0">
+                                    <div className="flex items-center space-x-3">
+                                        <span className="font-bold text-gray-900 text-lg">
+                                            {airport.iata_code}
+                                        </span>
+                                        <span className="text-sm text-gray-500">
+                                            {airport.icao_code}
+                                        </span>
+                                    </div>
+                                    <div className="text-base text-gray-700 font-medium truncate mt-1">
+                                        {airport.city}, {airport.country}
+                                    </div>
+                                    <div className="text-sm text-gray-500 truncate mt-1">
+                                        {airport.name}
+                                    </div>
+                                </div>
+                                <div className="flex-shrink-0 ml-4">
+                                    <svg className="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                                    </svg>
+                                </div>
+                            </div>
+                        </button>
+                    ));
+                }
+
+                // Show popular airports when no search has been performed
+                if (!hasSearched) {
+                    return (
+                        <div>
+                            <div className="px-4 py-3 bg-gray-50 border-b border-gray-200">
+                                <div className="flex items-center space-x-2">
+                                    <svg className="h-5 w-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                    </svg>
+                                    <span className="text-sm font-semibold text-gray-700">Popular Destinations</span>
+                                </div>
+                            </div>
+                            {popularAirports.map((airport, index) => (
+                                <button
+                                    key={`popular-${airport.iata_code}-${index}`}
+                                    type="button"
+                                    onClick={() => handleSelectAirport(airport)}
+                                    className={`w-full text-left px-4 py-4 hover:bg-gray-50 border-b border-gray-100 last:border-b-0 transition-colors ${
+                                        index === highlightedIndex ? 'bg-blue-50 border-blue-200' : ''
+                                    }`}
+                                >
+                                    <div className="flex items-center justify-between">
+                                        <div className="flex-1 min-w-0">
+                                            <div className="flex items-center space-x-3">
+                                                <span className="font-bold text-gray-900 text-lg">
+                                                    {airport.iata_code}
+                                                </span>
+                                                <span className="text-sm text-gray-500">
+                                                    {airport.icao_code}
+                                                </span>
+                                            </div>
+                                            <div className="text-base text-gray-700 font-medium truncate mt-1">
+                                                {airport.city}, {airport.country}
+                                            </div>
+                                            <div className="text-sm text-gray-500 truncate mt-1">
+                                                {airport.name}
+                                            </div>
+                                        </div>
+                                        <div className="flex-shrink-0 ml-4">
+                                            <svg className="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+                                            </svg>
+                                        </div>
+                                    </div>
+                                </button>
+                            ))}
+                        </div>
+                    );
+                }
+
+                return null;
+            };
+
+            return (
+                <div className="space-y-4">
+                    <div className="relative">
+                        <label className="block text-base font-medium text-gray-700 mb-3">
+                            Search Airports (Mobile)
+                        </label>
+                        <div className="relative">
+                            <input
+                                ref={inputRef}
+                                type="text"
+                                value={value}
+                                onChange={handleInputChange}
+                                onFocus={handleFocus}
+                                onKeyDown={handleKeyDown}
+                                placeholder="Search airports..."
+                                className="w-full px-4 py-4 pr-14 text-base border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                                autoComplete="off"
+                            />
+                            
+                            <div className="absolute right-4 top-1/2 transform -translate-y-1/2 flex items-center space-x-2">
+                                {isLoading && (
+                                    <div className="h-5 w-5 border-2 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
+                                )}
+                                
+                                {!isLoading && !selectedAirport && (
+                                    <svg className="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                                    </svg>
+                                )}
+                                
+                                {selectedAirport && (
+                                    <button
+                                        type="button"
+                                        onClick={handleClear}
+                                        className="h-5 w-5 text-gray-400 hover:text-gray-600 transition-colors"
+                                    >
+                                        <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                                        </svg>
+                                    </button>
+                                )}
+                            </div>
+                        </div>
+                        
+                        {isOpen && (
+                            <div className="absolute z-10 w-full mt-2 bg-white border border-gray-300 rounded-lg shadow-2xl max-h-96 overflow-y-auto">
+                                {dropdownContent()}
+                            </div>
+                        )}
+                    </div>
+                    
+                    {selectedAirport && (
+                        <div className="p-3 bg-green-50 rounded-lg border border-green-200">
+                            <h4 className="font-medium text-green-900 mb-1">Selected Airport:</h4>
+                            <p className="text-sm text-green-800">
+                                <strong>{selectedAirport.iata_code}</strong> - {selectedAirport.name}
+                            </p>
+                            <p className="text-xs text-green-700">
+                                {selectedAirport.city}, {selectedAirport.country}
+                            </p>
+                        </div>
+                    )}
+                </div>
+            );
+        }
+
+        // Comprehensive Test Component
+        function ComprehensiveTest() {
+            const [testResults, setTestResults] = useState([]);
+            const [isRunning, setIsRunning] = useState(false);
+
+            const runTests = () => {
+                setIsRunning(true);
+                const results = [];
+                
+                // Test 1: Basic search functionality
+                const basicSearch = searchAirports('JFK');
+                results.push({
+                    test: 'Basic Search (JFK)',
+                    passed: basicSearch.length > 0 && basicSearch[0].iata_code === 'JFK',
+                    details: `Found ${basicSearch.length} results, first: ${basicSearch[0]?.iata_code}`
+                });
+
+                // Test 2: Partial match
+                const partialMatch = searchAirports('Los');
+                results.push({
+                    test: 'Partial Match (Los)',
+                    passed: partialMatch.length > 0 && partialMatch.some(a => a.city.includes('Los')),
+                    details: `Found ${partialMatch.length} results`
+                });
+
+                // Test 3: Country search
+                const countrySearch = searchAirports('Japan');
+                results.push({
+                    test: 'Country Search (Japan)',
+                    passed: countrySearch.length > 0 && countrySearch.every(a => a.country === 'Japan'),
+                    details: `Found ${countrySearch.length} Japanese airports`
+                });
+
+                // Test 4: Empty search
+                const emptySearch = searchAirports('');
+                results.push({
+                    test: 'Empty Search',
+                    passed: emptySearch.length === 0,
+                    details: 'Correctly returned empty results'
+                });
+
+                // Test 5: Short search
+                const shortSearch = searchAirports('A');
+                results.push({
+                    test: 'Short Search (A)',
+                    passed: shortSearch.length === 0,
+                    details: 'Correctly filtered out short searches'
+                });
+
+                // Test 6: Scoring system
+                const scoringTest = searchAirports('ATL');
+                results.push({
+                    test: 'Scoring System (ATL)',
+                    passed: scoringTest.length > 0 && scoringTest[0].iata_code === 'ATL',
+                    details: `Exact match ranked first: ${scoringTest[0]?.iata_code}`
+                });
+
+                setTestResults(results);
+                setIsRunning(false);
+            };
+
+            return (
+                <div className="space-y-4">
+                    <button
+                        onClick={runTests}
+                        disabled={isRunning}
+                        className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 disabled:opacity-50"
+                    >
+                        {isRunning ? 'Running Tests...' : 'Run Comprehensive Tests'}
+                    </button>
+                    
+                    {testResults.length > 0 && (
+                        <div className="space-y-2">
+                            <h3 className="font-medium text-gray-900">Test Results:</h3>
+                            {testResults.map((result, index) => (
+                                <div key={index} className={`p-3 rounded-lg border ${
+                                    result.passed ? 'bg-green-50 border-green-200' : 'bg-red-50 border-red-200'
+                                }`}>
+                                    <div className="flex items-center justify-between">
+                                        <span className="font-medium">{result.test}</span>
+                                        <span className={`text-sm font-medium ${
+                                            result.passed ? 'text-green-700' : 'text-red-700'
+                                        }`}>
+                                            {result.passed ? 'PASS' : 'FAIL'}
+                                        </span>
+                                    </div>
+                                    <p className="text-sm text-gray-600 mt-1">{result.details}</p>
+                                </div>
+                            ))}
+                        </div>
+                    )}
+                </div>
+            );
+        }
+
+        // Performance Test Component
+        function PerformanceTest() {
+            const [performanceResults, setPerformanceResults] = useState(null);
+            const [isRunning, setIsRunning] = useState(false);
+
+            const runPerformanceTest = () => {
+                setIsRunning(true);
+                
+                const startTime = performance.now();
+                const iterations = 1000;
+                
+                // Simulate multiple searches
+                for (let i = 0; i < iterations; i++) {
+                    const queries = ['JFK', 'LAX', 'London', 'Tokyo', 'Paris'];
+                    const randomQuery = queries[Math.floor(Math.random() * queries.length)];
+                    searchAirports(randomQuery);
+                }
+                
+                const endTime = performance.now();
+                const totalTime = endTime - startTime;
+                const avgTime = totalTime / iterations;
+                
+                setPerformanceResults({
+                    iterations,
+                    totalTime: totalTime.toFixed(2),
+                    avgTime: avgTime.toFixed(3),
+                    searchesPerSecond: Math.round(1000 / avgTime)
+                });
+                
+                setIsRunning(false);
+            };
+
+            return (
+                <div className="space-y-4">
+                    <button
+                        onClick={runPerformanceTest}
+                        disabled={isRunning}
+                        className="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 disabled:opacity-50"
+                    >
+                        {isRunning ? 'Running Performance Test...' : 'Run Performance Test'}
+                    </button>
+                    
+                    {performanceResults && (
+                        <div className="p-4 bg-gray-50 rounded-lg">
+                            <h3 className="font-medium text-gray-900 mb-2">Performance Results:</h3>
+                            <div className="grid grid-cols-2 gap-4 text-sm">
+                                <div>
+                                    <span className="font-medium">Iterations:</span> {performanceResults.iterations}
+                                </div>
+                                <div>
+                                    <span className="font-medium">Total Time:</span> {performanceResults.totalTime}ms
+                                </div>
+                                <div>
+                                    <span className="font-medium">Average Time:</span> {performanceResults.avgTime}ms
+                                </div>
+                                <div>
+                                    <span className="font-medium">Searches/Second:</span> {performanceResults.searchesPerSecond}
+                                </div>
+                            </div>
+                        </div>
+                    )}
+                </div>
+            );
+        }
+
+        // Render components
+        ReactDOM.render(<DesktopAirportAutocomplete />, document.getElementById('desktop-test-container'));
+        ReactDOM.render(<MobileAirportAutocomplete />, document.getElementById('mobile-test-container'));
+        ReactDOM.render(<ComprehensiveTest />, document.getElementById('comprehensive-test-container'));
+        ReactDOM.render(<PerformanceTest />, document.getElementById('performance-test-container'));
+    </script>
+</body>
+</html>
+
+
+
+
+

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { MapPin, Calendar, Plane, Info } from 'lucide-react';
+import { Calendar, Plane, Info } from 'lucide-react';
 import { FlightFilter, Airport, ValidationError } from '../../types/flight-filter';
+import ResponsiveAirportAutocomplete from '../ResponsiveAirportAutocomplete';
 
 interface Step1RouteDatesProps {
   filter: FlightFilter;
@@ -9,43 +10,25 @@ interface Step1RouteDatesProps {
 }
 
 const Step1RouteDates: React.FC<Step1RouteDatesProps> = ({ filter, updateFilter, errors }) => {
-  const [showOriginDropdown, setShowOriginDropdown] = useState(false);
-  const [showDestinationDropdown, setShowDestinationDropdown] = useState(false);
   const [originSearch, setOriginSearch] = useState('');
   const [destinationSearch, setDestinationSearch] = useState('');
 
-  // Mock airport data
-  const airports: Airport[] = [
-    { code: 'LAX', name: 'Los Angeles International', city: 'Los Angeles', country: 'USA' },
-    { code: 'JFK', name: 'John F. Kennedy International', city: 'New York', country: 'USA' },
-    { code: 'SFO', name: 'San Francisco International', city: 'San Francisco', country: 'USA' },
-    { code: 'ORD', name: 'O\'Hare International', city: 'Chicago', country: 'USA' },
-    { code: 'MIA', name: 'Miami International', city: 'Miami', country: 'USA' },
-    { code: 'LAS', name: 'McCarran International', city: 'Las Vegas', country: 'USA' },
-    { code: 'LHR', name: 'Heathrow Airport', city: 'London', country: 'UK' },
-    { code: 'CDG', name: 'Charles de Gaulle Airport', city: 'Paris', country: 'France' },
-    { code: 'NRT', name: 'Narita International Airport', city: 'Tokyo', country: 'Japan' },
-    { code: 'SYD', name: 'Sydney Airport', city: 'Sydney', country: 'Australia' }
-  ];
+  // Initialize search values when airports are selected
+  React.useEffect(() => {
+    if (filter.origin) {
+      setOriginSearch(`${filter.origin.iata_code} - ${filter.origin.city}`);
+    }
+    if (filter.destination) {
+      setDestinationSearch(`${filter.destination.iata_code} - ${filter.destination.city}`);
+    }
+  }, [filter.origin, filter.destination]);
 
-  const filteredAirports = (search: string) => {
-    return airports.filter(airport => 
-      airport.code.toLowerCase().includes(search.toLowerCase()) ||
-      airport.city.toLowerCase().includes(search.toLowerCase()) ||
-      airport.name.toLowerCase().includes(search.toLowerCase())
-    );
+  const handleOriginSelect = (airport: Airport | null) => {
+    updateFilter({ origin: airport });
   };
 
-  const selectAirport = (airport: Airport, type: 'origin' | 'destination') => {
-    if (type === 'origin') {
-      updateFilter({ origin: airport });
-      setOriginSearch(`${airport.code} - ${airport.city}`);
-      setShowOriginDropdown(false);
-    } else {
-      updateFilter({ destination: airport });
-      setDestinationSearch(`${airport.code} - ${airport.city}`);
-      setShowDestinationDropdown(false);
-    }
+  const handleDestinationSelect = (airport: Airport | null) => {
+    updateFilter({ destination: airport });
   };
 
   const getError = (field: string) => {
@@ -90,86 +73,28 @@ const Step1RouteDates: React.FC<Step1RouteDatesProps> = ({ filter, updateFilter,
       {/* Route Selection */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* Origin */}
-        <div className="relative">
-          <label className="block text-sm font-medium text-gray-700 mb-2">
-            Origin Airport
-          </label>
-          <div className="relative">
-            <input
-              type="text"
-              value={originSearch}
-              onChange={(e) => {
-                setOriginSearch(e.target.value);
-                setShowOriginDropdown(true);
-              }}
-              onFocus={() => setShowOriginDropdown(true)}
-              placeholder="Search airports..."
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-            />
-            <MapPin className="absolute right-3 top-3.5 h-5 w-5 text-gray-400" />
-          </div>
-          
-          {showOriginDropdown && (
-            <div className="absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded-lg shadow-lg max-h-60 overflow-y-auto">
-              {filteredAirports(originSearch).map((airport) => (
-                <button
-                  key={airport.code}
-                  onClick={() => selectAirport(airport, 'origin')}
-                  className="w-full text-left px-4 py-3 hover:bg-gray-50 border-b border-gray-100 last:border-b-0"
-                >
-                  <div className="font-medium">{airport.code}</div>
-                  <div className="text-sm text-gray-600">{airport.city}, {airport.country}</div>
-                  <div className="text-xs text-gray-500">{airport.name}</div>
-                </button>
-              ))}
-            </div>
-          )}
-          
-          {getError('origin') && (
-            <p className="mt-1 text-sm text-red-600">{getError('origin')}</p>
-          )}
-        </div>
+        <ResponsiveAirportAutocomplete
+          value={originSearch}
+          onChange={setOriginSearch}
+          onSelect={handleOriginSelect}
+          placeholder="Search origin airports..."
+          label="Origin Airport"
+          error={getError('origin')}
+          selectedAirport={filter.origin}
+          showPopularAirports={true}
+        />
 
         {/* Destination */}
-        <div className="relative">
-          <label className="block text-sm font-medium text-gray-700 mb-2">
-            Destination Airport
-          </label>
-          <div className="relative">
-            <input
-              type="text"
-              value={destinationSearch}
-              onChange={(e) => {
-                setDestinationSearch(e.target.value);
-                setShowDestinationDropdown(true);
-              }}
-              onFocus={() => setShowDestinationDropdown(true)}
-              placeholder="Search airports..."
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-            />
-            <MapPin className="absolute right-3 top-3.5 h-5 w-5 text-gray-400" />
-          </div>
-          
-          {showDestinationDropdown && (
-            <div className="absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded-lg shadow-lg max-h-60 overflow-y-auto">
-              {filteredAirports(destinationSearch).map((airport) => (
-                <button
-                  key={airport.code}
-                  onClick={() => selectAirport(airport, 'destination')}
-                  className="w-full text-left px-4 py-3 hover:bg-gray-50 border-b border-gray-100 last:border-b-0"
-                >
-                  <div className="font-medium">{airport.code}</div>
-                  <div className="text-sm text-gray-600">{airport.city}, {airport.country}</div>
-                  <div className="text-xs text-gray-500">{airport.name}</div>
-                </button>
-              ))}
-            </div>
-          )}
-          
-          {getError('destination') && (
-            <p className="mt-1 text-sm text-red-600">{getError('destination')}</p>
-          )}
-        </div>
+        <ResponsiveAirportAutocomplete
+          value={destinationSearch}
+          onChange={setDestinationSearch}
+          onSelect={handleDestinationSelect}
+          placeholder="Search destination airports..."
+          label="Destination Airport"
+          error={getError('destination')}
+          selectedAirport={filter.destination}
+          showPopularAirports={true}
+        />
       </div>
 
       {/* Date Selection */}
@@ -276,7 +201,7 @@ const Step1RouteDates: React.FC<Step1RouteDatesProps> = ({ filter, updateFilter,
             <div className="flex items-center space-x-3">
               <div className="w-3 h-3 bg-green-500 rounded-full"></div>
               <span className="font-medium text-green-800">
-                Route: {filter.origin.code} → {filter.destination.code}
+                Route: {filter.origin.iata_code} → {filter.destination.iata_code}
               </span>
             </div>
             <span className="text-sm text-green-600">

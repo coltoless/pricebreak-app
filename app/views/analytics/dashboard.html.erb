@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Analytics Dashboard - PriceBreak</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+  
+  <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+  <%= javascript_include_tag "application", "data-turbo-track": "reload" %>
+  
+  <style>
+    .dashboard-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 20px;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    }
+    
+    .dashboard-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+      border-bottom: 2px solid #e1e5e9;
+    }
+    
+    .dashboard-title {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: #1a1a1a;
+      margin: 0;
+    }
+    
+    .timeframe-selector {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+    
+    .timeframe-btn {
+      padding: 8px 16px;
+      border: 2px solid #007bff;
+      background: white;
+      color: #007bff;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-weight: 500;
+    }
+    
+    .timeframe-btn.active {
+      background: #007bff;
+      color: white;
+    }
+    
+    .timeframe-btn:hover {
+      background: #007bff;
+      color: white;
+    }
+    
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+      margin-bottom: 30px;
+    }
+    
+    .metric-card {
+      background: white;
+      border-radius: 12px;
+      padding: 24px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      border: 1px solid #e1e5e9;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    
+    .metric-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+    }
+    
+    .metric-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+    
+    .metric-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #1a1a1a;
+      margin: 0;
+    }
+    
+    .metric-value {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: #007bff;
+      margin: 0;
+    }
+    
+    .metric-change {
+      font-size: 0.9rem;
+      font-weight: 500;
+      padding: 4px 8px;
+      border-radius: 4px;
+    }
+    
+    .metric-change.positive {
+      background: #d4edda;
+      color: #155724;
+    }
+    
+    .metric-change.negative {
+      background: #f8d7da;
+      color: #721c24;
+    }
+    
+    .metric-change.neutral {
+      background: #e2e3e5;
+      color: #383d41;
+    }
+    
+    .charts-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin-bottom: 30px;
+    }
+    
+    .chart-card {
+      background: white;
+      border-radius: 12px;
+      padding: 24px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      border: 1px solid #e1e5e9;
+    }
+    
+    .chart-title {
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: #1a1a1a;
+      margin-bottom: 20px;
+    }
+    
+    .chart-container {
+      height: 300px;
+      position: relative;
+    }
+    
+    .chart-placeholder {
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #6c757d;
+      font-size: 1.1rem;
+      font-weight: 500;
+    }
+    
+    .tables-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin-bottom: 30px;
+    }
+    
+    .table-card {
+      background: white;
+      border-radius: 12px;
+      padding: 24px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      border: 1px solid #e1e5e9;
+    }
+    
+    .table-title {
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: #1a1a1a;
+      margin-bottom: 20px;
+    }
+    
+    .table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    
+    .table th,
+    .table td {
+      padding: 12px;
+      text-align: left;
+      border-bottom: 1px solid #e1e5e9;
+    }
+    
+    .table th {
+      font-weight: 600;
+      color: #495057;
+      background: #f8f9fa;
+    }
+    
+    .table tbody tr:hover {
+      background: #f8f9fa;
+    }
+    
+    .status-indicator {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      margin-right: 8px;
+    }
+    
+    .status-indicator.healthy {
+      background: #28a745;
+    }
+    
+    .status-indicator.warning {
+      background: #ffc107;
+    }
+    
+    .status-indicator.critical {
+      background: #dc3545;
+    }
+    
+    .system-health {
+      background: white;
+      border-radius: 12px;
+      padding: 24px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      border: 1px solid #e1e5e9;
+      margin-bottom: 30px;
+    }
+    
+    .health-title {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: #1a1a1a;
+      margin-bottom: 20px;
+    }
+    
+    .health-metrics {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+    }
+    
+    .health-metric {
+      text-align: center;
+    }
+    
+    .health-metric-value {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    
+    .health-metric-label {
+      font-size: 0.9rem;
+      color: #6c757d;
+      font-weight: 500;
+    }
+    
+    .refresh-btn {
+      background: #007bff;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 500;
+      transition: background 0.2s ease;
+    }
+    
+    .refresh-btn:hover {
+      background: #0056b3;
+    }
+    
+    .loading {
+      opacity: 0.6;
+      pointer-events: none;
+    }
+    
+    @media (max-width: 768px) {
+      .dashboard-container {
+        padding: 15px;
+      }
+      
+      .dashboard-title {
+        font-size: 2rem;
+      }
+      
+      .metrics-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .charts-grid,
+      .tables-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .timeframe-selector {
+        flex-wrap: wrap;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="dashboard-container">
+    <div class="dashboard-header">
+      <h1 class="dashboard-title">Analytics Dashboard</h1>
+      <div class="timeframe-selector">
+        <button class="timeframe-btn" data-timeframe="24_hours">24 Hours</button>
+        <button class="timeframe-btn" data-timeframe="7_days">7 Days</button>
+        <button class="timeframe-btn active" data-timeframe="30_days">30 Days</button>
+        <button class="timeframe-btn" data-timeframe="90_days">90 Days</button>
+        <button class="refresh-btn" onclick="refreshDashboard()">Refresh</button>
+      </div>
+    </div>
+
+    <!-- System Health Overview -->
+    <div class="system-health">
+      <h2 class="health-title">System Health Overview</h2>
+      <div class="health-metrics">
+        <div class="health-metric">
+          <div class="health-metric-value" style="color: #28a745;"><%= @system_health[:uptime_percentage] %>%</div>
+          <div class="health-metric-label">Uptime</div>
+        </div>
+        <div class="health-metric">
+          <div class="health-metric-value" style="color: #007bff;"><%= @system_health[:average_response_time] %>ms</div>
+          <div class="health-metric-label">Avg Response Time</div>
+        </div>
+        <div class="health-metric">
+          <div class="health-metric-value" style="color: #ffc107;"><%= @system_health[:error_rate] %>%</div>
+          <div class="health-metric-label">Error Rate</div>
+        </div>
+        <div class="health-metric">
+          <div class="health-metric-value" style="color: #17a2b8;"><%= @system_health[:api_success_rate] %>%</div>
+          <div class="health-metric-label">API Success Rate</div>
+        </div>
+        <div class="health-metric">
+          <div class="health-metric-value" style="color: #6f42c1;"><%= @system_health[:cache_hit_rate] %>%</div>
+          <div class="health-metric-label">Cache Hit Rate</div>
+        </div>
+        <div class="health-metric">
+          <div class="health-metric-value" style="color: #fd7e14;"><%= @system_health[:background_job_success_rate] %>%</div>
+          <div class="health-metric-label">Job Success Rate</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Key Metrics -->
+    <div class="metrics-grid">
+      <div class="metric-card">
+        <div class="metric-header">
+          <h3 class="metric-title">Active Users</h3>
+          <span class="metric-change positive">+12.5%</span>
+        </div>
+        <p class="metric-value"><%= @analytics_data[:user_engagement][:active_users] %></p>
+      </div>
+      
+      <div class="metric-card">
+        <div class="metric-header">
+          <h3 class="metric-title">Total Filters</h3>
+          <span class="metric-change positive">+8.3%</span>
+        </div>
+        <p class="metric-value"><%= @analytics_data[:filter_performance][:total_filters_created] %></p>
+      </div>
+      
+      <div class="metric-card">
+        <div class="metric-header">
+          <h3 class="metric-title">Alerts Triggered</h3>
+          <span class="metric-change positive">+15.2%</span>
+        </div>
+        <p class="metric-value"><%= @analytics_data[:alert_effectiveness][:alerts_triggered] %></p>
+      </div>
+      
+      <div class="metric-card">
+        <div class="metric-header">
+          <h3 class="metric-title">Price Checks</h3>
+          <span class="metric-change positive">+22.1%</span>
+        </div>
+        <p class="metric-value"><%= @analytics_data[:price_trends][:total_price_checks] %></p>
+      </div>
+      
+      <div class="metric-card">
+        <div class="metric-header">
+          <h3 class="metric-title">Avg Price Drop</h3>
+          <span class="metric-change positive">+5.7%</span>
+        </div>
+        <p class="metric-value"><%= number_to_percentage(@analytics_data[:price_trends][:average_price_drop], precision: 1) %></p>
+      </div>
+      
+      <div class="metric-card">
+        <div class="metric-header">
+          <h3 class="metric-title">User Satisfaction</h3>
+          <span class="metric-change neutral">0%</span>
+        </div>
+        <p class="metric-value"><%= @analytics_data[:user_engagement][:user_satisfaction] %>/5</p>
+      </div>
+    </div>
+
+    <!-- Charts -->
+    <div class="charts-grid">
+      <div class="chart-card">
+        <h3 class="chart-title">User Engagement Trends</h3>
+        <div class="chart-container">
+          <div class="chart-placeholder">
+            📈 User Engagement Chart
+            <br><small>Chart.js integration coming soon</small>
+          </div>
+        </div>
+      </div>
+      
+      <div class="chart-card">
+        <h3 class="chart-title">Price Trends</h3>
+        <div class="chart-container">
+          <div class="chart-placeholder">
+            📊 Price Trends Chart
+            <br><small>Chart.js integration coming soon</small>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tables -->
+    <div class="tables-grid">
+      <div class="table-card">
+        <h3 class="table-title">Recent Alerts</h3>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Route</th>
+              <th>Price</th>
+              <th>Savings</th>
+              <th>Status</th>
+              <th>Time</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @recent_alerts.limit(10).each do |alert| %>
+              <tr>
+                <td><%= alert.route_description %></td>
+                <td>$<%= number_with_precision(alert.current_price, precision: 0) %></td>
+                <td>$<%= number_with_precision(alert.savings_amount, precision: 0) %></td>
+                <td>
+                  <span class="status-indicator <%= alert.status == 'triggered' ? 'healthy' : 'warning' %>"></span>
+                  <%= alert.status.humanize %>
+                </td>
+                <td><%= time_ago_in_words(alert.created_at) %> ago</td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+      
+      <div class="table-card">
+        <h3 class="table-title">Recent Filters</h3>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Route</th>
+              <th>Type</th>
+              <th>Status</th>
+              <th>Created</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @recent_filters.limit(10).each do |filter| %>
+              <tr>
+                <td><%= filter.name %></td>
+                <td><%= filter.route_description %></td>
+                <td><%= filter.trip_type.humanize %></td>
+                <td>
+                  <span class="status-indicator <%= filter.is_active? ? 'healthy' : 'warning' %>"></span>
+                  <%= filter.is_active? ? 'Active' : 'Inactive' %>
+                </td>
+                <td><%= time_ago_in_words(filter.created_at) %> ago</td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Performance Report -->
+    <div class="chart-card">
+      <h3 class="chart-title">Performance Report</h3>
+      <div class="chart-container">
+        <div class="chart-placeholder">
+          🚀 Performance Metrics
+          <br><small>Memory: <%= @performance_report[:health_status][:memory_usage_mb] %>MB</small>
+          <br><small>Cache Hit Rate: <%= @performance_report[:cache_stats][:hit_rate] %>%</small>
+          <br><small>Overall Health: <%= @performance_report[:health_status][:overall_health].humanize %></small>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Timeframe selection
+    document.querySelectorAll('.timeframe-btn').forEach(btn => {
+      btn.addEventListener('click', function() {
+        // Remove active class from all buttons
+        document.querySelectorAll('.timeframe-btn').forEach(b => b.classList.remove('active'));
+        
+        // Add active class to clicked button
+        this.classList.add('active');
+        
+        // Update dashboard with new timeframe
+        const timeframe = this.dataset.timeframe;
+        updateDashboard(timeframe);
+      });
+    });
+
+    // Update dashboard with new timeframe
+    function updateDashboard(timeframe) {
+      const container = document.querySelector('.dashboard-container');
+      container.classList.add('loading');
+      
+      fetch(`/analytics/dashboard?timeframe=${timeframe}`, {
+        method: 'GET',
+        headers: {
+          'Accept': 'text/html',
+          'X-Requested-With': 'XMLHttpRequest'
+        }
+      })
+      .then(response => response.text())
+      .then(html => {
+        // Update the dashboard content
+        document.body.innerHTML = html;
+      })
+      .catch(error => {
+        console.error('Error updating dashboard:', error);
+        container.classList.remove('loading');
+      });
+    }
+
+    // Refresh dashboard
+    function refreshDashboard() {
+      const activeTimeframe = document.querySelector('.timeframe-btn.active').dataset.timeframe;
+      updateDashboard(activeTimeframe);
+    }
+
+    // Auto-refresh every 5 minutes
+    setInterval(refreshDashboard, 300000);
+
+    // Real-time updates via WebSocket (if available)
+    if (typeof WebSocket !== 'undefined') {
+      const ws = new WebSocket('ws://localhost:3000/cable');
+      
+      ws.onmessage = function(event) {
+        const data = JSON.parse(event.data);
+        if (data.type === 'dashboard_update') {
+          refreshDashboard();
+        }
+      };
+    }
+  </script>
+</body>
+</html>
+

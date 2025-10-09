@@ -1,0 +1,18 @@
+# Pin npm packages by running ./bin/importmap
+
+pin "@hotwired/turbo-rails", to: "turbo.min.js", preload: true
+pin "@hotwired/stimulus", to: "stimulus.min.js", preload: true
+pin "@hotwired/stimulus-loading", to: "stimulus-loading.js", preload: true
+pin_all_from "app/javascript/controllers", under: "controllers"
+
+# Pin React and ReactDOM
+pin "react", to: "https://ga.jspm.io/npm:react@18.2.0/index.js"
+pin "react-dom", to: "https://ga.jspm.io/npm:react-dom@18.2.0/index.js"
+pin "react-dom/client", to: "https://ga.jspm.io/npm:react-dom@18.2.0/client.js"
+
+# Pin our React components
+pin "components/FlightSearchInterface", to: "components/FlightSearchInterface.js"
+pin "components/FlightFilterSidebar", to: "components/FlightFilterSidebar.js"
+pin "components/PriceChart", to: "components/PriceChart.js"
+pin "components/AlertManager", to: "components/AlertManager.js"
+pin "types/flight-filter", to: "types/flight-filter.js" 

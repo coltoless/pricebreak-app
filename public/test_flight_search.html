@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flight Search Test</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100">
+    <div class="container mx-auto p-8">
+        <h1 class="text-3xl font-bold mb-8 text-center">Flight Search Interface Test</h1>
+        
+        <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
+            <h2 class="text-xl font-semibold mb-4">Test Instructions:</h2>
+            <ol class="list-decimal list-inside space-y-2 text-gray-700">
+                <li>Go to <a href="/" class="text-blue-600 underline">http://localhost:3000/</a> to test the main interface</li>
+                <li>Try typing "JFK" in the From field - you should see airport autocomplete</li>
+                <li>Try typing "LAX" in the To field - you should see airport autocomplete</li>
+                <li>Click on the date fields to select departure and return dates</li>
+                <li>Click on the travelers field to adjust passenger count and cabin class</li>
+                <li>Try switching between Roundtrip, One-way, and Multi-city</li>
+                <li>Click the swap button (arrows) to swap origin and destination</li>
+            </ol>
+        </div>
+
+        <div class="bg-blue-50 p-4 rounded-lg">
+            <h3 class="font-semibold text-blue-900 mb-2">Expected Behavior:</h3>
+            <ul class="text-sm text-blue-800 space-y-1">
+                <li>✅ Airport autocomplete should show dropdown with airports when typing</li>
+                <li>✅ Date pickers should work for departure and return dates</li>
+                <li>✅ Travelers modal should open and allow adjusting passenger counts</li>
+                <li>✅ Trip type buttons should switch between round-trip, one-way, multi-city</li>
+                <li>✅ Swap button should exchange origin and destination</li>
+                <li>✅ Return date should only show for round-trip trips</li>
+            </ul>
+        </div>
+
+        <div class="mt-8 text-center">
+            <a href="/" class="bg-blue-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-blue-700 transition-colors">
+                Test Flight Search Interface
+            </a>
+        </div>
+    </div>
+</body>
+</html>
+
+
+
+
+

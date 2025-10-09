@@ -44,12 +44,29 @@ gem "thruster", require: false
 
 # Authentication
 gem "devise"
+gem "firebase-admin-sdk"
 
 # Encryption
 gem 'attr_encrypted', '~> 4.0.0'
 
 # Email Marketing
 gem 'gibbon', '~> 3.4'
+
+# HTTP client for API integration
+gem "httparty", "~> 0.21"
+gem "faraday", "~> 1.10"
+gem "faraday_middleware", "~> 1.2"
+
+# Rate limiting and API management
+gem "ratelimit", "~> 1.1"
+gem "redis", "~> 5.0"
+
+# Data processing and validation
+gem "dry-validation", "~> 1.10"
+gem "hashie", "~> 5.0"
+
+# Background job processing
+gem "sidekiq", "~> 7.0"
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem

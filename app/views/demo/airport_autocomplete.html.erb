@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Airport Autocomplete Test</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+  
+  <!-- Include Tailwind CSS for styling -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Include our built JavaScript bundle -->
+  <script type="module" src="/application.js"></script>
+  
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore-compat.js"></script>
+  
+  <!-- Firebase Configuration -->
+  <script>
+    window.firebaseConfig = {
+      apiKey: '<%= ENV["FIREBASE_API_KEY"] || "demo" %>',
+      authDomain: '<%= ENV["FIREBASE_AUTH_DOMAIN"] || "demo" %>',
+      projectId: '<%= ENV["FIREBASE_PROJECT_ID"] || "demo" %>',
+      storageBucket: '<%= ENV["FIREBASE_STORAGE_BUCKET"] || "demo" %>',
+      messagingSenderId: '<%= ENV["FIREBASE_MESSAGING_SENDER_ID"] || "demo" %>',
+      appId: '<%= ENV["FIREBASE_APP_ID"] || "demo" %>'
+    };
+  </script>
+</head>
+
+<body class="bg-gray-50 min-h-screen">
+  <div class="container mx-auto px-4 py-8">
+    <div class="max-w-2xl mx-auto">
+      <h1 class="text-3xl font-bold text-gray-900 mb-8 text-center">
+        Airport Autocomplete Test
+      </h1>
+      
+      <div class="bg-white rounded-lg shadow-lg p-6">
+        <h2 class="text-xl font-semibold text-gray-900 mb-4">
+          Test Airport Search
+        </h2>
+        
+        <p class="text-gray-600 mb-6">
+          This page tests the airport autocomplete functionality. 
+          Try searching for airports like "JFK", "Los Angeles", or "London".
+        </p>
+        
+        <div id="airport-autocomplete-test" class="space-y-6">
+          <!-- React component will be mounted here -->
+        </div>
+        
+        <div class="mt-8 p-4 bg-blue-50 rounded-lg">
+          <h3 class="font-semibold text-blue-900 mb-2">Instructions:</h3>
+          <ul class="text-sm text-blue-800 space-y-1">
+            <li>• Type at least 2 characters to start searching</li>
+            <li>• Use arrow keys to navigate results</li>
+            <li>• Press Enter to select an airport</li>
+            <li>• Press Escape to close the dropdown</li>
+            <li>• Click the X to clear selection</li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="mt-8 text-center">
+        <a href="/" class="text-blue-600 hover:text-blue-800 underline">
+          ← Back to Home
+        </a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
+
+
+
+
+

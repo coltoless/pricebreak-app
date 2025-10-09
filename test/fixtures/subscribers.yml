@@ -1,9 +1,9 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  email: MyString
-  status: MyString
+  email: "subscriber1@example.com"
+  status: "active"
 
 two:
-  email: MyString
-  status: MyString
+  email: "subscriber2@example.com"
+  status: "pending"

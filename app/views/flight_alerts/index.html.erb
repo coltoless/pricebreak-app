@@ -1,0 +1,351 @@
+<% content_for :title, "Price Alerts - PriceBreak" %>
+
+<div class="min-h-screen bg-gray-50 py-8">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- Header -->
+    <div class="mb-8">
+      <div class="flex items-center justify-between">
+        <div>
+          <h1 class="text-3xl font-bold text-gray-900">Price Alerts</h1>
+          <p class="mt-2 text-gray-600">Manage your flight price monitoring alerts</p>
+        </div>
+        <div class="flex space-x-3">
+          <%= link_to "Create New Alert", new_flight_filter_path, 
+              class: "bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-medium transition-colors" %>
+          <%= link_to "Analytics", analytics_flight_alerts_path, 
+              class: "bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded-lg font-medium transition-colors" %>
+        </div>
+      </div>
+    </div>
+
+    <!-- Stats Cards -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+      <div class="bg-white rounded-lg shadow p-6">
+        <div class="flex items-center">
+          <div class="flex-shrink-0">
+            <div class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
+              <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-5 5-5-5h5v-5a7.5 7.5 0 1 0-15 0v5h5l-5 5-5-5h5V7a7.5 7.5 0 1 1 15 0v10z"/>
+              </svg>
+            </div>
+          </div>
+          <div class="ml-4">
+            <p class="text-sm font-medium text-gray-500">Total Alerts</p>
+            <p class="text-2xl font-semibold text-gray-900"><%= @alert_stats[:total_alerts] %></p>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-lg shadow p-6">
+        <div class="flex items-center">
+          <div class="flex-shrink-0">
+            <div class="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center">
+              <svg class="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+              </svg>
+            </div>
+          </div>
+          <div class="ml-4">
+            <p class="text-sm font-medium text-gray-500">Active Alerts</p>
+            <p class="text-2xl font-semibold text-gray-900"><%= @alert_stats[:active_alerts] %></p>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-lg shadow p-6">
+        <div class="flex items-center">
+          <div class="flex-shrink-0">
+            <div class="w-8 h-8 bg-yellow-100 rounded-full flex items-center justify-center">
+              <svg class="w-5 h-5 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"/>
+              </svg>
+            </div>
+          </div>
+          <div class="ml-4">
+            <p class="text-sm font-medium text-gray-500">Total Savings</p>
+            <p class="text-2xl font-semibold text-gray-900">$<%= @alert_stats[:total_savings] %></p>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-lg shadow p-6">
+        <div class="flex items-center">
+          <div class="flex-shrink-0">
+            <div class="w-8 h-8 bg-purple-100 rounded-full flex items-center justify-center">
+              <svg class="w-5 h-5 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+              </svg>
+            </div>
+          </div>
+          <div class="ml-4">
+            <p class="text-sm font-medium text-gray-500">Triggered</p>
+            <p class="text-2xl font-semibold text-gray-900"><%= @alert_stats[:triggered_alerts] %></p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Filters and Actions -->
+    <div class="bg-white rounded-lg shadow mb-6">
+      <div class="p-6">
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between space-y-4 sm:space-y-0">
+          <!-- Filters -->
+          <div class="flex flex-wrap items-center space-x-4">
+            <div>
+              <label for="status-filter" class="block text-sm font-medium text-gray-700 mb-1">Status</label>
+              <select id="status-filter" class="border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <option value="">All Statuses</option>
+                <% @filter_options[:statuses].each do |status| %>
+                  <option value="<%= status %>"><%= status.humanize %></option>
+                <% end %>
+              </select>
+            </div>
+            
+            <div>
+              <label for="date-filter" class="block text-sm font-medium text-gray-700 mb-1">Date Range</label>
+              <select id="date-filter" class="border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <% @filter_options[:date_ranges].each do |label, value| %>
+                  <option value="<%= value %>"><%= label %></option>
+                <% end %>
+              </select>
+            </div>
+          </div>
+
+          <!-- Bulk Actions -->
+          <div class="flex items-center space-x-3">
+            <button id="select-all" class="text-sm text-blue-600 hover:text-blue-800 font-medium">Select All</button>
+            <button id="bulk-actions" class="bg-gray-100 hover:bg-gray-200 text-gray-700 px-4 py-2 rounded-md text-sm font-medium disabled:opacity-50" disabled>
+              Bulk Actions
+            </button>
+            <div class="hidden" id="bulk-actions-menu">
+              <button class="bulk-action-btn" data-action="pause">Pause Selected</button>
+              <button class="bulk-action-btn" data-action="resume">Resume Selected</button>
+              <button class="bulk-action-btn" data-action="expire">Expire Selected</button>
+              <button class="bulk-action-btn text-red-600" data-action="delete">Delete Selected</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Alerts List -->
+    <div class="bg-white shadow rounded-lg">
+      <% if @alerts.any? %>
+        <div class="overflow-x-auto">
+          <table class="min-w-full divide-y divide-gray-200">
+            <thead class="bg-gray-50">
+              <tr>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <input type="checkbox" id="select-all-checkbox" class="rounded border-gray-300 text-blue-600 focus:ring-blue-500">
+                </th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Route</th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Target Price</th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Current Price</th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Savings</th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Quality</th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+              </tr>
+            </thead>
+            <tbody class="bg-white divide-y divide-gray-200">
+              <% @alerts.each do |alert| %>
+                <tr class="hover:bg-gray-50">
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    <input type="checkbox" class="alert-checkbox rounded border-gray-300 text-blue-600 focus:ring-blue-500" value="<%= alert.id %>">
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    <div class="flex items-center">
+                      <div class="flex-shrink-0 h-10 w-10">
+                        <div class="h-10 w-10 rounded-full bg-blue-100 flex items-center justify-center">
+                          <svg class="h-6 w-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/>
+                          </svg>
+                        </div>
+                      </div>
+                      <div class="ml-4">
+                        <div class="text-sm font-medium text-gray-900"><%= alert.route_description %></div>
+                        <div class="text-sm text-gray-500">
+                          <%= alert.departure_date&.strftime('%b %d, %Y') %>
+                          <% if alert.return_date %>
+                            - <%= alert.return_date.strftime('%b %d, %Y') %>
+                          <% end %>
+                        </div>
+                      </div>
+                    </div>
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    <span class="inline-flex px-2 py-1 text-xs font-semibold rounded-full <%= status_badge_class(alert.status) %>">
+                      <%= alert.status.humanize %>
+                    </span>
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                    $<%= alert.target_price %>
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                    <% if alert.current_price %>
+                      $<%= alert.current_price %>
+                    <% else %>
+                      <span class="text-gray-400">-</span>
+                    <% end %>
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm">
+                    <% if alert.price_drop_amount && alert.price_drop_amount > 0 %>
+                      <span class="text-green-600 font-medium">
+                        $<%= alert.price_drop_amount %>
+                        (<%= alert.price_drop_percentage_calculated %>%)
+                      </span>
+                    <% else %>
+                      <span class="text-gray-400">-</span>
+                    <% end %>
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    <div class="flex items-center">
+                      <div class="w-16 bg-gray-200 rounded-full h-2 mr-2">
+                        <div class="bg-blue-600 h-2 rounded-full" style="width: <%= (alert.alert_quality_score || 0) * 100 %>%"></div>
+                      </div>
+                      <span class="text-sm text-gray-600"><%= ((alert.alert_quality_score || 0) * 100).round %>%</span>
+                    </div>
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                    <div class="flex items-center space-x-2">
+                      <%= link_to "View", flight_alert_path(alert), 
+                          class: "text-blue-600 hover:text-blue-900" %>
+                      <% if alert.status == 'active' %>
+                        <%= link_to "Pause", pause_flight_alert_path(alert), 
+                            method: :patch, 
+                            class: "text-yellow-600 hover:text-yellow-900" %>
+                      <% elsif alert.status == 'paused' %>
+                        <%= link_to "Resume", resume_flight_alert_path(alert), 
+                            method: :patch, 
+                            class: "text-green-600 hover:text-green-900" %>
+                      <% end %>
+                      <%= link_to "Delete", flight_alert_path(alert), 
+                          method: :delete, 
+                          data: { confirm: 'Are you sure?' }, 
+                          class: "text-red-600 hover:text-red-900" %>
+                    </div>
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Pagination -->
+        <% if respond_to?(:paginate) && @alerts.respond_to?(:current_page) %>
+          <div class="bg-white px-4 py-3 flex items-center justify-between border-t border-gray-200 sm:px-6">
+            <%= paginate @alerts %>
+          </div>
+        <% end %>
+      <% else %>
+        <!-- Empty State -->
+        <div class="text-center py-12">
+          <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-5 5-5-5h5v-5a7.5 7.5 0 1 0-15 0v5h5l-5 5-5-5h5V7a7.5 7.5 0 1 1 15 0v10z"/>
+          </svg>
+          <h3 class="mt-2 text-sm font-medium text-gray-900">No alerts yet</h3>
+          <p class="mt-1 text-sm text-gray-500">Get started by creating your first price alert.</p>
+          <div class="mt-6">
+            <%= link_to "Create Alert", new_flight_filter_path, 
+                class: "inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500" %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // Select all functionality
+  const selectAllCheckbox = document.getElementById('select-all-checkbox');
+  const alertCheckboxes = document.querySelectorAll('.alert-checkbox');
+  const bulkActionsBtn = document.getElementById('bulk-actions');
+  const bulkActionsMenu = document.getElementById('bulk-actions-menu');
+
+  selectAllCheckbox.addEventListener('change', function() {
+    alertCheckboxes.forEach(checkbox => {
+      checkbox.checked = this.checked;
+    });
+    updateBulkActionsButton();
+  });
+
+  alertCheckboxes.forEach(checkbox => {
+    checkbox.addEventListener('change', updateBulkActionsButton);
+  });
+
+  function updateBulkActionsButton() {
+    const checkedBoxes = document.querySelectorAll('.alert-checkbox:checked');
+    bulkActionsBtn.disabled = checkedBoxes.length === 0;
+    bulkActionsBtn.textContent = checkedBoxes.length > 0 ? 
+      `Actions (${checkedBoxes.length})` : 'Bulk Actions';
+  }
+
+  // Bulk actions
+  bulkActionsBtn.addEventListener('click', function() {
+    bulkActionsMenu.classList.toggle('hidden');
+  });
+
+  // Close bulk actions menu when clicking outside
+  document.addEventListener('click', function(event) {
+    if (!bulkActionsBtn.contains(event.target) && !bulkActionsMenu.contains(event.target)) {
+      bulkActionsMenu.classList.add('hidden');
+    }
+  });
+
+  // Handle bulk action buttons
+  document.querySelectorAll('.bulk-action-btn').forEach(button => {
+    button.addEventListener('click', function() {
+      const action = this.dataset.action;
+      const checkedBoxes = document.querySelectorAll('.alert-checkbox:checked');
+      const alertIds = Array.from(checkedBoxes).map(cb => cb.value);
+      
+      if (confirm(`Are you sure you want to ${action} ${alertIds.length} alerts?`)) {
+        // Submit bulk action form
+        const form = document.createElement('form');
+        form.method = 'POST';
+        form.action = '<%= bulk_action_flight_alerts_path %>';
+        
+        const csrfToken = document.querySelector('meta[name="csrf-token"]').content;
+        const csrfInput = document.createElement('input');
+        csrfInput.type = 'hidden';
+        csrfInput.name = 'authenticity_token';
+        csrfInput.value = csrfToken;
+        form.appendChild(csrfInput);
+        
+        const actionInput = document.createElement('input');
+        actionInput.type = 'hidden';
+        actionInput.name = 'action_type';
+        actionInput.value = action;
+        form.appendChild(actionInput);
+        
+        alertIds.forEach(id => {
+          const input = document.createElement('input');
+          input.type = 'hidden';
+          input.name = 'alert_ids[]';
+          input.value = id;
+          form.appendChild(input);
+        });
+        
+        document.body.appendChild(form);
+        form.submit();
+      }
+    });
+  });
+});
+</script>
+
+<% def status_badge_class(status) %>
+  <% case status %>
+  <% when 'active' %>
+    bg-green-100 text-green-800
+  <% when 'paused' %>
+    bg-yellow-100 text-yellow-800
+  <% when 'triggered' %>
+    bg-blue-100 text-blue-800
+  <% when 'expired' %>
+    bg-gray-100 text-gray-800
+  <% else %>
+    bg-gray-100 text-gray-800
+  <% end %>
+<% end %>

@@ -17,7 +17,44 @@
         <span class="logo-text">priceBreak</span>
       </div>
       
-      <!-- Navigation removed for coming soon mode -->
+      <!-- Navigation - ENABLED for local development -->
+      <nav class="nav">
+        <a href="#about" class="nav-link">About</a>
+        <a href="#features" class="nav-link">Features</a>
+        <a href="/flight-filter" class="nav-link">Flight Filter</a>
+        <a href="#get-started" class="nav-button">Get Started →</a>
+      </nav>
+      
+      <!-- Firebase Authentication -->
+      <div class="auth-section" 
+           data-controller="firebase-auth"
+           data-firebase-auth-api-key-value="<%= ENV['FIREBASE_API_KEY'] || 'your-api-key' %>"
+           data-firebase-auth-auth-domain-value="<%= ENV['FIREBASE_AUTH_DOMAIN'] || 'your-project.firebaseapp.com' %>"
+           data-firebase-auth-project-id-value="<%= ENV['FIREBASE_PROJECT_ID'] || 'your-project-id' %>">
+        
+        <!-- Sign In Button -->
+        <button class="auth-button sign-in-btn" 
+                data-firebase-auth-target="signInButton"
+                data-action="click->firebase-auth#signInWithGoogle">
+          🔐 Sign In with Google
+        </button>
+        
+        <!-- Sign Out Button (hidden by default) -->
+        <button class="auth-button sign-out-btn" 
+                data-firebase-auth-target="signOutButton"
+                data-action="click->firebase-auth#signOut"
+                style="display: none;">
+          🚪 Sign Out
+        </button>
+        
+        <!-- User Info (hidden by default) -->
+        <div class="user-info" 
+             data-firebase-auth-target="userInfo"
+             style="display: none;">
+        </div>
+      </div>
+      
+      <!-- Navigation removed for coming soon mode (production) -->
       <!-- <nav class="nav">
         <a href="#about" class="nav-link">About</a>
         <a href="#features" class="nav-link">Features</a>
@@ -57,6 +94,18 @@
         </p>
       </div>
       
+      <!-- Debug Navigation Test -->
+      <div style="text-align: center; margin: 1rem 0; padding: 1rem; background: rgba(255, 255, 255, 0.1); border-radius: 8px;">
+        <p style="color: white; margin-bottom: 0.5rem;">🧪 Debug Navigation Test:</p>
+        <a href="/flight-filter" style="display: inline-block; background: #e53e3e; color: white; padding: 8px 16px; border-radius: 4px; text-decoration: none; margin: 0 0.5rem;">Test Flight Filter Link</a>
+        <a href="/demo/airport_autocomplete" style="display: inline-block; background: #38a169; color: white; padding: 8px 16px; border-radius: 4px; text-decoration: none; margin: 0 0.5rem;">Test Airport Autocomplete</a>
+      </div>
+      
+      <!-- Flight Search Interface Container -->
+      <div id="flight-search-interface" style="margin-top: 2rem; background: rgba(255, 255, 255, 0.95); border-radius: 12px; padding: 2rem; color: #333;">
+        <!-- React component will be mounted here -->
+      </div>
+      
       <div class="email-signup" id="email-signup">
         <% if flash[:success] %>
           <div class="notification-success">
@@ -82,7 +131,25 @@
     </div>
   </main>
 
-  <!-- Partner Logos Section - Commented out for cleaner coming soon experience -->
+  <!-- Partner Logos Section - ENABLED for local development -->
+  <section class="partners">
+    <div class="partners-content">
+      <div class="partner-logo">
+        <div class="logo-placeholder">TicketMaster</div>
+      </div>
+      <div class="partner-logo">
+        <div class="logo-placeholder">StubHub</div>
+      </div>
+      <div class="partner-logo">
+        <div class="logo-placeholder">Vivid Seats</div>
+      </div>
+      <div class="partner-logo">
+        <div class="logo-placeholder">SeatGeek</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Partner Logos Section - Commented out for cleaner coming soon experience (production) -->
   <!-- <section class="partners">
     <div class="partners-content">
       <div class="partner-logo">
@@ -100,7 +167,18 @@
     </div>
   </section> -->
 
-  <!-- About Section - Commented out for coming soon mode -->
+  <!-- About Section - ENABLED for local development -->
+  <section id="about" class="py-16 text-center">
+    <div class="max-w-4xl mx-auto px-6">
+      <h2 class="text-3xl font-bold text-white mb-6">About PriceBreak</h2>
+      <p class="text-xl text-gray-200">
+        PriceBreak is revolutionizing how people find and book tickets. Our AI-powered platform 
+        analyzes prices across all major ticketing platforms in real-time.
+      </p>
+    </div>
+  </section>
+
+  <!-- About Section - Commented out for coming soon mode (production) -->
   <!-- <section id="about" class="py-16 text-center">
     <div class="max-w-4xl mx-auto px-6">
       <h2 class="text-3xl font-bold text-white mb-6">About PriceBreak</h2>
@@ -111,7 +189,22 @@
     </div>
   </section> -->
 
-  <!-- Features Section - Commented out for coming soon mode -->
+  <!-- Features Section - ENABLED for local development -->
+  <section id="features" class="py-16 text-center">
+    <div class="max-w-4xl mx-auto px-6">
+      <h2 class="text-3xl font-bold text-white mb-6">Features</h2>
+      <p class="text-xl text-gray-200">
+        Flight price monitoring, multi-platform search, AI predictions, and smart notifications.
+      </p>
+      <div class="mt-8">
+        <a href="/flight-filter" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-semibold">
+          Try Flight Filter
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section - Commented out for coming soon mode (production) -->
   <!-- <section id="features" class="py-16 text-center">
     <div class="max-w-4xl mx-auto px-6">
       <h2 class="text-3xl font-bold text-white mb-6">Features</h2>
@@ -126,9 +219,27 @@
     </div>
   </section> -->
 
-  <!-- Get Started Section - Commented out for coming soon mode -->
-  <!-- <section id="get-started" class="py-16 text-center">
+  <!-- Get Started Section - ENABLED for local development -->
+  <section id="get-started" class="py-16 text-center">
     <div class="max-w-4xl mx-auto px-6">
+      <h2 class="text-3xl font-bold text-white mb-6">Ready to Get Started?</h2>
+      <p class="text-xl text-gray-200 mb-8">
+        Join thousands of smart shoppers who are already saving money with PriceBreak
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="/flight-filter" class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-lg font-semibold text-lg">
+          Try Flight Filter
+        </a>
+        <a href="#email-signup" class="bg-white bg-opacity-20 hover:bg-opacity-30 text-white px-8 py-4 rounded-lg font-semibold text-lg">
+          Get Early Access
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Get Started Section - Commented out for coming soon mode (production) -->
+  <!-- <section id="get-started" class="py-16 text-center">
+    <div class="max-width: 4xl mx-auto px-6">
       <h2 class="text-3xl font-bold text-white mb-6">Ready to Get Started?</h2>
       <p class="text-xl text-gray-200 mb-8">
         Join thousands of smart shoppers who are already saving money with PriceBreak
@@ -417,7 +528,43 @@
     height: 20px;
   }
 
-  /* Partners Section - Commented out for cleaner coming soon experience */
+  /* Partners Section - ENABLED for local development */
+  .partners {
+    position: relative;
+    z-index: 5;
+    padding: 2rem 0;
+    text-align: center;
+  }
+
+  .partners-content {
+    max-width: 800px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    gap: 3rem;
+    flex-wrap: wrap;
+  }
+
+  .partner-logo {
+    opacity: 0.8;
+    transition: opacity 0.2s ease;
+  }
+
+  .partner-logo:hover {
+    opacity: 1;
+  }
+
+  .logo-placeholder {
+    font-size: 1rem;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.9);
+    padding: 0.5rem 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 0.5rem;
+    background: rgba(255, 255, 255, 0.05);
+  }
+
+  /* Partners Section - Commented out for cleaner coming soon experience (production) */
   /* .partners {
     position: relative;
     z-index: 5;
@@ -653,7 +800,12 @@
       border: 1px solid rgba(255, 255, 255, 0.2);
     }
 
-    /* Partners section removed for cleaner coming soon experience */
+    /* Partners section - ENABLED for local development */
+    .partners-content {
+      gap: 2rem;
+    }
+    
+    /* Partners section removed for cleaner coming soon experience (production) */
     /* .partners-content {
       gap: 2rem;
     } */
@@ -668,7 +820,12 @@
       font-size: 1rem;
     }
 
-    /* Partners section removed for cleaner coming soon experience */
+    /* Partners section - ENABLED for local development */
+    .partners-content {
+      gap: 1rem;
+    }
+    
+    /* Partners section removed for cleaner coming soon experience (production) */
     /* .partners-content {
       gap: 1rem;
     } */

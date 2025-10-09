@@ -1,0 +1,86 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: "Test Flight Filter 1"
+  description: "A test filter for LAX to JFK"
+  origin_airports: "LAX"
+  destination_airports: "JFK"
+  trip_type: "round-trip"
+  departure_dates: "2025-12-25"
+  return_dates: "2025-12-30"
+  flexible_dates: false
+  date_flexibility: 3
+  passenger_details: 
+    adults: 2
+    children: 1
+    infants: 0
+  price_parameters: 
+    target_price: 500
+    max_price: 1000
+    min_price: 200
+  advanced_preferences: 
+    cabin_class: "economy"
+    max_stops: "1-stop"
+    airline_preferences: []
+  alert_settings: 
+    monitor_frequency: "daily"
+    notification_methods: 
+      email: true
+  is_active: true
+
+two:
+  name: "Test Flight Filter 2"
+  description: "A test filter for SFO to ORD"
+  origin_airports: "SFO"
+  destination_airports: "ORD"
+  trip_type: "one-way"
+  departure_dates: "2025-11-15"
+  return_dates: 
+  flexible_dates: true
+  date_flexibility: 5
+  passenger_details: 
+    adults: 1
+    children: 0
+    infants: 0
+  price_parameters: 
+    target_price: 300
+    max_price: 600
+    min_price: 150
+  advanced_preferences: 
+    cabin_class: "premium-economy"
+    max_stops: "nonstop"
+    airline_preferences: ["UA", "AA"]
+  alert_settings: 
+    monitor_frequency: "hourly"
+    notification_methods: 
+      email: true
+      push: true
+  is_active: true
+
+three:
+  name: "Test Flight Filter 3 (No User)"
+  description: "A test filter without user association for Phase 1"
+  origin_airports: "DFW"
+  destination_airports: "LAX"
+  trip_type: "round-trip"
+  departure_dates: "2025-10-20"
+  return_dates: "2025-10-25"
+  flexible_dates: false
+  date_flexibility: 2
+  passenger_details: 
+    adults: 1
+    children: 0
+    infants: 0
+  price_parameters: 
+    target_price: 400
+    max_price: 800
+    min_price: 250
+  advanced_preferences: 
+    cabin_class: "economy"
+    max_stops: "any"
+    airline_preferences: []
+  alert_settings: 
+    monitor_frequency: "daily"
+    notification_methods: 
+      email: true
+  is_active: true

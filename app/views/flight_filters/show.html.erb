@@ -1,0 +1,216 @@
+<div class="min-h-screen bg-gray-100">
+  <!-- Header -->
+  <header class="bg-white shadow-sm border-b">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center py-6">
+        <div class="flex items-center">
+          <a href="/" class="text-2xl font-bold text-gray-900">priceBreak</a>
+          <span class="ml-4 text-gray-500">Flight Filter Details</span>
+        </div>
+        <div class="flex items-center space-x-4">
+          <a href="/" class="text-gray-500 hover:text-gray-900">Home</a>
+          <%= link_to 'Flight Filters', flight_filters_path, class: "text-gray-500 hover:text-gray-900" %>
+          <%= link_to 'Edit', edit_flight_filter_path(@flight_filter), class: "bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md text-sm font-medium" %>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <!-- Filter Header -->
+    <div class="bg-white shadow rounded-lg mb-6">
+      <div class="px-4 py-5 sm:p-6">
+        <div class="flex items-center justify-between">
+          <div>
+            <h1 class="text-2xl font-bold text-gray-900"><%= @flight_filter.name %></h1>
+            <p class="mt-1 text-sm text-gray-500"><%= @flight_filter.description %></p>
+          </div>
+          <div class="flex items-center space-x-3">
+            <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium <%= @flight_filter.is_active? ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800' %>">
+              <%= @flight_filter.is_active? ? 'Active' : 'Inactive' %>
+            </span>
+            <% if @flight_filter.is_active? %>
+              <%= link_to 'Deactivate', deactivate_flight_filter_path(@flight_filter), method: :patch, class: "bg-yellow-600 hover:bg-yellow-700 text-white px-3 py-1 rounded text-sm font-medium" %>
+            <% else %>
+              <%= link_to 'Activate', activate_flight_filter_path(@flight_filter), method: :patch, class: "bg-green-600 hover:bg-green-700 text-white px-3 py-1 rounded text-sm font-medium" %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <!-- Filter Details -->
+      <div class="lg:col-span-2 space-y-6">
+        <!-- Route Information -->
+        <div class="bg-white shadow rounded-lg">
+          <div class="px-4 py-5 sm:p-6">
+            <h3 class="text-lg leading-6 font-medium text-gray-900 mb-4">Route Information</h3>
+            <dl class="grid grid-cols-1 gap-x-4 gap-y-6 sm:grid-cols-2">
+              <div>
+                <dt class="text-sm font-medium text-gray-500">Route</dt>
+                <dd class="mt-1 text-sm text-gray-900"><%= @flight_filter.route_description %></dd>
+              </div>
+              <div>
+                <dt class="text-sm font-medium text-gray-500">Trip Type</dt>
+                <dd class="mt-1 text-sm text-gray-900"><%= @flight_filter.trip_type.humanize %></dd>
+              </div>
+              <div>
+                <dt class="text-sm font-medium text-gray-500">Departure Dates</dt>
+                <dd class="mt-1 text-sm text-gray-900">
+                  <% if @flight_filter.departure_dates_array.any? %>
+                    <%= @flight_filter.departure_dates_array.join(', ') %>
+                  <% else %>
+                    Not specified
+                  <% end %>
+                </dd>
+              </div>
+              <div>
+                <dt class="text-sm font-medium text-gray-500">Return Dates</dt>
+                <dd class="mt-1 text-sm text-gray-900">
+                  <% if @flight_filter.return_dates_array.any? %>
+                    <%= @flight_filter.return_dates_array.join(', ') %>
+                  <% else %>
+                    Not specified
+                  <% end %>
+                </dd>
+              </div>
+              <div>
+                <dt class="text-sm font-medium text-gray-500">Flexible Dates</dt>
+                <dd class="mt-1 text-sm text-gray-900"><%= @flight_filter.flexible_dates? ? 'Yes' : 'No' %></dd>
+              </div>
+              <div>
+                <dt class="text-sm font-medium text-gray-500">Date Flexibility</dt>
+                <dd class="mt-1 text-sm text-gray-900"><%= @flight_filter.date_flexibility %> days</dd>
+              </div>
+            </dl>
+          </div>
+        </div>
+
+        <!-- Passenger & Price Information -->
+        <div class="bg-white shadow rounded-lg">
+          <div class="px-4 py-5 sm:p-6">
+            <h3 class="text-lg leading-6 font-medium text-gray-900 mb-4">Passenger & Price Information</h3>
+            <dl class="grid grid-cols-1 gap-x-4 gap-y-6 sm:grid-cols-2">
+              <div>
+                <dt class="text-sm font-medium text-gray-500">Total Passengers</dt>
+                <dd class="mt-1 text-sm text-gray-900"><%= @flight_filter.passenger_count %></dd>
+              </div>
+              <div>
+                <dt class="text-sm font-medium text-gray-500">Cabin Class</dt>
+                <dd class="mt-1 text-sm text-gray-900"><%= @flight_filter.cabin_class.humanize %></dd>
+              </div>
+              <div>
+                <dt class="text-sm font-medium text-gray-500">Target Price</dt>
+                <dd class="mt-1 text-sm text-gray-900">$<%= @flight_filter.target_price %></dd>
+              </div>
+              <div>
+                <dt class="text-sm font-medium text-gray-500">Price Range</dt>
+                <dd class="mt-1 text-sm text-gray-900">$<%= @flight_filter.min_price %> - $<%= @flight_filter.max_price %></dd>
+              </div>
+              <div>
+                <dt class="text-sm font-medium text-gray-500">Max Stops</dt>
+                <dd class="mt-1 text-sm text-gray-900"><%= @flight_filter.max_stops.humanize %></dd>
+              </div>
+              <div>
+                <dt class="text-sm font-medium text-gray-500">Monitor Frequency</dt>
+                <dd class="mt-1 text-sm text-gray-900"><%= @flight_filter.monitor_frequency.humanize %></dd>
+              </div>
+            </dl>
+          </div>
+        </div>
+
+        <!-- Price History Chart Placeholder -->
+        <div class="bg-white shadow rounded-lg">
+          <div class="px-4 py-5 sm:p-6">
+            <h3 class="text-lg leading-6 font-medium text-gray-900 mb-4">Price History</h3>
+            <% if @price_history.any? %>
+              <div class="h-64 bg-gray-50 rounded-lg flex items-center justify-center">
+                <p class="text-gray-500">Price chart will be implemented in Phase 5</p>
+              </div>
+            <% else %>
+              <div class="h-32 bg-gray-50 rounded-lg flex items-center justify-center">
+                <p class="text-gray-500">No price history available yet</p>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sidebar -->
+      <div class="space-y-6">
+        <!-- Filter Status -->
+        <div class="bg-white shadow rounded-lg">
+          <div class="px-4 py-5 sm:p-6">
+            <h3 class="text-lg leading-6 font-medium text-gray-900 mb-4">Filter Status</h3>
+            <dl class="space-y-3">
+              <div>
+                <dt class="text-sm font-medium text-gray-500">Created</dt>
+                <dd class="mt-1 text-sm text-gray-900"><%= @flight_filter.created_at.strftime("%B %d, %Y") %></dd>
+              </div>
+              <div>
+                <dt class="text-sm font-medium text-gray-500">Last Updated</dt>
+                <dd class="mt-1 text-sm text-gray-900"><%= @flight_filter.updated_at.strftime("%B %d, %Y") %></dd>
+              </div>
+              <div>
+                <dt class="text-sm font-medium text-gray-500">Urgency</dt>
+                <dd class="mt-1 text-sm text-gray-900">
+                  <% if @flight_filter.is_urgent? %>
+                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">
+                      Urgent
+                    </span>
+                  <% else %>
+                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                      Normal
+                    </span>
+                  <% end %>
+                </dd>
+              </div>
+            </dl>
+          </div>
+        </div>
+
+        <!-- Recent Alerts -->
+        <div class="bg-white shadow rounded-lg">
+          <div class="px-4 py-5 sm:p-6">
+            <h3 class="text-lg leading-6 font-medium text-gray-900 mb-4">Recent Alerts</h3>
+            <% if @recent_alerts.any? %>
+              <div class="space-y-3">
+                <% @recent_alerts.each do |alert| %>
+                  <div class="border-l-4 border-blue-400 pl-3">
+                    <p class="text-sm text-gray-900"><%= alert.status.humanize %></p>
+                    <p class="text-xs text-gray-500"><%= alert.created_at.strftime("%B %d, %H:%M") %></p>
+                  </div>
+                <% end %>
+              </div>
+            <% else %>
+              <p class="text-sm text-gray-500">No alerts triggered yet</p>
+            <% end %>
+          </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="bg-white shadow rounded-lg">
+          <div class="px-4 py-5 sm:p-6">
+            <h3 class="text-lg leading-6 font-medium text-gray-900 mb-4">Quick Actions</h3>
+            <div class="space-y-3">
+              <%= link_to 'Edit Filter', edit_flight_filter_path(@flight_filter), class: "w-full bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md text-sm font-medium text-center block" %>
+              <%= link_to 'Duplicate Filter', duplicate_flight_filter_path(@flight_filter), method: :post, class: "w-full bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-md text-sm font-medium text-center block" %>
+              <%= link_to 'Delete Filter', flight_filter_path(@flight_filter), method: :delete, data: { confirm: 'Are you sure? This action cannot be undone.' }, class: "w-full bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-md text-sm font-medium text-center block" %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-white border-t mt-16">
+    <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+      <div class="text-center text-gray-500">
+        <p>&copy; 2024 priceBreak. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+</div>

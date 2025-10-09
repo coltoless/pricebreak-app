@@ -1,0 +1,382 @@
+<div class="pricebreak-page">
+  <!-- Header -->
+  <header class="pricebreak-header">
+    <div class="pricebreak-container">
+      <div class="pricebreak-header-content">
+        <div class="pricebreak-logo">
+          <div class="pricebreak-logo-icon">
+            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M8 8L24 8L24 24L8 24L8 8Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M12 12L20 12L20 20L12 20L12 12Z" fill="white"/>
+              <path d="M16 16L16 16.01" stroke="#8B5CF6" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <span class="pricebreak-logo-text">priceBreak</span>
+          <span class="pricebreak-text-muted">Create Flight Filter</span>
+        </div>
+        <div class="pricebreak-nav">
+          <a href="/" class="pricebreak-nav-link">Home</a>
+          <%= link_to 'Flight Filters', flight_filters_path, class: "pricebreak-nav-link" %>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="pricebreak-container">
+    <!-- Page Header -->
+    <div class="pricebreak-text-center pricebreak-mb-8">
+      <h1 class="pricebreak-title">Create Flight Price Filter</h1>
+      <p class="pricebreak-subtitle">Set up intelligent flight price monitoring with instant alerts. Our AI-powered system will track prices and notify you when flights match your criteria.</p>
+    </div>
+
+    <!-- Form Container -->
+    <div class="pricebreak-card-white">
+      <%= form_with model: @flight_filter, local: true, class: "pricebreak-form" do |form| %>
+        <% if @flight_filter.errors.any? %>
+          <div class="mb-6 sm:mb-8 p-4 bg-red-50 border border-red-200 rounded-xl">
+            <div class="flex items-start space-x-3">
+              <div class="flex-shrink-0">
+                <svg class="h-5 w-5 text-red-400 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z"></path>
+                </svg>
+              </div>
+              <div class="flex-1">
+                <h3 class="text-sm font-medium text-red-800">
+                  There were <%= pluralize(@flight_filter.errors.count, "error") %> with your submission:
+                </h3>
+                <div class="mt-2 text-sm text-red-700">
+                  <ul class="list-disc pl-5 space-y-1">
+                    <% @flight_filter.errors.full_messages.each do |message| %>
+                      <li><%= message %></li>
+                    <% end %>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        <% end %>
+
+        <!-- Step 1: Basic Information -->
+        <div class="collapsible-section mb-6" data-section="1">
+          <button type="button" class="section-header w-full flex items-center justify-between p-4 sm:p-6 bg-slate-50 hover:bg-slate-100 rounded-lg border border-slate-200 transition-all duration-200" onclick="toggleSection(1)">
+            <div class="flex items-center space-x-3">
+              <div class="w-6 h-6 sm:w-8 sm:h-8 bg-blue-600 text-white rounded-full flex items-center justify-center text-xs sm:text-sm font-semibold">1</div>
+              <h2 class="text-lg sm:text-xl font-semibold text-slate-900">Basic Information</h2>
+            </div>
+            <div class="flex items-center space-x-2">
+              <span class="text-sm text-slate-600 hidden sm:block">Click to expand</span>
+              <svg class="w-5 h-5 text-slate-500 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+              </svg>
+            </div>
+          </button>
+          
+          <div class="section-content hidden p-4 sm:p-6 bg-white border border-t-0 border-slate-200 rounded-b-lg">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
+              <div class="space-y-2">
+                <label class="text-sm font-medium text-slate-700">Filter Name *</label>
+                <%= form.text_field :name, class: "w-full px-3 sm:px-4 py-2 sm:py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 text-sm", placeholder: "e.g., LAX to JFK Business Trip" %>
+              </div>
+
+              <div class="space-y-2">
+                <label class="text-sm font-medium text-slate-700">Trip Type *</label>
+                <%= form.select :trip_type, FlightFilter::TRIP_TYPES.map { |type| [type.humanize, type] }, {}, class: "w-full px-3 sm:px-4 py-2 sm:py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 text-sm" %>
+              </div>
+
+              <div class="sm:col-span-2 space-y-2">
+                <label class="text-sm font-medium text-slate-700">Description</label>
+                <%= form.text_area :description, rows: 3, class: "w-full px-3 sm:px-4 py-2 sm:py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 text-sm", placeholder: "Optional description of this filter" %>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 2: Route Information -->
+        <div class="collapsible-section mb-6" data-section="2">
+          <button type="button" class="section-header w-full flex items-center justify-between p-4 sm:p-6 bg-slate-50 hover:bg-slate-100 rounded-lg border border-slate-200 transition-all duration-200" onclick="toggleSection(2)">
+            <div class="flex items-center space-x-3">
+              <div class="w-6 h-6 sm:w-8 sm:h-8 bg-blue-600 text-white rounded-full flex items-center justify-center text-xs sm:text-sm font-semibold">2</div>
+              <h2 class="text-lg sm:text-xl font-semibold text-slate-900">Route Information</h2>
+            </div>
+            <div class="flex items-center space-x-2">
+              <span class="text-sm text-slate-600 hidden sm:block">Click to expand</span>
+              <svg class="w-5 h-5 text-slate-500 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+              </svg>
+            </div>
+          </button>
+          
+          <div class="section-content hidden p-4 sm:p-6 bg-white border border-t-0 border-slate-200 rounded-b-lg">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
+              <div class="space-y-2">
+                <label class="text-sm font-medium text-slate-700">Origin Airport(s) *</label>
+                <%= form.text_field :origin_airports, class: "w-full px-3 sm:px-4 py-2 sm:py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 text-sm", placeholder: "e.g., LAX, SFO" %>
+                <p class="text-xs text-slate-500">Enter airport codes separated by commas</p>
+              </div>
+
+              <div class="space-y-2">
+                <label class="text-sm font-medium text-slate-700">Destination Airport(s) *</label>
+                <%= form.text_field :destination_airports, class: "w-full px-3 sm:px-4 py-2 sm:py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 text-sm", placeholder: "e.g., JFK, EWR" %>
+                <p class="text-xs text-slate-500">Enter airport codes separated by commas</p>
+              </div>
+
+              <div class="space-y-2">
+                <label class="text-sm font-medium text-slate-700">Departure Date(s) *</label>
+                <%= form.text_field :departure_dates, class: "w-full px-3 sm:px-4 py-2 sm:py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 text-sm", placeholder: "e.g., 2024-12-25, 2024-12-26" %>
+                <p class="text-xs text-slate-500">YYYY-MM-DD format, comma separated</p>
+              </div>
+
+              <div class="space-y-2">
+                <label class="text-sm font-medium text-slate-700">Return Date(s)</label>
+                <%= form.text_field :return_dates, class: "w-full px-3 sm:px-4 py-2 sm:py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 text-sm", placeholder: "e.g., 2025-01-02, 2025-01-03" %>
+                <p class="text-xs text-slate-500">Leave blank for one-way trips</p>
+              </div>
+
+              <div class="sm:col-span-2">
+                <div class="flex flex-col sm:flex-row sm:items-center space-y-4 sm:space-y-0 sm:space-x-8 p-4 bg-slate-50 rounded-lg">
+                  <div class="flex items-center space-x-3">
+                    <%= form.check_box :flexible_dates, class: "w-4 h-4 text-blue-600 border-slate-300 rounded focus:ring-blue-500" %>
+                    <label class="text-sm font-medium text-slate-700">Flexible Dates</label>
+                  </div>
+                  
+                  <div class="flex items-center space-x-3">
+                    <label class="text-sm font-medium text-slate-700">Date Flexibility:</label>
+                    <%= form.number_field :date_flexibility, min: 1, max: 30, class: "w-20 px-3 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500" %>
+                    <span class="text-sm text-slate-600">days</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 3: Passenger & Preferences -->
+        <div class="collapsible-section mb-6" data-section="3">
+          <button type="button" class="section-header w-full flex items-center justify-between p-4 sm:p-6 bg-slate-50 hover:bg-slate-100 rounded-lg border border-slate-200 transition-all duration-200" onclick="toggleSection(3)">
+            <div class="flex items-center space-x-3">
+              <div class="w-6 h-6 sm:w-8 sm:h-8 bg-blue-600 text-white rounded-full flex items-center justify-center text-xs sm:text-sm font-semibold">3</div>
+              <h2 class="text-lg sm:text-xl font-semibold text-slate-900">Passenger & Preferences</h2>
+            </div>
+            <div class="flex items-center space-x-2">
+              <span class="text-sm text-slate-600 hidden sm:block">Click to expand</span>
+              <svg class="w-5 h-5 text-slate-500 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+              </svg>
+            </div>
+          </button>
+          
+          <div class="section-content hidden p-4 sm:p-6 bg-white border border-t-0 border-slate-200 rounded-b-lg">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
+              <div class="space-y-3">
+                <label class="text-sm font-medium text-slate-700">Passengers</label>
+                <div class="grid grid-cols-3 gap-3">
+                  <div class="space-y-2">
+                    <label class="text-xs text-slate-600">Adults</label>
+                    <%= form.number_field "passenger_details[adults]", value: @flight_filter.passenger_details&.dig('adults') || 1, min: 1, max: 9, class: "w-full px-3 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500" %>
+                  </div>
+                  <div class="space-y-2">
+                    <label class="text-xs text-slate-600">Children</label>
+                    <%= form.number_field "passenger_details[children]", value: @flight_filter.passenger_details&.dig('children') || 0, min: 0, max: 9, class: "w-full px-3 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500" %>
+                  </div>
+                  <div class="space-y-2">
+                    <label class="text-xs text-slate-600">Infants</label>
+                    <%= form.number_field "passenger_details[infants]", value: @flight_filter.passenger_details&.dig('infants') || 0, min: 0, max: 9, class: "w-full px-3 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500" %>
+                  </div>
+                </div>
+              </div>
+
+              <div class="space-y-4">
+                <div class="space-y-2">
+                  <label class="text-sm font-medium text-slate-700">Cabin Class</label>
+                  <%= form.select "advanced_preferences[cabin_class]", FlightFilter::CABIN_CLASSES.map { |cabin| [cabin.humanize, cabin] }, { selected: @flight_filter.advanced_preferences&.dig('cabin_class') || 'economy' }, class: "w-full px-3 sm:px-4 py-2 sm:py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 text-sm" %>
+                </div>
+
+                <div class="space-y-2">
+                  <label class="text-sm font-medium text-slate-700">Maximum Stops</label>
+                  <%= form.select "advanced_preferences[max_stops]", FlightFilter::MAX_STOPS_OPTIONS.map { |stops| [stops.humanize, stops] }, { selected: @flight_filter.advanced_preferences&.dig('max_stops') || 'any' }, class: "w-full px-3 sm:px-4 py-2 sm:py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 text-sm" %>
+                </div>
+              </div>
+
+              <div class="sm:col-span-2 space-y-2">
+                <label class="text-sm font-medium text-slate-700">Preferred Airlines</label>
+                <%= form.text_field "advanced_preferences[airline_preferences]", value: @flight_filter.advanced_preferences&.dig('airline_preferences')&.join(', '), class: "w-full px-3 sm:px-4 py-2 sm:py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 text-sm", placeholder: "e.g., Delta, American, United" %>
+                <p class="text-xs text-slate-500">Leave blank for any airline</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 4: Price Settings -->
+        <div class="collapsible-section mb-6" data-section="4">
+          <button type="button" class="section-header w-full flex items-center justify-between p-4 sm:p-6 bg-slate-50 hover:bg-slate-100 rounded-lg border border-slate-200 transition-all duration-200" onclick="toggleSection(4)">
+            <div class="flex items-center space-x-3">
+              <div class="w-6 h-6 sm:w-8 sm:h-8 bg-blue-600 text-white rounded-full flex items-center justify-center text-xs sm:text-sm font-semibold">4</div>
+              <h2 class="text-lg sm:text-xl font-semibold text-slate-900">Price Settings</h2>
+            </div>
+            <div class="flex items-center space-x-2">
+              <span class="text-sm text-slate-600 hidden sm:block">Click to expand</span>
+              <svg class="w-5 h-5 text-slate-500 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+              </svg>
+            </div>
+          </button>
+          
+          <div class="section-content hidden p-4 sm:p-6 bg-white border border-t-0 border-slate-200 rounded-b-lg">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+              <div class="space-y-2">
+                <label class="text-sm font-medium text-slate-700">Target Price</label>
+                <div class="relative">
+                  <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                    <span class="text-slate-500 font-medium">$</span>
+                  </div>
+                  <%= form.number_field "price_parameters[target_price]", value: @flight_filter.price_parameters&.dig('target_price') || 500, min: 0, step: 0.01, class: "w-full pl-8 pr-3 sm:px-4 py-2 sm:py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 text-sm" %>
+                </div>
+              </div>
+
+              <div class="space-y-2">
+                <label class="text-sm font-medium text-slate-700">Min Price</label>
+                <div class="relative">
+                  <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                    <span class="text-slate-500 font-medium">$</span>
+                  </div>
+                  <%= form.number_field "price_parameters[min_price]", value: @flight_filter.price_parameters&.dig('min_price') || 0, min: 0, step: 0.01, class: "w-full pl-8 pr-3 sm:px-4 py-2 sm:py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 text-sm" %>
+                </div>
+              </div>
+
+              <div class="space-y-2 sm:col-span-2 lg:col-span-1">
+                <label class="text-sm font-medium text-slate-700">Max Price</label>
+                <div class="relative">
+                  <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                    <span class="text-slate-500 font-medium">$</span>
+                  </div>
+                  <%= form.number_field "price_parameters[max_price]", value: @flight_filter.price_parameters&.dig('max_price') || 1000, min: 0, step: 0.01, class: "w-full pl-8 pr-3 sm:px-4 py-2 sm:py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 text-sm" %>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 5: Alert Settings -->
+        <div class="collapsible-section mb-6" data-section="5">
+          <button type="button" class="section-header w-full flex items-center justify-between p-4 sm:p-6 bg-slate-50 hover:bg-slate-100 rounded-lg border border-slate-200 transition-all duration-200" onclick="toggleSection(5)">
+            <div class="flex items-center space-x-3">
+              <div class="w-6 h-6 sm:w-8 sm:h-8 bg-blue-600 text-white rounded-full flex items-center justify-center text-xs sm:text-sm font-semibold">5</div>
+              <h2 class="text-lg sm:text-xl font-semibold text-slate-900">Alert Settings</h2>
+            </div>
+            <div class="flex items-center space-x-2">
+              <span class="text-sm text-slate-600 hidden sm:block">Click to expand</span>
+              <svg class="w-5 h-5 text-slate-500 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+              </svg>
+            </div>
+          </button>
+          
+          <div class="section-content hidden p-4 sm:p-6 bg-white border border-t-0 border-slate-200 rounded-b-lg">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
+              <div class="space-y-2">
+                <label class="text-sm font-medium text-slate-700">Monitor Frequency</label>
+                <%= form.select "alert_settings[monitor_frequency]", [['Real-time', 'real-time'], ['Hourly', 'hourly'], ['Daily', 'daily'], ['Weekly', 'weekly']], { selected: @flight_filter.alert_settings&.dig('monitor_frequency') || 'daily' }, class: "w-full px-3 sm:px-4 py-2 sm:py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 text-sm" %>
+              </div>
+
+              <div class="space-y-2">
+                <label class="text-sm font-medium text-slate-700">Price Drop Threshold</label>
+                <div class="relative">
+                  <%= form.number_field "alert_settings[price_drop_threshold]", value: @flight_filter.alert_settings&.dig('price_drop_threshold') || 10, min: 1, max: 50, class: "w-full pr-8 pl-3 sm:px-4 py-2 sm:py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 text-sm" %>
+                  <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+                    <span class="text-slate-500 font-medium">%</span>
+                  </div>
+                </div>
+                <p class="text-xs text-slate-500">Only alert when price drops by this percentage or more</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Form Actions -->
+        <div class="flex flex-col sm:flex-row justify-end space-y-3 sm:space-y-0 sm:space-x-4 pt-6 sm:pt-8 border-t border-slate-200">
+          <%= link_to 'Cancel', flight_filters_path, class: "w-full sm:w-auto px-6 py-3 border border-slate-300 rounded-lg text-sm font-medium text-slate-700 bg-white hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all duration-200 text-center" %>
+          <%= form.submit "Create Flight Filter", class: "w-full sm:w-auto px-8 py-3 bg-gradient-to-r from-blue-600 to-blue-700 text-white font-medium rounded-lg hover:from-blue-700 hover:to-blue-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all duration-200 shadow-lg hover:shadow-xl text-center" %>
+        </div>
+      <% end %>
+    </div>
+
+    <!-- Quick Start Guide -->
+    <div class="mt-8 sm:mt-12 bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 rounded-xl sm:rounded-2xl p-6 sm:p-8">
+      <div class="flex flex-col sm:flex-row items-start space-y-4 sm:space-y-0 sm:space-x-4">
+        <div class="flex-shrink-0">
+          <div class="w-8 h-8 sm:w-10 sm:h-10 bg-blue-600 rounded-lg flex items-center justify-center">
+            <svg class="w-4 h-4 sm:w-6 sm:h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
+          </div>
+        </div>
+        <div class="flex-1">
+          <h3 class="text-lg sm:text-xl font-semibold text-blue-900 mb-4">💡 Quick Start Guide</h3>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm text-blue-800">
+            <div class="space-y-2">
+              <p class="flex items-center space-x-2"><span class="w-5 h-5 bg-blue-200 rounded-full flex items-center justify-center text-xs font-bold">1</span><span>Click on any section to expand and fill it out</span></p>
+              <p class="flex items-center space-x-2"><span class="w-5 h-5 bg-blue-200 rounded-full flex items-center justify-center text-xs font-bold">2</span><span>Only required fields are marked with *</span></p>
+              <p class="flex items-center space-x-2"><span class="w-5 h-5 bg-blue-200 rounded-full flex items-center justify-center text-xs font-bold">3</span><span>You can skip optional sections if needed</span></p>
+            </div>
+            <div class="space-y-2">
+              <p class="flex items-center space-x-2"><span class="w-5 h-5 bg-blue-200 rounded-full flex items-center justify-center text-xs font-bold">4</span><span>Each section can be collapsed to save space</span></p>
+              <p class="flex items-center space-x-2"><span class="w-5 h-5 bg-blue-200 rounded-full flex items-center justify-center text-xs font-bold">5</span><span>Fill out at least the required fields to create your filter</span></p>
+              <p class="flex items-center space-x-2"><span class="w-5 h-5 bg-blue-200 rounded-full flex items-center justify-center text-xs font-bold">6</span><span>Click "Create Flight Filter" when ready</span></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<!-- JavaScript for collapsible sections -->
+<script>
+function toggleSection(sectionNumber) {
+  const section = document.querySelector(`[data-section="${sectionNumber}"]`);
+  const content = section.querySelector('.section-content');
+  const header = section.querySelector('.section-header');
+  const arrow = header.querySelector('svg');
+  const clickText = header.querySelector('span');
+  
+  // Toggle content visibility
+  if (content.classList.contains('hidden')) {
+    // Expand section
+    content.classList.remove('hidden');
+    arrow.classList.add('rotate-180');
+    if (clickText) clickText.textContent = 'Click to collapse';
+    
+    // Smooth scroll to section if it's not fully visible
+    setTimeout(() => {
+      content.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }, 100);
+  } else {
+    // Collapse section
+    content.classList.add('hidden');
+    arrow.classList.remove('rotate-180');
+    if (clickText) clickText.textContent = 'Click to expand';
+  }
+}
+
+// Auto-expand first section on page load
+document.addEventListener('DOMContentLoaded', function() {
+  // Expand the first section by default
+  toggleSection(1);
+  
+  // Add keyboard navigation
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter' && e.target.classList.contains('section-header')) {
+      const sectionNumber = e.target.closest('.collapsible-section').dataset.section;
+      toggleSection(parseInt(sectionNumber));
+    }
+  });
+});
+</script>
+
+</div>
+
+</div>
+
+
+

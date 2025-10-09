@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React Mounting Test</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .test-container {
+            border: 3px solid #10b981;
+            background-color: #ecfdf5;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        .error-container {
+            border: 3px solid #ef4444;
+            background-color: #fef2f2;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 p-8">
+    <div class="max-w-4xl mx-auto">
+        <h1 class="text-3xl font-bold mb-6 text-gray-800">React Component Mounting Test</h1>
+        
+        <div class="bg-blue-50 p-4 rounded-lg mb-6">
+            <h2 class="text-lg font-semibold text-blue-900 mb-2">Test Instructions:</h2>
+            <ol class="list-decimal list-inside space-y-1 text-blue-800">
+                <li>Open browser developer tools (F12)</li>
+                <li>Go to the Console tab</li>
+                <li>Click the "Test React Mounting" button below</li>
+                <li>Look for console messages and check if the green test component appears</li>
+            </ol>
+        </div>
+
+        <div class="bg-white p-6 rounded-lg shadow mb-6">
+            <h3 class="text-lg font-semibold mb-4">Test Results:</h3>
+            
+            <!-- This is where the React component should mount -->
+            <div id="flight-search-interface">
+                <p class="text-gray-500">React component will mount here...</p>
+            </div>
+        </div>
+
+        <div class="bg-white p-6 rounded-lg shadow mb-6">
+            <h3 class="text-lg font-semibold mb-4">Expected Behavior:</h3>
+            <ul class="space-y-2 text-sm">
+                <li class="flex items-center">
+                    <span class="w-6 h-6 bg-green-100 text-green-800 rounded-full flex items-center justify-center text-xs font-bold mr-3">✓</span>
+                    You should see a green box with "React Component is Working!" title
+                </li>
+                <li class="flex items-center">
+                    <span class="w-6 h-6 bg-green-100 text-green-800 rounded-full flex items-center justify-center text-xs font-bold mr-3">✓</span>
+                    You should be able to type in the text input field
+                </li>
+                <li class="flex items-center">
+                    <span class="w-6 h-6 bg-green-100 text-green-800 rounded-full flex items-center justify-center text-xs font-bold mr-3">✓</span>
+                    The button should increment the counter when clicked
+                </li>
+                <li class="flex items-center">
+                    <span class="w-6 h-6 bg-green-100 text-green-800 rounded-full flex items-center justify-center text-xs font-bold mr-3">✓</span>
+                    The date picker should open when clicked
+                </li>
+            </ul>
+        </div>
+
+        <div class="bg-yellow-50 p-4 rounded-lg mb-6">
+            <h3 class="font-semibold text-yellow-900 mb-2">If React is NOT working:</h3>
+            <ul class="text-sm text-yellow-800 space-y-1">
+                <li>• Check the browser console for error messages</li>
+                <li>• Make sure you're on http://localhost:3000/</li>
+                <li>• Try refreshing the page</li>
+                <li>• Check if the Rails server is running</li>
+            </ul>
+        </div>
+
+        <div class="text-center">
+            <a href="/" class="bg-green-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-green-700 transition-colors">
+                Test React Mounting on Main Page
+            </a>
+        </div>
+    </div>
+
+    <!-- Firebase SDK (if needed) -->
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore-compat.js"></script>
+
+    <script>
+        // Mock Firebase config
+        window.firebaseConfig = {
+            apiKey: "test-api-key",
+            authDomain: "test-project.firebaseapp.com",
+            projectId: "test-project",
+            storageBucket: "test-project.appspot.com",
+            messagingSenderId: "123456789",
+            appId: "test-app-id"
+        };
+    </script>
+
+    <!-- Load the bundled application.js which should mount the React component -->
+    <script type="module" src="/assets/application.js"></script>
+</body>
+</html>
+
+
+
+
+

@@ -22,7 +22,20 @@ import {
   Play,
   Copy,
   Share2,
-  Star
+  Star,
+  Filter,
+  Search,
+  BarChart3,
+  Target,
+  Shield,
+  ChevronDown,
+  ChevronUp,
+  Clock,
+  Mail,
+  MessageSquare,
+  Smartphone,
+  Heart,
+  Download
 } from 'lucide-react';
 import { 
   FlightFilter, 
@@ -33,6 +46,14 @@ import {
   FilterTemplate,
   ValidationError 
 } from '../types/flight-filter';
+import Step1RouteDates from './steps/Step1RouteDates';
+import Step2FlightPreferences from './steps/Step2FlightPreferences';
+import Step3PriceSettings from './steps/Step3PriceSettings';
+import Step4AlertPreferences from './steps/Step4AlertPreferences';
+import FilterSummary from './FilterSummary';
+import FlightFilterSidebar from './FlightFilterSidebar';
+import PriceChart from './PriceChart';
+import AlertManager from './AlertManager';
 
 interface FlightPriceFilterProps {
   onSaveFilter?: (filter: FlightFilter) => void;
@@ -104,25 +125,81 @@ const FlightPriceFilter: React.FC<FlightPriceFilterProps> = ({
   const [errors, setErrors] = useState<ValidationError[]>([]);
   const [showSummary, setShowSummary] = useState(false);
 
-  // Mock data
+  // Mock data - International popular routes
   const popularRoutes: PopularRoute[] = [
     {
+      origin: { code: 'JFK', name: 'John F. Kennedy International', city: 'New York', country: 'USA' },
+      destination: { code: 'FCO', name: 'Leonardo da Vinci International', city: 'Rome', country: 'Italy' },
+      averagePrice: 1250,
+      bestPrice: 980,
+      priceTrend: 'falling'
+    },
+    {
       origin: { code: 'LAX', name: 'Los Angeles International', city: 'Los Angeles', country: 'USA' },
-      destination: { code: 'JFK', name: 'John F. Kennedy International', city: 'New York', country: 'USA' },
-      averagePrice: 350,
-      bestPrice: 285,
+      destination: { code: 'FLR', name: 'Florence Airport', city: 'Florence', country: 'Italy' },
+      averagePrice: 1450,
+      bestPrice: 1200,
+      priceTrend: 'stable'
+    },
+    {
+      origin: { code: 'ORD', name: 'O\'Hare International', city: 'Chicago', country: 'USA' },
+      destination: { code: 'FCO', name: 'Leonardo da Vinci International', city: 'Rome', country: 'Italy' },
+      averagePrice: 1150,
+      bestPrice: 920,
       priceTrend: 'falling'
     },
     {
       origin: { code: 'SFO', name: 'San Francisco International', city: 'San Francisco', country: 'USA' },
-      destination: { code: 'ORD', name: 'O\'Hare International', city: 'Chicago', country: 'USA' },
-      averagePrice: 320,
-      bestPrice: 265,
+      destination: { code: 'FCO', name: 'Leonardo da Vinci International', city: 'Rome', country: 'Italy' },
+      averagePrice: 1350,
+      bestPrice: 1100,
+      priceTrend: 'rising'
+    },
+    {
+      origin: { code: 'FCO', name: 'Leonardo da Vinci International', city: 'Rome', country: 'Italy' },
+      destination: { code: 'FLR', name: 'Florence Airport', city: 'Florence', country: 'Italy' },
+      averagePrice: 95,
+      bestPrice: 65,
       priceTrend: 'stable'
+    },
+    {
+      origin: { code: 'MIA', name: 'Miami International', city: 'Miami', country: 'USA' },
+      destination: { code: 'FCO', name: 'Leonardo da Vinci International', city: 'Rome', country: 'Italy' },
+      averagePrice: 1100,
+      bestPrice: 850,
+      priceTrend: 'falling'
+    },
+    {
+      origin: { code: 'PDX', name: 'Portland International', city: 'Portland', country: 'USA' },
+      destination: { code: 'FCO', name: 'Leonardo da Vinci International', city: 'Rome', country: 'Italy' },
+      averagePrice: 1350,
+      bestPrice: 1100,
+      priceTrend: 'stable'
+    },
+    {
+      origin: { code: 'SEA', name: 'Seattle-Tacoma International', city: 'Seattle', country: 'USA' },
+      destination: { code: 'FLR', name: 'Florence Airport', city: 'Florence', country: 'Italy' },
+      averagePrice: 1400,
+      bestPrice: 1150,
+      priceTrend: 'falling'
     }
   ];
 
   const filterTemplates: FilterTemplate[] = [
+    {
+      id: 'international',
+      name: 'International Travel',
+      description: 'Premium comfort for international destinations, flexible dates, urgent alerts',
+      category: 'luxury',
+      filter: {
+        cabinClass: 'premium-economy',
+        flexibleDates: true,
+        instantPriceBreakAlerts: { enabled: true, type: 'exact-match', flexibilityOptions: { airline: false, stops: true, times: true, dates: true } },
+        monitorFrequency: 'hourly',
+        alertUrgency: 'urgent',
+        priceBreakConfidence: 'high'
+      }
+    },
     {
       id: 'business',
       name: 'Business Travel',
@@ -154,31 +231,42 @@ const FlightPriceFilter: React.FC<FlightPriceFilterProps> = ({
   const priceBreakExamples: PriceBreakExample[] = [
     {
       type: 'exact-match',
-      title: '✅ EXACT MATCH: Your ideal flight for $285',
-      description: 'LAX to NYC, nonstop, Delta, under $300',
-      price: 285,
-      originalPrice: 340,
-      savings: 55,
+      title: '✅ PERFECT MATCH: Your ideal international flight for $980',
+      description: 'JFK to Rome, premium-economy, Alitalia, under $1200',
+      price: 980,
+      originalPrice: 1250,
+      savings: 270,
       confidence: 'high'
     },
     {
       type: 'flexible-match',
-      title: '⚡ PRICE BREAK: $275 flight available',
-      description: 'Different airline but meets budget',
-      price: 275,
-      originalPrice: 340,
-      savings: 65,
-      differences: ['Different airline (American instead of Delta)', '1 stop instead of nonstop'],
+      title: '⚡ PRICE BREAK: $920 Florence flight available',
+      description: 'Different departure time but meets your budget',
+      price: 920,
+      originalPrice: 1150,
+      savings: 230,
+      differences: ['Departure at 2pm instead of 10am', '1 stop instead of nonstop'],
       confidence: 'medium'
+    },
+    {
+      type: 'exact-match',
+      title: '🎯 GREAT DEAL: $65 internal flight',
+      description: 'Rome to Florence, morning departure, perfect timing',
+      price: 65,
+      originalPrice: 95,
+      savings: 30,
+      confidence: 'high'
     }
   ];
 
   const historicalData: HistoricalPriceData[] = [
-    { date: '2024-01-01', price: 400, trend: 'rising' },
-    { date: '2024-01-15', price: 380, trend: 'falling' },
-    { date: '2024-02-01', price: 360, trend: 'falling' },
-    { date: '2024-02-15', price: 340, trend: 'falling' },
-    { date: '2024-03-01', price: 320, trend: 'falling' }
+    { date: '2025-06-01', price: 1450, trend: 'rising' },
+    { date: '2025-06-15', price: 1380, trend: 'falling' },
+    { date: '2025-07-01', price: 1320, trend: 'falling' },
+    { date: '2025-07-15', price: 1280, trend: 'falling' },
+    { date: '2025-08-01', price: 1250, trend: 'falling' },
+    { date: '2025-08-15', price: 1220, trend: 'falling' },
+    { date: '2025-09-01', price: 1180, trend: 'falling' }
   ];
 
   const steps = [

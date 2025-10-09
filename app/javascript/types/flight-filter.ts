@@ -1,4 +1,18 @@
 export interface Airport {
+  iata_code: string;
+  name: string;
+  city: string;
+  country: string;
+  search_index?: string;
+  icao_code?: string;
+  latitude?: number;
+  longitude?: number;
+  altitude?: number;
+  timezone?: string;
+}
+
+// Legacy interface for backward compatibility
+export interface LegacyAirport {
   code: string;
   name: string;
   city: string;
