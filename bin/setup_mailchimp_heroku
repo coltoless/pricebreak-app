@@ -1,0 +1,86 @@
+#!/usr/bin/env bash
+# Setup Mailchimp integration on Heroku
+
+set -e
+
+echo "================================================"
+echo "Mailchimp Heroku Setup Script"
+echo "================================================"
+echo ""
+
+# Check if heroku CLI is installed
+if ! command -v heroku &> /dev/null; then
+    echo "❌ Heroku CLI not found. Please install it first:"
+    echo "   brew tap heroku/brew && brew install heroku"
+    exit 1
+fi
+
+echo "✅ Heroku CLI found"
+echo ""
+
+# Get app name
+APP_NAME=${HEROKU_APP_NAME:-pricebreak-app}
+echo "Heroku app: $APP_NAME"
+echo ""
+
+# Prompt for Mailchimp credentials
+echo "Please enter your Mailchimp credentials:"
+echo "(You can find these in your Mailchimp account)"
+echo ""
+
+read -p "Mailchimp API Key: " MAILCHIMP_API_KEY
+read -p "Mailchimp List ID: " MAILCHIMP_LIST_ID
+
+if [ -z "$MAILCHIMP_API_KEY" ] || [ -z "$MAILCHIMP_LIST_ID" ]; then
+    echo "❌ Both API Key and List ID are required"
+    exit 1
+fi
+
+echo ""
+echo "================================================"
+echo "Setting environment variables on Heroku..."
+echo "================================================"
+
+heroku config:set MAILCHIMP_API_KEY="$MAILCHIMP_API_KEY" --app $APP_NAME
+heroku config:set MAILCHIMP_LIST_ID="$MAILCHIMP_LIST_ID" --app $APP_NAME
+
+echo ""
+echo "✅ Environment variables set successfully"
+echo ""
+
+echo "================================================"
+echo "Deploying latest code to Heroku..."
+echo "================================================"
+
+git push heroku main
+
+echo ""
+echo "================================================"
+echo "Running database migrations..."
+echo "================================================"
+
+heroku run rails db:migrate --app $APP_NAME
+
+echo ""
+echo "================================================"
+echo "Testing Mailchimp connection..."
+echo "================================================"
+
+heroku run rails mailchimp:test_connection --app $APP_NAME
+
+echo ""
+echo "================================================"
+echo "Setup Complete! 🎉"
+echo "================================================"
+echo ""
+echo "Next steps:"
+echo "1. Visit your site: https://$APP_NAME.herokuapp.com"
+echo "2. Test the email subscription form"
+echo "3. Check your Mailchimp audience to verify emails are being added"
+echo ""
+echo "Useful commands:"
+echo "  heroku logs --tail --app $APP_NAME | grep -i mailchimp"
+echo "  heroku run rails mailchimp:status --app $APP_NAME"
+echo "  heroku ps --app $APP_NAME"
+echo ""
+
