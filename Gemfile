@@ -47,7 +47,7 @@ gem "devise"
 gem "firebase-admin-sdk"
 
 # Encryption
-gem 'attr_encrypted', '~> 4.0.0'
+gem 'attr_encrypted', '~> 4.2.0'
 
 # Email Marketing
 gem 'gibbon', '~> 3.4'
