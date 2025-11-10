@@ -16,7 +16,7 @@ PriceBreak is a Ruby on Rails application that helps destination wedding guests 
 
 ## Tech Stack
 
-- Ruby on Rails 8.0.2
+- Ruby on Rails 8.1.1
 - PostgreSQL database
 - Redis for caching and background jobs
 - ActionCable for WebSocket connections

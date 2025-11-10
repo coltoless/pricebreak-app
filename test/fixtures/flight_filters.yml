@@ -1,6 +1,7 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
+  user: one
   name: "Test Flight Filter 1"
   description: "A test filter for LAX to JFK"
   origin_airports: "LAX"
@@ -29,6 +30,7 @@ one:
   is_active: true
 
 two:
+  user: two
   name: "Test Flight Filter 2"
   description: "A test filter for SFO to ORD"
   origin_airports: "SFO"
@@ -58,6 +60,7 @@ two:
   is_active: true
 
 three:
+  user: one
   name: "Test Flight Filter 3 (No User)"
   description: "A test filter without user association for Phase 1"
   origin_airports: "DFW"

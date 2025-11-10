@@ -2,6 +2,7 @@ require 'test_helper'
 
 class FlightFilterTest < ActiveSupport::TestCase
   def setup
+    @user = users(:one)
     @valid_filter_params = {
       name: "Test Flight Filter",
       description: "A test filter for testing",
@@ -13,11 +14,12 @@ class FlightFilterTest < ActiveSupport::TestCase
       passenger_details: { "adults" => 2, "children" => 1, "infants" => 0 },
       price_parameters: { "target_price" => 500, "max_price" => 1000, "min_price" => 200 },
       advanced_preferences: { "cabin_class" => "economy", "max_stops" => "1-stop", "airline_preferences" => [] },
-      alert_settings: { "monitor_frequency" => "daily", "notification_methods" => { "email" => true } }
+      alert_settings: { "monitor_frequency" => "daily", "notification_methods" => { "email" => true } },
+      user: @user
     }
   end
 
-  test "should create a valid flight filter without user (Phase 1)" do
+  test "should create a valid flight filter with user" do
     filter = FlightFilter.new(@valid_filter_params)
     assert filter.valid?
     assert filter.save

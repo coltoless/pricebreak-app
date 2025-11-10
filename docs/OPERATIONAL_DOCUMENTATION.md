@@ -31,7 +31,7 @@ PriceBreak Flight Features is a comprehensive flight monitoring and alerting sys
 - **Background Processing**: Sidekiq-based job processing with intelligent scheduling
 
 ### Technology Stack
-- **Backend**: Ruby on Rails 8.0
+- **Backend**: Ruby on Rails 8.1.1
 - **Database**: PostgreSQL with Redis for caching
 - **Background Jobs**: Sidekiq with Redis
 - **Frontend**: React with TypeScript
