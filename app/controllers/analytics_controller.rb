@@ -735,19 +735,19 @@ class AnalyticsController < ApplicationController
 
   def get_seasonal_routes(year)
     {
-      spring: ["NYC-LAX", "CHI-MIA", "DEN-SEA"],
-      summer: ["LAX-SFO", "NYC-MIA", "CHI-DEN"],
-      fall: ["NYC-CHI", "LAX-DEN", "MIA-ATL"],
-      winter: ["NYC-FLL", "CHI-PHX", "DEN-LAX"]
+      spring: [ "NYC-LAX", "CHI-MIA", "DEN-SEA" ],
+      summer: [ "LAX-SFO", "NYC-MIA", "CHI-DEN" ],
+      fall: [ "NYC-CHI", "LAX-DEN", "MIA-ATL" ],
+      winter: [ "NYC-FLL", "CHI-PHX", "DEN-LAX" ]
     }
   end
 
   def get_holiday_impact(year)
     {
-      thanksgiving: { impact: 1.35, routes: ["NYC-LAX", "CHI-NYC"] },
-      christmas: { impact: 1.45, routes: ["NYC-MIA", "LAX-SFO"] },
-      new_year: { impact: 1.25, routes: ["NYC-LAX", "CHI-DEN"] },
-      summer_vacation: { impact: 1.20, routes: ["LAX-SFO", "NYC-MIA"] }
+      thanksgiving: { impact: 1.35, routes: [ "NYC-LAX", "CHI-NYC" ] },
+      christmas: { impact: 1.45, routes: [ "NYC-MIA", "LAX-SFO" ] },
+      new_year: { impact: 1.25, routes: [ "NYC-LAX", "CHI-DEN" ] },
+      summer_vacation: { impact: 1.20, routes: [ "LAX-SFO", "NYC-MIA" ] }
     }
   end
 
