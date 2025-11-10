@@ -100,18 +100,19 @@ class AnalyticsController < ApplicationController
     days = params[:days] || 30
     metric_type = params[:metric] || "all"
 
-    trends_data = case metric_type
-                  when "performance"
-                    PerformanceOptimizationService.get_performance_trends(days.to_i)
-                  when "user_engagement"
-                    get_user_engagement_trends(days.to_i)
-                  when "filter_performance"
-                    get_filter_performance_trends(days.to_i)
-                  when "alert_effectiveness"
-                    get_alert_effectiveness_trends(days.to_i)
-                  else
-                    get_all_trends(days.to_i)
-                  end
+    trends_data =
+      case metric_type
+      when "performance"
+        PerformanceOptimizationService.get_performance_trends(days.to_i)
+      when "user_engagement"
+        get_user_engagement_trends(days.to_i)
+      when "filter_performance"
+        get_filter_performance_trends(days.to_i)
+      when "alert_effectiveness"
+        get_alert_effectiveness_trends(days.to_i)
+      else
+        get_all_trends(days.to_i)
+      end
 
     render json: trends_data
   end
@@ -133,16 +134,17 @@ class AnalyticsController < ApplicationController
   def user_segments
     segment_type = params[:segment_type] || "behavior"
 
-    segments_data = case segment_type
-                    when "behavior"
-                      get_behavior_segments
-                    when "engagement"
-                      get_engagement_segments
-                    when "value"
-                      get_value_segments
-                    else
-                      get_all_segments
-                    end
+    segments_data =
+      case segment_type
+      when "behavior"
+        get_behavior_segments
+      when "engagement"
+        get_engagement_segments
+      when "value"
+        get_value_segments
+      else
+        get_all_segments
+      end
 
     render json: segments_data
   end
@@ -210,16 +212,17 @@ class AnalyticsController < ApplicationController
   end
 
   def get_user_activity_metrics(timeframe)
-    start_date = case timeframe
-                 when "24_hours"
-                   1.day.ago
-                 when "7_days"
-                   7.days.ago
-                 when "30_days"
-                   30.days.ago
-                 else
-                   1.day.ago
-                 end
+    start_date =
+      case timeframe
+      when "24_hours"
+        1.day.ago
+      when "7_days"
+        7.days.ago
+      when "30_days"
+        30.days.ago
+      else
+        1.day.ago
+      end
 
     {
       active_users: User.where("last_sign_in_at > ?", start_date).count,
@@ -231,16 +234,17 @@ class AnalyticsController < ApplicationController
   end
 
   def get_filter_activity_metrics(timeframe)
-    start_date = case timeframe
-                 when "24_hours"
-                   1.day.ago
-                 when "7_days"
-                   7.days.ago
-                 when "30_days"
-                   30.days.ago
-                 else
-                   1.day.ago
-                 end
+    start_date =
+      case timeframe
+      when "24_hours"
+        1.day.ago
+      when "7_days"
+        7.days.ago
+      when "30_days"
+        30.days.ago
+      else
+        1.day.ago
+      end
 
     {
       filters_created: FlightFilter.where("created_at > ?", start_date).count,
@@ -252,16 +256,17 @@ class AnalyticsController < ApplicationController
   end
 
   def get_alert_activity_metrics(timeframe)
-    start_date = case timeframe
-                 when "24_hours"
-                   1.day.ago
-                 when "7_days"
-                   7.days.ago
-                 when "30_days"
-                   30.days.ago
-                 else
-                   1.day.ago
-                 end
+    start_date =
+      case timeframe
+      when "24_hours"
+        1.day.ago
+      when "7_days"
+        7.days.ago
+      when "30_days"
+        30.days.ago
+      else
+        1.day.ago
+      end
 
     {
       alerts_triggered: FlightAlert.where("created_at > ?", start_date).where(status: "triggered").count,
@@ -283,16 +288,17 @@ class AnalyticsController < ApplicationController
   end
 
   def get_user_engagement_metrics(timeframe)
-    start_date = case timeframe
-                 when "24_hours"
-                   1.day.ago
-                 when "7_days"
-                   7.days.ago
-                 when "30_days"
-                   30.days.ago
-                 else
-                   1.day.ago
-                 end
+    start_date =
+      case timeframe
+      when "24_hours"
+        1.day.ago
+      when "7_days"
+        7.days.ago
+      when "30_days"
+        30.days.ago
+      else
+        1.day.ago
+      end
 
     user_scope = User.where(id: current_user.id)
 
@@ -306,16 +312,17 @@ class AnalyticsController < ApplicationController
   end
 
   def get_user_filter_metrics(timeframe)
-    start_date = case timeframe
-                 when "24_hours"
-                   1.day.ago
-                 when "7_days"
-                   7.days.ago
-                 when "30_days"
-                   30.days.ago
-                 else
-                   1.day.ago
-                 end
+    start_date =
+      case timeframe
+      when "24_hours"
+        1.day.ago
+      when "7_days"
+        7.days.ago
+      when "30_days"
+        30.days.ago
+      else
+        1.day.ago
+      end
 
     {
       total_filters: current_user.flight_filters.count,
@@ -327,16 +334,17 @@ class AnalyticsController < ApplicationController
   end
 
   def get_user_alert_metrics(timeframe)
-    start_date = case timeframe
-                 when "24_hours"
-                   1.day.ago
-                 when "7_days"
-                   7.days.ago
-                 when "30_days"
-                   30.days.ago
-                 else
-                   1.day.ago
-                 end
+    start_date =
+      case timeframe
+      when "24_hours"
+        1.day.ago
+      when "7_days"
+        7.days.ago
+      when "30_days"
+        30.days.ago
+      else
+        1.day.ago
+      end
 
     {
       total_alerts: current_user.flight_alerts.count,
@@ -657,16 +665,17 @@ class AnalyticsController < ApplicationController
   end
 
   def get_route_analysis(route, timeframe)
-    start_date = case timeframe
-                 when "24_hours"
-                   1.day.ago
-                 when "7_days"
-                   7.days.ago
-                 when "30_days"
-                   30.days.ago
-                 else
-                   30.days.ago
-                 end
+    start_date =
+      case timeframe
+      when "24_hours"
+        1.day.ago
+      when "7_days"
+        7.days.ago
+      when "30_days"
+        30.days.ago
+      else
+        30.days.ago
+      end
 
     {
       route: route,
@@ -679,16 +688,17 @@ class AnalyticsController < ApplicationController
   end
 
   def get_top_routes_analysis(timeframe)
-    start_date = case timeframe
-                 when "24_hours"
-                   1.day.ago
-                 when "7_days"
-                   7.days.ago
-                 when "30_days"
-                   30.days.ago
-                 else
-                   30.days.ago
-                 end
+    start_date =
+      case timeframe
+      when "24_hours"
+        1.day.ago
+      when "7_days"
+        7.days.ago
+      when "30_days"
+        30.days.ago
+      else
+        30.days.ago
+      end
 
     FlightFilter.where("created_at > ?", start_date)
                 .group(:origin_airports, :destination_airports)
