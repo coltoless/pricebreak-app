@@ -469,7 +469,7 @@ const FlightPriceCalendar: React.FC<FlightPriceCalendarProps> = ({
     }
 
     const entry = availableByDate.get(key);
-    if (!entry || !entry.isAvailable) {
+    if (entry && entry.isAvailable === false) {
       return true;
     }
 
@@ -552,7 +552,7 @@ const FlightPriceCalendar: React.FC<FlightPriceCalendarProps> = ({
             const priceColor =
               entry && !disabled
                 ? resolvePriceColor(entry.price, derivedRange)
-                : undefined;
+                : "#8B5CF6";
 
             return (
               <div

@@ -73,16 +73,12 @@ const Step2FlightPreferences: React.FC<Step2FlightPreferencesProps> = ({ filter,
   );
 
   return (
-    <div className="space-y-6">
-      <div className="text-center mb-6">
-        <h2 className="text-2xl font-bold text-gray-900 mb-2">Flight Preferences</h2>
-        <p className="text-gray-600">Customize your flight experience and preferences</p>
-      </div>
+    <div className="space-y-8">
 
       {/* Cabin Class */}
-      <div className="bg-gray-50 p-4 rounded-lg">
-        <h3 className="font-semibold text-gray-900 mb-3 flex items-center">
-          <Plane className="w-4 h-4 mr-2" />
+      <div className="rounded-xl border border-[#E9D5FF] bg-[#F5F3FF] p-4">
+        <h3 className="mb-3 flex items-center font-semibold text-[#4C1D95]">
+          <Plane className="w-4 h-4 mr-2 text-[#7C3AED]" />
           Cabin Class
         </h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
@@ -90,37 +86,41 @@ const Step2FlightPreferences: React.FC<Step2FlightPreferencesProps> = ({ filter,
             <button
               key={cabin.value}
               onClick={() => updateFilter({ cabinClass: cabin.value as any })}
-              className={`p-4 rounded-lg border-2 transition-colors text-left ${
+              className={`rounded-lg border-2 p-4 text-left transition-colors ${
                 filter.cabinClass === cabin.value
-                  ? 'border-blue-500 bg-blue-50 text-blue-700'
-                  : 'border-gray-300 bg-white text-gray-700 hover:border-gray-400'
+                  ? 'border-transparent bg-gradient-to-br from-[#8B5CF6] via-[#7C3AED] to-[#6B21A8] text-white shadow-lg shadow-[#5B21B650]'
+                  : 'border-[#E9D5FF] bg-white text-[#4C1D95] hover:border-[#C4B5FD]'
               }`}
             >
               <div className="font-medium">{cabin.label}</div>
-              <div className="text-sm text-gray-600">{cabin.description}</div>
-              <div className="text-xs font-medium text-blue-600">{cabin.price}</div>
+              <div className={`text-sm ${filter.cabinClass === cabin.value ? 'text-white/80' : 'text-[#4C1D95]/70'}`}>
+                {cabin.description}
+              </div>
+              <div className={`text-xs font-medium ${filter.cabinClass === cabin.value ? 'text-white/80' : 'text-[#7C3AED]'}`}>
+                {cabin.price}
+              </div>
             </button>
           ))}
         </div>
       </div>
 
       {/* Passengers */}
-      <div className="bg-gray-50 p-4 rounded-lg">
-        <h3 className="font-semibold text-gray-900 mb-3 flex items-center">
-          <Users className="w-4 h-4 mr-2" />
+      <div className="rounded-xl border border-[#E9D5FF] bg-[#F5F3FF] p-4">
+        <h3 className="mb-3 flex items-center font-semibold text-[#4C1D95]">
+          <Users className="w-4 h-4 mr-2 text-[#7C3AED]" />
           Passengers
         </h3>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           {(['adults', 'children', 'infants'] as const).map((type) => (
             <div key={type} className="text-center">
-              <label className="block text-sm font-medium text-gray-700 mb-2 capitalize">
+              <label className="mb-2 block text-sm font-medium text-[#4C1D95] capitalize">
                 {type}
               </label>
               <div className="flex items-center justify-center space-x-2">
                 <button
                   onClick={() => updatePassengers(type, filter.passengers[type] - 1)}
                   disabled={filter.passengers[type] === 0}
-                  className="w-8 h-8 rounded-full bg-gray-200 text-gray-600 hover:bg-gray-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center"
+                  className="flex h-8 w-8 items-center justify-center rounded-full bg-white text-[#4C1D95] shadow-inner shadow-white/40 hover:bg-[#EDE9FE] disabled:cursor-not-allowed disabled:opacity-50"
                 >
                   -
                 </button>
@@ -129,13 +129,13 @@ const Step2FlightPreferences: React.FC<Step2FlightPreferencesProps> = ({ filter,
                 </span>
                 <button
                   onClick={() => updatePassengers(type, filter.passengers[type] + 1)}
-                  className="w-8 h-8 rounded-full bg-blue-500 text-white hover:bg-blue-600 flex items-center justify-center"
+                  className="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-[#8B5CF6] to-[#6B21A8] text-white shadow-lg shadow-[#6B21A850] hover:scale-[1.05]"
                 >
                   +
                 </button>
               </div>
               {type === 'infants' && (
-                <p className="text-xs text-gray-500 mt-1">
+                <p className="mt-1 text-xs text-[#4C1D95]/70">
                   Must be under 2 years old
                 </p>
               )}
@@ -149,8 +149,8 @@ const Step2FlightPreferences: React.FC<Step2FlightPreferencesProps> = ({ filter,
       </div>
 
       {/* Airline Preferences */}
-      <div className="bg-gray-50 p-4 rounded-lg">
-        <h3 className="font-semibold text-gray-900 mb-3">Airline Preferences</h3>
+      <div className="rounded-xl border border-[#E9D5FF] bg-[#F5F3FF] p-4">
+        <h3 className="mb-3 font-semibold text-[#4C1D95]">Airline Preferences</h3>
         <div className="relative mb-3">
           <input
             type="text"
@@ -161,23 +161,23 @@ const Step2FlightPreferences: React.FC<Step2FlightPreferencesProps> = ({ filter,
             }}
             onFocus={() => setShowAirlineDropdown(true)}
             placeholder="Search airlines..."
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            className="w-full rounded-lg border border-[#E9D5FF] bg-white px-4 py-2 text-[#4C1D95] focus:border-[#C4B5FD] focus:ring-2 focus:ring-[#C4B5FD]"
           />
           
           {showAirlineDropdown && (
-            <div className="absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded-lg shadow-lg max-h-60 overflow-y-auto">
+            <div className="absolute z-10 mt-1 w-full max-h-60 overflow-y-auto rounded-lg border border-[#E9D5FF] bg-white shadow-xl shadow-[#5B21B620]/20">
               {filteredAirlines.map((airline) => (
                 <button
                   key={airline}
                   onClick={() => toggleAirline(airline)}
-                  className="w-full text-left px-4 py-2 hover:bg-gray-50 border-b border-gray-100 last:border-b-0"
+                  className="w-full border-b border-[#F3E8FF] px-4 py-2 text-left hover:bg-[#F5F3FF] last:border-b-0"
                 >
                   <div className="flex items-center">
                     <input
                       type="checkbox"
                       checked={filter.airlinePreferences.includes(airline)}
                       readOnly
-                      className="mr-3 h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                      className="mr-3 h-4 w-4 rounded border-[#E9D5FF] text-[#8B5CF6] focus:ring-[#8B5CF6]"
                     />
                     {airline}
                   </div>
@@ -192,12 +192,12 @@ const Step2FlightPreferences: React.FC<Step2FlightPreferencesProps> = ({ filter,
             {filter.airlinePreferences.map((airline) => (
               <span
                 key={airline}
-                className="inline-flex items-center px-3 py-1 rounded-full text-sm bg-blue-100 text-blue-800"
+                className="inline-flex items-center rounded-full bg-[#DDD6FE] px-3 py-1 text-sm text-[#4C1D95]"
               >
                 {airline}
                 <button
                   onClick={() => toggleAirline(airline)}
-                  className="ml-2 text-blue-600 hover:text-blue-800"
+                  className="ml-2 text-[#7C3AED] hover:text-[#5B21B6]"
                 >
                   ×
                 </button>
@@ -206,7 +206,7 @@ const Step2FlightPreferences: React.FC<Step2FlightPreferencesProps> = ({ filter,
           </div>
         )}
         
-        <p className="text-sm text-gray-600 mt-2">
+        <p className="mt-2 text-sm text-[#4C1D95]/70">
           {filter.airlinePreferences.length === 0 
             ? 'No specific airline preferences - we\'ll search all available carriers'
             : `Preferring ${filter.airlinePreferences.length} airline(s)`
@@ -215,49 +215,61 @@ const Step2FlightPreferences: React.FC<Step2FlightPreferencesProps> = ({ filter,
       </div>
 
       {/* Maximum Stops */}
-      <div className="bg-gray-50 p-4 rounded-lg">
-        <h3 className="font-semibold text-gray-900 mb-3">Maximum Stops</h3>
+      <div className="rounded-xl border border-[#E9D5FF] bg-[#F5F3FF] p-4">
+        <h3 className="mb-3 font-semibold text-[#4C1D95]">Maximum Stops</h3>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
           {stopOptions.map((option) => (
             <button
               key={option.value}
               onClick={() => updateFilter({ maxStops: option.value as any })}
-              className={`p-4 rounded-lg border-2 transition-colors text-center ${
+              className={`rounded-lg border-2 p-4 text-center transition-colors ${
                 filter.maxStops === option.value
-                  ? 'border-blue-500 bg-blue-50 text-blue-700'
-                  : 'border-gray-300 bg-white text-gray-700 hover:border-gray-400'
+                  ? 'border-transparent bg-gradient-to-br from-[#8B5CF6] via-[#7C3AED] to-[#6B21A8] text-white shadow-lg shadow-[#5B21B650]'
+                  : 'border-[#E9D5FF] bg-white text-[#4C1D95] hover:border-[#C4B5FD]'
               }`}
             >
               <div className="font-medium">{option.label}</div>
-              <div className="text-sm text-gray-600">{option.description}</div>
+              <div className={`text-sm ${filter.maxStops === option.value ? 'text-white/80' : 'text-[#4C1D95]/70'}`}>
+                {option.description}
+              </div>
             </button>
           ))}
         </div>
       </div>
 
       {/* Preferred Times */}
-      <div className="bg-gray-50 p-4 rounded-lg">
-        <h3 className="font-semibold text-gray-900 mb-3 flex items-center">
-          <Clock className="w-4 h-4 mr-2" />
+      <div className="rounded-xl border border-[#E9D5FF] bg-[#F5F3FF] p-4">
+        <h3 className="mb-3 flex items-center font-semibold text-[#4C1D95]">
+          <Clock className="w-4 h-4 mr-2 text-[#7C3AED]" />
           Preferred Times
         </h3>
         
         {/* Departure Times */}
         <div className="mb-4">
-          <h4 className="text-sm font-medium text-gray-700 mb-2">Departure Times</h4>
+          <h4 className="mb-2 text-sm font-medium text-[#4C1D95]">
+            Departure Times
+          </h4>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
             {timeSlots.map((slot) => (
               <button
                 key={slot.value}
                 onClick={() => toggleTimePreference('departure', slot.value)}
-                className={`p-3 rounded-lg border-2 transition-colors text-center ${
+                className={`rounded-lg border-2 p-3 text-center transition-colors ${
                   filter.preferredTimes.departure.includes(slot.value as any)
-                    ? 'border-blue-500 bg-blue-50 text-blue-700'
-                    : 'border-gray-300 bg-white text-gray-700 hover:border-gray-400'
+                    ? 'border-transparent bg-gradient-to-br from-[#8B5CF6] via-[#7C3AED] to-[#6B21A8] text-white shadow-lg shadow-[#5B21B650]'
+                    : 'border-[#E9D5FF] bg-white text-[#4C1D95] hover:border-[#C4B5FD]'
                 }`}
               >
-                <div className="text-lg mb-1">{slot.icon}</div>
-                <div className="text-xs font-medium">{slot.label}</div>
+                <div className="mb-1 text-lg">{slot.icon}</div>
+                <div
+                  className={`text-xs font-medium ${
+                    filter.preferredTimes.departure.includes(slot.value as any)
+                      ? 'text-white/90'
+                      : 'text-[#4C1D95]/80'
+                  }`}
+                >
+                  {slot.label}
+                </div>
               </button>
             ))}
           </div>
@@ -265,37 +277,49 @@ const Step2FlightPreferences: React.FC<Step2FlightPreferencesProps> = ({ filter,
 
         {/* Arrival Times */}
         <div>
-          <h4 className="text-sm font-medium text-gray-700 mb-2">Arrival Times</h4>
+          <h4 className="mb-2 text-sm font-medium text-[#4C1D95]">
+            Arrival Times
+          </h4>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
             {timeSlots.map((slot) => (
               <button
                 key={slot.value}
                 onClick={() => toggleTimePreference('arrival', slot.value)}
-                className={`p-3 rounded-lg border-2 transition-colors text-center ${
+                className={`rounded-lg border-2 p-3 text-center transition-colors ${
                   filter.preferredTimes.arrival.includes(slot.value as any)
-                    ? 'border-blue-500 bg-blue-50 text-blue-700'
-                    : 'border-gray-300 bg-white text-gray-700 hover:border-gray-400'
+                    ? 'border-transparent bg-gradient-to-br from-[#8B5CF6] via-[#7C3AED] to-[#6B21A8] text-white shadow-lg shadow-[#5B21B650]'
+                    : 'border-[#E9D5FF] bg-white text-[#4C1D95] hover:border-[#C4B5FD]'
                 }`}
               >
-                <div className="text-lg mb-1">{slot.icon}</div>
-                <div className="text-xs font-medium">{slot.label}</div>
+                <div className="mb-1 text-lg">{slot.icon}</div>
+                <div
+                  className={`text-xs font-medium ${
+                    filter.preferredTimes.arrival.includes(slot.value as any)
+                      ? 'text-white/90'
+                      : 'text-[#4C1D95]/80'
+                  }`}
+                >
+                  {slot.label}
+                </div>
               </button>
             ))}
           </div>
         </div>
 
         <div className="mt-3 flex items-start">
-          <Info className="w-4 h-4 text-blue-500 mr-2 mt-0.5 flex-shrink-0" />
-          <p className="text-sm text-blue-700">
+          <Info className="mr-2 mt-0.5 h-4 w-4 flex-shrink-0 text-[#8B5CF6]" />
+          <p className="text-sm text-[#4C1D95]">
             Select your preferred departure and arrival times. We'll prioritize flights that match your preferences.
           </p>
         </div>
       </div>
 
       {/* Preferences Summary */}
-      <div className="bg-green-50 p-4 rounded-lg border border-green-200">
-        <h3 className="font-medium text-green-800 mb-2">Flight Preferences Summary</h3>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm text-green-700">
+      <div className="rounded-xl border border-[#14B8A6]/40 bg-gradient-to-r from-[#0ea5e9]/20 via-[#06B6D4]/20 to-transparent p-4 text-[#0f172a]">
+        <h3 className="mb-2 font-medium text-[#0f172a]">
+          Flight Preferences Summary
+        </h3>
+        <div className="grid grid-cols-1 gap-4 text-sm text-[#0f172a]/80 md:grid-cols-2">
           <div>
             <span className="font-medium">Cabin:</span> {filter.cabinClass.replace('-', ' ').replace(/\b\w/g, l => l.toUpperCase())}
           </div>

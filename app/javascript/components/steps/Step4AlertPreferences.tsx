@@ -1,5 +1,5 @@
 import React from 'react';
-import { Bell, Clock, AlertTriangle, Mail, MessageSquare, Smartphone, Monitor, Info, Zap } from 'lucide-react';
+import { Bell, Clock, AlertTriangle, Mail, MessageSquare, Smartphone, Monitor, Info, Zap, Gauge, TrendingUp } from 'lucide-react';
 import { FlightFilter, ValidationError } from '../../types/flight-filter';
 
 interface Step4AlertPreferencesProps {
@@ -10,22 +10,22 @@ interface Step4AlertPreferencesProps {
 
 const Step4AlertPreferences: React.FC<Step4AlertPreferencesProps> = ({ filter, updateFilter, errors }) => {
   const monitoringFrequencies = [
-    { value: 'real-time', label: 'Real-time', description: 'Instant notifications', icon: Zap, color: 'text-red-600' },
-    { value: 'hourly', label: 'Hourly', description: 'Updates every hour', icon: Clock, color: 'text-orange-600' },
-    { value: 'daily', label: 'Daily', description: 'Daily summary', icon: Clock, color: 'text-blue-600' },
-    { value: 'weekly', label: 'Weekly', description: 'Weekly summary', icon: Clock, color: 'text-gray-600' }
+    { value: 'real-time', label: 'Real-time', description: 'Instant notifications', icon: Zap, accent: 'text-[#06B6D4]' },
+    { value: 'hourly', label: 'Hourly', description: 'Updates every hour', icon: Clock, accent: 'text-[#0EA5E9]' },
+    { value: 'daily', label: 'Daily', description: 'Daily summary', icon: Clock, accent: 'text-[#7C3AED]' },
+    { value: 'weekly', label: 'Weekly', description: 'Weekly summary', icon: Clock, accent: 'text-[#4C1D95]' }
   ];
 
   const alertUrgencyLevels = [
-    { value: 'patient', label: 'Patient', description: 'Relaxed monitoring', color: 'text-green-600' },
-    { value: 'moderate', label: 'Moderate', description: 'Balanced approach', color: 'text-yellow-600' },
-    { value: 'urgent', label: 'Urgent', description: 'Aggressive monitoring', color: 'text-red-600' }
+    { value: 'patient', label: 'Patient', description: 'Relaxed monitoring', icon: Gauge, accent: 'text-[#06B6D4]' },
+    { value: 'moderate', label: 'Moderate', description: 'Balanced approach', icon: Gauge, accent: 'text-[#F97316]' },
+    { value: 'urgent', label: 'Urgent', description: 'Aggressive monitoring', icon: AlertTriangle, accent: 'text-[#EC4899]' }
   ];
 
   const instantAlertPriorities = [
-    { value: 'normal', label: 'Normal', description: 'Standard priority', color: 'text-blue-600' },
-    { value: 'high', label: 'High Priority', description: 'Elevated importance', color: 'text-orange-600' },
-    { value: 'critical', label: 'Critical', description: 'Maximum urgency', color: 'text-red-600' }
+    { value: 'normal', label: 'Normal', description: 'Standard priority', icon: Bell, accent: 'text-[#7C3AED]' },
+    { value: 'high', label: 'High Priority', description: 'Elevated importance', icon: TrendingUp, accent: 'text-[#0EA5E9]' },
+    { value: 'critical', label: 'Critical', description: 'Maximum urgency', icon: AlertTriangle, accent: 'text-[#EC4899]' }
   ];
 
   const alertDetailLevels = [
@@ -55,17 +55,17 @@ const Step4AlertPreferences: React.FC<Step4AlertPreferencesProps> = ({ filter, u
 
   return (
     <div className="space-y-6">
-      <div className="text-center mb-6">
-        <h2 className="text-2xl font-bold text-gray-900 mb-2">Alert Preferences</h2>
-        <p className="text-gray-600">Configure how and when you want to be notified</p>
+      <div className="mb-6 text-center">
+        <h2 className="mb-2 text-2xl font-bold text-[#4C1D95]">Alert Preferences</h2>
+        <p className="text-[#4C1D95]/70">Configure how and when you want to be notified</p>
       </div>
 
       {/* Filter Metadata */}
-      <div className="bg-gray-50 p-4 rounded-lg">
-        <h3 className="font-semibold text-gray-900 mb-3">Filter Information</h3>
+      <div className="rounded-xl border border-[#E9D5FF] bg-[#F5F3FF] p-4">
+        <h3 className="mb-3 font-semibold text-[#4C1D95]">Filter Information</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="mb-2 block text-sm font-medium text-[#4C1D95]">
               Filter Name *
             </label>
             <input
@@ -73,15 +73,15 @@ const Step4AlertPreferences: React.FC<Step4AlertPreferencesProps> = ({ filter, u
               value={filter.filterName}
               onChange={(e) => updateFilter({ filterName: e.target.value })}
               placeholder="e.g., LAX to NYC Business Travel"
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              className="w-full rounded-lg border border-[#E9D5FF] px-4 py-3 text-[#4C1D95] focus:border-[#C4B5FD] focus:ring-2 focus:ring-[#C4B5FD]"
             />
             {getError('filterName') && (
-              <p className="mt-1 text-sm text-red-600">{getError('filterName')}</p>
+              <p className="mt-1 text-sm text-rose-500">{getError('filterName')}</p>
             )}
           </div>
           
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="mb-2 block text-sm font-medium text-[#4C1D95]">
               Description
             </label>
             <textarea
@@ -89,16 +89,16 @@ const Step4AlertPreferences: React.FC<Step4AlertPreferencesProps> = ({ filter, u
               onChange={(e) => updateFilter({ description: e.target.value })}
               placeholder="Optional description of this filter..."
               rows={3}
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              className="w-full rounded-lg border border-[#E9D5FF] px-4 py-3 text-[#4C1D95] focus:border-[#C4B5FD] focus:ring-2 focus:ring-[#C4B5FD]"
             />
           </div>
         </div>
       </div>
 
       {/* Monitoring Frequency */}
-      <div className="bg-gray-50 p-4 rounded-lg">
-        <h3 className="font-semibold text-gray-900 mb-3 flex items-center">
-          <Clock className="w-4 h-4 mr-2" />
+      <div className="rounded-xl border border-[#E9D5FF] bg-[#F5F3FF] p-4">
+        <h3 className="mb-3 flex items-center font-semibold text-[#4C1D95]">
+          <Clock className="mr-2 h-4 w-4 text-[#7C3AED]" />
           Monitoring Frequency
         </h3>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3">
@@ -108,25 +108,37 @@ const Step4AlertPreferences: React.FC<Step4AlertPreferencesProps> = ({ filter, u
               <button
                 key={freq.value}
                 onClick={() => updateFilter({ monitorFrequency: freq.value as any })}
-                className={`p-4 rounded-lg border-2 transition-colors text-center ${
+                className={`rounded-lg border-2 p-4 text-center transition-colors ${
                   filter.monitorFrequency === freq.value
-                    ? 'border-blue-500 bg-blue-50 text-blue-700'
-                    : 'border-gray-300 bg-white text-gray-700 hover:border-gray-400'
+                    ? 'border-transparent bg-gradient-to-br from-[#8B5CF6] via-[#7C3AED] to-[#6B21A8] text-white shadow-lg shadow-[#5B21B650]'
+                    : 'border-[#E9D5FF] bg-white text-[#4C1D95] hover:border-[#C4B5FD]'
                 }`}
               >
-                <Icon className={`w-6 h-6 mx-auto mb-2 ${freq.color}`} />
+                <Icon
+                  className={`mx-auto mb-2 h-6 w-6 ${
+                    filter.monitorFrequency === freq.value ? 'text-white' : freq.accent
+                  }`}
+                />
                 <div className="font-medium">{freq.label}</div>
-                <div className="text-sm text-gray-600">{freq.description}</div>
+                <div
+                  className={`text-sm ${
+                    filter.monitorFrequency === freq.value
+                      ? 'text-white/80'
+                      : 'text-[#4C1D95]/70'
+                  }`}
+                >
+                  {freq.description}
+                </div>
               </button>
             );
           })}
         </div>
         
         {filter.monitorFrequency === 'real-time' && (
-          <div className="mt-3 p-3 bg-yellow-50 border border-yellow-200 rounded-lg">
+          <div className="mt-3 rounded-lg border border-[#FBCFE8] bg-[#FDF2F8] p-3">
             <div className="flex items-start">
-              <AlertTriangle className="w-4 h-4 text-yellow-600 mr-2 mt-0.5 flex-shrink-0" />
-              <div className="text-sm text-yellow-800">
+              <AlertTriangle className="mr-2 mt-0.5 h-4 w-4 flex-shrink-0 text-[#EC4899]" />
+              <div className="text-sm text-[#9D174D]">
                 <strong>Real-time monitoring</strong> provides instant alerts but may increase battery usage and data consumption.
               </div>
             </div>
@@ -135,9 +147,9 @@ const Step4AlertPreferences: React.FC<Step4AlertPreferencesProps> = ({ filter, u
       </div>
 
       {/* Alert Urgency Level */}
-      <div className="bg-gray-50 p-4 rounded-lg">
-        <h3 className="font-semibold text-gray-900 mb-3 flex items-center">
-          <AlertTriangle className="w-4 h-4 mr-2" />
+      <div className="rounded-xl border border-[#E9D5FF] bg-[#F5F3FF] p-4">
+        <h3 className="mb-3 flex items-center font-semibold text-[#4C1D95]">
+          <AlertTriangle className="mr-2 h-4 w-4 text-[#EC4899]" />
           Alert Urgency Level
         </h3>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
@@ -147,15 +159,27 @@ const Step4AlertPreferences: React.FC<Step4AlertPreferencesProps> = ({ filter, u
               <button
                 key={level.value}
                 onClick={() => updateFilter({ alertUrgency: level.value as any })}
-                className={`p-4 rounded-lg border-2 transition-colors text-center ${
+                className={`rounded-lg border-2 p-4 text-center transition-colors ${
                   filter.alertUrgency === level.value
-                    ? 'border-blue-500 bg-blue-50 text-blue-700'
-                    : 'border-gray-300 bg-white text-gray-700 hover:border-gray-400'
+                    ? 'border-transparent bg-gradient-to-br from-[#8B5CF6] via-[#7C3AED] to-[#6B21A8] text-white shadow-lg shadow-[#5B21B650]'
+                    : 'border-[#E9D5FF] bg-white text-[#4C1D95] hover:border-[#C4B5FD]'
                 }`}
               >
-                <Icon className={`w-6 h-6 mx-auto mb-2 ${level.color}`} />
+                <Icon
+                  className={`mx-auto mb-2 h-6 w-6 ${
+                    filter.alertUrgency === level.value ? 'text-white' : level.accent
+                  }`}
+                />
                 <div className="font-medium">{level.label}</div>
-                <div className="text-sm text-gray-600">{level.description}</div>
+                <div
+                  className={`text-sm ${
+                    filter.alertUrgency === level.value
+                      ? 'text-white/80'
+                      : 'text-[#4C1D95]/70'
+                  }`}
+                >
+                  {level.description}
+                </div>
               </button>
             );
           })}
@@ -164,12 +188,12 @@ const Step4AlertPreferences: React.FC<Step4AlertPreferencesProps> = ({ filter, u
 
       {/* Instant Alert Priority */}
       {filter.instantPriceBreakAlerts.enabled && (
-        <div className="bg-gradient-to-r from-orange-50 to-red-50 p-4 rounded-lg border-2 border-orange-200">
-          <h3 className="font-semibold text-orange-900 mb-3 flex items-center">
-            <Zap className="w-5 h-5 mr-2" />
-            ⚡ INSTANT ALERT PRIORITY
+        <div className="rounded-2xl border-2 border-[#FBCFE8] bg-gradient-to-r from-[#FDF2F8] via-[#FDE68A]/40 to-[#FDF2F8] p-4">
+          <h3 className="mb-3 flex items-center font-semibold text-[#9D174D]">
+            <Zap className="mr-2 h-5 w-5 text-[#06B6D4]" />
+            ⚡ Instant Alert Priority
           </h3>
-          <p className="text-sm text-orange-800 mb-3">
+          <p className="mb-3 text-sm text-[#9D174D]">
             When price break alerts are enabled, these settings control notification priority:
           </p>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
@@ -179,15 +203,29 @@ const Step4AlertPreferences: React.FC<Step4AlertPreferencesProps> = ({ filter, u
                 <button
                   key={priority.value}
                   onClick={() => updateFilter({ instantAlertPriority: priority.value as any })}
-                  className={`p-4 rounded-lg border-2 transition-colors text-center ${
+                  className={`rounded-lg border-2 p-4 text-center transition-colors ${
                     filter.instantAlertPriority === priority.value
-                      ? 'border-orange-500 bg-orange-50 text-orange-700'
-                      : 'border-gray-300 bg-white text-gray-700 hover:border-gray-400'
+                      ? 'border-transparent bg-gradient-to-br from-[#8B5CF6] via-[#7C3AED] to-[#6B21A8] text-white shadow-lg shadow-[#5B21B650]'
+                      : 'border-[#E9D5FF] bg-white text-[#4C1D95] hover:border-[#C4B5FD]'
                   }`}
                 >
-                  <Icon className={`w-6 h-6 mx-auto mb-2 ${priority.color}`} />
+                  <Icon
+                    className={`mx-auto mb-2 h-6 w-6 ${
+                      filter.instantAlertPriority === priority.value
+                        ? 'text-white'
+                        : priority.accent
+                    }`}
+                  />
                   <div className="font-medium">{priority.label}</div>
-                  <div className="text-sm text-gray-600">{priority.description}</div>
+                  <div
+                    className={`text-sm ${
+                      filter.instantAlertPriority === priority.value
+                        ? 'text-white/80'
+                        : 'text-[#4C1D95]/70'
+                    }`}
+                  >
+                    {priority.description}
+                  </div>
                 </button>
               );
             })}
@@ -196,49 +234,60 @@ const Step4AlertPreferences: React.FC<Step4AlertPreferencesProps> = ({ filter, u
       )}
 
       {/* Alert Detail Level */}
-      <div className="bg-gray-50 p-4 rounded-lg">
-        <h3 className="font-semibold text-gray-900 mb-3">Alert Detail Level</h3>
+      <div className="rounded-xl border border-[#E9D5FF] bg-[#F5F3FF] p-4">
+        <h3 className="mb-3 font-semibold text-[#4C1D95]">Alert Detail Level</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
           {alertDetailLevels.map((level) => (
             <button
               key={level.value}
               onClick={() => updateFilter({ alertDetailLevel: level.value as any })}
-              className={`p-4 rounded-lg border-2 transition-colors text-left ${
+              className={`rounded-lg border-2 p-4 text-left transition-colors ${
                 filter.alertDetailLevel === level.value
-                  ? 'border-blue-500 bg-blue-50 text-blue-700'
-                  : 'border-gray-300 bg-white text-gray-700 hover:border-gray-400'
+                  ? 'border-transparent bg-gradient-to-br from-[#8B5CF6] via-[#7C3AED] to-[#6B21A8] text-white shadow-lg shadow-[#5B21B650]'
+                  : 'border-[#E9D5FF] bg-white text-[#4C1D95] hover:border-[#C4B5FD]'
               }`}
             >
               <div className="font-medium">{level.label}</div>
-              <div className="text-sm text-gray-600">{level.description}</div>
+              <div
+                className={`text-sm ${
+                  filter.alertDetailLevel === level.value
+                    ? 'text-white/80'
+                    : 'text-[#4C1D95]/70'
+                }`}
+              >
+                {level.description}
+              </div>
             </button>
           ))}
         </div>
       </div>
 
       {/* Notification Methods */}
-      <div className="bg-gray-50 p-4 rounded-lg">
-        <h3 className="font-semibold text-gray-900 mb-3 flex items-center">
-          <Bell className="w-4 h-4 mr-2" />
+      <div className="rounded-xl border border-[#E9D5FF] bg-[#F5F3FF] p-4">
+        <h3 className="mb-3 flex items-center font-semibold text-[#4C1D95]">
+          <Bell className="mr-2 h-4 w-4 text-[#7C3AED]" />
           Notification Methods *
         </h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
           {notificationMethods.map((method) => {
             const Icon = method.icon;
             return (
-              <label key={method.key} className="flex items-start p-4 border border-gray-200 rounded-lg hover:bg-gray-50 cursor-pointer">
+              <label
+                key={method.key}
+                className="flex cursor-pointer items-start rounded-lg border border-[#E9D5FF] bg-white/80 p-4 hover:border-[#C4B5FD] hover:bg-[#F5F3FF]"
+              >
                 <input
                   type="checkbox"
                   checked={filter.notificationMethods[method.key as keyof typeof filter.notificationMethods]}
                   onChange={() => toggleNotificationMethod(method.key as keyof typeof filter.notificationMethods)}
-                  className="h-5 w-5 text-blue-600 focus:ring-blue-500 border-gray-300 rounded mt-0.5"
+                  className="mt-0.5 h-5 w-5 rounded border-[#E9D5FF] text-[#8B5CF6] focus:ring-[#8B5CF6]"
                 />
                 <div className="ml-3">
                   <div className="flex items-center">
-                    <Icon className="w-5 h-5 text-gray-600 mr-2" />
-                    <span className="font-medium text-gray-900">{method.label}</span>
+                    <Icon className="mr-2 h-5 w-5 text-[#7C3AED]" />
+                    <span className="font-medium text-[#4C1D95]">{method.label}</span>
                   </div>
-                  <p className="text-sm text-gray-600 mt-1">{method.description}</p>
+                  <p className="mt-1 text-sm text-[#4C1D95]/70">{method.description}</p>
                 </div>
               </label>
             );
@@ -246,40 +295,44 @@ const Step4AlertPreferences: React.FC<Step4AlertPreferencesProps> = ({ filter, u
         </div>
         
         {getError('notificationMethods') && (
-          <p className="mt-3 text-sm text-red-600">{getError('notificationMethods')}</p>
+          <p className="mt-3 text-sm text-rose-500">{getError('notificationMethods')}</p>
         )}
         
         <div className="mt-3 flex items-start">
-          <Info className="w-4 h-4 text-blue-500 mr-2 mt-0.5 flex-shrink-0" />
-          <p className="text-sm text-blue-700">
+          <Info className="mr-2 mt-0.5 h-4 w-4 flex-shrink-0 text-[#8B5CF6]" />
+          <p className="text-sm text-[#4C1D95]">
             For instant price break alerts, we recommend enabling multiple notification methods to ensure you don't miss important price drops.
           </p>
         </div>
       </div>
 
       {/* Alert Content Preview */}
-      <div className="bg-gray-50 p-4 rounded-lg">
-        <h3 className="font-semibold text-gray-900 mb-3">Alert Content Preview</h3>
+      <div className="rounded-xl border border-[#E9D5FF] bg-[#F5F3FF] p-4">
+        <h3 className="mb-3 font-semibold text-[#4C1D95]">Alert Content Preview</h3>
         <div className="space-y-3">
-          <div className="bg-white p-4 rounded-lg border border-green-200">
-            <div className="flex items-center mb-2">
-              <div className="w-3 h-3 bg-green-500 rounded-full mr-2"></div>
-              <span className="font-medium text-green-800">✅ EXACT MATCH: Your ideal flight for $285 (was $340)</span>
+          <div className="rounded-lg border border-[#14B8A6]/50 bg-white p-4 shadow-sm shadow-[#0f172a0f]">
+            <div className="mb-2 flex items-center">
+              <div className="mr-2 h-3 w-3 rounded-full bg-[#14B8A6]" />
+              <span className="font-medium text-[#0f172a]">
+                ✅ EXACT MATCH: Your ideal flight for $285 (was $340)
+              </span>
             </div>
-            <div className="text-sm text-green-700">
+            <div className="text-sm text-[#0f172a]/75">
               Route: LAX → JFK • Date: Dec 15, 2024 • Airline: Delta • Nonstop
             </div>
           </div>
           
-          <div className="bg-white p-4 rounded-lg border border-blue-200">
-            <div className="flex items-center mb-2">
-              <div className="w-3 h-3 bg-blue-500 rounded-full mr-2"></div>
-              <span className="font-medium text-blue-800">⚡ PRICE BREAK: $275 flight available - Different airline but meets budget</span>
+          <div className="rounded-lg border border-[#C4B5FD] bg-white p-4 shadow-sm shadow-[#4C1D9510]">
+            <div className="mb-2 flex items-center">
+              <div className="mr-2 h-3 w-3 rounded-full bg-[#8B5CF6]" />
+              <span className="font-medium text-[#4C1D95]">
+                ⚡ PRICE BREAK: $275 flight available - Different airline but meets budget
+              </span>
             </div>
-            <div className="text-sm text-blue-700">
+            <div className="text-sm text-[#4C1D95]/80">
               Route: LAX → JFK • Date: Dec 15, 2024 • Airline: American • 1 stop
             </div>
-            <div className="text-xs text-gray-600 mt-1">
+            <div className="mt-1 text-xs text-[#4C1D95]/60">
               ⚠️ Differences: Different airline, 1 stop instead of nonstop
             </div>
           </div>
@@ -287,9 +340,9 @@ const Step4AlertPreferences: React.FC<Step4AlertPreferencesProps> = ({ filter, u
       </div>
 
       {/* Alert Preferences Summary */}
-      <div className="bg-green-50 p-4 rounded-lg border border-green-200">
-        <h3 className="font-medium text-green-800 mb-2">Alert Preferences Summary</h3>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm text-green-700">
+      <div className="rounded-xl border border-[#14B8A6]/40 bg-gradient-to-r from-[#0ea5e9]/20 via-[#06B6D4]/20 to-transparent p-4 text-[#0f172a]">
+        <h3 className="mb-2 font-medium text-[#0f172a]">Alert Preferences Summary</h3>
+        <div className="grid grid-cols-1 gap-4 text-sm text-[#0f172a]/80 md:grid-cols-2">
           <div>
             <span className="font-medium">Monitoring:</span> {filter.monitorFrequency.replace('-', ' ').replace(/\b\w/g, l => l.toUpperCase())}
           </div>
@@ -305,8 +358,8 @@ const Step4AlertPreferences: React.FC<Step4AlertPreferencesProps> = ({ filter, u
         </div>
         
         {filter.instantPriceBreakAlerts.enabled && (
-          <div className="mt-3 pt-3 border-t border-green-200">
-            <div className="text-sm text-green-700">
+          <div className="mt-3 border-t border-[#14B8A6]/40 pt-3">
+            <div className="text-sm text-[#0f172a]/80">
               <span className="font-medium">⚡ Instant Price Break Alerts:</span> {filter.instantAlertPriority.charAt(0).toUpperCase() + filter.instantAlertPriority.slice(1)} Priority
             </div>
           </div>

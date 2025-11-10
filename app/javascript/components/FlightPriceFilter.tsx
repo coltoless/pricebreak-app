@@ -1,72 +1,87 @@
-import React, { useState, useEffect } from 'react';
-import { 
-  Plane, 
-  Calendar, 
-  MapPin, 
-  Users, 
-  DollarSign, 
-  Bell, 
-  Settings,
+import React, { useMemo, useState } from 'react';
+import {
+  Plane,
+  MapPin,
+  Users,
+  DollarSign,
+  Bell,
   ArrowRight,
   ArrowLeft,
   Check,
-  AlertTriangle,
-  Zap,
-  TrendingUp,
-  TrendingDown,
-  Minus,
-  Plus,
-  Info,
-  Save,
-  Eye,
-  Play,
-  Copy,
-  Share2,
-  Star,
-  Filter,
   Search,
-  BarChart3,
-  Target,
-  Shield,
-  ChevronDown,
-  ChevronUp,
-  Clock,
-  Mail,
-  MessageSquare,
-  Smartphone,
-  Heart,
-  Download
-} from 'lucide-react';
+} from "lucide-react";
 import { 
   FlightFilter, 
   Airport, 
-  PriceBreakExample, 
-  HistoricalPriceData, 
-  PopularRoute, 
-  FilterTemplate,
   ValidationError 
 } from '../types/flight-filter';
+import ResponsiveAirportAutocomplete from './ResponsiveAirportAutocomplete';
 import Step1RouteDates from './steps/Step1RouteDates';
 import Step2FlightPreferences from './steps/Step2FlightPreferences';
 import Step3PriceSettings from './steps/Step3PriceSettings';
 import Step4AlertPreferences from './steps/Step4AlertPreferences';
-import FilterSummary from './FilterSummary';
-import FlightFilterSidebar from './FlightFilterSidebar';
-import PriceChart from './PriceChart';
-import AlertManager from './AlertManager';
+import AlertPreviewModal from './AlertPreviewModal';
+import {
+  FlightPriceCalendarDate,
+  FlightPriceCalendarMode,
+  FlightPriceCalendarSelection,
+} from './FlightPriceCalendar';
 
 interface FlightPriceFilterProps {
   onSaveFilter?: (filter: FlightFilter) => void;
   onPreviewAlert?: (filter: FlightFilter) => void;
   onTestAlert?: (filter: FlightFilter) => void;
   initialFilter?: Partial<FlightFilter>;
+  calendarDates?: FlightPriceCalendarDate[];
+  calendarPriceRange?: { min: number; max: number };
+  onCalendarApply?: (
+    selection: FlightPriceCalendarSelection & { mode: FlightPriceCalendarMode },
+  ) => void;
 }
+
+const brandGradient = "from-[#8B5CF6] via-[#7C3AED] to-[#6B21A8]";
+
+const generateSeededCalendarData = (
+  seedKey: string,
+  totalDays = 90,
+): FlightPriceCalendarDate[] => {
+  const normalizedSeed = seedKey
+    .toUpperCase()
+    .split("")
+    .reduce((acc, char, index) => acc + char.charCodeAt(0) * (index + 1), 0);
+
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+
+  return Array.from({ length: totalDays }, (_, index) => {
+    const currentDate = new Date(today);
+    currentDate.setDate(today.getDate() + index);
+
+    const base = 140 + (normalizedSeed % 70);
+    const seasonal = Math.sin((index + normalizedSeed / 10) / 4) * 35;
+    const weekendBoost = [5, 6].includes(currentDate.getDay()) ? 20 : 0;
+    const trend = ((index % 30) - 15) * 1.2;
+    const noise = ((normalizedSeed >> (index % 8)) & 1 ? 10 : -10);
+    const price = Math.max(
+      68,
+      Math.round(base + seasonal + weekendBoost + trend + noise),
+    );
+
+    return {
+      date: currentDate,
+      price,
+    };
+  });
+};
 
 const FlightPriceFilter: React.FC<FlightPriceFilterProps> = ({
   onSaveFilter,
   onPreviewAlert,
   onTestAlert,
-  initialFilter
+  initialFilter,
+  calendarDates,
+  calendarPriceRange,
+  onCalendarApply,
 }) => {
   const [currentStep, setCurrentStep] = useState(1);
   const [filter, setFilter] = useState<FlightFilter>({
@@ -119,155 +134,41 @@ const FlightPriceFilter: React.FC<FlightPriceFilterProps> = ({
     filterName: '',
     description: '',
     createdAt: new Date(),
-    isActive: true
+    isActive: true,
+    ...initialFilter
   });
 
   const [errors, setErrors] = useState<ValidationError[]>([]);
-  const [showSummary, setShowSummary] = useState(false);
+  const [showPreviewModal, setShowPreviewModal] = useState(false);
 
-  // Mock data - International popular routes
-  const popularRoutes: PopularRoute[] = [
-    {
-      origin: { code: 'JFK', name: 'John F. Kennedy International', city: 'New York', country: 'USA' },
-      destination: { code: 'FCO', name: 'Leonardo da Vinci International', city: 'Rome', country: 'Italy' },
-      averagePrice: 1250,
-      bestPrice: 980,
-      priceTrend: 'falling'
-    },
-    {
-      origin: { code: 'LAX', name: 'Los Angeles International', city: 'Los Angeles', country: 'USA' },
-      destination: { code: 'FLR', name: 'Florence Airport', city: 'Florence', country: 'Italy' },
-      averagePrice: 1450,
-      bestPrice: 1200,
-      priceTrend: 'stable'
-    },
-    {
-      origin: { code: 'ORD', name: 'O\'Hare International', city: 'Chicago', country: 'USA' },
-      destination: { code: 'FCO', name: 'Leonardo da Vinci International', city: 'Rome', country: 'Italy' },
-      averagePrice: 1150,
-      bestPrice: 920,
-      priceTrend: 'falling'
-    },
-    {
-      origin: { code: 'SFO', name: 'San Francisco International', city: 'San Francisco', country: 'USA' },
-      destination: { code: 'FCO', name: 'Leonardo da Vinci International', city: 'Rome', country: 'Italy' },
-      averagePrice: 1350,
-      bestPrice: 1100,
-      priceTrend: 'rising'
-    },
-    {
-      origin: { code: 'FCO', name: 'Leonardo da Vinci International', city: 'Rome', country: 'Italy' },
-      destination: { code: 'FLR', name: 'Florence Airport', city: 'Florence', country: 'Italy' },
-      averagePrice: 95,
-      bestPrice: 65,
-      priceTrend: 'stable'
-    },
-    {
-      origin: { code: 'MIA', name: 'Miami International', city: 'Miami', country: 'USA' },
-      destination: { code: 'FCO', name: 'Leonardo da Vinci International', city: 'Rome', country: 'Italy' },
-      averagePrice: 1100,
-      bestPrice: 850,
-      priceTrend: 'falling'
-    },
-    {
-      origin: { code: 'PDX', name: 'Portland International', city: 'Portland', country: 'USA' },
-      destination: { code: 'FCO', name: 'Leonardo da Vinci International', city: 'Rome', country: 'Italy' },
-      averagePrice: 1350,
-      bestPrice: 1100,
-      priceTrend: 'stable'
-    },
-    {
-      origin: { code: 'SEA', name: 'Seattle-Tacoma International', city: 'Seattle', country: 'USA' },
-      destination: { code: 'FLR', name: 'Florence Airport', city: 'Florence', country: 'Italy' },
-      averagePrice: 1400,
-      bestPrice: 1150,
-      priceTrend: 'falling'
+  const seededCalendarData = useMemo(() => {
+    if (calendarDates && calendarDates.length) {
+      return calendarDates;
     }
-  ];
 
-  const filterTemplates: FilterTemplate[] = [
-    {
-      id: 'international',
-      name: 'International Travel',
-      description: 'Premium comfort for international destinations, flexible dates, urgent alerts',
-      category: 'luxury',
-      filter: {
-        cabinClass: 'premium-economy',
-        flexibleDates: true,
-        instantPriceBreakAlerts: { enabled: true, type: 'exact-match', flexibilityOptions: { airline: false, stops: true, times: true, dates: true } },
-        monitorFrequency: 'hourly',
-        alertUrgency: 'urgent',
-        priceBreakConfidence: 'high'
-      }
-    },
-    {
-      id: 'business',
-      name: 'Business Travel',
-      description: 'Premium cabin, flexible dates, priority alerts',
-      category: 'business',
-      filter: {
-        cabinClass: 'business',
-        flexibleDates: true,
-        instantPriceBreakAlerts: { enabled: true, type: 'exact-match', flexibilityOptions: { airline: false, stops: false, times: false, dates: true } },
-        monitorFrequency: 'real-time',
-        alertUrgency: 'urgent'
-      }
-    },
-    {
-      id: 'vacation',
-      name: 'Vacation Planning',
-      description: 'Economy class, flexible options, patient monitoring',
-      category: 'vacation',
-      filter: {
-        cabinClass: 'economy',
-        flexibleDates: true,
-        instantPriceBreakAlerts: { enabled: true, type: 'flexible-match', flexibilityOptions: { airline: true, stops: true, times: true, dates: true } },
-        monitorFrequency: 'daily',
-        alertUrgency: 'patient'
-      }
+    const seedKey = `${filter.origin?.iata_code ?? "ANY"}-${
+      filter.destination?.iata_code ?? "ROUTE"
+    }`;
+    return generateSeededCalendarData(seedKey);
+  }, [
+    calendarDates,
+    filter.destination?.iata_code,
+    filter.origin?.iata_code,
+  ]);
+
+  const seededPriceRange = useMemo(() => {
+    if (calendarPriceRange) {
+      return calendarPriceRange;
     }
-  ];
-
-  const priceBreakExamples: PriceBreakExample[] = [
-    {
-      type: 'exact-match',
-      title: '✅ PERFECT MATCH: Your ideal international flight for $980',
-      description: 'JFK to Rome, premium-economy, Alitalia, under $1200',
-      price: 980,
-      originalPrice: 1250,
-      savings: 270,
-      confidence: 'high'
-    },
-    {
-      type: 'flexible-match',
-      title: '⚡ PRICE BREAK: $920 Florence flight available',
-      description: 'Different departure time but meets your budget',
-      price: 920,
-      originalPrice: 1150,
-      savings: 230,
-      differences: ['Departure at 2pm instead of 10am', '1 stop instead of nonstop'],
-      confidence: 'medium'
-    },
-    {
-      type: 'exact-match',
-      title: '🎯 GREAT DEAL: $65 internal flight',
-      description: 'Rome to Florence, morning departure, perfect timing',
-      price: 65,
-      originalPrice: 95,
-      savings: 30,
-      confidence: 'high'
+    if (!seededCalendarData.length) {
+      return undefined;
     }
-  ];
-
-  const historicalData: HistoricalPriceData[] = [
-    { date: '2025-06-01', price: 1450, trend: 'rising' },
-    { date: '2025-06-15', price: 1380, trend: 'falling' },
-    { date: '2025-07-01', price: 1320, trend: 'falling' },
-    { date: '2025-07-15', price: 1280, trend: 'falling' },
-    { date: '2025-08-01', price: 1250, trend: 'falling' },
-    { date: '2025-08-15', price: 1220, trend: 'falling' },
-    { date: '2025-09-01', price: 1180, trend: 'falling' }
-  ];
+    const prices = seededCalendarData.map((item) => item.price);
+    return {
+      min: Math.min(...prices),
+      max: Math.max(...prices),
+    };
+  }, [calendarPriceRange, seededCalendarData]);
 
   const steps = [
     { id: 1, title: 'Route & Dates', icon: MapPin },
@@ -293,17 +194,17 @@ const FlightPriceFilter: React.FC<FlightPriceFilterProps> = ({
         }
         break;
       case 2:
-        if (filter.passengers.adults === 0) newErrors.push({ field: 'passengers', message: 'At least one adult passenger is required' });
+        if (filter.passengers?.adults === 0) newErrors.push({ field: 'passengers', message: 'At least one adult passenger is required' });
         break;
       case 3:
         if (filter.targetPrice <= 0) newErrors.push({ field: 'targetPrice', message: 'Target price must be greater than 0' });
-        if (filter.budgetRange.min >= filter.budgetRange.max) {
+        if (filter.budgetRange?.min >= filter.budgetRange?.max) {
           newErrors.push({ field: 'budgetRange', message: 'Minimum budget must be less than maximum budget' });
         }
         break;
       case 4:
-        if (!filter.filterName.trim()) newErrors.push({ field: 'filterName', message: 'Filter name is required' });
-        if (!Object.values(filter.notificationMethods).some(Boolean)) {
+        if (!filter.filterName?.trim()) newErrors.push({ field: 'filterName', message: 'Filter name is required' });
+        if (!Object.values(filter.notificationMethods || {}).some(Boolean)) {
           newErrors.push({ field: 'notificationMethods', message: 'At least one notification method must be selected' });
         }
         break;
@@ -329,123 +230,89 @@ const FlightPriceFilter: React.FC<FlightPriceFilterProps> = ({
     }
   };
 
-  const handlePreviewAlert = () => {
-    if (onPreviewAlert) {
-      onPreviewAlert(filter);
-    }
-  };
 
-  const handleTestAlert = () => {
-    if (onTestAlert) {
-      onTestAlert(filter);
-    }
-  };
-
-  const copyFromTemplate = (template: FilterTemplate) => {
-    setFilter(prev => ({ ...prev, ...template.filter }));
-    setCurrentStep(1);
-  };
-
-  const getPriceBreakConfidenceColor = (confidence: string) => {
-    switch (confidence) {
-      case 'high': return 'text-green-600';
-      case 'medium': return 'text-yellow-600';
-      case 'low': return 'text-red-600';
-      default: return 'text-gray-600';
-    }
-  };
-
-  const getPriceBreakConfidenceIcon = (confidence: string) => {
-    switch (confidence) {
-      case 'high': return <TrendingDown className="w-4 h-4" />;
-      case 'medium': return <Minus className="w-4 h-4" />;
-      case 'low': return <TrendingUp className="w-4 h-4" />;
-      default: return <Minus className="w-4 h-4" />;
-    }
+  const getError = (field: string) => {
+    return errors.find(error => error.field === field)?.message;
   };
 
   return (
-    <div className="max-w-6xl mx-auto p-6 bg-white rounded-lg shadow-lg">
+    <div className="relative isolate flex min-h-screen w-full justify-center overflow-hidden bg-gradient-to-br from-[#8B5CF6] via-[#7C3AED] to-[#6B21A8] px-6 py-12">
+      <div className="pointer-events-none absolute inset-0 -z-10">
+        <div className="absolute -left-24 top-24 h-64 w-64 rounded-full bg-white/10 blur-3xl" />
+        <div className="absolute -right-16 bottom-16 h-72 w-72 rounded-full bg-[#06B6D4]/20 blur-3xl" />
+      </div>
+      <div className="w-full max-w-6xl">
       {/* Header */}
-      <div className="text-center mb-8">
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">
-          Flight Price Monitoring Filter
+      <div className="mb-12 text-center text-white">
+        <h1 className="text-4xl font-bold md:text-5xl">
+          Create a Flight Price Alert
         </h1>
-        <p className="text-gray-600">
-          Set up intelligent flight price alerts with instant price break notifications
+        <p className="mx-auto mt-4 max-w-2xl text-lg text-white/80">
+          Set up AI-powered monitoring to capture the perfect fare in our signature PriceBreak
+          experience.
         </p>
       </div>
 
-      {/* Progress Bar */}
-      <div className="mb-8">
-        <div className="flex items-center justify-between mb-4">
+      {/* Step Indicator */}
+      <div className="mb-12">
+        <div className="flex items-center justify-center space-x-2 sm:space-x-4">
           {steps.map((step, index) => {
-            const Icon = step.icon;
             const isActive = currentStep === step.id;
             const isCompleted = currentStep > step.id;
             
             return (
-              <div key={step.id} className="flex items-center">
-                <div className={`flex items-center justify-center w-12 h-12 rounded-full border-2 ${
-                  isCompleted 
-                    ? 'bg-green-500 border-green-500 text-white' 
-                    : isActive 
-                    ? 'bg-blue-500 border-blue-500 text-white' 
-                    : 'bg-gray-200 border-gray-300 text-gray-500'
-                }`}>
-                  {isCompleted ? <Check className="w-6 h-6" /> : <Icon className="w-6 h-6" />}
-                </div>
-                <div className="ml-3">
-                  <div className={`text-sm font-medium ${
-                    isActive ? 'text-blue-600' : isCompleted ? 'text-green-600' : 'text-gray-500'
-                  }`}>
-                    {step.title}
+              <React.Fragment key={step.id}>
+                <div className="flex flex-col items-center">
+                  <div
+                    className={`flex h-10 w-10 items-center justify-center rounded-full text-sm font-semibold transition-all duration-300 sm:h-12 sm:w-12 ${
+                      isActive
+                        ? 'bg-gradient-to-br from-[#8B5CF6] via-[#7C3AED] to-[#6B21A8] text-white shadow-xl shadow-[#4C1D951f] scale-110'
+                        : isCompleted
+                          ? 'bg-[#C4B5FD] text-[#4C1D95] shadow-inner shadow-white/30'
+                          : 'border border-white/40 bg-white/20 text-white/70 backdrop-blur-sm'
+                    }`}
+                  >
+                    {isCompleted ? <Check className="w-5 h-5 sm:w-6 sm:h-6" /> : step.id}
                   </div>
+                  <span
+                    className={`mt-2 hidden text-xs font-medium sm:block sm:text-sm ${
+                      isActive
+                        ? 'text-white'
+                        : isCompleted
+                          ? 'text-white/80'
+                          : 'text-white/60'
+                    }`}
+                  >
+                    {step.title}
+                  </span>
                 </div>
                 {index < steps.length - 1 && (
-                  <div className={`w-16 h-0.5 mx-4 ${
-                    isCompleted ? 'bg-green-500' : 'bg-gray-300'
-                  }`} />
+                  <div
+                    className={`mx-2 h-[2px] flex-1 rounded-full transition-all duration-300 sm:mx-4 ${
+                      isCompleted ? 'bg-white/70' : 'bg-white/25'
+                    }`}
+                    style={{ minWidth: '40px', maxWidth: '80px' }}
+                  />
                 )}
-              </div>
+              </React.Fragment>
             );
           })}
         </div>
       </div>
 
-      {/* Quick Actions */}
-      <div className="mb-6 flex flex-wrap gap-4">
-        <button
-          onClick={() => setShowSummary(!showSummary)}
-          className="flex items-center px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors"
-        >
-          <Eye className="w-4 h-4 mr-2" />
-          {showSummary ? 'Hide Summary' : 'Show Summary'}
-        </button>
-        
-        <div className="flex gap-2">
-          {filterTemplates.map(template => (
-            <button
-              key={template.id}
-              onClick={() => copyFromTemplate(template)}
-              className="flex items-center px-3 py-2 bg-blue-50 text-blue-700 rounded-lg hover:bg-blue-100 transition-colors text-sm"
-            >
-              <Copy className="w-3 h-3 mr-1" />
-              {template.name}
-            </button>
-          ))}
-        </div>
-      </div>
-
-      {/* Filter Builder */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        {/* Main Form */}
-        <div className="lg:col-span-2">
+      {/* Main Form Card */}
+      <div className="relative overflow-hidden rounded-[32px] border border-white/20 bg-white/10 p-[1px] shadow-[0_35px_80px_rgba(43,17,89,0.35)]">
+        <div className="rounded-[32px] bg-white/90">
+        {/* Step Content */}
+        <div className="p-6 sm:p-8 lg:p-10">
           {currentStep === 1 && (
             <Step1RouteDates 
               filter={filter} 
               updateFilter={updateFilter} 
               errors={errors}
+              calendarDates={seededCalendarData}
+              calendarPriceRange={seededPriceRange}
+              onCalendarApply={onCalendarApply}
             />
           )}
           
@@ -462,8 +329,8 @@ const FlightPriceFilter: React.FC<FlightPriceFilterProps> = ({
               filter={filter} 
               updateFilter={updateFilter} 
               errors={errors}
-              priceBreakExamples={priceBreakExamples}
-              historicalData={historicalData}
+              priceBreakExamples={[]}
+              historicalData={[]}
             />
           )}
           
@@ -474,13 +341,15 @@ const FlightPriceFilter: React.FC<FlightPriceFilterProps> = ({
               errors={errors}
             />
           )}
+        </div>
 
-          {/* Navigation */}
-          <div className="flex justify-between mt-8">
+        {/* Navigation Footer */}
+        <div className="border-t border-white/40 bg-white/60 px-6 py-6 sm:px-8 lg:px-10">
+          <div className="flex items-center justify-between">
             <button
               onClick={prevStep}
               disabled={currentStep === 1}
-              className="flex items-center px-6 py-3 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              className="flex items-center rounded-xl border-2 border-[#E9D5FF] bg-white/80 px-6 py-3 font-medium text-[#4C1D95] transition-all hover:border-[#C4B5FD] hover:bg-white disabled:cursor-not-allowed disabled:opacity-40"
             >
               <ArrowLeft className="w-4 h-4 mr-2" />
               Previous
@@ -489,149 +358,100 @@ const FlightPriceFilter: React.FC<FlightPriceFilterProps> = ({
             {currentStep < 4 ? (
               <button
                 onClick={nextStep}
-                className="flex items-center px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                className="flex items-center rounded-xl bg-gradient-to-r from-[#8B5CF6] via-[#7C3AED] to-[#6B21A8] px-8 py-3 text-base font-semibold text-white shadow-[0_20px_45px_rgba(91,33,182,0.45)] transition-all hover:scale-[1.01] hover:shadow-[0_24px_55px_rgba(91,33,182,0.5)]"
               >
-                Next
-                <ArrowRight className="w-4 h-4 ml-2" />
+                Continue
+                <ArrowRight className="w-5 h-5 ml-2" />
               </button>
             ) : (
-              <div className="flex gap-3">
+              <div className="flex items-center space-x-3">
                 <button
-                  onClick={handlePreviewAlert}
-                  className="flex items-center px-4 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors"
+                  onClick={() => {
+                    if (onPreviewAlert) {
+                      onPreviewAlert(filter);
+                      setShowPreviewModal(true);
+                    }
+                  }}
+                  className="flex items-center rounded-xl bg-white/80 px-6 py-3 text-base font-medium text-[#4C1D95] transition-all hover:bg-white"
                 >
-                  <Eye className="w-4 h-4 mr-2" />
                   Preview Alert
                 </button>
                 <button
-                  onClick={handleTestAlert}
-                  className="flex items-center px-4 py-3 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors"
+                  onClick={() => {
+                    if (onTestAlert) {
+                      onTestAlert(filter);
+                    }
+                  }}
+                  className="flex items-center rounded-xl bg-[#DDD6FE] px-6 py-3 text-base font-medium text-[#4C1D95] transition-all hover:bg-[#C4B5FD]"
                 >
-                  <Play className="w-4 h-4 mr-2" />
                   Test Alert
                 </button>
                 <button
                   onClick={handleSaveFilter}
-                  className="flex items-center px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                  className="flex items-center rounded-xl bg-gradient-to-r from-[#06B6D4] via-[#0ea5e9] to-[#164e63] px-8 py-3 text-base font-semibold text-white shadow-[0_20px_45px_rgba(14,165,233,0.35)] transition-all hover:scale-[1.01] hover:shadow-[0_24px_55px_rgba(8,145,178,0.45)]"
                 >
-                  <Save className="w-4 h-4 mr-2" />
-                  Save Filter
+                  <Search className="w-5 h-5 mr-2" />
+                  Create Price Alert
                 </button>
               </div>
             )}
           </div>
         </div>
+      </div>
+      </div>
+      </div>
 
-        {/* Sidebar */}
-        <div className="space-y-6">
-          {/* Popular Routes */}
-          <div className="bg-gray-50 p-4 rounded-lg">
-            <h3 className="font-semibold text-gray-900 mb-3 flex items-center">
-              <Star className="w-4 h-4 mr-2" />
-              Popular Routes
-            </h3>
-            <div className="space-y-3">
-              {popularRoutes.map((route, index) => (
-                <button
-                  key={index}
-                  onClick={() => {
-                    updateFilter({ 
-                      origin: route.origin, 
-                      destination: route.destination 
-                    });
-                    setCurrentStep(1);
-                  }}
-                  className="w-full text-left p-3 bg-white rounded-lg border hover:border-blue-300 transition-colors"
-                >
-                  <div className="flex justify-between items-center mb-1">
-                    <span className="font-medium text-sm">
-                      {route.origin.code} → {route.destination.code}
-                    </span>
-                    <span className="text-xs text-gray-500">
-                      {route.priceTrend === 'falling' ? (
-                        <TrendingDown className="w-3 h-3 text-green-600" />
-                      ) : route.priceTrend === 'rising' ? (
-                        <TrendingUp className="w-3 h-3 text-red-600" />
-                      ) : (
-                        <Minus className="w-3 h-3 text-gray-400" />
-                      )}
-                    </span>
-                  </div>
-                  <div className="text-xs text-gray-600">
-                    From ${route.bestPrice} (avg: ${route.averagePrice})
-                  </div>
-                </button>
-              ))}
-            </div>
+      {/* Filter Summary - Always Visible */}
+      <div className="mt-10 rounded-3xl border border-white/20 bg-white/10 p-6 text-white backdrop-blur-lg">
+        <h3 className="mb-4 flex items-center text-lg font-semibold">
+          <Plane className="w-5 h-5 mr-2 text-[#06B6D4]" />
+          Filter Summary
+        </h3>
+        <div className="grid grid-cols-1 gap-4 text-sm sm:grid-cols-2 lg:grid-cols-3">
+          <div className="flex items-center">
+            <span className="mr-2 font-medium text-white/70">From:</span>
+            <span className="font-semibold">
+              {filter.origin ? `${filter.origin.iata_code} - ${filter.origin.city}` : 'Not selected'}
+            </span>
           </div>
-
-          {/* Price Break Examples */}
-          <div className="bg-gray-50 p-4 rounded-lg">
-            <h3 className="font-semibold text-gray-900 mb-3 flex items-center">
-              <Zap className="w-4 h-4 mr-2" />
-              Price Break Examples
-            </h3>
-            <div className="space-y-3">
-              {priceBreakExamples.map((example, index) => (
-                <div key={index} className="p-3 bg-white rounded-lg border">
-                  <div className="font-medium text-sm mb-1">{example.title}</div>
-                  <div className="text-xs text-gray-600 mb-2">{example.description}</div>
-                  <div className="flex justify-between items-center">
-                    <span className="text-sm font-semibold text-green-600">
-                      ${example.price}
-                    </span>
-                    <span className="text-xs text-gray-500">
-                      Save ${example.savings}
-                    </span>
-                  </div>
-                  {example.differences && (
-                    <div className="mt-2 text-xs text-gray-500">
-                      {example.differences.map((diff, i) => (
-                        <div key={i} className="flex items-center">
-                          <AlertTriangle className="w-3 h-3 mr-1 text-yellow-500" />
-                          {diff}
-                        </div>
-                      ))}
-                    </div>
-                  )}
-                </div>
-              ))}
-            </div>
+          <div className="flex items-center">
+            <span className="mr-2 font-medium text-white/70">To:</span>
+            <span className="font-semibold">
+              {filter.destination ? `${filter.destination.iata_code} - ${filter.destination.city}` : 'Not selected'}
+            </span>
           </div>
-
-          {/* Estimated Results */}
-          <div className="bg-blue-50 p-4 rounded-lg">
-            <h3 className="font-semibold text-blue-900 mb-3">Estimated Results</h3>
-            <div className="text-center">
-              <div className="text-2xl font-bold text-blue-600 mb-1">24-48</div>
-              <div className="text-sm text-blue-700">flights match your criteria</div>
-              <div className="text-xs text-blue-600 mt-2">
-                Based on current market data
-              </div>
-            </div>
+          <div className="flex items-center">
+            <span className="mr-2 font-medium text-white/70">Trip:</span>
+            <span className="capitalize">
+              {filter.tripType?.replace('-', ' ')}
+            </span>
+          </div>
+          <div className="flex items-center">
+            <span className="mr-2 font-medium text-white/70">Cabin:</span>
+            <span className="capitalize">{filter.cabinClass?.replace('-', ' ')}</span>
+          </div>
+          <div className="flex items-center">
+            <span className="mr-2 font-medium text-white/70">Passengers:</span>
+            <span className="font-semibold">
+              {(filter.passengers?.adults || 0) + (filter.passengers?.children || 0) + (filter.passengers?.infants || 0)}
+            </span>
+          </div>
+          <div className="flex items-center">
+            <span className="mr-2 font-medium text-white/70">Target Price:</span>
+            <span className="font-semibold">
+              ${filter.targetPrice || 0}
+            </span>
           </div>
         </div>
       </div>
 
-      {/* Summary Modal */}
-      {showSummary && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-          <div className="bg-white rounded-lg max-w-2xl w-full max-h-[80vh] overflow-y-auto">
-            <div className="p-6">
-              <div className="flex justify-between items-center mb-4">
-                <h2 className="text-xl font-semibold">Filter Summary</h2>
-                <button
-                  onClick={() => setShowSummary(false)}
-                  className="text-gray-400 hover:text-gray-600"
-                >
-                  ×
-                </button>
-              </div>
-              <FilterSummary filter={filter} />
-            </div>
-          </div>
-        </div>
-      )}
+      {/* Alert Preview Modal */}
+      <AlertPreviewModal
+        filter={filter}
+        isOpen={showPreviewModal}
+        onClose={() => setShowPreviewModal(false)}
+      />
+    </div>
     </div>
   );
 };

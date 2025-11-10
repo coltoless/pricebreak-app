@@ -20,7 +20,7 @@ const Demo: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 py-8">
+    <div className="min-h-screen bg-gradient-to-br from-[#8B5CF6] via-[#7C3AED] to-[#6B21A8] py-12">
       <FlightPriceFilter
         onSaveFilter={handleSaveFilter}
         onPreviewAlert={handlePreviewAlert}

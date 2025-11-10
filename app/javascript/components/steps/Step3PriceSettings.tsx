@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { DollarSign, Zap, TrendingUp, TrendingDown, Minus, Info, AlertTriangle } from 'lucide-react';
 import { FlightFilter, ValidationError, PriceBreakExample, HistoricalPriceData } from '../../types/flight-filter';
 
@@ -6,38 +6,28 @@ interface Step3PriceSettingsProps {
   filter: FlightFilter;
   updateFilter: (updates: Partial<FlightFilter>) => void;
   errors: ValidationError[];
-  priceBreakExamples: PriceBreakExample[];
-  historicalData: HistoricalPriceData[];
+  priceBreakExamples?: PriceBreakExample[];
+  historicalData?: HistoricalPriceData[];
 }
 
-const Step3PriceSettings: React.FC<Step3PriceSettingsProps> = ({ 
-  filter, 
-  updateFilter, 
-  errors, 
-  priceBreakExamples, 
-  historicalData 
+const Step3PriceSettings: React.FC<Step3PriceSettingsProps> = ({
+  filter,
+  updateFilter,
+  errors,
+  priceBreakExamples,
+  historicalData,
 }) => {
-  const [showFlexibilityOptions, setShowFlexibilityOptions] = useState(false);
 
   const currencies = ['USD', 'EUR', 'GBP', 'CAD', 'AUD', 'JPY'];
   
   const confidenceLevels = [
-    { value: 'low', label: 'Low', description: 'Unlikely to hit target', color: 'text-red-600', icon: TrendingUp },
-    { value: 'medium', label: 'Medium', description: 'Moderate chance', color: 'text-yellow-600', icon: Minus },
-    { value: 'high', label: 'High', description: 'Very likely to hit', color: 'text-green-600', icon: TrendingDown }
+    { value: 'low', label: 'Low', description: 'Unlikely to hit target', icon: TrendingUp },
+    { value: 'medium', label: 'Medium', description: 'Moderate chance', icon: Minus },
+    { value: 'high', label: 'High', description: 'Very likely to hit', icon: TrendingDown }
   ];
 
   const getError = (field: string) => {
     return errors.find(error => error.field === field)?.message;
-  };
-
-  const getPriceBreakConfidenceColor = (confidence: string) => {
-    switch (confidence) {
-      case 'high': return 'text-green-600';
-      case 'medium': return 'text-yellow-600';
-      case 'low': return 'text-red-600';
-      default: return 'text-gray-600';
-    }
   };
 
   const getPriceBreakConfidenceIcon = (confidence: string) => {
@@ -61,22 +51,19 @@ const Step3PriceSettings: React.FC<Step3PriceSettingsProps> = ({
     });
   };
 
-  return (
-    <div className="space-y-6">
-      <div className="text-center mb-6">
-        <h2 className="text-2xl font-bold text-gray-900 mb-2">Price Settings</h2>
-        <p className="text-gray-600">Set your budget and price alert preferences</p>
-      </div>
+  const examples = priceBreakExamples ?? [];
+  const history = historicalData ?? [];
 
+  return (
+    <div className="space-y-8">
       {/* Target Price */}
-      <div className="bg-gray-50 p-4 rounded-lg">
-        <h3 className="font-semibold text-gray-900 mb-3 flex items-center">
-          <DollarSign className="w-4 h-4 mr-2" />
-          Target Price
-        </h3>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div>
+        <label className="mb-4 block text-sm font-semibold uppercase tracking-wide text-[#4C1D95]">
+          Target Price (USD)
+        </label>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="mb-3 block text-sm font-medium text-[#4C1D95]">
               Target Price
             </label>
             <div className="relative">
@@ -87,25 +74,25 @@ const Step3PriceSettings: React.FC<Step3PriceSettingsProps> = ({
                 placeholder="0.00"
                 min="0"
                 step="0.01"
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                className="w-full rounded-lg border border-[#E9D5FF] px-4 py-3 text-[#4C1D95] focus:border-[#C4B5FD] focus:ring-2 focus:ring-[#C4B5FD]"
               />
-              <div className="absolute right-3 top-3.5 text-gray-500">
+              <div className="absolute right-3 top-3.5 text-[#4C1D95]/60">
                 {filter.currency}
               </div>
             </div>
             {getError('targetPrice') && (
-              <p className="mt-1 text-sm text-red-600">{getError('targetPrice')}</p>
+              <p className="mt-1 text-sm text-rose-500">{getError('targetPrice')}</p>
             )}
           </div>
           
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="mb-2 block text-sm font-medium text-[#4C1D95]">
               Currency
             </label>
             <select
               value={filter.currency}
               onChange={(e) => updateFilter({ currency: e.target.value })}
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              className="w-full rounded-lg border border-[#E9D5FF] bg-white px-4 py-3 text-[#4C1D95] focus:border-[#C4B5FD] focus:ring-2 focus:ring-[#C4B5FD]"
             >
               {currencies.map(currency => (
                 <option key={currency} value={currency}>{currency}</option>
@@ -116,10 +103,10 @@ const Step3PriceSettings: React.FC<Step3PriceSettingsProps> = ({
       </div>
 
       {/* Instant Price Break Alerts */}
-      <div className="bg-gradient-to-r from-blue-50 to-purple-50 p-6 rounded-lg border-2 border-blue-200">
-        <div className="flex items-center mb-4">
-          <Zap className="w-6 h-6 text-blue-600 mr-2" />
-          <h3 className="text-xl font-bold text-blue-900">⚡ INSTANT PRICE BREAK ALERTS</h3>
+      <div className="rounded-2xl border-2 border-[#C4B5FD] bg-gradient-to-r from-[#F5F3FF] via-[#E9D5FF]/70 to-[#C4B5FD]/30 p-6">
+        <div className="mb-4 flex items-center">
+          <Zap className="mr-2 h-6 w-6 text-[#06B6D4]" />
+          <h3 className="text-xl font-bold text-[#4C1D95]">⚡ Instant Price Break Alerts</h3>
         </div>
         
         <div className="mb-4">
@@ -133,9 +120,9 @@ const Step3PriceSettings: React.FC<Step3PriceSettingsProps> = ({
                   enabled: e.target.checked
                 }
               })}
-              className="h-5 w-5 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+              className="h-5 w-5 rounded border-[#E9D5FF] text-[#8B5CF6] focus:ring-[#8B5CF6]"
             />
-            <span className="ml-2 text-lg font-semibold text-blue-900">
+            <span className="ml-2 text-lg font-semibold text-[#4C1D95]">
               Enable instant price break notifications
             </span>
           </label>
@@ -144,8 +131,8 @@ const Step3PriceSettings: React.FC<Step3PriceSettingsProps> = ({
         {filter.instantPriceBreakAlerts.enabled && (
           <div className="space-y-4">
             {/* Alert Type Selection */}
-            <div className="bg-white p-4 rounded-lg border border-blue-200">
-              <h4 className="font-semibold text-gray-900 mb-3">Alert Type</h4>
+            <div className="rounded-xl border border-[#E9D5FF] bg-white p-4 shadow-sm shadow-[#4C1D9510]">
+              <h4 className="mb-3 font-semibold text-[#4C1D95]">Alert Type</h4>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                 <button
                   onClick={() => updateFilter({
@@ -154,14 +141,14 @@ const Step3PriceSettings: React.FC<Step3PriceSettingsProps> = ({
                       type: 'exact-match'
                     }
                   })}
-                  className={`p-4 rounded-lg border-2 transition-colors text-left ${
+                  className={`rounded-lg border-2 p-4 text-left transition-colors ${
                     filter.instantPriceBreakAlerts.type === 'exact-match'
-                      ? 'border-green-500 bg-green-50 text-green-700'
-                      : 'border-gray-300 bg-white text-gray-700 hover:border-gray-400'
+                      ? 'border-transparent bg-gradient-to-br from-[#06B6D4] via-[#14B8A6] to-[#0F766E] text-white shadow-lg shadow-[#0F766E50]'
+                      : 'border-[#E9D5FF] bg-white text-[#0F172A] hover:border-[#C4B5FD]'
                   }`}
                 >
-                  <div className="font-medium text-lg">✅ Exact Match</div>
-                  <div className="text-sm text-gray-600 mt-1">
+                  <div className="text-lg font-medium">✅ Exact Match</div>
+                  <div className={`mt-1 text-sm ${filter.instantPriceBreakAlerts.type === 'exact-match' ? 'text-white/85' : 'text-[#4C1D95]/70'}`}>
                     Alert me when price drops below ${filter.targetPrice} AND ALL filter criteria match
                   </div>
                 </button>
@@ -173,14 +160,14 @@ const Step3PriceSettings: React.FC<Step3PriceSettingsProps> = ({
                       type: 'flexible-match'
                     }
                   })}
-                  className={`p-4 rounded-lg border-2 transition-colors text-left ${
+                  className={`rounded-lg border-2 p-4 text-left transition-colors ${
                     filter.instantPriceBreakAlerts.type === 'flexible-match'
-                      ? 'border-blue-500 bg-blue-50 text-blue-700'
-                      : 'border-gray-300 bg-white text-gray-700 hover:border-gray-400'
+                      ? 'border-transparent bg-gradient-to-br from-[#8B5CF6] via-[#7C3AED] to-[#6B21A8] text-white shadow-lg shadow-[#5B21B650]'
+                      : 'border-[#E9D5FF] bg-white text-[#4C1D95] hover:border-[#C4B5FD]'
                   }`}
                 >
-                  <div className="font-medium text-lg">⚡ Flexible Match</div>
-                  <div className="text-sm text-gray-600 mt-1">
+                  <div className="text-lg font-medium">⚡ Flexible Match</div>
+                  <div className={`mt-1 text-sm ${filter.instantPriceBreakAlerts.type === 'flexible-match' ? 'text-white/85' : 'text-[#4C1D95]/70'}`}>
                     Alert me when price drops below ${filter.targetPrice} EVEN IF some filter criteria don't match
                   </div>
                 </button>
@@ -189,19 +176,22 @@ const Step3PriceSettings: React.FC<Step3PriceSettingsProps> = ({
 
             {/* Flexibility Options */}
             {filter.instantPriceBreakAlerts.type === 'flexible-match' && (
-              <div className="bg-white p-4 rounded-lg border border-blue-200">
-                <h4 className="font-semibold text-gray-900 mb-3">Flexibility Options</h4>
-                <p className="text-sm text-gray-600 mb-3">
+              <div className="rounded-xl border border-[#E9D5FF] bg-white p-4 shadow-sm shadow-[#4C1D9510]">
+                <h4 className="mb-3 font-semibold text-[#4C1D95]">Flexibility Options</h4>
+                <p className="mb-3 text-sm text-[#4C1D95]/70">
                   Select which criteria can be flexible for partial match alerts:
                 </p>
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
                   {(['airline', 'stops', 'times', 'dates'] as const).map((option) => (
-                    <label key={option} className="flex items-center p-3 border border-gray-200 rounded-lg hover:bg-gray-50">
+                    <label
+                      key={option}
+                      className="flex items-center rounded-lg border border-[#E9D5FF] p-3 text-[#4C1D95] transition hover:border-[#C4B5FD] hover:bg-[#F5F3FF]"
+                    >
                       <input
                         type="checkbox"
                         checked={filter.instantPriceBreakAlerts.flexibilityOptions[option]}
                         onChange={(e) => updateFlexibilityOption(option, e.target.checked)}
-                        className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                        className="h-4 w-4 rounded border-[#E9D5FF] text-[#8B5CF6] focus:ring-[#8B5CF6]"
                       />
                       <span className="ml-2 text-sm font-medium capitalize">
                         {option === 'times' ? 'Times' : option}
@@ -213,12 +203,12 @@ const Step3PriceSettings: React.FC<Step3PriceSettingsProps> = ({
             )}
 
             {/* Warning for Real-time Monitoring */}
-            <div className="bg-yellow-50 p-4 rounded-lg border border-yellow-200">
+            <div className="rounded-xl border border-[#FBCFE8] bg-[#FDF2F8] p-4">
               <div className="flex items-start">
-                <AlertTriangle className="w-5 h-5 text-yellow-600 mr-2 mt-0.5 flex-shrink-0" />
+                <AlertTriangle className="mr-2 mt-0.5 h-5 w-5 flex-shrink-0 text-[#EC4899]" />
                 <div>
-                  <h4 className="font-medium text-yellow-800">High Priority Monitoring</h4>
-                  <p className="text-sm text-yellow-700 mt-1">
+                  <h4 className="font-medium text-[#831843]">High Priority Monitoring</h4>
+                  <p className="mt-1 text-sm text-[#9D174D]">
                     Instant price break alerts require real-time monitoring, which may increase battery usage and data consumption.
                   </p>
                 </div>
@@ -229,16 +219,16 @@ const Step3PriceSettings: React.FC<Step3PriceSettingsProps> = ({
       </div>
 
       {/* Price Drop Percentage */}
-      <div className="bg-gray-50 p-4 rounded-lg">
-        <h3 className="font-semibold text-gray-900 mb-3">Price Drop Percentage Alert</h3>
+      <div className="rounded-xl border border-[#E9D5FF] bg-[#F5F3FF] p-4">
+        <h3 className="mb-3 font-semibold text-[#4C1D95]">Price Drop Percentage Alert</h3>
         <div className="flex items-center space-x-4">
-          <label className="text-sm font-medium text-gray-700">
+          <label className="text-sm font-medium text-[#4C1D95]">
             Alert me on
           </label>
           <select
             value={filter.priceDropPercentage}
             onChange={(e) => updateFilter({ priceDropPercentage: parseInt(e.target.value) })}
-            className="px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            className="rounded-md border border-[#E9D5FF] bg-white px-3 py-2 text-[#4C1D95] focus:border-[#C4B5FD] focus:ring-2 focus:ring-[#C4B5FD]"
           >
             <option value={10}>10%</option>
             <option value={15}>15%</option>
@@ -246,16 +236,16 @@ const Step3PriceSettings: React.FC<Step3PriceSettingsProps> = ({
             <option value={25}>25%</option>
             <option value={30}>30%</option>
           </select>
-          <span className="text-sm text-gray-600">price drop</span>
+          <span className="text-sm text-[#4C1D95]/70">price drop</span>
         </div>
       </div>
 
       {/* Budget Range */}
-      <div className="bg-gray-50 p-4 rounded-lg">
-        <h3 className="font-semibold text-gray-900 mb-3">Budget Range</h3>
+      <div className="rounded-xl border border-[#E9D5FF] bg-[#F5F3FF] p-4">
+        <h3 className="mb-3 font-semibold text-[#4C1D95]">Budget Range</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="mb-2 block text-sm font-medium text-[#4C1D95]">
               Minimum Price
             </label>
             <input
@@ -270,12 +260,12 @@ const Step3PriceSettings: React.FC<Step3PriceSettingsProps> = ({
               placeholder="0.00"
               min="0"
               step="0.01"
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              className="w-full rounded-lg border border-[#E9D5FF] px-4 py-3 text-[#4C1D95] focus:border-[#C4B5FD] focus:ring-2 focus:ring-[#C4B5FD]"
             />
           </div>
           
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="mb-2 block text-sm font-medium text-[#4C1D95]">
               Maximum Price
             </label>
             <input
@@ -290,19 +280,19 @@ const Step3PriceSettings: React.FC<Step3PriceSettingsProps> = ({
               placeholder="1000.00"
               min="0"
               step="0.01"
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              className="w-full rounded-lg border border-[#E9D5FF] px-4 py-3 text-[#4C1D95] focus:border-[#C4B5FD] focus:ring-2 focus:ring-[#C4B5FD]"
             />
           </div>
         </div>
         
         {getError('budgetRange') && (
-          <p className="mt-2 text-sm text-red-600">{getError('budgetRange')}</p>
+          <p className="mt-2 text-sm text-rose-500">{getError('budgetRange')}</p>
         )}
       </div>
 
       {/* Price Break Confidence */}
-      <div className="bg-gray-50 p-4 rounded-lg">
-        <h3 className="font-semibold text-gray-900 mb-3">Price Break Confidence</h3>
+      <div className="rounded-xl border border-[#E9D5FF] bg-[#F5F3FF] p-4">
+        <h3 className="mb-3 font-semibold text-[#4C1D95]">Price Break Confidence</h3>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
           {confidenceLevels.map((level) => {
             const Icon = level.icon;
@@ -310,15 +300,29 @@ const Step3PriceSettings: React.FC<Step3PriceSettingsProps> = ({
               <button
                 key={level.value}
                 onClick={() => updateFilter({ priceBreakConfidence: level.value as any })}
-                className={`p-4 rounded-lg border-2 transition-colors text-center ${
+                className={`rounded-lg border-2 p-4 text-center transition-colors ${
                   filter.priceBreakConfidence === level.value
-                    ? 'border-blue-500 bg-blue-50 text-blue-700'
-                    : 'border-gray-300 bg-white text-gray-700 hover:border-gray-400'
+                    ? 'border-transparent bg-gradient-to-br from-[#8B5CF6] via-[#7C3AED] to-[#6B21A8] text-white shadow-lg shadow-[#5B21B650]'
+                    : 'border-[#E9D5FF] bg-white text-[#4C1D95] hover:border-[#C4B5FD]'
                 }`}
               >
-                <Icon className={`w-6 h-6 mx-auto mb-2 ${level.color}`} />
+                <Icon
+                  className={`mx-auto mb-2 h-6 w-6 ${
+                    filter.priceBreakConfidence === level.value
+                      ? 'text-white'
+                      : 'text-[#7C3AED]'
+                  }`}
+                />
                 <div className="font-medium">{level.label}</div>
-                <div className="text-sm text-gray-600">{level.description}</div>
+                <div
+                  className={`text-sm ${
+                    filter.priceBreakConfidence === level.value
+                      ? 'text-white/80'
+                      : 'text-[#4C1D95]/70'
+                  }`}
+                >
+                  {level.description}
+                </div>
               </button>
             );
           })}
@@ -326,38 +330,39 @@ const Step3PriceSettings: React.FC<Step3PriceSettingsProps> = ({
       </div>
 
       {/* Historical Price Chart */}
-      <div className="bg-gray-50 p-4 rounded-lg">
-        <h3 className="font-semibold text-gray-900 mb-3">Historical Price Trends</h3>
-        <div className="bg-white p-4 rounded-lg border">
-          <div className="flex items-center justify-between mb-4">
-            <div className="text-sm text-gray-600">
+      {history.length > 0 && (
+      <div className="rounded-xl border border-[#E9D5FF] bg-[#F5F3FF] p-4">
+        <h3 className="mb-3 font-semibold text-[#4C1D95]">Historical Price Trends</h3>
+        <div className="rounded-xl border border-[#E9D5FF] bg-white p-4 shadow-sm shadow-[#4C1D9510]">
+          <div className="mb-4 flex items-center justify-between">
+            <div className="text-sm text-[#4C1D95]/70">
               Last 5 months price trend
             </div>
-            <div className="text-sm font-medium text-gray-900">
-              Current: ${historicalData[historicalData.length - 1]?.price || 0}
+            <div className="text-sm font-medium text-[#4C1D95]">
+              Current: ${history[history.length - 1]?.price || 0}
             </div>
           </div>
           
-          <div className="flex items-end justify-between h-32">
-            {historicalData.map((data, index) => (
+          <div className="flex h-32 items-end justify-between">
+            {history.map((data, index) => (
               <div key={index} className="flex flex-col items-center">
-                <div className="text-xs text-gray-500 mb-1">
+                <div className="mb-1 text-xs text-[#4C1D95]/60">
                   {new Date(data.date).toLocaleDateString('en-US', { month: 'short' })}
                 </div>
                 <div
-                  className="w-8 bg-blue-500 rounded-t"
+                  className="w-8 rounded-t bg-gradient-to-t from-[#8B5CF6] via-[#7C3AED] to-[#06B6D4]"
                   style={{ height: `${(data.price / 500) * 100}%` }}
                 ></div>
-                <div className="text-xs text-gray-600 mt-1">
+                <div className="mt-1 text-xs text-[#4C1D95]/70">
                   ${data.price}
                 </div>
                 <div className="mt-1">
                   {data.trend === 'falling' ? (
-                    <TrendingDown className="w-3 h-3 text-green-600" />
+                    <TrendingDown className="h-3 w-3 text-[#14B8A6]" />
                   ) : data.trend === 'rising' ? (
-                    <TrendingUp className="w-3 h-3 text-red-600" />
+                    <TrendingUp className="h-3 w-3 text-[#F97316]" />
                   ) : (
-                    <Minus className="w-3 h-3 text-gray-400" />
+                    <Minus className="h-3 w-3 text-[#4C1D95]/50" />
                   )}
                 </div>
               </div>
@@ -365,34 +370,39 @@ const Step3PriceSettings: React.FC<Step3PriceSettingsProps> = ({
           </div>
         </div>
       </div>
+      )}
 
       {/* Price Break Examples */}
-      <div className="bg-gray-50 p-4 rounded-lg">
-        <h3 className="font-semibold text-gray-900 mb-3">Price Break Examples</h3>
+      <div className="rounded-xl border border-[#E9D5FF] bg-[#F5F3FF] p-4">
+        <h3 className="mb-3 font-semibold text-[#4C1D95]">Price Break Examples</h3>
         <div className="space-y-3">
-          {priceBreakExamples.map((example, index) => (
-            <div key={index} className="bg-white p-4 rounded-lg border">
-              <div className="flex items-center justify-between mb-2">
-                <div className="font-medium text-sm">{example.title}</div>
-                <div className={`flex items-center text-xs ${getPriceBreakConfidenceColor(example.confidence)}`}>
+          {examples.map((example, index) => (
+            <div key={index} className="rounded-xl border border-[#E9D5FF] bg-white p-4 shadow-sm shadow-[#4C1D9510]">
+              <div className="mb-2 flex items-center justify-between">
+                <div className="text-sm font-medium text-[#4C1D95]">{example.title}</div>
+                <div className={`flex items-center text-xs text-[#4C1D95]`}>
                   {getPriceBreakConfidenceIcon(example.confidence)}
-                  <span className="ml-1 capitalize">{example.confidence} confidence</span>
+                  <span className="ml-1 capitalize">
+                    {example.confidence} confidence
+                  </span>
                 </div>
               </div>
-              <div className="text-sm text-gray-600 mb-2">{example.description}</div>
-              <div className="flex justify-between items-center">
-                <span className="text-sm font-semibold text-green-600">
+              <div className="mb-2 text-sm text-[#4C1D95]/70">
+                {example.description}
+              </div>
+              <div className="flex items-center justify-between">
+                <span className="text-sm font-semibold text-[#06B6D4]">
                   ${example.price}
                 </span>
-                <span className="text-xs text-gray-500">
+                <span className="text-xs text-[#4C1D95]/60">
                   Save ${example.savings}
                 </span>
               </div>
               {example.differences && (
-                <div className="mt-2 text-xs text-gray-500">
+                <div className="mt-2 text-xs text-[#4C1D95]/60">
                   {example.differences.map((diff, i) => (
                     <div key={i} className="flex items-center">
-                      <AlertTriangle className="w-3 h-3 mr-1 text-yellow-500" />
+                      <AlertTriangle className="mr-1 h-3 w-3 text-[#EC4899]" />
                       {diff}
                     </div>
                   ))}
@@ -404,9 +414,9 @@ const Step3PriceSettings: React.FC<Step3PriceSettingsProps> = ({
       </div>
 
       {/* Price Settings Summary */}
-      <div className="bg-green-50 p-4 rounded-lg border border-green-200">
-        <h3 className="font-medium text-green-800 mb-2">Price Settings Summary</h3>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm text-green-700">
+      <div className="rounded-xl border border-[#14B8A6]/40 bg-gradient-to-r from-[#0ea5e9]/20 via-[#06B6D4]/20 to-transparent p-4 text-[#0f172a]">
+        <h3 className="mb-2 font-medium text-[#0f172a]">Price Settings Summary</h3>
+        <div className="grid grid-cols-1 gap-4 text-sm text-[#0f172a]/80 md:grid-cols-2">
           <div>
             <span className="font-medium">Target Price:</span> {filter.currency} {filter.targetPrice}
           </div>
@@ -426,3 +436,4 @@ const Step3PriceSettings: React.FC<Step3PriceSettingsProps> = ({
 };
 
 export default Step3PriceSettings;
+
