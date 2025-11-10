@@ -53,7 +53,7 @@ gem "attr_encrypted", "~> 4.0.0"
 gem "gibbon", "~> 3.4"
 
 # HTTP client for API integration
-gem "httparty", "~> 0.21"
+gem "httparty", "~> 0.23"
 gem "faraday", "~> 1.10"
 gem "faraday_middleware", "~> 1.2"
 
