@@ -36,8 +36,12 @@ class Api::FlightFiltersController < ApplicationController
   before_action :set_flight_filter, only: [:show, :update, :destroy]
 
   def index
-    # For now, return all filters (in production, filter by current_user)
-    filters = FlightFilter.includes(:flight_alerts).order(created_at: :desc)
+    # Filter by current_user if authenticated, otherwise return all (for API testing)
+    filters = if current_user
+      current_user.flight_filters.includes(:flight_alerts).order(created_at: :desc)
+    else
+      FlightFilter.includes(:flight_alerts).order(created_at: :desc)
+    end
     
     render json: {
       success: true,
@@ -60,9 +64,8 @@ class Api::FlightFiltersController < ApplicationController
   def create
     service = FlightFilterService.new
     
-    # For testing, create a mock user or use a default user
-    # In production: user = current_user
-    user = User.first # Temporary for testing
+    # Use current_user from authentication
+    user = current_user || User.first # Fallback to first user if not authenticated (for API testing)
     
     result = service.create_filter(flight_filter_params, user)
     
@@ -199,9 +202,8 @@ class Api::FlightFiltersController < ApplicationController
   def check_duplicates
     filter_params = flight_filter_params
     
-    # For testing, create a mock user or use a default user
-    # In production: user_id = current_user.id
-    user_id = User.first&.id # Temporary for testing
+    # Use current_user if authenticated
+    user_id = current_user&.id || User.first&.id # Fallback for API testing
     
     service = FlightFilterService.new
     duplicates = service.detect_duplicate_filters(user_id, filter_params)

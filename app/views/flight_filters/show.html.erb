@@ -25,6 +25,11 @@
           <div>
             <h1 class="text-2xl font-bold text-gray-900"><%= @flight_filter.name %></h1>
             <p class="mt-1 text-sm text-gray-500"><%= @flight_filter.description %></p>
+            <% if @mock_mode %>
+              <p class="mt-2 text-xs text-purple-600 bg-purple-50 px-2 py-1 rounded inline-block">
+                🔄 Mock Mode: Using test data (no API keys configured)
+              </p>
+            <% end %>
           </div>
           <div class="flex items-center space-x-3">
             <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium <%= @flight_filter.is_active? ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800' %>">
@@ -121,17 +126,27 @@
           </div>
         </div>
 
-        <!-- Price History Chart Placeholder -->
+        <!-- Price History Chart -->
         <div class="bg-white shadow rounded-lg">
           <div class="px-4 py-5 sm:p-6">
-            <h3 class="text-lg leading-6 font-medium text-gray-900 mb-4">Price History</h3>
+            <div class="flex items-center justify-between mb-4">
+              <h3 class="text-lg leading-6 font-medium text-gray-900">Price History</h3>
+              <%= form_with url: test_price_check_flight_filter_path(@flight_filter), method: :post, local: true, class: "inline" do |f| %>
+                <%= f.submit "🔄 Refresh Prices", class: "text-sm bg-purple-600 hover:bg-purple-700 text-white px-3 py-1 rounded" %>
+              <% end %>
+            </div>
             <% if @price_history.any? %>
-              <div class="h-64 bg-gray-50 rounded-lg flex items-center justify-center">
-                <p class="text-gray-500">Price chart will be implemented in Phase 5</p>
-              </div>
+              <%= render partial: 'shared/price_chart', locals: { price_history: @price_history } %>
             <% else %>
-              <div class="h-32 bg-gray-50 rounded-lg flex items-center justify-center">
-                <p class="text-gray-500">No price history available yet</p>
+              <div class="h-32 bg-gray-50 rounded-lg flex flex-col items-center justify-center">
+                <p class="text-gray-500 mb-2">No price history available yet</p>
+                <p class="text-xs text-gray-400">
+                  <% if @mock_mode %>
+                    Click "Refresh Prices" to generate test data
+                  <% else %>
+                    Click "Refresh Prices" to fetch current prices
+                  <% end %>
+                </p>
               </div>
             <% end %>
           </div>
@@ -195,6 +210,7 @@
           <div class="px-4 py-5 sm:p-6">
             <h3 class="text-lg leading-6 font-medium text-gray-900 mb-4">Quick Actions</h3>
             <div class="space-y-3">
+              <%= link_to 'Test Price Check', test_price_check_flight_filter_path(@flight_filter), method: :post, class: "w-full bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-md text-sm font-medium text-center block" %>
               <%= link_to 'Edit Filter', edit_flight_filter_path(@flight_filter), class: "w-full bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md text-sm font-medium text-center block" %>
               <%= link_to 'Duplicate Filter', duplicate_flight_filter_path(@flight_filter), method: :post, class: "w-full bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-md text-sm font-medium text-center block" %>
               <%= link_to 'Delete Filter', flight_filter_path(@flight_filter), method: :delete, data: { confirm: 'Are you sure? This action cannot be undone.' }, class: "w-full bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-md text-sm font-medium text-center block" %>

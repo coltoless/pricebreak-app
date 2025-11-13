@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_09_12_055938) do
+ActiveRecord::Schema[8.0].define(version: 2025_11_05_052646) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -45,7 +45,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_09_12_055938) do
   end
 
   create_table "flight_alerts", force: :cascade do |t|
-    t.bigint "user_id", comment: "Temporarily nullable for Phase 1 testing. Will be made NOT NULL in Phase 2."
+    t.bigint "user_id", null: false
     t.string "origin", null: false
     t.string "destination", null: false
     t.date "departure_date", null: false
@@ -89,7 +89,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_09_12_055938) do
   end
 
   create_table "flight_filters", force: :cascade do |t|
-    t.bigint "user_id", comment: "Temporarily nullable for Phase 1 testing. Will be made NOT NULL in Phase 2."
+    t.bigint "user_id", null: false
     t.string "name", null: false
     t.text "description"
     t.text "origin_airports", null: false
@@ -206,6 +206,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_09_12_055938) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "firebase_uid"
+    t.string "name"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["firebase_uid"], name: "index_users_on_firebase_uid", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true

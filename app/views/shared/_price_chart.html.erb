@@ -1,0 +1,54 @@
+<% if price_history.present? && price_history.any? %>
+  <div class="bg-white rounded-lg p-4">
+    <h4 class="text-sm font-medium text-gray-900 mb-4">Price History</h4>
+    <div class="h-64 flex items-center justify-center bg-gray-50 rounded">
+      <!-- Chart.js or similar charting library can be integrated here -->
+      <!-- For now, showing a simple data table -->
+      <div class="w-full">
+        <table class="min-w-full divide-y divide-gray-200">
+          <thead class="bg-gray-50">
+            <tr>
+              <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
+              <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Provider</th>
+              <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Price</th>
+              <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Class</th>
+            </tr>
+          </thead>
+          <tbody class="bg-white divide-y divide-gray-200">
+            <% price_history.limit(10).each do |record| %>
+              <tr>
+                <td class="px-4 py-2 whitespace-nowrap text-sm text-gray-900">
+                  <%= record.date.strftime('%b %d, %Y') %>
+                </td>
+                <td class="px-4 py-2 whitespace-nowrap text-sm text-gray-500">
+                  <%= record.provider.humanize %>
+                </td>
+                <td class="px-4 py-2 whitespace-nowrap text-sm font-medium text-gray-900">
+                  $<%= number_with_precision(record.price, precision: 2) %>
+                </td>
+                <td class="px-4 py-2 whitespace-nowrap text-sm text-gray-500">
+                  <%= record.booking_class.humanize %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+        <% if price_history.count > 10 %>
+          <p class="text-xs text-gray-500 text-center mt-2">Showing latest 10 of <%= price_history.count %> records</p>
+        <% end %>
+      </div>
+    </div>
+    <p class="text-xs text-gray-500 mt-2">
+      Note: Full chart visualization can be integrated using Chart.js, Recharts, or similar library.
+      The PriceChart.tsx React component is available for enhanced visualization.
+    </p>
+  </div>
+<% else %>
+  <div class="bg-white rounded-lg p-4">
+    <h4 class="text-sm font-medium text-gray-900 mb-4">Price History</h4>
+    <div class="h-32 flex items-center justify-center bg-gray-50 rounded">
+      <p class="text-sm text-gray-500">No price history available yet</p>
+    </div>
+  </div>
+<% end %>
+

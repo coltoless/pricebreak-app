@@ -11,6 +11,9 @@ import FlightSearchInterface from './components/FlightSearchInterface'
 import AirportAutocompleteTest from './components/AirportAutocompleteTest'
 import SimpleTest from './components/SimpleTest'
 
+// Export FirebaseUI initialization for use in views
+export { initializeFirebaseUI } from './lib/firebaseui'
+
 console.log('🚀 priceBreak - JavaScript loading with React support...')
 
 // Initialize when DOM is ready

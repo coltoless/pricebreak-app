@@ -1,0 +1,143 @@
+<div class="min-h-screen bg-gray-100">
+  <!-- Header -->
+  <header class="bg-white shadow-sm border-b">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center py-6">
+        <div class="flex items-center">
+          <a href="/" class="text-2xl font-bold text-gray-900">priceBreak</a>
+          <span class="ml-4 text-gray-500">Edit Flight Filter</span>
+        </div>
+        <div class="flex items-center space-x-4">
+          <a href="/" class="text-gray-500 hover:text-gray-900">Home</a>
+          <%= link_to 'Back to Filters', flight_filters_path, class: "text-gray-500 hover:text-gray-900" %>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div class="bg-white shadow rounded-lg">
+      <div class="px-4 py-5 sm:p-6">
+        <h1 class="text-2xl font-bold text-gray-900 mb-6">Edit Flight Filter</h1>
+
+        <%= form_with model: @flight_filter, local: true, class: "space-y-6" do |f| %>
+          <% if @flight_filter.errors.any? %>
+            <div class="bg-red-50 border border-red-200 rounded-md p-4">
+              <h3 class="text-red-800 font-medium mb-2">
+                <%= pluralize(@flight_filter.errors.count, "error") %> prohibited this filter from being saved:
+              </h3>
+              <ul class="list-disc list-inside text-red-700 text-sm">
+                <% @flight_filter.errors.full_messages.each do |message| %>
+                  <li><%= message %></li>
+                <% end %>
+              </ul>
+            </div>
+          <% end %>
+
+          <!-- Basic Information -->
+          <div class="space-y-4">
+            <div>
+              <%= f.label :name, class: "block text-sm font-medium text-gray-700" %>
+              <%= f.text_field :name, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" %>
+            </div>
+
+            <div>
+              <%= f.label :description, class: "block text-sm font-medium text-gray-700" %>
+              <%= f.text_area :description, rows: 3, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" %>
+            </div>
+          </div>
+
+          <!-- Route Information -->
+          <div class="border-t border-gray-200 pt-6">
+            <h3 class="text-lg font-medium text-gray-900 mb-4">Route Information</h3>
+            <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+              <div>
+                <%= f.label :origin_airports, "Origin Airports (comma-separated or JSON array)", class: "block text-sm font-medium text-gray-700" %>
+                <%= f.text_area :origin_airports, rows: 2, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500", placeholder: '["JFK", "LGA"] or JFK, LGA' %>
+                <p class="mt-1 text-xs text-gray-500">Enter airport codes as a JSON array or comma-separated list</p>
+              </div>
+
+              <div>
+                <%= f.label :destination_airports, "Destination Airports (comma-separated or JSON array)", class: "block text-sm font-medium text-gray-700" %>
+                <%= f.text_area :destination_airports, rows: 2, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500", placeholder: '["LAX", "SFO"] or LAX, SFO' %>
+                <p class="mt-1 text-xs text-gray-500">Enter airport codes as a JSON array or comma-separated list</p>
+              </div>
+
+              <div>
+                <%= f.label :trip_type, class: "block text-sm font-medium text-gray-700" %>
+                <%= f.select :trip_type, options_for_select([['One Way', 'one-way'], ['Round Trip', 'round-trip'], ['Multi-City', 'multi-city']], @flight_filter.trip_type), {}, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" %>
+              </div>
+
+              <div>
+                <%= f.label :flexible_dates, class: "flex items-center" %>
+                <%= f.check_box :flexible_dates, class: "h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded" %>
+                <span class="ml-2 text-sm text-gray-700">Allow flexible dates</span>
+              </div>
+
+              <div>
+                <%= f.label :date_flexibility, "Date Flexibility (days)", class: "block text-sm font-medium text-gray-700" %>
+                <%= f.number_field :date_flexibility, min: 1, max: 30, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" %>
+              </div>
+            </div>
+          </div>
+
+          <!-- Dates -->
+          <div class="border-t border-gray-200 pt-6">
+            <h3 class="text-lg font-medium text-gray-900 mb-4">Dates</h3>
+            <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+              <div>
+                <%= f.label :departure_dates, "Departure Dates (comma-separated or JSON array)", class: "block text-sm font-medium text-gray-700" %>
+                <%= f.text_area :departure_dates, rows: 2, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500", placeholder: '["2024-12-25", "2024-12-26"]' %>
+              </div>
+
+              <% if @flight_filter.trip_type == 'round-trip' || @flight_filter.trip_type == 'multi-city' %>
+                <div>
+                  <%= f.label :return_dates, "Return Dates (comma-separated or JSON array)", class: "block text-sm font-medium text-gray-700" %>
+                  <%= f.text_area :return_dates, rows: 2, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500", placeholder: '["2025-01-05", "2025-01-06"]' %>
+                </div>
+              <% end %>
+            </div>
+          </div>
+
+          <!-- Advanced Settings -->
+          <div class="border-t border-gray-200 pt-6">
+            <h3 class="text-lg font-medium text-gray-900 mb-4">Advanced Settings</h3>
+            <p class="text-sm text-gray-500 mb-4">Advanced settings are stored as JSON. Edit these through the API or use the React component interface.</p>
+            <div class="bg-gray-50 rounded-md p-4">
+              <p class="text-xs text-gray-600">
+                Note: Passenger details, price parameters, advanced preferences, and alert settings 
+                should be edited through the full filter wizard interface for best results.
+              </p>
+            </div>
+          </div>
+
+          <!-- Active Status -->
+          <div class="border-t border-gray-200 pt-6">
+            <div class="flex items-center">
+              <%= f.check_box :is_active, class: "h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded" %>
+              <%= f.label :is_active, "Active (monitoring enabled)", class: "ml-2 text-sm font-medium text-gray-700" %>
+            </div>
+            <p class="mt-1 text-xs text-gray-500">Only active filters will be monitored for price changes</p>
+          </div>
+
+          <!-- Actions -->
+          <div class="border-t border-gray-200 pt-6 flex items-center justify-end space-x-3">
+            <%= link_to 'Cancel', flight_filter_path(@flight_filter), class: "px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50" %>
+            <%= f.submit 'Update Filter', class: "px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700" %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-white border-t mt-16">
+    <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+      <div class="text-center text-gray-500">
+        <p>&copy; 2024 priceBreak. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+</div>
+

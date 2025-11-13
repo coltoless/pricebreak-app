@@ -1,6 +1,5 @@
 class FlightAlert < ApplicationRecord
-  # Temporarily comment out for Phase 1 testing
-  # belongs_to :user
+  belongs_to :user
   belongs_to :flight_filter, optional: true
 
   validates :origin, presence: true
@@ -17,7 +16,7 @@ class FlightAlert < ApplicationRecord
   scope :wedding_mode, -> { where(wedding_mode: true) }
   scope :expired, -> { where('departure_date < ?', Date.current) }
   scope :by_status, ->(status) { where(status: status) }
-  # scope :by_user, ->(user_id) { where(user_id: user_id) } # Temporarily disabled
+  scope :by_user, ->(user_id) { where(user_id: user_id) }
   scope :needs_checking, -> { where('next_check_scheduled <= ?', Time.current) }
   scope :high_priority, -> { where('alert_quality_score >= ?', 0.8) }
 
@@ -31,7 +30,7 @@ class FlightAlert < ApplicationRecord
 
   def self.create_for_wedding(user, wedding_date, destination, guest_count, target_price)
     create!(
-      # user: user, # Temporarily disabled
+      user: user,
       origin: 'US', # Default origin, can be made configurable
       destination: destination,
       departure_date: wedding_date - 2.days, # Arrive 2 days before wedding

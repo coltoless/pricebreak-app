@@ -1,24 +1,48 @@
 module FlightApis
   class AggregatorService
     def initialize
-      @services = {
-        skyscanner: SkyscannerService.new,
-        amadeus: AmadeusService.new,
-        google_flights: GoogleFlightsService.new
-        # Add more flight APIs as they're implemented:
-        # kiwi: KiwiService.new,
-        # expedia: ExpediaService.new,
-        # kayak: KayakService.new
-      }
+      @services = {}
+      
+      # Check if mock mode is enabled
+      if FLIGHT_API_GLOBAL_CONFIG[:mock_mode]
+        Rails.logger.info "🚀 Flight API Mock Mode: ENABLED (using mock data, no API keys needed)"
+        @services[:mock] = MockService.new if FLIGHT_API_GLOBAL_CONFIG[:enable_mock]
+      else
+        # Initialize real API services based on configuration
+        if FLIGHT_API_GLOBAL_CONFIG[:enable_skyscanner] && (ENV['SKYSCANNER_API_KEY'] || Rails.application.credentials.dig(:api_keys, :skyscanner))
+          @services[:skyscanner] = SkyscannerService.new
+        end
+        
+        if FLIGHT_API_GLOBAL_CONFIG[:enable_amadeus] && (ENV['AMADEUS_API_KEY'] || Rails.application.credentials.dig(:api_keys, :amadeus))
+          @services[:amadeus] = AmadeusService.new
+        end
+        
+        if FLIGHT_API_GLOBAL_CONFIG[:enable_google_flights] && (ENV['GOOGLE_FLIGHTS_API_KEY'] || Rails.application.credentials.dig(:api_keys, :google_flights))
+          @services[:google_flights] = GoogleFlightsService.new
+        end
+        
+        # If no real APIs configured, fall back to mock
+        if @services.empty?
+          Rails.logger.warn "⚠️  No API keys found and mock mode not explicitly enabled. Using mock service."
+          @services[:mock] = MockService.new
+        end
+      end
       
       @data_normalizer = FlightApis::DataNormalizerService.new
       @duplicate_detector = DuplicateDetectorService.new
       @rate_limiters = {}
       
-      # Initialize rate limiters for each service
+      # Initialize rate limiters for each service (skip mock - doesn't need rate limiting)
       @services.keys.each do |provider|
+        next if provider == :mock # Mock service doesn't need rate limiting
         @rate_limiters[provider] = FlightApis::RateLimiterService.new(provider)
       end
+      
+      Rails.logger.info "📊 Flight Aggregator initialized with providers: #{@services.keys.join(', ')}"
+    end
+    
+    def mock_mode?
+      FLIGHT_API_GLOBAL_CONFIG[:mock_mode] || @services.keys.include?(:mock)
     end
 
     def search_all(params = {})
@@ -51,7 +75,8 @@ module FlightApis
         total_count: sorted_results.length,
         providers_queried: @services.keys,
         errors: errors,
-        search_strategy: strategy
+        search_strategy: strategy,
+        mock_mode: mock_mode?
       }
     rescue => e
       Rails.logger.error("Aggregator search error: #{e.message}")
@@ -64,9 +89,13 @@ module FlightApis
       
       @services.each do |service_name, service|
         begin
-          if @rate_limiters[service_name].can_make_request?
+          # Skip rate limiting for mock service
+          can_request = service_name == :mock || !@rate_limiters[service_name] || @rate_limiters[service_name].can_make_request?
+          
+          if can_request
             service_results = service.search_wedding_packages(wedding_date, destination, guest_count)
-            results.concat(service_results)
+            results.concat(service_results) if service_results
+            @rate_limiters[service_name]&.record_request
           else
             errors << "#{service_name} rate limit exceeded"
           end
@@ -83,12 +112,17 @@ module FlightApis
     end
 
     def get_flight_details(flight_id, source = 'skyscanner')
-      service = @services[source.to_sym]
+      service = @services[source.to_sym] || @services[:mock] # Fallback to mock if source not found
       return nil unless service
 
       begin
-        if @rate_limiters[source.to_sym].can_make_request?
-          service.get_flight_details(flight_id)
+        source_sym = source.to_sym
+        can_request = source_sym == :mock || !@rate_limiters[source_sym] || @rate_limiters[source_sym].can_make_request?
+        
+        if can_request
+          result = service.get_flight_details(flight_id)
+          @rate_limiters[source_sym]&.record_request
+          result
         else
           Rails.logger.warn("#{source} rate limit exceeded for flight details")
           nil
@@ -105,12 +139,14 @@ module FlightApis
       
       @services.each do |service_name, service|
         begin
-          if @rate_limiters[service_name].can_make_request?
-            if service.respond_to?(:get_price_history)
-              service_results = service.get_price_history(route, date_range)
-              results.concat(service_results)
-            end
-          else
+          # Skip rate limiting for mock service
+          can_request = service_name == :mock || !@rate_limiters[service_name] || @rate_limiters[service_name].can_make_request?
+          
+          if can_request && service.respond_to?(:get_price_history)
+            service_results = service.get_price_history(route, date_range)
+            results.concat(service_results) if service_results
+            @rate_limiters[service_name]&.record_request
+          elsif !can_request
             errors << "#{service_name} rate limit exceeded"
           end
         rescue => e
@@ -132,12 +168,14 @@ module FlightApis
       
       @services.each do |service_name, service|
         begin
-          if @rate_limiters[service_name].can_make_request?
-            if service.respond_to?(:get_airport_suggestions)
-              service_results = service.get_airport_suggestions(query)
-              results.concat(service_results)
-            end
-          else
+          # Skip rate limiting for mock service
+          can_request = service_name == :mock || !@rate_limiters[service_name] || @rate_limiters[service_name].can_make_request?
+          
+          if can_request && service.respond_to?(:get_airport_suggestions)
+            service_results = service.get_airport_suggestions(query)
+            results.concat(service_results) if service_results
+            @rate_limiters[service_name]&.record_request
+          elsif !can_request
             errors << "#{service_name} rate limit exceeded"
           end
         rescue => e
@@ -160,17 +198,24 @@ module FlightApis
         health_status[provider] = limiter.health_check
       end
       
+      health_status[:mock_mode] = mock_mode?
       health_status
     end
+    
+    private
 
     def get_price_insights(route, date_range)
       insights = {}
       
       @services.each do |service_name, service|
         begin
-          if service.respond_to?(:get_price_insights) && @rate_limiters[service_name].can_make_request?
+          # Skip rate limiting for mock service
+          can_request = service_name == :mock || !@rate_limiters[service_name] || @rate_limiters[service_name].can_make_request?
+          
+          if service.respond_to?(:get_price_insights) && can_request
             service_insights = service.get_price_insights(route, date_range)
             insights[service_name] = service_insights if service_insights
+            @rate_limiters[service_name]&.record_request
           end
         rescue => e
           Rails.logger.error("Error getting price insights from #{service_name}: #{e.message}")
@@ -190,9 +235,13 @@ module FlightApis
       # Try providers in order until we get enough results
       @services.each do |service_name, service|
         begin
-          if @rate_limiters[service_name].can_make_request?
+          # Skip rate limiting for mock service
+          if service_name == :mock || !@rate_limiters[service_name] || @rate_limiters[service_name].can_make_request?
             service_results = service.search_flights(params)
-            results.concat(service_results)
+            results.concat(service_results) if service_results
+            
+            # Record request for rate limiting (except mock)
+            @rate_limiters[service_name]&.record_request
             
             # If we have enough results, stop searching
             if results.length >= (params[:max_results] || 50)
@@ -218,8 +267,13 @@ module FlightApis
       threads = @services.map do |service_name, service|
         Thread.new do
           begin
-            if @rate_limiters[service_name].can_make_request?
-              service.search_flights(params)
+            # Skip rate limiting for mock service
+            can_request = service_name == :mock || !@rate_limiters[service_name] || @rate_limiters[service_name].can_make_request?
+            
+            if can_request
+              results = service.search_flights(params)
+              @rate_limiters[service_name]&.record_request
+              results
             else
               errors << "#{service_name} rate limit exceeded"
               []
@@ -245,13 +299,26 @@ module FlightApis
       errors = []
       
       # Sort providers by priority and search in order
-      sorted_services = @services.sort_by { |name, _| FLIGHT_APIS_CONFIG[name][:fallback_priority] }
+      # Mock service always has lowest priority (highest number)
+      sorted_services = @services.sort_by do |name, _|
+        if name == :mock
+          999 # Lowest priority (will be last)
+        elsif FLIGHT_APIS_CONFIG[name]
+          FLIGHT_APIS_CONFIG[name][:fallback_priority] || 100
+        else
+          100
+        end
+      end
       
       sorted_services.each do |service_name, service|
         begin
-          if @rate_limiters[service_name].can_make_request?
+          # Skip rate limiting for mock service
+          can_request = service_name == :mock || !@rate_limiters[service_name] || @rate_limiters[service_name].can_make_request?
+          
+          if can_request
             service_results = service.search_flights(params)
-            results.concat(service_results)
+            results.concat(service_results) if service_results
+            @rate_limiters[service_name]&.record_request
           else
             errors << "#{service_name} rate limit exceeded"
           end
@@ -271,7 +338,10 @@ module FlightApis
       normalized_data = []
       
       results.each do |result|
-        provider = result[:source] || result[:provider] || 'unknown'
+        # Extract provider from result (handle both hash and symbol keys)
+        provider = result[:source] || result['source'] || result[:provider] || result['provider'] || 'unknown'
+        
+        # Normalize the flight data
         normalized = @data_normalizer.normalize_single_flight(result, provider)
         normalized_data << normalized if normalized
       end

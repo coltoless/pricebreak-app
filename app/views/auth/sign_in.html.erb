@@ -1,0 +1,111 @@
+<div class="sign-in-page">
+  <div class="sign-in-container">
+    <div class="sign-in-header">
+      <h1>Welcome to PriceBreak</h1>
+      <p>Sign in to access your flight alerts and filters</p>
+    </div>
+    
+    <div id="loader" style="text-align: center; padding: 2rem;">
+      <p>Loading sign-in options...</p>
+    </div>
+    
+    <!-- FirebaseUI will render here -->
+    <div id="firebaseui-auth-container"></div>
+  </div>
+</div>
+
+<style>
+  .sign-in-page {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(180deg, 
+      #8B5CF6 0%, 
+      #7C3AED 25%, 
+      #6D28D9 50%, 
+      #5B21B6 75%, 
+      #1F2937 100%);
+    padding: 2rem;
+  }
+
+  .sign-in-container {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 1rem;
+    padding: 3rem;
+    max-width: 500px;
+    width: 100%;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  }
+
+  .sign-in-header {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+
+  .sign-in-header h1 {
+    color: #1F2937;
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+
+  .sign-in-header p {
+    color: #6B7280;
+    font-size: 1rem;
+  }
+
+  #firebaseui-auth-container {
+    margin-top: 1rem;
+  }
+
+  /* Customize FirebaseUI styles */
+  .firebaseui-container {
+    max-width: 100%;
+  }
+
+  .firebaseui-card-content {
+    padding: 0;
+  }
+
+  .firebaseui-title {
+    display: none; /* Hide default title since we have our own */
+  }
+
+  .firebaseui-subtitle {
+    display: none; /* Hide default subtitle */
+  }
+
+  @media (max-width: 640px) {
+    .sign-in-container {
+      padding: 2rem 1.5rem;
+    }
+
+    .sign-in-header h1 {
+      font-size: 1.5rem;
+    }
+  }
+</style>
+
+<script type="module">
+  // Import FirebaseUI initialization
+  import('/application.js').then(module => {
+    const { initializeFirebaseUI } = module;
+    
+    // Wait for DOM to be ready
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', () => {
+        initializeFirebaseUI('firebaseui-auth-container');
+      });
+    } else {
+      initializeFirebaseUI('firebaseui-auth-container');
+    }
+  }).catch(error => {
+    console.error('Error loading FirebaseUI:', error);
+    document.getElementById('firebaseui-auth-container').innerHTML = 
+      '<div style="padding: 1rem; background: #fee; border: 1px solid #fcc; border-radius: 4px; color: #c33;">' +
+      '<p>Error loading authentication. Please refresh the page.</p>' +
+      '</div>';
+  });
+</script>
+

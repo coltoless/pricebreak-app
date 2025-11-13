@@ -12,6 +12,7 @@ window.Stimulus = application
 import DateRangeController from "./date_range_controller"
 import FirebaseAuthController from "./firebase_auth_controller"
 import FlightSearchController from "./flight_search_controller"
+import FlightFilterController from "./flight_filter_controller"
 import PriceAlertController from "./price_alert_controller"
 import PriceRangeController from "./price_range_controller"
 
@@ -19,6 +20,7 @@ import PriceRangeController from "./price_range_controller"
 application.register("date-range", DateRangeController)
 application.register("firebase-auth", FirebaseAuthController)
 application.register("flight-search", FlightSearchController)
+application.register("flight-filter", FlightFilterController)
 application.register("price-alert", PriceAlertController)
 application.register("price-range", PriceRangeController)
 

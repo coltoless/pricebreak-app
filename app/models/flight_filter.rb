@@ -1,6 +1,5 @@
 class FlightFilter < ApplicationRecord
-  # Temporarily comment out for Phase 1 testing
-  # belongs_to :user
+  belongs_to :user
   has_many :flight_alerts, dependent: :destroy
   has_many :flight_price_histories, dependent: :destroy
 
@@ -20,7 +19,7 @@ class FlightFilter < ApplicationRecord
   scope :active, -> { where(is_active: true) }
   scope :inactive, -> { where(is_active: false) }
   scope :by_trip_type, ->(type) { where(trip_type: type) }
-  # scope :by_user, ->(user_id) { where(user_id: user_id) } # Temporarily disabled
+  scope :by_user, ->(user_id) { where(user_id: user_id) }
 
   # JSON field validations and defaults
   before_validation :set_defaults

@@ -22,27 +22,32 @@
     <meta name="theme-color" content="#8B5CF6">
 
     <%# Includes all stylesheet files in app/assets/stylesheets %>
-    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <% if Rails.env.development? %>
+      <link rel="stylesheet" href="/assets/application.css?v=<%= Time.current.to_i %>" data-turbo-track="reload">
+    <% else %>
+      <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <% end %>
     
-    <%# Include our built JavaScript bundle %>
-    <script type="module" src="/application.js?v=<%= Time.current.to_i %>"></script>
-    
-    <%# Firebase SDK %>
-    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore-compat.js"></script>
-    
-    <%# Firebase Configuration %>
+    <%# Firebase Configuration - must be loaded before application.js %>
     <script>
       window.firebaseConfig = {
-        apiKey: '<%= ENV["FIREBASE_API_KEY"] %>',
-        authDomain: '<%= ENV["FIREBASE_AUTH_DOMAIN"] %>',
-        projectId: '<%= ENV["FIREBASE_PROJECT_ID"] %>',
-        storageBucket: '<%= ENV["FIREBASE_STORAGE_BUCKET"] %>',
-        messagingSenderId: '<%= ENV["FIREBASE_MESSAGING_SENDER_ID"] %>',
-        appId: '<%= ENV["FIREBASE_APP_ID"] %>'
+        apiKey: '<%= ENV["FIREBASE_API_KEY"] || "" %>',
+        authDomain: '<%= ENV["FIREBASE_AUTH_DOMAIN"] || "" %>',
+        projectId: '<%= ENV["FIREBASE_PROJECT_ID"] || "" %>',
+        storageBucket: '<%= ENV["FIREBASE_STORAGE_BUCKET"] || "" %>',
+        messagingSenderId: '<%= ENV["FIREBASE_MESSAGING_SENDER_ID"] || "" %>',
+        appId: '<%= ENV["FIREBASE_APP_ID"] || "" %>'
       };
+      
+      // Check if Firebase is configured
+      if (!window.firebaseConfig.apiKey || window.firebaseConfig.apiKey === "") {
+        console.warn('⚠️ Firebase not configured. Please set environment variables: FIREBASE_API_KEY, FIREBASE_AUTH_DOMAIN, FIREBASE_PROJECT_ID, etc.');
+        console.warn('Authentication features will be limited until Firebase is configured.');
+      }
     </script>
+    
+    <%# Include our built JavaScript bundle (which includes Firebase SDK via imports) %>
+    <script type="module" src="/application.js?v=<%= Time.current.to_i %>"></script>
   </head>
 
   <body>

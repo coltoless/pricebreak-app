@@ -24,6 +24,7 @@ Rails.application.routes.draw do
       patch :activate
       patch :deactivate
       post :duplicate
+      post :test_price_check
     end
     collection do
       post :bulk_action
@@ -45,10 +46,15 @@ Rails.application.routes.draw do
     end
   end
   
+  # Flight Dashboard
+  get 'dashboard', to: 'flight_dashboard#index', as: :flight_dashboard
+  
   # Unsubscribe route (public)
   get 'unsubscribe/:token', to: 'flight_alerts#unsubscribe', as: :unsubscribe
 
   # Firebase Authentication routes
+  get 'sign-in', to: 'auth#sign_in', as: :sign_in
+  
   namespace :api do
     namespace :auth do
       post 'login', to: 'auth#login'

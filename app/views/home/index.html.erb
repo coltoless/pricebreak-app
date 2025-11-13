@@ -28,16 +28,19 @@
       <!-- Firebase Authentication -->
       <div class="auth-section" 
            data-controller="firebase-auth"
-           data-firebase-auth-api-key-value="<%= ENV['FIREBASE_API_KEY'] || 'your-api-key' %>"
-           data-firebase-auth-auth-domain-value="<%= ENV['FIREBASE_AUTH_DOMAIN'] || 'your-project.firebaseapp.com' %>"
-           data-firebase-auth-project-id-value="<%= ENV['FIREBASE_PROJECT_ID'] || 'your-project-id' %>">
+           data-firebase-auth-api-key-value="<%= ENV['FIREBASE_API_KEY'] || '' %>"
+           data-firebase-auth-auth-domain-value="<%= ENV['FIREBASE_AUTH_DOMAIN'] || '' %>"
+           data-firebase-auth-project-id-value="<%= ENV['FIREBASE_PROJECT_ID'] || '' %>"
+           data-firebase-auth-storage-bucket-value="<%= ENV['FIREBASE_STORAGE_BUCKET'] || '' %>"
+           data-firebase-auth-messaging-sender-id-value="<%= ENV['FIREBASE_MESSAGING_SENDER_ID'] || '' %>"
+           data-firebase-auth-app-id-value="<%= ENV['FIREBASE_APP_ID'] || '' %>">
         
-        <!-- Sign In Button -->
-        <button class="auth-button sign-in-btn" 
-                data-firebase-auth-target="signInButton"
-                data-action="click->firebase-auth#signInWithGoogle">
-          🔐 Sign In with Google
-        </button>
+        <!-- Sign In Button - Links to FirebaseUI sign-in page -->
+        <a href="<%= sign_in_path %>" class="auth-button sign-in-btn" 
+           data-firebase-auth-target="signInButton"
+           style="display: inline-block; text-decoration: none; color: white;">
+          🔐 Sign In
+        </a>
         
         <!-- Sign Out Button (hidden by default) -->
         <button class="auth-button sign-out-btn" 

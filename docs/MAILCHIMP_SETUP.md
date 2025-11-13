@@ -99,3 +99,4 @@ heroku logs --tail --app pricebreak-app | grep -i mailchimp
 - User subscription saved even if Mailchimp fails
 - No blocking of web requests
 
+

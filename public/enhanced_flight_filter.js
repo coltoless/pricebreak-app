@@ -40535,7 +40535,7 @@ var import_react8 = __toESM(require_react());
 // app/javascript/components/steps/Step4AlertPreferences.tsx
 var import_react9 = __toESM(require_react());
 
-// app/javascript/components/FilterSummary.tsx
+// app/javascript/components/AlertPreviewModal.tsx
 var import_react10 = __toESM(require_react());
 
 // app/javascript/packs/enhanced_flight_filter.js

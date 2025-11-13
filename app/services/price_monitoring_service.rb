@@ -22,9 +22,10 @@ class PriceMonitoringService
     
     performance_service.optimize_performance(:monitor_all_filters) do
       # Get all active filters that need checking
+      # Note: FlightFilter doesn't have next_check_scheduled, so we check all active filters
+      # In production, you might want to add these fields or use a separate scheduling table
       active_filters = FlightFilter.active
-                                  .where('next_check_scheduled <= ?', Time.current)
-                                  .order(:priority_score)
+                                  .order(:created_at)
 
       Rails.logger.info "Starting price monitoring for #{active_filters.count} filters"
 
@@ -90,6 +91,9 @@ class PriceMonitoringService
     search_result = aggregator.search_all(search_params)
     
     if search_result[:success]
+      if search_result[:mock_mode]
+        Rails.logger.info "📊 Mock mode: Generated #{search_result[:results].count} test flight options for filter #{filter.id}"
+      end
       search_result[:results] || []
     else
       Rails.logger.error "Failed to fetch prices for filter #{filter.id}: #{search_result[:errors]}"
@@ -357,16 +361,15 @@ class PriceMonitoringService
 
   # Update filter's check time and schedule next check
   def update_filter_check_time(filter, price_analysis)
-    # Update last checked time
-    filter.update!(last_checked: Time.current)
+    # Note: FlightFilter doesn't have last_checked or next_check_scheduled fields
+    # These would need to be added via migration if you want to track check times per filter
+    # For now, we just update the filter's updated_at timestamp
+    filter.touch
     
-    # Calculate next check interval based on urgency and results
+    # Calculate next check interval (for logging/debugging)
     next_interval = calculate_next_check_interval(filter, price_analysis)
     
-    # Schedule next check
-    filter.update!(next_check_scheduled: Time.current + next_interval)
-    
-    Rails.logger.debug "Scheduled next check for filter #{filter.id} in #{next_interval / 1.hour} hours"
+    Rails.logger.debug "Filter #{filter.id} checked. Next recommended check in #{next_interval / 1.hour} hours"
   end
 
   # Calculate next check interval based on various factors
@@ -404,20 +407,38 @@ class PriceMonitoringService
   def store_price_history(filter, prices)
     return if prices.empty?
     
-    prices.each do |price|
+    # Get the first departure date (or today if none specified)
+    departure_date = if filter.departure_dates_array.any?
+      date_str = filter.departure_dates_array.first
+      date_str.is_a?(String) ? Date.parse(date_str) : date_str
+    else
+      Date.today
+    end
+    
+    # Store top 5 prices to avoid storing too many
+    top_prices = prices.sort_by { |p| p[:price] || p['price'] || Float::INFINITY }.first(5)
+    
+    stored_count = 0
+    top_prices.each do |price|
+      price_value = price[:price] || price['price']
+      next unless price_value.is_a?(Numeric) && price_value > 0
+      
       FlightPriceHistory.create!(
         route: filter.route_description,
-        date: filter.departure_dates_array.first,
-        provider: price[:provider] || price['provider'] || 'unknown',
-        price: price[:price] || price['price'],
+        date: departure_date,
+        provider: price[:provider] || price['provider'] || price[:source] || price['source'] || 'unknown',
+        price: price_value,
         booking_class: price[:cabin_class] || price['cabin_class'] || 'economy',
         timestamp: Time.current,
-        data_quality_score: 1.0,
+        data_quality_score: 0.95,
         price_validation_status: 'valid'
       )
+      stored_count += 1
     rescue => e
       Rails.logger.error "Failed to store price history: #{e.message}"
     end
+    
+    Rails.logger.info "Stored #{stored_count} price records for filter #{filter.id}" if stored_count > 0
   end
 
   # Build search parameters for a filter
@@ -436,6 +457,12 @@ class PriceMonitoringService
 
   # Schedule next check for a filter
   def schedule_next_check(filter, reason = :normal)
+    # Note: FlightFilter doesn't have scheduling fields
+    # In production, consider adding these or using FlightAlert for scheduling
+    # For now, we just touch the filter to update its timestamp
+    filter.touch
+    
+    # Calculate interval for logging
     interval = case reason
               when :no_data
                 2.hours
@@ -447,10 +474,7 @@ class PriceMonitoringService
                 calculate_next_check_interval(filter, { price_break_detected: false })
               end
     
-    filter.update!(
-      last_checked: Time.current,
-      next_check_scheduled: Time.current + interval
-    )
+    Rails.logger.debug "Filter #{filter.id} scheduled for next check in ~#{interval / 1.hour} hours (reason: #{reason})"
   end
 
   # Get monitoring statistics
@@ -467,7 +491,8 @@ class PriceMonitoringService
   # Calculate overall system health
   def self.calculate_system_health
     # Check if monitoring is running
-    last_check = FlightFilter.maximum(:last_checked)
+    # Note: FlightFilter doesn't have last_checked, use updated_at instead
+    last_check = FlightFilter.maximum(:updated_at)
     return 'unhealthy' if last_check.nil? || last_check < 1.hour.ago
     
     # Check error rates

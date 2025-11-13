@@ -1,0 +1,50 @@
+<div class="border rounded-lg p-4 hover:shadow-md transition-shadow">
+  <div class="flex items-start justify-between">
+    <div class="flex-1">
+      <div class="flex items-center space-x-2 mb-2">
+        <h4 class="text-sm font-medium text-gray-900"><%= filter.name %></h4>
+        <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium <%= filter.is_active? ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800' %>">
+          <%= filter.is_active? ? 'Active' : 'Inactive' %>
+        </span>
+      </div>
+      
+      <% if filter.description.present? %>
+        <p class="text-xs text-gray-500 mb-2"><%= truncate(filter.description, length: 100) %></p>
+      <% end %>
+      
+      <div class="flex items-center space-x-4 text-xs text-gray-500">
+        <span><%= filter.route_description %></span>
+        <span>•</span>
+        <span><%= filter.trip_type.humanize %></span>
+        <% if filter.flight_alerts.any? %>
+          <span>•</span>
+          <span><%= pluralize(filter.flight_alerts.count, 'alert') %></span>
+        <% end %>
+      </div>
+      
+      <div class="mt-2 flex items-center space-x-2 text-xs">
+        <span class="text-gray-500">Target: $<%= number_with_precision(filter.target_price, precision: 0) %></span>
+        <% if filter.is_urgent? %>
+          <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-red-100 text-red-800">
+            Urgent
+          </span>
+        <% end %>
+      </div>
+    </div>
+    
+    <div class="flex items-center space-x-2 ml-4">
+      <%= link_to flight_filter_path(filter), class: "text-blue-600 hover:text-blue-700" do %>
+        <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+        </svg>
+      <% end %>
+      <%= link_to edit_flight_filter_path(filter), class: "text-gray-600 hover:text-gray-700" do %>
+        <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+        </svg>
+      <% end %>
+    </div>
+  </div>
+</div>
+

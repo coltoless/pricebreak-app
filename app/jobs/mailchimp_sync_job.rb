@@ -22,3 +22,4 @@ class MailchimpSyncJob < ApplicationJob
   end
 end
 
+

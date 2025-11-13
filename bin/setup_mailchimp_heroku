@@ -84,3 +84,4 @@ echo "  heroku run rails mailchimp:status --app $APP_NAME"
 echo "  heroku ps --app $APP_NAME"
 echo ""
 
+

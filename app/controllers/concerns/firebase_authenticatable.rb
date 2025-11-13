@@ -28,24 +28,34 @@ module FirebaseAuthenticatable
 
       firebase_uid = decoded_token['uid']
       email = decoded_token['email']
-      name = decoded_token['name'] || email
+      name = decoded_token['name'] || decoded_token['display_name'] || email.split('@').first
 
       # Find existing user by Firebase UID
       user = User.find_by(firebase_uid: firebase_uid)
       
       if user
         # Update user info if needed
-        user.update(
-          email: email,
-          name: name
-        ) if user.email != email || user.name != name
+        update_attrs = {}
+        update_attrs[:email] = email if user.email != email
+        update_attrs[:name] = name if user.name != name
+        
+        user.update(update_attrs) if update_attrs.any?
       else
-        # Create new user
-        user = User.create!(
-          firebase_uid: firebase_uid,
-          email: email,
-          name: name
-        )
+        # Check if user exists with same email (for migration)
+        existing_user = User.find_by(email: email)
+        
+        if existing_user
+          # Link existing account to Firebase
+          existing_user.update(firebase_uid: firebase_uid, name: name) if existing_user.name != name || existing_user.firebase_uid != firebase_uid
+          user = existing_user
+        else
+          # Create new user
+          user = User.create!(
+            firebase_uid: firebase_uid,
+            email: email,
+            name: name
+          )
+        end
       end
 
       user

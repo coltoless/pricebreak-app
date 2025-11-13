@@ -8,7 +8,7 @@
     "test": "test"
   },
   "scripts": {
-    "build": "esbuild app/javascript/application.js --bundle --outdir=app/assets/builds --public-path=/assets --format=esm --loader:.js=jsx --loader:.ts=ts --loader:.tsx=tsx && esbuild app/javascript/packs/enhanced_flight_filter.js --bundle --outdir=public --public-path=/ --format=esm --loader:.js=jsx --loader:.ts=ts --loader:.tsx=tsx",
+    "build": "esbuild app/javascript/application.js --bundle --outdir=app/assets/builds --public-path=/assets --format=esm --loader:.js=jsx --loader:.ts=ts --loader:.tsx=tsx && cp app/assets/builds/application.js public/application.js && mkdir -p public/assets && cp app/assets/builds/application.css public/assets/application.css && esbuild app/javascript/packs/enhanced_flight_filter.js --bundle --outdir=public --public-path=/ --format=esm --loader:.js=jsx --loader:.ts=ts --loader:.tsx=tsx",
     "build:css": "tailwindcss -i ./app/assets/stylesheets/application.css -o ./app/assets/builds/application.css --watch",
     "build:css:prod": "tailwindcss -i ./app/assets/stylesheets/application.css -o ./app/assets/builds/application.css --minify",
     "dev": "npm run build -- --watch",
@@ -47,10 +47,12 @@
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "firebase": "^12.3.0",
+    "firebaseui": "^6.1.0",
     "lucide-react": "^0.539.0",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
     "tailwind-merge": "^3.3.1",
+    "tailwindcss-animate": "^1.0.7",
     "task-master-ai": "^0.21.0",
     "typescript": "^5.9.2"
   },

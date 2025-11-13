@@ -1892,7 +1892,7 @@ var require_react_dom_development = __commonJS({
         return dispatcher;
       }
       "undefined" !== typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ && "function" === typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart && __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart(Error());
-      var React10 = require_react(), Internals = {
+      var React19 = require_react(), Internals = {
         d: {
           f: noop2,
           r: function() {
@@ -1910,7 +1910,7 @@ var require_react_dom_development = __commonJS({
         },
         p: 0,
         findDOMNode: null
-      }, REACT_PORTAL_TYPE = Symbol.for("react.portal"), ReactSharedInternals = React10.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE;
+      }, REACT_PORTAL_TYPE = Symbol.for("react.portal"), ReactSharedInternals = React19.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE;
       "function" === typeof Map && null != Map.prototype && "function" === typeof Map.prototype.forEach && "function" === typeof Set && null != Set.prototype && "function" === typeof Set.prototype.clear && "function" === typeof Set.prototype.forEach || console.error(
         "React depends on Map and Set built-in types. Make sure that you load a polyfill in older browsers. https://reactjs.org/link/react-polyfills"
       );
@@ -3452,7 +3452,7 @@ var require_react_dom_client_development = __commonJS({
         "number" === type && getActiveElement(node.ownerDocument) === node || node.defaultValue === "" + value || (node.defaultValue = "" + value);
       }
       function validateOptionProps(element, props) {
-        null == props.value && ("object" === typeof props.children && null !== props.children ? React10.Children.forEach(props.children, function(child) {
+        null == props.value && ("object" === typeof props.children && null !== props.children ? React19.Children.forEach(props.children, function(child) {
           null == child || "string" === typeof child || "number" === typeof child || "bigint" === typeof child || didWarnInvalidChild || (didWarnInvalidChild = true, console.error(
             "Cannot infer the option value of complex children. Pass a `value` prop or use a plain string as children to <option>."
           ));
@@ -17034,14 +17034,14 @@ var require_react_dom_client_development = __commonJS({
         ));
       }
       "undefined" !== typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ && "function" === typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart && __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart(Error());
-      var Scheduler = require_scheduler(), React10 = require_react(), ReactDOM = require_react_dom(), assign = Object.assign, REACT_LEGACY_ELEMENT_TYPE = Symbol.for("react.element"), REACT_ELEMENT_TYPE = Symbol.for("react.transitional.element"), REACT_PORTAL_TYPE = Symbol.for("react.portal"), REACT_FRAGMENT_TYPE = Symbol.for("react.fragment"), REACT_STRICT_MODE_TYPE = Symbol.for("react.strict_mode"), REACT_PROFILER_TYPE = Symbol.for("react.profiler"), REACT_PROVIDER_TYPE = Symbol.for("react.provider"), REACT_CONSUMER_TYPE = Symbol.for("react.consumer"), REACT_CONTEXT_TYPE = Symbol.for("react.context"), REACT_FORWARD_REF_TYPE = Symbol.for("react.forward_ref"), REACT_SUSPENSE_TYPE = Symbol.for("react.suspense"), REACT_SUSPENSE_LIST_TYPE = Symbol.for("react.suspense_list"), REACT_MEMO_TYPE = Symbol.for("react.memo"), REACT_LAZY_TYPE = Symbol.for("react.lazy");
+      var Scheduler = require_scheduler(), React19 = require_react(), ReactDOM = require_react_dom(), assign = Object.assign, REACT_LEGACY_ELEMENT_TYPE = Symbol.for("react.element"), REACT_ELEMENT_TYPE = Symbol.for("react.transitional.element"), REACT_PORTAL_TYPE = Symbol.for("react.portal"), REACT_FRAGMENT_TYPE = Symbol.for("react.fragment"), REACT_STRICT_MODE_TYPE = Symbol.for("react.strict_mode"), REACT_PROFILER_TYPE = Symbol.for("react.profiler"), REACT_PROVIDER_TYPE = Symbol.for("react.provider"), REACT_CONSUMER_TYPE = Symbol.for("react.consumer"), REACT_CONTEXT_TYPE = Symbol.for("react.context"), REACT_FORWARD_REF_TYPE = Symbol.for("react.forward_ref"), REACT_SUSPENSE_TYPE = Symbol.for("react.suspense"), REACT_SUSPENSE_LIST_TYPE = Symbol.for("react.suspense_list"), REACT_MEMO_TYPE = Symbol.for("react.memo"), REACT_LAZY_TYPE = Symbol.for("react.lazy");
       Symbol.for("react.scope");
       var REACT_ACTIVITY_TYPE = Symbol.for("react.activity");
       Symbol.for("react.legacy_hidden");
       Symbol.for("react.tracing_marker");
       var REACT_MEMO_CACHE_SENTINEL = Symbol.for("react.memo_cache_sentinel");
       Symbol.for("react.view_transition");
-      var MAYBE_ITERATOR_SYMBOL = Symbol.iterator, REACT_CLIENT_REFERENCE = Symbol.for("react.client.reference"), isArrayImpl = Array.isArray, ReactSharedInternals = React10.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE, ReactDOMSharedInternals = ReactDOM.__DOM_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE, NotPending = Object.freeze({
+      var MAYBE_ITERATOR_SYMBOL = Symbol.iterator, REACT_CLIENT_REFERENCE = Symbol.for("react.client.reference"), isArrayImpl = Array.isArray, ReactSharedInternals = React19.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE, ReactDOMSharedInternals = ReactDOM.__DOM_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE, NotPending = Object.freeze({
         pending: false,
         data: null,
         method: null,
@@ -19763,7 +19763,7 @@ var require_react_dom_client_development = __commonJS({
         }
       };
       (function() {
-        var isomorphicReactPackageVersion = React10.version;
+        var isomorphicReactPackageVersion = React19.version;
         if ("19.1.1" !== isomorphicReactPackageVersion)
           throw Error(
             'Incompatible React versions: The "react" and "react-dom" packages must have the exact same version. Instead got:\n  - react:      ' + (isomorphicReactPackageVersion + "\n  - react-dom:  19.1.1\nLearn more: https://react.dev/warnings/version-mismatch")
@@ -28041,10 +28041,10 @@ var firebase_auth_controller_default = class extends Controller {
 
 // app/javascript/controllers/flight_search_controller.js
 var import_client = __toESM(require_client());
-var import_react8 = __toESM(require_react());
+var import_react10 = __toESM(require_react());
 
 // app/javascript/components/FlightSearchInterface.tsx
-var import_react7 = __toESM(require_react());
+var import_react9 = __toESM(require_react());
 
 // node_modules/lucide-react/dist/esm/createLucideIcon.js
 var import_react2 = __toESM(require_react());
@@ -28135,15 +28135,22 @@ var createLucideIcon = (iconName, iconNode) => {
   return Component2;
 };
 
-// node_modules/lucide-react/dist/esm/icons/arrow-right.js
+// node_modules/lucide-react/dist/esm/icons/arrow-left.js
 var __iconNode = [
+  ["path", { d: "m12 19-7-7 7-7", key: "1l729n" }],
+  ["path", { d: "M19 12H5", key: "x3x0zl" }]
+];
+var ArrowLeft = createLucideIcon("arrow-left", __iconNode);
+
+// node_modules/lucide-react/dist/esm/icons/arrow-right.js
+var __iconNode2 = [
   ["path", { d: "M5 12h14", key: "1ays0h" }],
   ["path", { d: "m12 5 7 7-7 7", key: "xquz4c" }]
 ];
-var ArrowRight = createLucideIcon("arrow-right", __iconNode);
+var ArrowRight = createLucideIcon("arrow-right", __iconNode2);
 
 // node_modules/lucide-react/dist/esm/icons/bell.js
-var __iconNode2 = [
+var __iconNode3 = [
   ["path", { d: "M10.268 21a2 2 0 0 0 3.464 0", key: "vwvbt9" }],
   [
     "path",
@@ -28153,65 +28160,69 @@ var __iconNode2 = [
     }
   ]
 ];
-var Bell = createLucideIcon("bell", __iconNode2);
+var Bell = createLucideIcon("bell", __iconNode3);
 
 // node_modules/lucide-react/dist/esm/icons/calendar.js
-var __iconNode3 = [
+var __iconNode4 = [
   ["path", { d: "M8 2v4", key: "1cmpym" }],
   ["path", { d: "M16 2v4", key: "4m81vk" }],
   ["rect", { width: "18", height: "18", x: "3", y: "4", rx: "2", key: "1hopcy" }],
   ["path", { d: "M3 10h18", key: "8toen8" }]
 ];
-var Calendar = createLucideIcon("calendar", __iconNode3);
+var Calendar = createLucideIcon("calendar", __iconNode4);
 
 // node_modules/lucide-react/dist/esm/icons/chart-column.js
-var __iconNode4 = [
+var __iconNode5 = [
   ["path", { d: "M3 3v16a2 2 0 0 0 2 2h16", key: "c24i48" }],
   ["path", { d: "M18 17V9", key: "2bz60n" }],
   ["path", { d: "M13 17V5", key: "1frdt8" }],
   ["path", { d: "M8 17v-3", key: "17ska0" }]
 ];
-var ChartColumn = createLucideIcon("chart-column", __iconNode4);
+var ChartColumn = createLucideIcon("chart-column", __iconNode5);
+
+// node_modules/lucide-react/dist/esm/icons/check.js
+var __iconNode6 = [["path", { d: "M20 6 9 17l-5-5", key: "1gmf2c" }]];
+var Check = createLucideIcon("check", __iconNode6);
 
 // node_modules/lucide-react/dist/esm/icons/chevron-down.js
-var __iconNode5 = [["path", { d: "m6 9 6 6 6-6", key: "qrunsl" }]];
-var ChevronDown = createLucideIcon("chevron-down", __iconNode5);
+var __iconNode7 = [["path", { d: "m6 9 6 6 6-6", key: "qrunsl" }]];
+var ChevronDown = createLucideIcon("chevron-down", __iconNode7);
 
 // node_modules/lucide-react/dist/esm/icons/chevron-up.js
-var __iconNode6 = [["path", { d: "m18 15-6-6-6 6", key: "153udz" }]];
-var ChevronUp = createLucideIcon("chevron-up", __iconNode6);
+var __iconNode8 = [["path", { d: "m18 15-6-6-6 6", key: "153udz" }]];
+var ChevronUp = createLucideIcon("chevron-up", __iconNode8);
 
 // node_modules/lucide-react/dist/esm/icons/circle-check-big.js
-var __iconNode7 = [
+var __iconNode9 = [
   ["path", { d: "M21.801 10A10 10 0 1 1 17 3.335", key: "yps3ct" }],
   ["path", { d: "m9 11 3 3L22 4", key: "1pflzl" }]
 ];
-var CircleCheckBig = createLucideIcon("circle-check-big", __iconNode7);
+var CircleCheckBig = createLucideIcon("circle-check-big", __iconNode9);
 
 // node_modules/lucide-react/dist/esm/icons/clock.js
-var __iconNode8 = [
+var __iconNode10 = [
   ["path", { d: "M12 6v6l4 2", key: "mmk7yg" }],
   ["circle", { cx: "12", cy: "12", r: "10", key: "1mglay" }]
 ];
-var Clock = createLucideIcon("clock", __iconNode8);
+var Clock = createLucideIcon("clock", __iconNode10);
 
 // node_modules/lucide-react/dist/esm/icons/dollar-sign.js
-var __iconNode9 = [
+var __iconNode11 = [
   ["line", { x1: "12", x2: "12", y1: "2", y2: "22", key: "7eqyqh" }],
   ["path", { d: "M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6", key: "1b0p4s" }]
 ];
-var DollarSign = createLucideIcon("dollar-sign", __iconNode9);
+var DollarSign = createLucideIcon("dollar-sign", __iconNode11);
 
 // node_modules/lucide-react/dist/esm/icons/download.js
-var __iconNode10 = [
+var __iconNode12 = [
   ["path", { d: "M12 15V3", key: "m9g1x1" }],
   ["path", { d: "M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4", key: "ih7n3h" }],
   ["path", { d: "m7 10 5 5 5-5", key: "brsn70" }]
 ];
-var Download = createLucideIcon("download", __iconNode10);
+var Download = createLucideIcon("download", __iconNode12);
 
 // node_modules/lucide-react/dist/esm/icons/eye.js
-var __iconNode11 = [
+var __iconNode13 = [
   [
     "path",
     {
@@ -28221,10 +28232,10 @@ var __iconNode11 = [
   ],
   ["circle", { cx: "12", cy: "12", r: "3", key: "1v7zrd" }]
 ];
-var Eye = createLucideIcon("eye", __iconNode11);
+var Eye = createLucideIcon("eye", __iconNode13);
 
 // node_modules/lucide-react/dist/esm/icons/funnel.js
-var __iconNode12 = [
+var __iconNode14 = [
   [
     "path",
     {
@@ -28233,10 +28244,25 @@ var __iconNode12 = [
     }
   ]
 ];
-var Funnel = createLucideIcon("funnel", __iconNode12);
+var Funnel = createLucideIcon("funnel", __iconNode14);
+
+// node_modules/lucide-react/dist/esm/icons/gauge.js
+var __iconNode15 = [
+  ["path", { d: "m12 14 4-4", key: "9kzdfg" }],
+  ["path", { d: "M3.34 19a10 10 0 1 1 17.32 0", key: "19p75a" }]
+];
+var Gauge = createLucideIcon("gauge", __iconNode15);
+
+// node_modules/lucide-react/dist/esm/icons/globe.js
+var __iconNode16 = [
+  ["circle", { cx: "12", cy: "12", r: "10", key: "1mglay" }],
+  ["path", { d: "M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20", key: "13o1zl" }],
+  ["path", { d: "M2 12h20", key: "9i4pu4" }]
+];
+var Globe = createLucideIcon("globe", __iconNode16);
 
 // node_modules/lucide-react/dist/esm/icons/heart.js
-var __iconNode13 = [
+var __iconNode17 = [
   [
     "path",
     {
@@ -28245,29 +28271,29 @@ var __iconNode13 = [
     }
   ]
 ];
-var Heart = createLucideIcon("heart", __iconNode13);
+var Heart = createLucideIcon("heart", __iconNode17);
 
 // node_modules/lucide-react/dist/esm/icons/info.js
-var __iconNode14 = [
+var __iconNode18 = [
   ["circle", { cx: "12", cy: "12", r: "10", key: "1mglay" }],
   ["path", { d: "M12 16v-4", key: "1dtifu" }],
   ["path", { d: "M12 8h.01", key: "e9boi3" }]
 ];
-var Info = createLucideIcon("info", __iconNode14);
+var Info = createLucideIcon("info", __iconNode18);
 
 // node_modules/lucide-react/dist/esm/icons/loader-circle.js
-var __iconNode15 = [["path", { d: "M21 12a9 9 0 1 1-6.219-8.56", key: "13zald" }]];
-var LoaderCircle = createLucideIcon("loader-circle", __iconNode15);
+var __iconNode19 = [["path", { d: "M21 12a9 9 0 1 1-6.219-8.56", key: "13zald" }]];
+var LoaderCircle = createLucideIcon("loader-circle", __iconNode19);
 
 // node_modules/lucide-react/dist/esm/icons/mail.js
-var __iconNode16 = [
+var __iconNode20 = [
   ["path", { d: "m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7", key: "132q7q" }],
   ["rect", { x: "2", y: "4", width: "20", height: "16", rx: "2", key: "izxlao" }]
 ];
-var Mail = createLucideIcon("mail", __iconNode16);
+var Mail = createLucideIcon("mail", __iconNode20);
 
 // node_modules/lucide-react/dist/esm/icons/map-pin.js
-var __iconNode17 = [
+var __iconNode21 = [
   [
     "path",
     {
@@ -28277,10 +28303,10 @@ var __iconNode17 = [
   ],
   ["circle", { cx: "12", cy: "10", r: "3", key: "ilqhr7" }]
 ];
-var MapPin = createLucideIcon("map-pin", __iconNode17);
+var MapPin = createLucideIcon("map-pin", __iconNode21);
 
 // node_modules/lucide-react/dist/esm/icons/message-square.js
-var __iconNode18 = [
+var __iconNode22 = [
   [
     "path",
     {
@@ -28289,21 +28315,29 @@ var __iconNode18 = [
     }
   ]
 ];
-var MessageSquare = createLucideIcon("message-square", __iconNode18);
+var MessageSquare = createLucideIcon("message-square", __iconNode22);
 
 // node_modules/lucide-react/dist/esm/icons/minus.js
-var __iconNode19 = [["path", { d: "M5 12h14", key: "1ays0h" }]];
-var Minus = createLucideIcon("minus", __iconNode19);
+var __iconNode23 = [["path", { d: "M5 12h14", key: "1ays0h" }]];
+var Minus = createLucideIcon("minus", __iconNode23);
+
+// node_modules/lucide-react/dist/esm/icons/monitor.js
+var __iconNode24 = [
+  ["rect", { width: "20", height: "14", x: "2", y: "3", rx: "2", key: "48i651" }],
+  ["line", { x1: "8", x2: "16", y1: "21", y2: "21", key: "1svkeh" }],
+  ["line", { x1: "12", x2: "12", y1: "17", y2: "21", key: "vw1qmm" }]
+];
+var Monitor = createLucideIcon("monitor", __iconNode24);
 
 // node_modules/lucide-react/dist/esm/icons/pause.js
-var __iconNode20 = [
+var __iconNode25 = [
   ["rect", { x: "14", y: "3", width: "5", height: "18", rx: "1", key: "kaeet6" }],
   ["rect", { x: "5", y: "3", width: "5", height: "18", rx: "1", key: "1wsw3u" }]
 ];
-var Pause = createLucideIcon("pause", __iconNode20);
+var Pause = createLucideIcon("pause", __iconNode25);
 
 // node_modules/lucide-react/dist/esm/icons/plane.js
-var __iconNode21 = [
+var __iconNode26 = [
   [
     "path",
     {
@@ -28312,10 +28346,10 @@ var __iconNode21 = [
     }
   ]
 ];
-var Plane = createLucideIcon("plane", __iconNode21);
+var Plane = createLucideIcon("plane", __iconNode26);
 
 // node_modules/lucide-react/dist/esm/icons/play.js
-var __iconNode22 = [
+var __iconNode27 = [
   [
     "path",
     {
@@ -28324,17 +28358,17 @@ var __iconNode22 = [
     }
   ]
 ];
-var Play = createLucideIcon("play", __iconNode22);
+var Play = createLucideIcon("play", __iconNode27);
 
 // node_modules/lucide-react/dist/esm/icons/plus.js
-var __iconNode23 = [
+var __iconNode28 = [
   ["path", { d: "M5 12h14", key: "1ays0h" }],
   ["path", { d: "M12 5v14", key: "s699le" }]
 ];
-var Plus = createLucideIcon("plus", __iconNode23);
+var Plus = createLucideIcon("plus", __iconNode28);
 
 // node_modules/lucide-react/dist/esm/icons/save.js
-var __iconNode24 = [
+var __iconNode29 = [
   [
     "path",
     {
@@ -28345,17 +28379,17 @@ var __iconNode24 = [
   ["path", { d: "M17 21v-7a1 1 0 0 0-1-1H8a1 1 0 0 0-1 1v7", key: "1ydtos" }],
   ["path", { d: "M7 3v4a1 1 0 0 0 1 1h7", key: "t51u73" }]
 ];
-var Save2 = createLucideIcon("save", __iconNode24);
+var Save2 = createLucideIcon("save", __iconNode29);
 
 // node_modules/lucide-react/dist/esm/icons/search.js
-var __iconNode25 = [
+var __iconNode30 = [
   ["path", { d: "m21 21-4.34-4.34", key: "14j7rj" }],
   ["circle", { cx: "11", cy: "11", r: "8", key: "4ej97u" }]
 ];
-var Search = createLucideIcon("search", __iconNode25);
+var Search = createLucideIcon("search", __iconNode30);
 
 // node_modules/lucide-react/dist/esm/icons/settings.js
-var __iconNode26 = [
+var __iconNode31 = [
   [
     "path",
     {
@@ -28365,20 +28399,20 @@ var __iconNode26 = [
   ],
   ["circle", { cx: "12", cy: "12", r: "3", key: "1v7zrd" }]
 ];
-var Settings = createLucideIcon("settings", __iconNode26);
+var Settings = createLucideIcon("settings", __iconNode31);
 
 // node_modules/lucide-react/dist/esm/icons/share-2.js
-var __iconNode27 = [
+var __iconNode32 = [
   ["circle", { cx: "18", cy: "5", r: "3", key: "gq8acd" }],
   ["circle", { cx: "6", cy: "12", r: "3", key: "w7nqdw" }],
   ["circle", { cx: "18", cy: "19", r: "3", key: "1xt0gg" }],
   ["line", { x1: "8.59", x2: "15.42", y1: "13.51", y2: "17.49", key: "47mynk" }],
   ["line", { x1: "15.41", x2: "8.59", y1: "6.51", y2: "10.49", key: "1n3mei" }]
 ];
-var Share2 = createLucideIcon("share-2", __iconNode27);
+var Share2 = createLucideIcon("share-2", __iconNode32);
 
 // node_modules/lucide-react/dist/esm/icons/shield.js
-var __iconNode28 = [
+var __iconNode33 = [
   [
     "path",
     {
@@ -28387,17 +28421,17 @@ var __iconNode28 = [
     }
   ]
 ];
-var Shield = createLucideIcon("shield", __iconNode28);
+var Shield = createLucideIcon("shield", __iconNode33);
 
 // node_modules/lucide-react/dist/esm/icons/smartphone.js
-var __iconNode29 = [
+var __iconNode34 = [
   ["rect", { width: "14", height: "20", x: "5", y: "2", rx: "2", ry: "2", key: "1yt0o3" }],
   ["path", { d: "M12 18h.01", key: "mhygvu" }]
 ];
-var Smartphone = createLucideIcon("smartphone", __iconNode29);
+var Smartphone = createLucideIcon("smartphone", __iconNode34);
 
 // node_modules/lucide-react/dist/esm/icons/square-pen.js
-var __iconNode30 = [
+var __iconNode35 = [
   ["path", { d: "M12 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7", key: "1m0v6g" }],
   [
     "path",
@@ -28407,10 +28441,10 @@ var __iconNode30 = [
     }
   ]
 ];
-var SquarePen = createLucideIcon("square-pen", __iconNode30);
+var SquarePen = createLucideIcon("square-pen", __iconNode35);
 
 // node_modules/lucide-react/dist/esm/icons/star.js
-var __iconNode31 = [
+var __iconNode36 = [
   [
     "path",
     {
@@ -28419,42 +28453,42 @@ var __iconNode31 = [
     }
   ]
 ];
-var Star = createLucideIcon("star", __iconNode31);
+var Star = createLucideIcon("star", __iconNode36);
 
 // node_modules/lucide-react/dist/esm/icons/target.js
-var __iconNode32 = [
+var __iconNode37 = [
   ["circle", { cx: "12", cy: "12", r: "10", key: "1mglay" }],
   ["circle", { cx: "12", cy: "12", r: "6", key: "1vlfrh" }],
   ["circle", { cx: "12", cy: "12", r: "2", key: "1c9p78" }]
 ];
-var Target = createLucideIcon("target", __iconNode32);
+var Target = createLucideIcon("target", __iconNode37);
 
 // node_modules/lucide-react/dist/esm/icons/trash-2.js
-var __iconNode33 = [
+var __iconNode38 = [
   ["path", { d: "M10 11v6", key: "nco0om" }],
   ["path", { d: "M14 11v6", key: "outv1u" }],
   ["path", { d: "M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6", key: "miytrc" }],
   ["path", { d: "M3 6h18", key: "d0wm0j" }],
   ["path", { d: "M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2", key: "e791ji" }]
 ];
-var Trash2 = createLucideIcon("trash-2", __iconNode33);
+var Trash2 = createLucideIcon("trash-2", __iconNode38);
 
 // node_modules/lucide-react/dist/esm/icons/trending-down.js
-var __iconNode34 = [
+var __iconNode39 = [
   ["path", { d: "M16 17h6v-6", key: "t6n2it" }],
   ["path", { d: "m22 17-8.5-8.5-5 5L2 7", key: "x473p" }]
 ];
-var TrendingDown = createLucideIcon("trending-down", __iconNode34);
+var TrendingDown = createLucideIcon("trending-down", __iconNode39);
 
 // node_modules/lucide-react/dist/esm/icons/trending-up.js
-var __iconNode35 = [
+var __iconNode40 = [
   ["path", { d: "M16 7h6v6", key: "box55l" }],
   ["path", { d: "m22 7-8.5 8.5-5-5L2 17", key: "1t1m79" }]
 ];
-var TrendingUp = createLucideIcon("trending-up", __iconNode35);
+var TrendingUp = createLucideIcon("trending-up", __iconNode40);
 
 // node_modules/lucide-react/dist/esm/icons/triangle-alert.js
-var __iconNode36 = [
+var __iconNode41 = [
   [
     "path",
     {
@@ -28465,26 +28499,26 @@ var __iconNode36 = [
   ["path", { d: "M12 9v4", key: "juzpu7" }],
   ["path", { d: "M12 17h.01", key: "p32p05" }]
 ];
-var TriangleAlert = createLucideIcon("triangle-alert", __iconNode36);
+var TriangleAlert = createLucideIcon("triangle-alert", __iconNode41);
 
 // node_modules/lucide-react/dist/esm/icons/users.js
-var __iconNode37 = [
+var __iconNode42 = [
   ["path", { d: "M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2", key: "1yyitq" }],
   ["path", { d: "M16 3.128a4 4 0 0 1 0 7.744", key: "16gr8j" }],
   ["path", { d: "M22 21v-2a4 4 0 0 0-3-3.87", key: "kshegd" }],
   ["circle", { cx: "9", cy: "7", r: "4", key: "nufk8" }]
 ];
-var Users = createLucideIcon("users", __iconNode37);
+var Users = createLucideIcon("users", __iconNode42);
 
 // node_modules/lucide-react/dist/esm/icons/x.js
-var __iconNode38 = [
+var __iconNode43 = [
   ["path", { d: "M18 6 6 18", key: "1bl5f8" }],
   ["path", { d: "m6 6 12 12", key: "d8bk6v" }]
 ];
-var X = createLucideIcon("x", __iconNode38);
+var X = createLucideIcon("x", __iconNode43);
 
 // node_modules/lucide-react/dist/esm/icons/zap.js
-var __iconNode39 = [
+var __iconNode44 = [
   [
     "path",
     {
@@ -28493,7 +28527,7 @@ var __iconNode39 = [
     }
   ]
 ];
-var Zap = createLucideIcon("zap", __iconNode39);
+var Zap = createLucideIcon("zap", __iconNode44);
 
 // app/javascript/components/FlightFilterSidebar.tsx
 var import_react3 = __toESM(require_react());
@@ -29457,6 +29491,9 @@ var AlertManager = ({
   )))));
 };
 var AlertManager_default = AlertManager;
+
+// app/javascript/components/ResponsiveAirportAutocomplete.tsx
+var import_react8 = __toESM(require_react());
 
 // app/javascript/components/AirportAutocomplete.tsx
 var import_react6 = __toESM(require_react());
@@ -49580,6 +49617,197 @@ function getMockAirportByIataCode(iataCode) {
   return mockAirports.find((airport) => airport.iata_code === code) || null;
 }
 
+// app/javascript/lib/airportDatabase.ts
+var airportDatabase = [
+  // Major North American Airports
+  { iata_code: "ATL", name: "Hartsfield-Jackson Atlanta International Airport", city: "Atlanta", country: "USA", search_index: "ATL KATL HARTSFIELD JACKSON ATLANTA INTERNATIONAL AIRPORT ATLANTA USA", icao_code: "KATL", latitude: 33.6407, longitude: -84.4277, altitude: 1026, timezone: "America/New_York" },
+  { iata_code: "LAX", name: "Los Angeles International Airport", city: "Los Angeles", country: "USA", search_index: "LAX KLAX LOS ANGELES INTERNATIONAL AIRPORT LOS ANGELES USA", icao_code: "KLAX", latitude: 33.9416, longitude: -118.4085, altitude: 125, timezone: "America/Los_Angeles" },
+  { iata_code: "ORD", name: "O'Hare International Airport", city: "Chicago", country: "USA", search_index: "ORD KORD OHARE INTERNATIONAL AIRPORT CHICAGO USA", icao_code: "KORD", latitude: 41.9786, longitude: -87.9048, altitude: 672, timezone: "America/Chicago" },
+  { iata_code: "DFW", name: "Dallas/Fort Worth International Airport", city: "Dallas", country: "USA", search_index: "DFW KDFW DALLAS FORT WORTH INTERNATIONAL AIRPORT DALLAS USA", icao_code: "KDFW", latitude: 32.8968, longitude: -97.038, altitude: 607, timezone: "America/Chicago" },
+  { iata_code: "DEN", name: "Denver International Airport", city: "Denver", country: "USA", search_index: "DEN KDEN DENVER INTERNATIONAL AIRPORT DENVER USA", icao_code: "KDEN", latitude: 39.8561, longitude: -104.6737, altitude: 5431, timezone: "America/Denver" },
+  { iata_code: "JFK", name: "John F. Kennedy International Airport", city: "New York", country: "USA", search_index: "JFK KJFK JOHN F KENNEDY INTERNATIONAL AIRPORT NEW YORK USA", icao_code: "KJFK", latitude: 40.6413, longitude: -73.7781, altitude: 13, timezone: "America/New_York" },
+  { iata_code: "SFO", name: "San Francisco International Airport", city: "San Francisco", country: "USA", search_index: "SFO KSFO SAN FRANCISCO INTERNATIONAL AIRPORT SAN FRANCISCO USA", icao_code: "KSFO", latitude: 37.6213, longitude: -122.379, altitude: 13, timezone: "America/Los_Angeles" },
+  { iata_code: "SEA", name: "Seattle-Tacoma International Airport", city: "Seattle", country: "USA", search_index: "SEA KSEA SEATTLE TACOMA INTERNATIONAL AIRPORT SEATTLE USA", icao_code: "KSEA", latitude: 47.4502, longitude: -122.3088, altitude: 433, timezone: "America/Los_Angeles" },
+  { iata_code: "LAS", name: "McCarran International Airport", city: "Las Vegas", country: "USA", search_index: "LAS KLAS MCCARRAN INTERNATIONAL AIRPORT LAS VEGAS USA", icao_code: "KLAS", latitude: 36.084, longitude: -115.1537, altitude: 2181, timezone: "America/Los_Angeles" },
+  { iata_code: "MIA", name: "Miami International Airport", city: "Miami", country: "USA", search_index: "MIA KMIA MIAMI INTERNATIONAL AIRPORT MIAMI USA", icao_code: "KMIA", latitude: 25.7959, longitude: -80.287, altitude: 8, timezone: "America/New_York" },
+  { iata_code: "BOS", name: "Logan International Airport", city: "Boston", country: "USA", search_index: "BOS KBOS LOGAN INTERNATIONAL AIRPORT BOSTON USA", icao_code: "KBOS", latitude: 42.3656, longitude: -71.0096, altitude: 20, timezone: "America/New_York" },
+  { iata_code: "PHX", name: "Phoenix Sky Harbor International Airport", city: "Phoenix", country: "USA", search_index: "PHX KPHX PHOENIX SKY HARBOR INTERNATIONAL AIRPORT PHOENIX USA", icao_code: "KPHX", latitude: 33.4342, longitude: -112.0116, altitude: 1135, timezone: "America/Phoenix" },
+  { iata_code: "IAH", name: "George Bush Intercontinental Airport", city: "Houston", country: "USA", search_index: "IAH KIAH GEORGE BUSH INTERCONTINENTAL AIRPORT HOUSTON USA", icao_code: "KIAH", latitude: 29.9844, longitude: -95.3414, altitude: 97, timezone: "America/Chicago" },
+  { iata_code: "MCO", name: "Orlando International Airport", city: "Orlando", country: "USA", search_index: "MCO KMCO ORLANDO INTERNATIONAL AIRPORT ORLANDO USA", icao_code: "KMCO", latitude: 28.4312, longitude: -81.3081, altitude: 96, timezone: "America/New_York" },
+  { iata_code: "DTW", name: "Detroit Metropolitan Wayne County Airport", city: "Detroit", country: "USA", search_index: "DTW KDTW DETROIT METROPOLITAN WAYNE COUNTY AIRPORT DETROIT USA", icao_code: "KDTW", latitude: 42.2162, longitude: -83.3554, altitude: 645, timezone: "America/New_York" },
+  { iata_code: "MSP", name: "Minneapolis-Saint Paul International Airport", city: "Minneapolis", country: "USA", search_index: "MSP KMSP MINNEAPOLIS SAINT PAUL INTERNATIONAL AIRPORT MINNEAPOLIS USA", icao_code: "KMSP", latitude: 44.8848, longitude: -93.2223, altitude: 841, timezone: "America/Chicago" },
+  { iata_code: "PHL", name: "Philadelphia International Airport", city: "Philadelphia", country: "USA", search_index: "PHL KPHL PHILADELPHIA INTERNATIONAL AIRPORT PHILADELPHIA USA", icao_code: "KPHL", latitude: 39.8729, longitude: -75.2437, altitude: 36, timezone: "America/New_York" },
+  { iata_code: "LGA", name: "LaGuardia Airport", city: "New York", country: "USA", search_index: "LGA KLGA LAGUARDIA AIRPORT NEW YORK USA", icao_code: "KLGA", latitude: 40.7769, longitude: -73.874, altitude: 21, timezone: "America/New_York" },
+  { iata_code: "BWI", name: "Baltimore/Washington International Thurgood Marshall Airport", city: "Baltimore", country: "USA", search_index: "BWI KBWI BALTIMORE WASHINGTON INTERNATIONAL THURGOOD MARSHALL AIRPORT BALTIMORE USA", icao_code: "KBWI", latitude: 39.1774, longitude: -76.6684, altitude: 146, timezone: "America/New_York" },
+  { iata_code: "SLC", name: "Salt Lake City International Airport", city: "Salt Lake City", country: "USA", search_index: "SLC KSLC SALT LAKE CITY INTERNATIONAL AIRPORT SALT LAKE CITY USA", icao_code: "KSLC", latitude: 40.7899, longitude: -111.9791, altitude: 4227, timezone: "America/Denver" },
+  // Major Canadian Airports
+  { iata_code: "YYZ", name: "Toronto Pearson International Airport", city: "Toronto", country: "Canada", search_index: "YYZ CYYZ TORONTO PEARSON INTERNATIONAL AIRPORT TORONTO CANADA", icao_code: "CYYZ", latitude: 43.6777, longitude: -79.6306, altitude: 569, timezone: "America/Toronto" },
+  { iata_code: "YVR", name: "Vancouver International Airport", city: "Vancouver", country: "Canada", search_index: "YVR CYVR VANCOUVER INTERNATIONAL AIRPORT VANCOUVER CANADA", icao_code: "CYVR", latitude: 49.1967, longitude: -123.1815, altitude: 14, timezone: "America/Vancouver" },
+  { iata_code: "YUL", name: "Montr\xE9al-Pierre Elliott Trudeau International Airport", city: "Montreal", country: "Canada", search_index: "YUL CYUL MONTREAL PIERRE ELLIOTT TRUDEAU INTERNATIONAL AIRPORT MONTREAL CANADA", icao_code: "CYUL", latitude: 45.4706, longitude: -73.7408, altitude: 118, timezone: "America/Montreal" },
+  { iata_code: "YYC", name: "Calgary International Airport", city: "Calgary", country: "Canada", search_index: "YYC CYYC CALGARY INTERNATIONAL AIRPORT CALGARY CANADA", icao_code: "CYYC", latitude: 51.1314, longitude: -114.0103, altitude: 3556, timezone: "America/Edmonton" },
+  { iata_code: "YEG", name: "Edmonton International Airport", city: "Edmonton", country: "Canada", search_index: "YEG CYEG EDMONTON INTERNATIONAL AIRPORT EDMONTON CANADA", icao_code: "CYEG", latitude: 53.3097, longitude: -113.5792, altitude: 2373, timezone: "America/Edmonton" },
+  // Major European Airports
+  { iata_code: "LHR", name: "London Heathrow Airport", city: "London", country: "UK", search_index: "LHR EGLL LONDON HEATHROW AIRPORT LONDON UK", icao_code: "EGLL", latitude: 51.47, longitude: -0.4543, altitude: 83, timezone: "Europe/London" },
+  { iata_code: "CDG", name: "Charles de Gaulle Airport", city: "Paris", country: "France", search_index: "CDG LFPG CHARLES DE GAULLE AIRPORT PARIS FRANCE", icao_code: "LFPG", latitude: 49.0097, longitude: 2.5479, altitude: 392, timezone: "Europe/Paris" },
+  { iata_code: "FRA", name: "Frankfurt Airport", city: "Frankfurt", country: "Germany", search_index: "FRA EDDF FRANKFURT AIRPORT FRANKFURT GERMANY", icao_code: "EDDF", latitude: 50.0379, longitude: 8.5622, altitude: 364, timezone: "Europe/Berlin" },
+  { iata_code: "AMS", name: "Amsterdam Airport Schiphol", city: "Amsterdam", country: "Netherlands", search_index: "AMS EHAM AMSTERDAM AIRPORT SCHIPHOL AMSTERDAM NETHERLANDS", icao_code: "EHAM", latitude: 52.3105, longitude: 4.7683, altitude: -11, timezone: "Europe/Amsterdam" },
+  { iata_code: "MAD", name: "Adolfo Su\xE1rez Madrid-Barajas Airport", city: "Madrid", country: "Spain", search_index: "MAD LEMD ADOLFO SUAREZ MADRID BARAJAS AIRPORT MADRID SPAIN", icao_code: "LEMD", latitude: 40.4983, longitude: -3.5676, altitude: 2e3, timezone: "Europe/Madrid" },
+  { iata_code: "BCN", name: "Barcelona-El Prat Airport", city: "Barcelona", country: "Spain", search_index: "BCN LEBL BARCELONA EL PRAT AIRPORT BARCELONA SPAIN", icao_code: "LEBL", latitude: 41.2974, longitude: 2.0833, altitude: 12, timezone: "Europe/Madrid" },
+  { iata_code: "FCO", name: "Leonardo da Vinci International Airport", city: "Rome", country: "Italy", search_index: "FCO LIRF LEONARDO DA VINCI INTERNATIONAL AIRPORT ROME ITALY", icao_code: "LIRF", latitude: 41.8003, longitude: 12.2389, altitude: 15, timezone: "Europe/Rome" },
+  { iata_code: "MXP", name: "Milan Malpensa Airport", city: "Milan", country: "Italy", search_index: "MXP LIMC MILAN MALPENSA AIRPORT MILAN ITALY", icao_code: "LIMC", latitude: 45.6306, longitude: 8.7281, altitude: 768, timezone: "Europe/Rome" },
+  { iata_code: "ZUR", name: "Zurich Airport", city: "Zurich", country: "Switzerland", search_index: "ZUR LSZH ZURICH AIRPORT ZURICH SWITZERLAND", icao_code: "LSZH", latitude: 47.4647, longitude: 8.5492, altitude: 1416, timezone: "Europe/Zurich" },
+  { iata_code: "VIE", name: "Vienna International Airport", city: "Vienna", country: "Austria", search_index: "VIE LOWW VIENNA INTERNATIONAL AIRPORT VIENNA AUSTRIA", icao_code: "LOWW", latitude: 48.1103, longitude: 16.5697, altitude: 600, timezone: "Europe/Vienna" },
+  { iata_code: "BRU", name: "Brussels Airport", city: "Brussels", country: "Belgium", search_index: "BRU EBBR BRUSSELS AIRPORT BRUSSELS BELGIUM", icao_code: "EBBR", latitude: 50.9014, longitude: 4.4844, altitude: 184, timezone: "Europe/Brussels" },
+  { iata_code: "IST", name: "Istanbul Airport", city: "Istanbul", country: "Turkey", search_index: "IST LTFM ISTANBUL AIRPORT ISTANBUL TURKEY", icao_code: "LTFM", latitude: 41.2753, longitude: 28.7519, altitude: 325, timezone: "Europe/Istanbul" },
+  // Major Asian Airports
+  { iata_code: "NRT", name: "Narita International Airport", city: "Tokyo", country: "Japan", search_index: "NRT RJAA NARITA INTERNATIONAL AIRPORT TOKYO JAPAN", icao_code: "RJAA", latitude: 35.772, longitude: 140.3928, altitude: 141, timezone: "Asia/Tokyo" },
+  { iata_code: "HND", name: "Tokyo Haneda Airport", city: "Tokyo", country: "Japan", search_index: "HND RJTT TOKYO HANEDA AIRPORT TOKYO JAPAN", icao_code: "RJTT", latitude: 35.5494, longitude: 139.7798, altitude: 21, timezone: "Asia/Tokyo" },
+  { iata_code: "ICN", name: "Incheon International Airport", city: "Seoul", country: "South Korea", search_index: "ICN RKSI INCHEON INTERNATIONAL AIRPORT SEOUL SOUTH KOREA", icao_code: "RKSI", latitude: 37.4602, longitude: 126.4407, altitude: 23, timezone: "Asia/Seoul" },
+  { iata_code: "PEK", name: "Beijing Capital International Airport", city: "Beijing", country: "China", search_index: "PEK ZBAA BEIJING CAPITAL INTERNATIONAL AIRPORT BEIJING CHINA", icao_code: "ZBAA", latitude: 40.0799, longitude: 116.6031, altitude: 116, timezone: "Asia/Shanghai" },
+  { iata_code: "PVG", name: "Shanghai Pudong International Airport", city: "Shanghai", country: "China", search_index: "PVG ZSPD SHANGHAI PUDONG INTERNATIONAL AIRPORT SHANGHAI CHINA", icao_code: "ZSPD", latitude: 31.1434, longitude: 121.8052, altitude: 13, timezone: "Asia/Shanghai" },
+  { iata_code: "HKG", name: "Hong Kong International Airport", city: "Hong Kong", country: "Hong Kong", search_index: "HKG VHHH HONG KONG INTERNATIONAL AIRPORT HONG KONG HONG KONG", icao_code: "VHHH", latitude: 22.308, longitude: 113.9185, altitude: 28, timezone: "Asia/Hong_Kong" },
+  { iata_code: "SIN", name: "Singapore Changi Airport", city: "Singapore", country: "Singapore", search_index: "SIN WSSS SINGAPORE CHANGI AIRPORT SINGAPORE SINGAPORE", icao_code: "WSSS", latitude: 1.3644, longitude: 103.9915, altitude: 22, timezone: "Asia/Singapore" },
+  { iata_code: "BKK", name: "Suvarnabhumi Airport", city: "Bangkok", country: "Thailand", search_index: "BKK VTBS SUVARNABHUMI AIRPORT BANGKOK THAILAND", icao_code: "VTBS", latitude: 13.69, longitude: 100.7501, altitude: 5, timezone: "Asia/Bangkok" },
+  { iata_code: "KUL", name: "Kuala Lumpur International Airport", city: "Kuala Lumpur", country: "Malaysia", search_index: "KUL WMKK KUALA LUMPUR INTERNATIONAL AIRPORT KUALA LUMPUR MALAYSIA", icao_code: "WMKK", latitude: 2.7456, longitude: 101.7099, altitude: 71, timezone: "Asia/Kuala_Lumpur" },
+  { iata_code: "CGK", name: "Soekarno-Hatta International Airport", city: "Jakarta", country: "Indonesia", search_index: "CGK WIII SOEKARNO HATTA INTERNATIONAL AIRPORT JAKARTA INDONESIA", icao_code: "WIII", latitude: -6.1256, longitude: 106.6558, altitude: 34, timezone: "Asia/Jakarta" },
+  { iata_code: "DEL", name: "Indira Gandhi International Airport", city: "New Delhi", country: "India", search_index: "DEL VIDP INDIRA GANDHI INTERNATIONAL AIRPORT NEW DELHI INDIA", icao_code: "VIDP", latitude: 28.5562, longitude: 77.1003, altitude: 777, timezone: "Asia/Kolkata" },
+  { iata_code: "BOM", name: "Chhatrapati Shivaji Maharaj International Airport", city: "Mumbai", country: "India", search_index: "BOM VABB CHHATRAPATI SHIVAJI MAHARAJ INTERNATIONAL AIRPORT MUMBAI INDIA", icao_code: "VABB", latitude: 19.0887, longitude: 72.8679, altitude: 39, timezone: "Asia/Kolkata" },
+  { iata_code: "BLR", name: "Kempegowda International Airport", city: "Bangalore", country: "India", search_index: "BLR VOBL KEMPEGOWDA INTERNATIONAL AIRPORT BANGALORE INDIA", icao_code: "VOBL", latitude: 13.1979, longitude: 77.7063, altitude: 3e3, timezone: "Asia/Kolkata" },
+  // Major Middle Eastern Airports
+  { iata_code: "DXB", name: "Dubai International Airport", city: "Dubai", country: "UAE", search_index: "DXB OMDB DUBAI INTERNATIONAL AIRPORT DUBAI UAE", icao_code: "OMDB", latitude: 25.2532, longitude: 55.3657, altitude: 62, timezone: "Asia/Dubai" },
+  { iata_code: "DOH", name: "Hamad International Airport", city: "Doha", country: "Qatar", search_index: "DOH OTHH HAMAD INTERNATIONAL AIRPORT DOHA QATAR", icao_code: "OTHH", latitude: 25.2731, longitude: 51.6081, altitude: 13, timezone: "Asia/Qatar" },
+  { iata_code: "TLV", name: "Ben Gurion Airport", city: "Tel Aviv", country: "Israel", search_index: "TLV LLBG BEN GURION AIRPORT TEL AVIV ISRAEL", icao_code: "LLBG", latitude: 32.0114, longitude: 34.8867, altitude: 135, timezone: "Asia/Jerusalem" },
+  { iata_code: "BAH", name: "Bahrain International Airport", city: "Manama", country: "Bahrain", search_index: "BAH OBBI BAHRAIN INTERNATIONAL AIRPORT MANAMA BAHRAIN", icao_code: "OBBI", latitude: 26.2708, longitude: 50.6336, altitude: 6, timezone: "Asia/Bahrain" },
+  { iata_code: "KWI", name: "Kuwait International Airport", city: "Kuwait City", country: "Kuwait", search_index: "KWI OKBK KUWAIT INTERNATIONAL AIRPORT KUWAIT CITY KUWAIT", icao_code: "OKBK", latitude: 29.2266, longitude: 47.9689, altitude: 206, timezone: "Asia/Kuwait" },
+  { iata_code: "MCT", name: "Muscat International Airport", city: "Muscat", country: "Oman", search_index: "MCT OOMS MUSCAT INTERNATIONAL AIRPORT MUSCAT OMAN", icao_code: "OOMS", latitude: 23.5933, longitude: 58.2844, altitude: 48, timezone: "Asia/Muscat" },
+  // Major African Airports
+  { iata_code: "CAI", name: "Cairo International Airport", city: "Cairo", country: "Egypt", search_index: "CAI HECA CAIRO INTERNATIONAL AIRPORT CAIRO EGYPT", icao_code: "HECA", latitude: 30.1127, longitude: 31.4, altitude: 382, timezone: "Africa/Cairo" },
+  { iata_code: "JNB", name: "O.R. Tambo International Airport", city: "Johannesburg", country: "South Africa", search_index: "JNB FAOR OR TAMBO INTERNATIONAL AIRPORT JOHANNESBURG SOUTH AFRICA", icao_code: "FAOR", latitude: -26.1337, longitude: 28.2423, altitude: 5558, timezone: "Africa/Johannesburg" },
+  { iata_code: "LOS", name: "Murtala Muhammed International Airport", city: "Lagos", country: "Nigeria", search_index: "LOS DNMM MURTALA MUHAMMED INTERNATIONAL AIRPORT LAGOS NIGERIA", icao_code: "DNMM", latitude: 6.5774, longitude: 3.3212, altitude: 135, timezone: "Africa/Lagos" },
+  { iata_code: "NBO", name: "Jomo Kenyatta International Airport", city: "Nairobi", country: "Kenya", search_index: "NBO HKJK JOMO KENYATTA INTERNATIONAL AIRPORT NAIROBI KENYA", icao_code: "HKJK", latitude: -1.3192, longitude: 36.9278, altitude: 5330, timezone: "Africa/Nairobi" },
+  { iata_code: "LAD", name: "Quatro de Fevereiro Airport", city: "Luanda", country: "Angola", search_index: "LAD FNLU QUATRO DE FEVEREIRO AIRPORT LUANDA ANGOLA", icao_code: "FNLU", latitude: -8.8584, longitude: 13.2312, altitude: 243, timezone: "Africa/Luanda" },
+  // Major South American Airports
+  { iata_code: "GRU", name: "S\xE3o Paulo/Guarulhos International Airport", city: "S\xE3o Paulo", country: "Brazil", search_index: "GRU SBGR SAO PAULO GUARULHOS INTERNATIONAL AIRPORT SAO PAULO BRAZIL", icao_code: "SBGR", latitude: -23.4356, longitude: -46.4731, altitude: 2459, timezone: "America/Sao_Paulo" },
+  { iata_code: "EZE", name: "Ministro Pistarini International Airport", city: "Buenos Aires", country: "Argentina", search_index: "EZE SAEZ MINISTRO PISTARINI INTERNATIONAL AIRPORT BUENOS AIRES ARGENTINA", icao_code: "SAEZ", latitude: -34.8222, longitude: -58.5358, altitude: 59, timezone: "America/Argentina/Buenos_Aires" },
+  { iata_code: "SCL", name: "Arturo Merino Ben\xEDtez International Airport", city: "Santiago", country: "Chile", search_index: "SCL SCEL ARTURO MERINO BENITEZ INTERNATIONAL AIRPORT SANTIAGO CHILE", icao_code: "SCEL", latitude: -33.3928, longitude: -70.7858, altitude: 1555, timezone: "America/Santiago" },
+  { iata_code: "LIM", name: "Jorge Ch\xE1vez International Airport", city: "Lima", country: "Peru", search_index: "LIM SPJC JORGE CHAVEZ INTERNATIONAL AIRPORT LIMA PERU", icao_code: "SPJC", latitude: -12.0219, longitude: -77.1143, altitude: 113, timezone: "America/Lima" },
+  { iata_code: "BOG", name: "El Dorado International Airport", city: "Bogot\xE1", country: "Colombia", search_index: "BOG SKBO EL DORADO INTERNATIONAL AIRPORT BOGOTA COLOMBIA", icao_code: "SKBO", latitude: 4.7016, longitude: -74.1469, altitude: 8361, timezone: "America/Bogota" },
+  // Major Mexican Airports
+  { iata_code: "MEX", name: "Mexico City International Airport", city: "Mexico City", country: "Mexico", search_index: "MEX MMMX MEXICO CITY INTERNATIONAL AIRPORT MEXICO CITY MEXICO", icao_code: "MMMX", latitude: 19.4363, longitude: -99.0721, altitude: 7316, timezone: "America/Mexico_City" },
+  { iata_code: "CUN", name: "Canc\xFAn International Airport", city: "Canc\xFAn", country: "Mexico", search_index: "CUN MMUN CANCUN INTERNATIONAL AIRPORT CANCUN MEXICO", icao_code: "MMUN", latitude: 21.0365, longitude: -86.8771, altitude: 20, timezone: "America/Cancun" },
+  // Major Oceania Airports
+  { iata_code: "SYD", name: "Sydney Airport", city: "Sydney", country: "Australia", search_index: "SYD YSSY SYDNEY AIRPORT SYDNEY AUSTRALIA", icao_code: "YSSY", latitude: -33.9399, longitude: 151.1753, altitude: 21, timezone: "Australia/Sydney" },
+  { iata_code: "MEL", name: "Melbourne Airport", city: "Melbourne", country: "Australia", search_index: "MEL YMML MELBOURNE AIRPORT MELBOURNE AUSTRALIA", icao_code: "YMML", latitude: -37.6733, longitude: 144.8433, altitude: 434, timezone: "Australia/Melbourne" },
+  { iata_code: "BNE", name: "Brisbane Airport", city: "Brisbane", country: "Australia", search_index: "BNE YBBN BRISBANE AIRPORT BRISBANE AUSTRALIA", icao_code: "YBBN", latitude: -27.3842, longitude: 153.1175, altitude: 13, timezone: "Australia/Brisbane" },
+  { iata_code: "PER", name: "Perth Airport", city: "Perth", country: "Australia", search_index: "PER YPPH PERTH AIRPORT PERTH AUSTRALIA", icao_code: "YPPH", latitude: -31.9385, longitude: 115.9672, altitude: 67, timezone: "Australia/Perth" },
+  { iata_code: "AKL", name: "Auckland Airport", city: "Auckland", country: "New Zealand", search_index: "AKL NZAA AUCKLAND AIRPORT AUCKLAND NEW ZEALAND", icao_code: "NZAA", latitude: -37.0082, longitude: 174.785, altitude: 23, timezone: "Pacific/Auckland" },
+  { iata_code: "WLG", name: "Wellington Airport", city: "Wellington", country: "New Zealand", search_index: "WLG NZWN WELLINGTON AIRPORT WELLINGTON NEW ZEALAND", icao_code: "NZWN", latitude: -41.3272, longitude: 174.8053, altitude: 41, timezone: "Pacific/Auckland" }
+];
+function searchAirportsDatabase(searchTerm) {
+  if (!searchTerm || searchTerm.trim().length < 2) {
+    return [];
+  }
+  const query2 = searchTerm.trim().toUpperCase();
+  const scoredAirports = airportDatabase.map((airport) => {
+    let score = 0;
+    if (airport.iata_code === query2) {
+      score += 1e3;
+    }
+    if (airport.iata_code.startsWith(query2)) {
+      score += 500;
+    }
+    if (airport.iata_code.includes(query2)) {
+      score += 200;
+    }
+    if (airport.name.toUpperCase().startsWith(query2)) {
+      score += 300;
+    }
+    if (airport.name.toUpperCase().includes(query2)) {
+      score += 150;
+    }
+    if (airport.city.toUpperCase().startsWith(query2)) {
+      score += 250;
+    }
+    if (airport.city.toUpperCase().includes(query2)) {
+      score += 100;
+    }
+    if (airport.country.toUpperCase().startsWith(query2)) {
+      score += 200;
+    }
+    if (airport.country.toUpperCase().includes(query2)) {
+      score += 50;
+    }
+    if (airport.search_index?.includes(query2)) {
+      score += 75;
+    }
+    return { airport, score };
+  }).filter((item) => item.score > 0);
+  return scoredAirports.sort((a, b) => b.score - a.score).slice(0, 15).map((item) => item.airport);
+}
+function getAirportByIataCode(iataCode) {
+  const code = iataCode.trim().toUpperCase();
+  return airportDatabase.find((airport) => airport.iata_code === code) || null;
+}
+function getPopularAirports() {
+  const popularCodes = [
+    "ATL",
+    "LAX",
+    "ORD",
+    "DFW",
+    "DEN",
+    "JFK",
+    "SFO",
+    "SEA",
+    "LHR",
+    "CDG",
+    "FRA",
+    "AMS",
+    "NRT",
+    "ICN",
+    "PEK",
+    "PVG",
+    "HKG",
+    "SIN",
+    "DXB",
+    "SYD",
+    "MAD",
+    "BCN",
+    "FCO",
+    "MXP",
+    "ZUR",
+    "YYZ",
+    "YVR",
+    "YUL",
+    "MEX",
+    "CUN",
+    "MEL",
+    "BNE",
+    "PER",
+    "AKL",
+    "WLG",
+    "CAI",
+    "JNB",
+    "LOS",
+    "NBO",
+    "GRU",
+    "EZE",
+    "SCL",
+    "LIM",
+    "BOG",
+    "IST",
+    "TLV",
+    "BAH",
+    "KWI",
+    "MCT",
+    "DEL",
+    "BOM",
+    "BLR",
+    "MAA",
+    "CCU"
+  ];
+  return popularCodes.map((code) => getAirportByIataCode(code)).filter((airport) => airport !== null);
+}
+
 // app/javascript/lib/firebase.ts
 var firebaseConfig = {
   apiKey: window.firebaseConfig?.apiKey || "",
@@ -49607,10 +49835,16 @@ try {
 }
 var AirportService = class {
   static COLLECTION_NAME = "airports";
-  static SEARCH_LIMIT = 10;
+  static SEARCH_LIMIT = 15;
   static DEBOUNCE_DELAY = 300;
+  static CACHE_DURATION = 5 * 60 * 1e3;
+  // 5 minutes
+  static MAX_CACHE_SIZE = 100;
+  // In-memory cache for search results
+  static searchCache = /* @__PURE__ */ new Map();
+  static airportCache = /* @__PURE__ */ new Map();
   /**
-   * Search for airports by query string
+   * Search for airports by query string with intelligent matching and caching
    * @param searchTerm - The search term (case-insensitive)
    * @returns Promise<Airport[]> - Array of matching airports
    */
@@ -49618,49 +49852,92 @@ var AirportService = class {
     if (!searchTerm || searchTerm.trim().length < 2) {
       return [];
     }
+    const normalizedQuery = searchTerm.trim().toUpperCase();
+    const cached = this.searchCache.get(normalizedQuery);
+    if (cached && Date.now() - cached.timestamp < this.CACHE_DURATION) {
+      return cached.results;
+    }
     try {
-      if (!db) {
-        console.log("Firebase not available, using mock data");
-        return searchMockAirports(searchTerm);
+      let airports = [];
+      if (db) {
+        try {
+          airports = await this.searchFirebase(normalizedQuery);
+        } catch (firebaseError) {
+          console.warn("Firebase search failed, falling back to local database:", firebaseError);
+        }
       }
-      const searchQuery = searchTerm.trim().toUpperCase();
-      const airportsRef = collection(db, this.COLLECTION_NAME);
-      const q2 = query(
+      if (airports.length === 0) {
+        airports = searchAirportsDatabase(searchTerm);
+      }
+      if (airports.length === 0) {
+        airports = searchMockAirports(searchTerm);
+      }
+      this.cacheSearchResults(normalizedQuery, airports);
+      return airports;
+    } catch (error2) {
+      console.error("Error searching airports:", error2);
+      return searchAirportsDatabase(searchTerm);
+    }
+  }
+  /**
+   * Search Firebase Firestore for airports
+   * @param searchQuery - Normalized search query
+   * @returns Promise<Airport[]> - Array of matching airports from Firebase
+   */
+  static async searchFirebase(searchQuery) {
+    const airportsRef = collection(db, this.COLLECTION_NAME);
+    const queries = [
+      // Exact IATA code match
+      query(
+        airportsRef,
+        where("iata_code", "==", searchQuery),
+        limit(1)
+      ),
+      // IATA code starts with query
+      query(
+        airportsRef,
+        where("iata_code", ">=", searchQuery),
+        where("iata_code", "<=", searchQuery + "\uF8FF"),
+        orderBy("iata_code"),
+        limit(this.SEARCH_LIMIT)
+      ),
+      // Search index contains query
+      query(
         airportsRef,
         where("search_index", ">=", searchQuery),
         where("search_index", "<=", searchQuery + "\uF8FF"),
         orderBy("search_index"),
         limit(this.SEARCH_LIMIT)
-      );
-      const querySnapshot = await getDocs(q2);
-      const airports = [];
-      querySnapshot.forEach((doc) => {
-        const data = doc.data();
-        airports.push({
-          iata_code: data.iata_code,
-          name: data.name,
-          city: data.city,
-          country: data.country,
-          search_index: data.search_index,
-          icao_code: data.icao_code,
-          latitude: data.latitude,
-          longitude: data.longitude,
-          altitude: data.altitude,
-          timezone: data.timezone
+      )
+    ];
+    const allResults = /* @__PURE__ */ new Map();
+    for (const q2 of queries) {
+      try {
+        const querySnapshot = await getDocs(q2);
+        querySnapshot.forEach((doc) => {
+          const data = doc.data();
+          const airport = {
+            iata_code: data.iata_code,
+            name: data.name,
+            city: data.city,
+            country: data.country,
+            search_index: data.search_index,
+            icao_code: data.icao_code,
+            latitude: data.latitude,
+            longitude: data.longitude,
+            altitude: data.altitude,
+            timezone: data.timezone
+          };
+          allResults.set(airport.iata_code, airport);
         });
-      });
-      if (airports.length === 0) {
-        console.log("No Firestore results, using mock data");
-        return searchMockAirports(searchTerm);
+      } catch (queryError) {
+        console.warn("Firebase query failed:", queryError);
       }
-      return airports;
-    } catch (error2) {
-      console.error("Error searching airports:", error2);
-      return searchMockAirports(searchTerm);
     }
+    return Array.from(allResults.values()).slice(0, this.SEARCH_LIMIT);
   }
   /**
-   * Get airport by IATA code
+   * Get airport by IATA code with caching
    * @param iataCode - The IATA code (e.g., 'JFK')
    * @returns Promise<Airport | null> - The airport or null if not found
    */
@@ -49668,39 +49945,109 @@ var AirportService = class {
     if (!iataCode || iataCode.trim().length < 3) {
       return null;
     }
+    const normalizedCode = iataCode.trim().toUpperCase();
+    const cached = this.airportCache.get(normalizedCode);
+    if (cached && Date.now() - cached.timestamp < this.CACHE_DURATION) {
+      return cached.airport;
+    }
     try {
-      if (!db) {
-        console.log("Firebase not available, using mock data");
-        return getMockAirportByIataCode(iataCode);
+      let airport = null;
+      if (db) {
+        try {
+          airport = await this.getAirportFromFirebase(normalizedCode);
+        } catch (firebaseError) {
+          console.warn("Firebase lookup failed, falling back to local database:", firebaseError);
+        }
       }
-      const airportsRef = collection(db, this.COLLECTION_NAME);
-      const q2 = query(
-        airportsRef,
-        where("iata_code", "==", iataCode.trim().toUpperCase()),
-        limit(1)
-      );
-      const querySnapshot = await getDocs(q2);
-      if (querySnapshot.empty) {
-        return getMockAirportByIataCode(iataCode);
+      if (!airport) {
+        airport = getAirportByIataCode(normalizedCode);
       }
-      const doc = querySnapshot.docs[0];
-      const data = doc.data();
-      return {
-        iata_code: data.iata_code,
-        name: data.name,
-        city: data.city,
-        country: data.country,
-        search_index: data.search_index,
-        icao_code: data.icao_code,
-        latitude: data.latitude,
-        longitude: data.longitude,
-        altitude: data.altitude,
-        timezone: data.timezone
-      };
+      if (!airport) {
+        airport = getMockAirportByIataCode(normalizedCode);
+      }
+      this.cacheAirportResult(normalizedCode, airport);
+      return airport;
     } catch (error2) {
       console.error("Error getting airport by IATA code:", error2);
-      return getMockAirportByIataCode(iataCode);
+      return getAirportByIataCode(normalizedCode);
     }
+  }
+  /**
+   * Get airport from Firebase Firestore
+   * @param iataCode - Normalized IATA code
+   * @returns Promise<Airport | null> - The airport or null if not found
+   */
+  static async getAirportFromFirebase(iataCode) {
+    const airportsRef = collection(db, this.COLLECTION_NAME);
+    const q2 = query(
+      airportsRef,
+      where("iata_code", "==", iataCode),
+      limit(1)
+    );
+    const querySnapshot = await getDocs(q2);
+    if (querySnapshot.empty) {
+      return null;
+    }
+    const doc = querySnapshot.docs[0];
+    const data = doc.data();
+    return {
+      iata_code: data.iata_code,
+      name: data.name,
+      city: data.city,
+      country: data.country,
+      search_index: data.search_index,
+      icao_code: data.icao_code,
+      latitude: data.latitude,
+      longitude: data.longitude,
+      altitude: data.altitude,
+      timezone: data.timezone
+    };
+  }
+  /**
+   * Cache search results
+   * @param query - The search query
+   * @param results - The search results
+   */
+  static cacheSearchResults(query2, results) {
+    if (this.searchCache.size >= this.MAX_CACHE_SIZE) {
+      const oldestKey = this.searchCache.keys().next().value;
+      this.searchCache.delete(oldestKey);
+    }
+    this.searchCache.set(query2, {
+      results,
+      timestamp: Date.now()
+    });
+  }
+  /**
+   * Cache airport result
+   * @param iataCode - The IATA code
+   * @param airport - The airport or null
+   */
+  static cacheAirportResult(iataCode, airport) {
+    if (this.airportCache.size >= this.MAX_CACHE_SIZE) {
+      const oldestKey = this.airportCache.keys().next().value;
+      this.airportCache.delete(oldestKey);
+    }
+    this.airportCache.set(iataCode, {
+      airport,
+      timestamp: Date.now()
+    });
+  }
+  /**
+   * Clear all caches
+   */
+  static clearCache() {
+    this.searchCache.clear();
+    this.airportCache.clear();
+  }
+  /**
+   * Get cache statistics
+   */
+  static getCacheStats() {
+    return {
+      searchCacheSize: this.searchCache.size,
+      airportCacheSize: this.airportCache.size
+    };
   }
   /**
    * Debounce utility for search queries
@@ -49727,23 +50074,30 @@ var AirportAutocomplete = ({
   error: error2,
   disabled = false,
   className = "",
-  selectedAirport
+  selectedAirport,
+  showPopularAirports = true,
+  size = "md",
+  variant = "default"
 }) => {
   const [isOpen, setIsOpen] = (0, import_react6.useState)(false);
   const [airports, setAirports] = (0, import_react6.useState)([]);
   const [isLoading, setIsLoading] = (0, import_react6.useState)(false);
   const [highlightedIndex, setHighlightedIndex] = (0, import_react6.useState)(-1);
+  const [hasSearched, setHasSearched] = (0, import_react6.useState)(false);
   const inputRef = (0, import_react6.useRef)(null);
   const dropdownRef = (0, import_react6.useRef)(null);
   const debouncedSearch = (0, import_react6.useRef)();
+  const popularAirports = (0, import_react6.useMemo)(() => getPopularAirports(), []);
   (0, import_react6.useEffect)(() => {
     debouncedSearch.current = AirportService.debounce(async (searchTerm) => {
       if (!searchTerm || searchTerm.trim().length < 2) {
         setAirports([]);
         setIsLoading(false);
+        setHasSearched(false);
         return;
       }
       setIsLoading(true);
+      setHasSearched(true);
       try {
         const results = await AirportService.searchAirports(searchTerm);
         setAirports(results);
@@ -49766,6 +50120,26 @@ var AirportAutocomplete = ({
       debouncedSearch.current(newValue);
     }
   }, [onChange, onSelect, selectedAirport]);
+  const getSizeClasses = (0, import_react6.useCallback)(() => {
+    switch (size) {
+      case "sm":
+        return "px-3 py-2 text-sm";
+      case "lg":
+        return "px-5 py-4 text-lg";
+      default:
+        return "px-4 py-3 text-base";
+    }
+  }, [size]);
+  const getVariantClasses = (0, import_react6.useCallback)(() => {
+    switch (variant) {
+      case "minimal":
+        return "border-0 border-b-2 border-gray-300 bg-transparent focus:border-blue-500 rounded-none";
+      case "outlined":
+        return "border-2 border-gray-300 bg-white focus:border-blue-500 rounded-lg";
+      default:
+        return "border border-gray-300 bg-white focus:border-blue-500 rounded-lg";
+    }
+  }, [variant]);
   const handleSelectAirport = (0, import_react6.useCallback)((airport) => {
     const displayValue = `${airport.iata_code} - ${airport.city}`;
     onChange(displayValue);
@@ -49845,6 +50219,45 @@ var AirportAutocomplete = ({
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
+  const dropdownContent = (0, import_react6.useMemo)(() => {
+    if (isLoading) {
+      return /* @__PURE__ */ import_react6.default.createElement("div", { className: "px-4 py-6 text-center" }, /* @__PURE__ */ import_react6.default.createElement(LoaderCircle, { className: "h-6 w-6 text-blue-500 animate-spin mx-auto mb-2" }), /* @__PURE__ */ import_react6.default.createElement("p", { className: "text-sm text-gray-600" }, "Searching airports..."));
+    }
+    if (hasSearched && airports.length === 0) {
+      return /* @__PURE__ */ import_react6.default.createElement("div", { className: "px-4 py-6 text-center" }, /* @__PURE__ */ import_react6.default.createElement(Search, { className: "h-6 w-6 text-gray-400 mx-auto mb-2" }), /* @__PURE__ */ import_react6.default.createElement("p", { className: "text-sm text-gray-600" }, "No airports found"), /* @__PURE__ */ import_react6.default.createElement("p", { className: "text-xs text-gray-500 mt-1" }, "Try searching by city, country, or airport code"));
+    }
+    if (airports.length > 0) {
+      return airports.map((airport, index) => /* @__PURE__ */ import_react6.default.createElement(
+        "button",
+        {
+          key: `${airport.iata_code}-${index}`,
+          type: "button",
+          onClick: () => handleSelectAirport(airport),
+          className: `
+            w-full text-left px-4 py-3 hover:bg-gray-50 border-b border-gray-100 last:border-b-0 transition-colors
+            ${index === highlightedIndex ? "bg-blue-50 border-blue-200" : ""}
+          `
+        },
+        /* @__PURE__ */ import_react6.default.createElement("div", { className: "flex items-center justify-between" }, /* @__PURE__ */ import_react6.default.createElement("div", { className: "flex-1 min-w-0" }, /* @__PURE__ */ import_react6.default.createElement("div", { className: "flex items-center space-x-2" }, /* @__PURE__ */ import_react6.default.createElement("span", { className: "font-semibold text-gray-900 text-sm" }, airport.iata_code), /* @__PURE__ */ import_react6.default.createElement("span", { className: "text-xs text-gray-500" }, airport.icao_code)), /* @__PURE__ */ import_react6.default.createElement("div", { className: "text-sm text-gray-700 font-medium truncate" }, airport.city, ", ", airport.country), /* @__PURE__ */ import_react6.default.createElement("div", { className: "text-xs text-gray-500 truncate" }, airport.name)), /* @__PURE__ */ import_react6.default.createElement("div", { className: "flex-shrink-0 ml-3" }, /* @__PURE__ */ import_react6.default.createElement(MapPin, { className: "h-4 w-4 text-gray-400" })))
+      ));
+    }
+    if (showPopularAirports && !hasSearched) {
+      return /* @__PURE__ */ import_react6.default.createElement("div", null, /* @__PURE__ */ import_react6.default.createElement("div", { className: "px-4 py-2 bg-gray-50 border-b border-gray-200" }, /* @__PURE__ */ import_react6.default.createElement("div", { className: "flex items-center space-x-2" }, /* @__PURE__ */ import_react6.default.createElement(Globe, { className: "h-4 w-4 text-gray-500" }), /* @__PURE__ */ import_react6.default.createElement("span", { className: "text-xs font-medium text-gray-700" }, "Popular Destinations"))), popularAirports.slice(0, 8).map((airport, index) => /* @__PURE__ */ import_react6.default.createElement(
+        "button",
+        {
+          key: `popular-${airport.iata_code}-${index}`,
+          type: "button",
+          onClick: () => handleSelectAirport(airport),
+          className: `
+                w-full text-left px-4 py-3 hover:bg-gray-50 border-b border-gray-100 last:border-b-0 transition-colors
+                ${index === highlightedIndex ? "bg-blue-50 border-blue-200" : ""}
+              `
+        },
+        /* @__PURE__ */ import_react6.default.createElement("div", { className: "flex items-center justify-between" }, /* @__PURE__ */ import_react6.default.createElement("div", { className: "flex-1 min-w-0" }, /* @__PURE__ */ import_react6.default.createElement("div", { className: "flex items-center space-x-2" }, /* @__PURE__ */ import_react6.default.createElement("span", { className: "font-semibold text-gray-900 text-sm" }, airport.iata_code), /* @__PURE__ */ import_react6.default.createElement("span", { className: "text-xs text-gray-500" }, airport.icao_code)), /* @__PURE__ */ import_react6.default.createElement("div", { className: "text-sm text-gray-700 font-medium truncate" }, airport.city, ", ", airport.country), /* @__PURE__ */ import_react6.default.createElement("div", { className: "text-xs text-gray-500 truncate" }, airport.name)), /* @__PURE__ */ import_react6.default.createElement("div", { className: "flex-shrink-0 ml-3" }, /* @__PURE__ */ import_react6.default.createElement(Plane, { className: "h-4 w-4 text-gray-400" })))
+      )));
+    }
+    return null;
+  }, [isLoading, hasSearched, airports, popularAirports, showPopularAirports, highlightedIndex, handleSelectAirport]);
   return /* @__PURE__ */ import_react6.default.createElement("div", { className: `relative ${className}` }, label && /* @__PURE__ */ import_react6.default.createElement("label", { className: "block text-sm font-medium text-gray-700 mb-2" }, label), /* @__PURE__ */ import_react6.default.createElement("div", { className: "relative" }, /* @__PURE__ */ import_react6.default.createElement(
     "input",
     {
@@ -49858,42 +50271,292 @@ var AirportAutocomplete = ({
       placeholder,
       disabled,
       className: `
-            w-full px-4 py-3 pr-20 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500
-            ${error2 ? "border-red-300 focus:ring-red-500 focus:border-red-500" : "border-gray-300"}
-            ${disabled ? "bg-gray-100 cursor-not-allowed" : "bg-white"}
+            w-full ${getSizeClasses()} pr-12 ${getVariantClasses()}
+            focus:ring-2 focus:ring-blue-500 focus:outline-none transition-colors
+            ${error2 ? "border-red-300 focus:ring-red-500 focus:border-red-500" : ""}
+            ${disabled ? "bg-gray-100 cursor-not-allowed text-gray-500" : "text-gray-900"}
           `,
-      autoComplete: "off"
+      autoComplete: "off",
+      "aria-expanded": isOpen,
+      "aria-haspopup": "listbox",
+      role: "combobox",
+      "aria-autocomplete": "list"
     }
-  ), /* @__PURE__ */ import_react6.default.createElement("div", { className: "absolute right-3 top-3.5 flex items-center space-x-1" }, isLoading && /* @__PURE__ */ import_react6.default.createElement(LoaderCircle, { className: "h-5 w-5 text-gray-400 animate-spin" }), !isLoading && !selectedAirport && /* @__PURE__ */ import_react6.default.createElement(MapPin, { className: "h-5 w-5 text-gray-400" }), selectedAirport && /* @__PURE__ */ import_react6.default.createElement(
+  ), /* @__PURE__ */ import_react6.default.createElement("div", { className: "absolute right-3 top-1/2 transform -translate-y-1/2 flex items-center space-x-1" }, isLoading && /* @__PURE__ */ import_react6.default.createElement(LoaderCircle, { className: "h-4 w-4 text-gray-400 animate-spin" }), !isLoading && !selectedAirport && /* @__PURE__ */ import_react6.default.createElement(MapPin, { className: "h-4 w-4 text-gray-400" }), selectedAirport && /* @__PURE__ */ import_react6.default.createElement(
     "button",
     {
       type: "button",
       onClick: handleClear,
-      className: "h-5 w-5 text-gray-400 hover:text-gray-600 transition-colors"
+      className: "h-4 w-4 text-gray-400 hover:text-gray-600 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded",
+      "aria-label": "Clear selection"
     },
-    /* @__PURE__ */ import_react6.default.createElement(X, { className: "h-4 w-4" })
+    /* @__PURE__ */ import_react6.default.createElement(X, { className: "h-3 w-3" })
   ))), isOpen && /* @__PURE__ */ import_react6.default.createElement(
     "div",
     {
       ref: dropdownRef,
-      className: "absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded-lg shadow-lg max-h-60 overflow-y-auto"
+      className: "absolute z-50 w-full mt-1 bg-white border border-gray-300 rounded-lg shadow-xl max-h-80 overflow-y-auto",
+      role: "listbox",
+      "aria-label": "Airport search results"
     },
-    airports.length > 0 ? airports.map((airport, index) => /* @__PURE__ */ import_react6.default.createElement(
-      "button",
-      {
-        key: `${airport.iata_code}-${index}`,
-        type: "button",
-        onClick: () => handleSelectAirport(airport),
-        className: `
-                  w-full text-left px-4 py-3 hover:bg-gray-50 border-b border-gray-100 last:border-b-0
-                  ${index === highlightedIndex ? "bg-blue-50 border-blue-200" : ""}
-                `
-      },
-      /* @__PURE__ */ import_react6.default.createElement("div", { className: "flex items-center justify-between" }, /* @__PURE__ */ import_react6.default.createElement("div", { className: "flex-1" }, /* @__PURE__ */ import_react6.default.createElement("div", { className: "font-medium text-gray-900" }, airport.iata_code), /* @__PURE__ */ import_react6.default.createElement("div", { className: "text-sm text-gray-600" }, airport.city, ", ", airport.country), /* @__PURE__ */ import_react6.default.createElement("div", { className: "text-xs text-gray-500 truncate" }, airport.name)), /* @__PURE__ */ import_react6.default.createElement(MapPin, { className: "h-4 w-4 text-gray-400 flex-shrink-0 ml-2" }))
-    )) : /* @__PURE__ */ import_react6.default.createElement("div", { className: "px-4 py-3 text-sm text-gray-500" }, isLoading ? "Searching airports..." : "No airports found")
-  ), error2 && /* @__PURE__ */ import_react6.default.createElement("p", { className: "mt-1 text-sm text-red-600" }, error2));
+    dropdownContent
+  ), error2 && /* @__PURE__ */ import_react6.default.createElement("p", { className: "mt-1 text-sm text-red-600 flex items-center" }, /* @__PURE__ */ import_react6.default.createElement("span", { className: "mr-1" }, "\u26A0"), error2));
 };
 var AirportAutocomplete_default = AirportAutocomplete;
+
+// app/javascript/components/MobileAirportAutocomplete.tsx
+var import_react7 = __toESM(require_react());
+var MobileAirportAutocomplete = ({
+  value,
+  onChange,
+  onSelect,
+  placeholder = "Search airports...",
+  label,
+  error: error2,
+  disabled = false,
+  className = "",
+  selectedAirport,
+  showPopularAirports = true
+}) => {
+  const [isOpen, setIsOpen] = (0, import_react7.useState)(false);
+  const [airports, setAirports] = (0, import_react7.useState)([]);
+  const [isLoading, setIsLoading] = (0, import_react7.useState)(false);
+  const [highlightedIndex, setHighlightedIndex] = (0, import_react7.useState)(-1);
+  const [hasSearched, setHasSearched] = (0, import_react7.useState)(false);
+  const [searchTerm, setSearchTerm] = (0, import_react7.useState)("");
+  const inputRef = (0, import_react7.useRef)(null);
+  const dropdownRef = (0, import_react7.useRef)(null);
+  const debouncedSearch = (0, import_react7.useRef)();
+  const popularAirports = (0, import_react7.useMemo)(() => getPopularAirports(), []);
+  (0, import_react7.useEffect)(() => {
+    debouncedSearch.current = AirportService.debounce(async (searchTerm2) => {
+      if (!searchTerm2 || searchTerm2.trim().length < 2) {
+        setAirports([]);
+        setIsLoading(false);
+        setHasSearched(false);
+        return;
+      }
+      setIsLoading(true);
+      setHasSearched(true);
+      try {
+        const results = await AirportService.searchAirports(searchTerm2);
+        setAirports(results);
+      } catch (error3) {
+        console.error("Error searching airports:", error3);
+        setAirports([]);
+      } finally {
+        setIsLoading(false);
+      }
+    }, 300);
+  }, []);
+  const handleInputChange = (0, import_react7.useCallback)((e) => {
+    const newValue = e.target.value;
+    setSearchTerm(newValue);
+    onChange(newValue);
+    if (selectedAirport && newValue !== `${selectedAirport.iata_code} - ${selectedAirport.city}`) {
+      onSelect(null);
+    }
+    if (debouncedSearch.current) {
+      setIsOpen(true);
+      debouncedSearch.current(newValue);
+    }
+  }, [onChange, onSelect, selectedAirport]);
+  const handleSelectAirport = (0, import_react7.useCallback)((airport) => {
+    const displayValue = `${airport.iata_code} - ${airport.city}`;
+    onChange(displayValue);
+    onSelect(airport);
+    setIsOpen(false);
+    setHighlightedIndex(-1);
+    setSearchTerm("");
+    inputRef.current?.blur();
+  }, [onChange, onSelect]);
+  const handleFocus = (0, import_react7.useCallback)(() => {
+    if (!disabled) {
+      setIsOpen(true);
+      if (value && debouncedSearch.current) {
+        debouncedSearch.current(value);
+      }
+    }
+  }, [disabled, value]);
+  const handleBlur = (0, import_react7.useCallback)((e) => {
+    if (dropdownRef.current?.contains(e.relatedTarget)) {
+      return;
+    }
+    setTimeout(() => {
+      setIsOpen(false);
+      setHighlightedIndex(-1);
+    }, 150);
+  }, []);
+  const handleKeyDown = (0, import_react7.useCallback)((e) => {
+    const currentAirports = airports.length > 0 ? airports : showPopularAirports && !hasSearched ? popularAirports.slice(0, 8) : [];
+    if (!isOpen || currentAirports.length === 0) {
+      if (e.key === "ArrowDown") {
+        e.preventDefault();
+        setIsOpen(true);
+        if (debouncedSearch.current) {
+          debouncedSearch.current(value);
+        }
+      }
+      return;
+    }
+    switch (e.key) {
+      case "ArrowDown":
+        e.preventDefault();
+        setHighlightedIndex(
+          (prev) => prev < currentAirports.length - 1 ? prev + 1 : 0
+        );
+        break;
+      case "ArrowUp":
+        e.preventDefault();
+        setHighlightedIndex(
+          (prev) => prev > 0 ? prev - 1 : currentAirports.length - 1
+        );
+        break;
+      case "Enter":
+        e.preventDefault();
+        if (highlightedIndex >= 0 && highlightedIndex < currentAirports.length) {
+          handleSelectAirport(currentAirports[highlightedIndex]);
+        }
+        break;
+      case "Escape":
+        setIsOpen(false);
+        setHighlightedIndex(-1);
+        inputRef.current?.blur();
+        break;
+    }
+  }, [isOpen, airports, popularAirports, showPopularAirports, hasSearched, highlightedIndex, value, handleSelectAirport]);
+  const handleClear = (0, import_react7.useCallback)(() => {
+    onChange("");
+    onSelect(null);
+    setIsOpen(false);
+    setHighlightedIndex(-1);
+    setSearchTerm("");
+    inputRef.current?.focus();
+  }, [onChange, onSelect]);
+  (0, import_react7.useEffect)(() => {
+    const handleClickOutside = (event) => {
+      if (inputRef.current && !inputRef.current.contains(event.target) && dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setIsOpen(false);
+        setHighlightedIndex(-1);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+  const dropdownContent = (0, import_react7.useMemo)(() => {
+    if (isLoading) {
+      return /* @__PURE__ */ import_react7.default.createElement("div", { className: "px-4 py-8 text-center" }, /* @__PURE__ */ import_react7.default.createElement(LoaderCircle, { className: "h-8 w-8 text-blue-500 animate-spin mx-auto mb-3" }), /* @__PURE__ */ import_react7.default.createElement("p", { className: "text-base text-gray-600" }, "Searching airports..."));
+    }
+    if (hasSearched && airports.length === 0) {
+      return /* @__PURE__ */ import_react7.default.createElement("div", { className: "px-4 py-8 text-center" }, /* @__PURE__ */ import_react7.default.createElement(Search, { className: "h-8 w-8 text-gray-400 mx-auto mb-3" }), /* @__PURE__ */ import_react7.default.createElement("p", { className: "text-base text-gray-600" }, "No airports found"), /* @__PURE__ */ import_react7.default.createElement("p", { className: "text-sm text-gray-500 mt-2" }, "Try searching by city, country, or airport code"));
+    }
+    if (airports.length > 0) {
+      return airports.map((airport, index) => /* @__PURE__ */ import_react7.default.createElement(
+        "button",
+        {
+          key: `${airport.iata_code}-${index}`,
+          type: "button",
+          onClick: () => handleSelectAirport(airport),
+          className: `
+            w-full text-left px-4 py-4 hover:bg-gray-50 border-b border-gray-100 last:border-b-0 transition-colors
+            ${index === highlightedIndex ? "bg-blue-50 border-blue-200" : ""}
+          `
+        },
+        /* @__PURE__ */ import_react7.default.createElement("div", { className: "flex items-center justify-between" }, /* @__PURE__ */ import_react7.default.createElement("div", { className: "flex-1 min-w-0" }, /* @__PURE__ */ import_react7.default.createElement("div", { className: "flex items-center space-x-3" }, /* @__PURE__ */ import_react7.default.createElement("span", { className: "font-bold text-gray-900 text-lg" }, airport.iata_code), /* @__PURE__ */ import_react7.default.createElement("span", { className: "text-sm text-gray-500" }, airport.icao_code)), /* @__PURE__ */ import_react7.default.createElement("div", { className: "text-base text-gray-700 font-medium truncate mt-1" }, airport.city, ", ", airport.country), /* @__PURE__ */ import_react7.default.createElement("div", { className: "text-sm text-gray-500 truncate mt-1" }, airport.name)), /* @__PURE__ */ import_react7.default.createElement("div", { className: "flex-shrink-0 ml-4" }, /* @__PURE__ */ import_react7.default.createElement(MapPin, { className: "h-5 w-5 text-gray-400" })))
+      ));
+    }
+    if (showPopularAirports && !hasSearched) {
+      return /* @__PURE__ */ import_react7.default.createElement("div", null, /* @__PURE__ */ import_react7.default.createElement("div", { className: "px-4 py-3 bg-gray-50 border-b border-gray-200" }, /* @__PURE__ */ import_react7.default.createElement("div", { className: "flex items-center space-x-2" }, /* @__PURE__ */ import_react7.default.createElement(Globe, { className: "h-5 w-5 text-gray-500" }), /* @__PURE__ */ import_react7.default.createElement("span", { className: "text-sm font-semibold text-gray-700" }, "Popular Destinations"))), popularAirports.slice(0, 8).map((airport, index) => /* @__PURE__ */ import_react7.default.createElement(
+        "button",
+        {
+          key: `popular-${airport.iata_code}-${index}`,
+          type: "button",
+          onClick: () => handleSelectAirport(airport),
+          className: `
+                w-full text-left px-4 py-4 hover:bg-gray-50 border-b border-gray-100 last:border-b-0 transition-colors
+                ${index === highlightedIndex ? "bg-blue-50 border-blue-200" : ""}
+              `
+        },
+        /* @__PURE__ */ import_react7.default.createElement("div", { className: "flex items-center justify-between" }, /* @__PURE__ */ import_react7.default.createElement("div", { className: "flex-1 min-w-0" }, /* @__PURE__ */ import_react7.default.createElement("div", { className: "flex items-center space-x-3" }, /* @__PURE__ */ import_react7.default.createElement("span", { className: "font-bold text-gray-900 text-lg" }, airport.iata_code), /* @__PURE__ */ import_react7.default.createElement("span", { className: "text-sm text-gray-500" }, airport.icao_code)), /* @__PURE__ */ import_react7.default.createElement("div", { className: "text-base text-gray-700 font-medium truncate mt-1" }, airport.city, ", ", airport.country), /* @__PURE__ */ import_react7.default.createElement("div", { className: "text-sm text-gray-500 truncate mt-1" }, airport.name)), /* @__PURE__ */ import_react7.default.createElement("div", { className: "flex-shrink-0 ml-4" }, /* @__PURE__ */ import_react7.default.createElement(Plane, { className: "h-5 w-5 text-gray-400" })))
+      )));
+    }
+    return null;
+  }, [isLoading, hasSearched, airports, popularAirports, showPopularAirports, highlightedIndex, handleSelectAirport]);
+  return /* @__PURE__ */ import_react7.default.createElement("div", { className: `relative ${className}` }, label && /* @__PURE__ */ import_react7.default.createElement("label", { className: "block text-base font-medium text-gray-700 mb-3" }, label), /* @__PURE__ */ import_react7.default.createElement("div", { className: "relative" }, /* @__PURE__ */ import_react7.default.createElement(
+    "input",
+    {
+      ref: inputRef,
+      type: "text",
+      value,
+      onChange: handleInputChange,
+      onFocus: handleFocus,
+      onBlur: handleBlur,
+      onKeyDown: handleKeyDown,
+      placeholder,
+      disabled,
+      className: `
+            w-full px-4 py-4 pr-14 text-base border border-gray-300 rounded-lg
+            focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:outline-none transition-colors
+            ${error2 ? "border-red-300 focus:ring-red-500 focus:border-red-500" : ""}
+            ${disabled ? "bg-gray-100 cursor-not-allowed text-gray-500" : "text-gray-900 bg-white"}
+          `,
+      autoComplete: "off",
+      "aria-expanded": isOpen,
+      "aria-haspopup": "listbox",
+      role: "combobox",
+      "aria-autocomplete": "list"
+    }
+  ), /* @__PURE__ */ import_react7.default.createElement("div", { className: "absolute right-4 top-1/2 transform -translate-y-1/2 flex items-center space-x-2" }, isLoading && /* @__PURE__ */ import_react7.default.createElement(LoaderCircle, { className: "h-5 w-5 text-gray-400 animate-spin" }), !isLoading && !selectedAirport && /* @__PURE__ */ import_react7.default.createElement(MapPin, { className: "h-5 w-5 text-gray-400" }), selectedAirport && /* @__PURE__ */ import_react7.default.createElement(
+    "button",
+    {
+      type: "button",
+      onClick: handleClear,
+      className: "h-5 w-5 text-gray-400 hover:text-gray-600 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded",
+      "aria-label": "Clear selection"
+    },
+    /* @__PURE__ */ import_react7.default.createElement(X, { className: "h-4 w-4" })
+  ))), isOpen && /* @__PURE__ */ import_react7.default.createElement(
+    "div",
+    {
+      ref: dropdownRef,
+      className: "absolute z-50 w-full mt-2 bg-white border border-gray-300 rounded-lg shadow-2xl max-h-96 overflow-y-auto",
+      role: "listbox",
+      "aria-label": "Airport search results"
+    },
+    dropdownContent
+  ), error2 && /* @__PURE__ */ import_react7.default.createElement("p", { className: "mt-2 text-sm text-red-600 flex items-center" }, /* @__PURE__ */ import_react7.default.createElement("span", { className: "mr-2" }, "\u26A0"), error2));
+};
+var MobileAirportAutocomplete_default = MobileAirportAutocomplete;
+
+// app/javascript/components/ResponsiveAirportAutocomplete.tsx
+var ResponsiveAirportAutocomplete = ({
+  forceMobile = false,
+  forceDesktop = false,
+  ...props
+}) => {
+  const [isMobile, setIsMobile] = (0, import_react8.useState)(false);
+  (0, import_react8.useEffect)(() => {
+    const checkIsMobile = () => {
+      const isMobileScreen = window.innerWidth < 768;
+      const isTouchDevice = "ontouchstart" in window || navigator.maxTouchPoints > 0;
+      setIsMobile(isMobileScreen || isTouchDevice);
+    };
+    checkIsMobile();
+    window.addEventListener("resize", checkIsMobile);
+    return () => window.removeEventListener("resize", checkIsMobile);
+  }, []);
+  if (forceMobile) {
+    return /* @__PURE__ */ import_react8.default.createElement(MobileAirportAutocomplete_default, { ...props });
+  }
+  if (forceDesktop) {
+    return /* @__PURE__ */ import_react8.default.createElement(AirportAutocomplete_default, { ...props });
+  }
+  if (isMobile) {
+    return /* @__PURE__ */ import_react8.default.createElement(MobileAirportAutocomplete_default, { ...props });
+  }
+  return /* @__PURE__ */ import_react8.default.createElement(AirportAutocomplete_default, { ...props });
+};
+var ResponsiveAirportAutocomplete_default = ResponsiveAirportAutocomplete;
 
 // app/javascript/components/FlightSearchInterface.tsx
 var FlightSearchInterface = ({
@@ -49901,12 +50564,12 @@ var FlightSearchInterface = ({
   onSaveFilter,
   className = ""
 }) => {
-  const [showFilters, setShowFilters] = (0, import_react7.useState)(false);
-  const [isMobile, setIsMobile] = (0, import_react7.useState)(false);
-  const [originSearch, setOriginSearch] = (0, import_react7.useState)("");
-  const [destinationSearch, setDestinationSearch] = (0, import_react7.useState)("");
-  const [showTravelersModal, setShowTravelersModal] = (0, import_react7.useState)(false);
-  const [currentFilter, setCurrentFilter] = (0, import_react7.useState)({
+  const [showFilters, setShowFilters] = (0, import_react9.useState)(false);
+  const [isMobile, setIsMobile] = (0, import_react9.useState)(false);
+  const [originSearch, setOriginSearch] = (0, import_react9.useState)("");
+  const [destinationSearch, setDestinationSearch] = (0, import_react9.useState)("");
+  const [showTravelersModal, setShowTravelersModal] = (0, import_react9.useState)(false);
+  const [currentFilter, setCurrentFilter] = (0, import_react9.useState)({
     // Default filter state
     origin: null,
     destination: null,
@@ -49950,12 +50613,12 @@ var FlightSearchInterface = ({
     createdAt: /* @__PURE__ */ new Date(),
     isActive: true
   });
-  const [searchResults, setSearchResults] = (0, import_react7.useState)([]);
-  const [loading, setLoading] = (0, import_react7.useState)(false);
-  const [showPriceChart, setShowPriceChart] = (0, import_react7.useState)(false);
-  const [showAlertManager, setShowAlertManager] = (0, import_react7.useState)(false);
-  const [sortBy, setSortBy] = (0, import_react7.useState)("price");
-  const [viewMode, setViewMode] = (0, import_react7.useState)("list");
+  const [searchResults, setSearchResults] = (0, import_react9.useState)([]);
+  const [loading, setLoading] = (0, import_react9.useState)(false);
+  const [showPriceChart, setShowPriceChart] = (0, import_react9.useState)(false);
+  const [showAlertManager, setShowAlertManager] = (0, import_react9.useState)(false);
+  const [sortBy, setSortBy] = (0, import_react9.useState)("price");
+  const [viewMode, setViewMode] = (0, import_react9.useState)("list");
   const mockResults = [
     {
       id: "1",
@@ -50014,7 +50677,7 @@ var FlightSearchInterface = ({
       bookingUrl: "#"
     }
   ];
-  (0, import_react7.useEffect)(() => {
+  (0, import_react9.useEffect)(() => {
     setSearchResults(mockResults);
     const checkMobile = () => {
       setIsMobile(window.innerWidth < 768);
@@ -50028,7 +50691,7 @@ var FlightSearchInterface = ({
     setCurrentFilter(newFilter);
     onFilterChange?.(newFilter);
   };
-  (0, import_react7.useEffect)(() => {
+  (0, import_react9.useEffect)(() => {
     if (currentFilter.origin) {
       setOriginSearch(`${currentFilter.origin.iata_code} - ${currentFilter.origin.city}`);
     }
@@ -50085,23 +50748,23 @@ var FlightSearchInterface = ({
         return 0;
     }
   });
-  return /* @__PURE__ */ import_react7.default.createElement("div", { className: `min-h-screen bg-gray-50 ${className}` }, /* @__PURE__ */ import_react7.default.createElement("header", { className: "bg-gradient-to-r from-blue-600 to-blue-700 text-white shadow-lg" }, /* @__PURE__ */ import_react7.default.createElement("div", { className: "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" }, /* @__PURE__ */ import_react7.default.createElement("div", { className: "flex items-center justify-between h-16" }, /* @__PURE__ */ import_react7.default.createElement("div", { className: "flex items-center" }, /* @__PURE__ */ import_react7.default.createElement("div", { className: "flex-shrink-0 flex items-center" }, /* @__PURE__ */ import_react7.default.createElement("div", { className: "w-8 h-8 bg-white rounded-lg flex items-center justify-center mr-3" }, /* @__PURE__ */ import_react7.default.createElement(Plane, { className: "w-5 h-5 text-blue-600" })), /* @__PURE__ */ import_react7.default.createElement("h1", { className: "text-xl font-bold" }, "PriceBreak"))), /* @__PURE__ */ import_react7.default.createElement("nav", { className: "hidden md:flex items-center space-x-8" }, /* @__PURE__ */ import_react7.default.createElement("a", { href: "#", className: "text-blue-100 hover:text-white transition-colors" }, "Help"), /* @__PURE__ */ import_react7.default.createElement("a", { href: "#", className: "text-blue-100 hover:text-white transition-colors" }, "Login")), /* @__PURE__ */ import_react7.default.createElement("div", { className: "md:hidden" }, /* @__PURE__ */ import_react7.default.createElement("button", { className: "text-blue-100 hover:text-white" }, /* @__PURE__ */ import_react7.default.createElement("svg", { className: "h-6 w-6", fill: "none", viewBox: "0 0 24 24", stroke: "currentColor" }, /* @__PURE__ */ import_react7.default.createElement("path", { strokeLinecap: "round", strokeLinejoin: "round", strokeWidth: 2, d: "M4 6h16M4 12h16M4 18h16" }))))))), /* @__PURE__ */ import_react7.default.createElement("div", { className: "bg-white border-b border-gray-200" }, /* @__PURE__ */ import_react7.default.createElement("div", { className: "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" }, /* @__PURE__ */ import_react7.default.createElement("div", { className: "flex space-x-8" }, [
+  return /* @__PURE__ */ import_react9.default.createElement("div", { className: `min-h-screen bg-gray-50 ${className}` }, /* @__PURE__ */ import_react9.default.createElement("header", { className: "bg-gradient-to-r from-blue-600 to-blue-700 text-white shadow-lg" }, /* @__PURE__ */ import_react9.default.createElement("div", { className: "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" }, /* @__PURE__ */ import_react9.default.createElement("div", { className: "flex items-center justify-between h-16" }, /* @__PURE__ */ import_react9.default.createElement("div", { className: "flex items-center" }, /* @__PURE__ */ import_react9.default.createElement("div", { className: "flex-shrink-0 flex items-center" }, /* @__PURE__ */ import_react9.default.createElement("div", { className: "w-8 h-8 bg-white rounded-lg flex items-center justify-center mr-3" }, /* @__PURE__ */ import_react9.default.createElement(Plane, { className: "w-5 h-5 text-blue-600" })), /* @__PURE__ */ import_react9.default.createElement("h1", { className: "text-xl font-bold" }, "PriceBreak"))), /* @__PURE__ */ import_react9.default.createElement("nav", { className: "hidden md:flex items-center space-x-8" }, /* @__PURE__ */ import_react9.default.createElement("a", { href: "#", className: "text-blue-100 hover:text-white transition-colors" }, "Help"), /* @__PURE__ */ import_react9.default.createElement("a", { href: "#", className: "text-blue-100 hover:text-white transition-colors" }, "Login")), /* @__PURE__ */ import_react9.default.createElement("div", { className: "md:hidden" }, /* @__PURE__ */ import_react9.default.createElement("button", { className: "text-blue-100 hover:text-white" }, /* @__PURE__ */ import_react9.default.createElement("svg", { className: "h-6 w-6", fill: "none", viewBox: "0 0 24 24", stroke: "currentColor" }, /* @__PURE__ */ import_react9.default.createElement("path", { strokeLinecap: "round", strokeLinejoin: "round", strokeWidth: 2, d: "M4 6h16M4 12h16M4 18h16" }))))))), /* @__PURE__ */ import_react9.default.createElement("div", { className: "bg-white border-b border-gray-200" }, /* @__PURE__ */ import_react9.default.createElement("div", { className: "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" }, /* @__PURE__ */ import_react9.default.createElement("div", { className: "flex space-x-8" }, [
     { id: "flights", label: "Flights", icon: Plane, active: true },
     { id: "hotels", label: "Hotels", icon: null },
     { id: "cars", label: "Car rental", icon: null }
-  ].map(({ id, label, icon: Icon2, active }) => /* @__PURE__ */ import_react7.default.createElement(
+  ].map(({ id, label, icon: Icon2, active }) => /* @__PURE__ */ import_react9.default.createElement(
     "button",
     {
       key: id,
       className: `flex items-center py-4 px-1 border-b-2 font-medium text-sm ${active ? "border-blue-500 text-blue-600" : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"}`
     },
-    Icon2 && /* @__PURE__ */ import_react7.default.createElement(Icon2, { className: "w-4 h-4 mr-2" }),
+    Icon2 && /* @__PURE__ */ import_react9.default.createElement(Icon2, { className: "w-4 h-4 mr-2" }),
     label
-  ))))), /* @__PURE__ */ import_react7.default.createElement("div", { className: "bg-gradient-to-r from-blue-600 to-blue-700 text-white py-12" }, /* @__PURE__ */ import_react7.default.createElement("div", { className: "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center" }, /* @__PURE__ */ import_react7.default.createElement("h2", { className: "text-3xl md:text-4xl font-bold mb-4" }, "Millions of cheap flights. One simple search."), /* @__PURE__ */ import_react7.default.createElement("p", { className: "text-blue-100 text-lg" }, "Find the best deals with PriceBreak's intelligent price monitoring"))), /* @__PURE__ */ import_react7.default.createElement("div", { className: "bg-white shadow-lg -mt-8 relative z-10" }, /* @__PURE__ */ import_react7.default.createElement("div", { className: "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" }, /* @__PURE__ */ import_react7.default.createElement("div", { className: "py-6" }, /* @__PURE__ */ import_react7.default.createElement("div", { className: "mb-6" }, /* @__PURE__ */ import_react7.default.createElement("div", { className: "flex rounded-lg bg-gray-100 p-1 w-fit" }, [
+  ))))), /* @__PURE__ */ import_react9.default.createElement("div", { className: "bg-gradient-to-r from-blue-600 to-blue-700 text-white py-12" }, /* @__PURE__ */ import_react9.default.createElement("div", { className: "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center" }, /* @__PURE__ */ import_react9.default.createElement("h2", { className: "text-3xl md:text-4xl font-bold mb-4" }, "Millions of cheap flights. One simple search."), /* @__PURE__ */ import_react9.default.createElement("p", { className: "text-blue-100 text-lg" }, "Find the best deals with PriceBreak's intelligent price monitoring"))), /* @__PURE__ */ import_react9.default.createElement("div", { className: "bg-white shadow-lg -mt-8 relative z-10" }, /* @__PURE__ */ import_react9.default.createElement("div", { className: "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" }, /* @__PURE__ */ import_react9.default.createElement("div", { className: "py-6" }, /* @__PURE__ */ import_react9.default.createElement("div", { className: "mb-6" }, /* @__PURE__ */ import_react9.default.createElement("div", { className: "flex rounded-lg bg-gray-100 p-1 w-fit" }, [
     { key: "round-trip", label: "Roundtrip" },
     { key: "one-way", label: "One-way" },
     { key: "multi-city", label: "Multi-city" }
-  ].map(({ key, label }) => /* @__PURE__ */ import_react7.default.createElement(
+  ].map(({ key, label }) => /* @__PURE__ */ import_react9.default.createElement(
     "button",
     {
       key,
@@ -50109,16 +50772,17 @@ var FlightSearchInterface = ({
       className: `px-4 py-2 text-sm font-medium rounded-md transition-colors ${currentFilter.tripType === key ? "bg-white text-blue-600 shadow-sm" : "text-gray-600 hover:text-gray-800"}`
     },
     label
-  )))), /* @__PURE__ */ import_react7.default.createElement("div", { className: "grid grid-cols-1 md:grid-cols-5 gap-4 items-end" }, /* @__PURE__ */ import_react7.default.createElement("div", { className: "relative" }, /* @__PURE__ */ import_react7.default.createElement(
-    AirportAutocomplete_default,
+  )))), /* @__PURE__ */ import_react9.default.createElement("div", { className: "grid grid-cols-1 md:grid-cols-5 gap-4 items-end" }, /* @__PURE__ */ import_react9.default.createElement("div", { className: "relative" }, /* @__PURE__ */ import_react9.default.createElement(
+    ResponsiveAirportAutocomplete_default,
     {
       value: originSearch,
       onChange: setOriginSearch,
       onSelect: handleOriginSelect,
       placeholder: "Country, city or airport",
-      selectedAirport: currentFilter.origin
+      selectedAirport: currentFilter.origin,
+      showPopularAirports: true
     }
-  )), /* @__PURE__ */ import_react7.default.createElement("div", { className: "flex justify-center" }, /* @__PURE__ */ import_react7.default.createElement(
+  )), /* @__PURE__ */ import_react9.default.createElement("div", { className: "flex justify-center" }, /* @__PURE__ */ import_react9.default.createElement(
     "button",
     {
       className: "w-10 h-10 bg-gray-200 hover:bg-gray-300 rounded-full flex items-center justify-center transition-colors",
@@ -50130,17 +50794,18 @@ var FlightSearchInterface = ({
         });
       }
     },
-    /* @__PURE__ */ import_react7.default.createElement(ArrowRight, { className: "w-4 h-4 text-gray-600" })
-  )), /* @__PURE__ */ import_react7.default.createElement("div", { className: "relative" }, /* @__PURE__ */ import_react7.default.createElement(
-    AirportAutocomplete_default,
+    /* @__PURE__ */ import_react9.default.createElement(ArrowRight, { className: "w-4 h-4 text-gray-600" })
+  )), /* @__PURE__ */ import_react9.default.createElement("div", { className: "relative" }, /* @__PURE__ */ import_react9.default.createElement(
+    ResponsiveAirportAutocomplete_default,
     {
       value: destinationSearch,
       onChange: setDestinationSearch,
       onSelect: handleDestinationSelect,
       placeholder: "Country, city or airport",
-      selectedAirport: currentFilter.destination
+      selectedAirport: currentFilter.destination,
+      showPopularAirports: true
     }
-  )), /* @__PURE__ */ import_react7.default.createElement("div", { className: "relative" }, /* @__PURE__ */ import_react7.default.createElement("label", { className: "block text-sm font-medium text-gray-700 mb-1" }, "Depart"), /* @__PURE__ */ import_react7.default.createElement("div", { className: "relative" }, /* @__PURE__ */ import_react7.default.createElement(
+  )), /* @__PURE__ */ import_react9.default.createElement("div", { className: "relative" }, /* @__PURE__ */ import_react9.default.createElement("label", { className: "block text-sm font-medium text-gray-700 mb-1" }, "Depart"), /* @__PURE__ */ import_react9.default.createElement("div", { className: "relative" }, /* @__PURE__ */ import_react9.default.createElement(
     "input",
     {
       type: "date",
@@ -50152,7 +50817,7 @@ var FlightSearchInterface = ({
       min: (/* @__PURE__ */ new Date()).toISOString().split("T")[0],
       className: "w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
     }
-  ), /* @__PURE__ */ import_react7.default.createElement(Calendar, { className: "absolute right-3 top-3.5 w-5 h-5 text-gray-400 pointer-events-none" }))), currentFilter.tripType === "round-trip" && /* @__PURE__ */ import_react7.default.createElement("div", { className: "relative" }, /* @__PURE__ */ import_react7.default.createElement("label", { className: "block text-sm font-medium text-gray-700 mb-1" }, "Return"), /* @__PURE__ */ import_react7.default.createElement("div", { className: "relative" }, /* @__PURE__ */ import_react7.default.createElement(
+  ), /* @__PURE__ */ import_react9.default.createElement(Calendar, { className: "absolute right-3 top-3.5 w-5 h-5 text-gray-400 pointer-events-none" }))), currentFilter.tripType === "round-trip" && /* @__PURE__ */ import_react9.default.createElement("div", { className: "relative" }, /* @__PURE__ */ import_react9.default.createElement("label", { className: "block text-sm font-medium text-gray-700 mb-1" }, "Return"), /* @__PURE__ */ import_react9.default.createElement("div", { className: "relative" }, /* @__PURE__ */ import_react9.default.createElement(
     "input",
     {
       type: "date",
@@ -50164,7 +50829,7 @@ var FlightSearchInterface = ({
       min: currentFilter.departureDate ? currentFilter.departureDate.toISOString().split("T")[0] : (/* @__PURE__ */ new Date()).toISOString().split("T")[0],
       className: "w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
     }
-  ), /* @__PURE__ */ import_react7.default.createElement(Calendar, { className: "absolute right-3 top-3.5 w-5 h-5 text-gray-400 pointer-events-none" })))), /* @__PURE__ */ import_react7.default.createElement("div", { className: "grid grid-cols-1 md:grid-cols-4 gap-4 mt-4" }, /* @__PURE__ */ import_react7.default.createElement("div", { className: "relative" }, /* @__PURE__ */ import_react7.default.createElement("label", { className: "block text-sm font-medium text-gray-700 mb-1" }, "Travelers and cabin class"), /* @__PURE__ */ import_react7.default.createElement("div", { className: "relative" }, /* @__PURE__ */ import_react7.default.createElement(
+  ), /* @__PURE__ */ import_react9.default.createElement(Calendar, { className: "absolute right-3 top-3.5 w-5 h-5 text-gray-400 pointer-events-none" })))), /* @__PURE__ */ import_react9.default.createElement("div", { className: "grid grid-cols-1 md:grid-cols-4 gap-4 mt-4" }, /* @__PURE__ */ import_react9.default.createElement("div", { className: "relative" }, /* @__PURE__ */ import_react9.default.createElement("label", { className: "block text-sm font-medium text-gray-700 mb-1" }, "Travelers and cabin class"), /* @__PURE__ */ import_react9.default.createElement("div", { className: "relative" }, /* @__PURE__ */ import_react9.default.createElement(
     "input",
     {
       type: "text",
@@ -50173,23 +50838,23 @@ var FlightSearchInterface = ({
       onClick: () => setShowTravelersModal(true),
       readOnly: true
     }
-  ), /* @__PURE__ */ import_react7.default.createElement(Users, { className: "absolute right-3 top-3.5 w-5 h-5 text-gray-400 pointer-events-none" }))), /* @__PURE__ */ import_react7.default.createElement("div", { className: "md:col-span-3 flex items-end" }, /* @__PURE__ */ import_react7.default.createElement(
+  ), /* @__PURE__ */ import_react9.default.createElement(Users, { className: "absolute right-3 top-3.5 w-5 h-5 text-gray-400 pointer-events-none" }))), /* @__PURE__ */ import_react9.default.createElement("div", { className: "md:col-span-3 flex items-end" }, /* @__PURE__ */ import_react9.default.createElement(
     "button",
     {
       onClick: handleSearch,
       className: "w-full md:w-auto bg-blue-600 text-white px-8 py-3 rounded-lg font-medium hover:bg-blue-700 transition-colors flex items-center justify-center gap-2"
     },
-    /* @__PURE__ */ import_react7.default.createElement(Search, { className: "w-5 h-5" }),
+    /* @__PURE__ */ import_react9.default.createElement(Search, { className: "w-5 h-5" }),
     "Search"
-  ))), /* @__PURE__ */ import_react7.default.createElement("div", { className: "flex flex-wrap gap-4 mt-4" }, /* @__PURE__ */ import_react7.default.createElement("label", { className: "flex items-center" }, /* @__PURE__ */ import_react7.default.createElement("input", { type: "checkbox", className: "rounded border-gray-300 text-blue-600 focus:ring-blue-500" }), /* @__PURE__ */ import_react7.default.createElement("span", { className: "ml-2 text-sm text-gray-700" }, "Add nearby airports")), /* @__PURE__ */ import_react7.default.createElement("label", { className: "flex items-center" }, /* @__PURE__ */ import_react7.default.createElement("input", { type: "checkbox", className: "rounded border-gray-300 text-blue-600 focus:ring-blue-500" }), /* @__PURE__ */ import_react7.default.createElement("span", { className: "ml-2 text-sm text-gray-700" }, "Direct flights only")), /* @__PURE__ */ import_react7.default.createElement("label", { className: "flex items-center" }, /* @__PURE__ */ import_react7.default.createElement("input", { type: "checkbox", className: "rounded border-gray-300 text-blue-600 focus:ring-blue-500" }), /* @__PURE__ */ import_react7.default.createElement("span", { className: "ml-2 text-sm text-gray-700" }, "Add a hotel")))))), /* @__PURE__ */ import_react7.default.createElement("div", { className: "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8" }, /* @__PURE__ */ import_react7.default.createElement("div", { className: "flex gap-8 relative" }, isMobile && showFilters && /* @__PURE__ */ import_react7.default.createElement(
+  ))), /* @__PURE__ */ import_react9.default.createElement("div", { className: "flex flex-wrap gap-4 mt-4" }, /* @__PURE__ */ import_react9.default.createElement("label", { className: "flex items-center" }, /* @__PURE__ */ import_react9.default.createElement("input", { type: "checkbox", className: "rounded border-gray-300 text-blue-600 focus:ring-blue-500" }), /* @__PURE__ */ import_react9.default.createElement("span", { className: "ml-2 text-sm text-gray-700" }, "Add nearby airports")), /* @__PURE__ */ import_react9.default.createElement("label", { className: "flex items-center" }, /* @__PURE__ */ import_react9.default.createElement("input", { type: "checkbox", className: "rounded border-gray-300 text-blue-600 focus:ring-blue-500" }), /* @__PURE__ */ import_react9.default.createElement("span", { className: "ml-2 text-sm text-gray-700" }, "Direct flights only")), /* @__PURE__ */ import_react9.default.createElement("label", { className: "flex items-center" }, /* @__PURE__ */ import_react9.default.createElement("input", { type: "checkbox", className: "rounded border-gray-300 text-blue-600 focus:ring-blue-500" }), /* @__PURE__ */ import_react9.default.createElement("span", { className: "ml-2 text-sm text-gray-700" }, "Add a hotel")))))), /* @__PURE__ */ import_react9.default.createElement("div", { className: "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8" }, /* @__PURE__ */ import_react9.default.createElement("div", { className: "flex gap-8 relative" }, isMobile && showFilters && /* @__PURE__ */ import_react9.default.createElement(
     "div",
     {
       className: "fixed inset-0 bg-black bg-opacity-50 z-40",
       onClick: () => setShowFilters(false)
     }
-  ), /* @__PURE__ */ import_react7.default.createElement("div", { className: `
+  ), /* @__PURE__ */ import_react9.default.createElement("div", { className: `
             ${isMobile ? `fixed top-0 left-0 bottom-0 z-50 bg-white transform transition-transform duration-300 ${showFilters ? "translate-x-0" : "-translate-x-full"}` : `transition-all duration-300 ${showFilters ? "w-80" : "w-0 overflow-hidden"}`}
-          ` }, /* @__PURE__ */ import_react7.default.createElement(
+          ` }, /* @__PURE__ */ import_react9.default.createElement(
     FlightFilterSidebar_default,
     {
       filter: currentFilter,
@@ -50202,77 +50867,77 @@ var FlightSearchInterface = ({
       onClose: () => setShowFilters(false),
       className: `h-fit ${isMobile ? "w-80" : "sticky top-8"}`
     }
-  )), /* @__PURE__ */ import_react7.default.createElement("div", { className: "flex-1" }, /* @__PURE__ */ import_react7.default.createElement("div", { className: "bg-white rounded-lg shadow-sm border border-gray-200 p-6 mb-6" }, /* @__PURE__ */ import_react7.default.createElement("div", { className: "flex items-center justify-between mb-4" }, /* @__PURE__ */ import_react7.default.createElement("div", { className: "flex items-center gap-4" }, /* @__PURE__ */ import_react7.default.createElement("h3", { className: "text-lg font-semibold text-gray-900" }, sortedResults.length, " flights found"), /* @__PURE__ */ import_react7.default.createElement(
+  )), /* @__PURE__ */ import_react9.default.createElement("div", { className: "flex-1" }, /* @__PURE__ */ import_react9.default.createElement("div", { className: "bg-white rounded-lg shadow-sm border border-gray-200 p-6 mb-6" }, /* @__PURE__ */ import_react9.default.createElement("div", { className: "flex items-center justify-between mb-4" }, /* @__PURE__ */ import_react9.default.createElement("div", { className: "flex items-center gap-4" }, /* @__PURE__ */ import_react9.default.createElement("h3", { className: "text-lg font-semibold text-gray-900" }, sortedResults.length, " flights found"), /* @__PURE__ */ import_react9.default.createElement(
     "button",
     {
       onClick: () => setShowFilters(!showFilters),
       className: "flex items-center gap-2 px-3 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
     },
-    /* @__PURE__ */ import_react7.default.createElement(Funnel, { className: "w-4 h-4" }),
-    /* @__PURE__ */ import_react7.default.createElement("span", { className: "text-sm font-medium" }, "Filters")
-  )), /* @__PURE__ */ import_react7.default.createElement("div", { className: "flex items-center gap-4" }, /* @__PURE__ */ import_react7.default.createElement(
+    /* @__PURE__ */ import_react9.default.createElement(Funnel, { className: "w-4 h-4" }),
+    /* @__PURE__ */ import_react9.default.createElement("span", { className: "text-sm font-medium" }, "Filters")
+  )), /* @__PURE__ */ import_react9.default.createElement("div", { className: "flex items-center gap-4" }, /* @__PURE__ */ import_react9.default.createElement(
     "select",
     {
       value: sortBy,
       onChange: (e) => setSortBy(e.target.value),
       className: "px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent"
     },
-    /* @__PURE__ */ import_react7.default.createElement("option", { value: "price" }, "Sort by Price"),
-    /* @__PURE__ */ import_react7.default.createElement("option", { value: "duration" }, "Sort by Duration"),
-    /* @__PURE__ */ import_react7.default.createElement("option", { value: "departure" }, "Sort by Departure"),
-    /* @__PURE__ */ import_react7.default.createElement("option", { value: "arrival" }, "Sort by Arrival")
-  ), /* @__PURE__ */ import_react7.default.createElement("div", { className: "flex border border-gray-300 rounded-lg" }, /* @__PURE__ */ import_react7.default.createElement(
+    /* @__PURE__ */ import_react9.default.createElement("option", { value: "price" }, "Sort by Price"),
+    /* @__PURE__ */ import_react9.default.createElement("option", { value: "duration" }, "Sort by Duration"),
+    /* @__PURE__ */ import_react9.default.createElement("option", { value: "departure" }, "Sort by Departure"),
+    /* @__PURE__ */ import_react9.default.createElement("option", { value: "arrival" }, "Sort by Arrival")
+  ), /* @__PURE__ */ import_react9.default.createElement("div", { className: "flex border border-gray-300 rounded-lg" }, /* @__PURE__ */ import_react9.default.createElement(
     "button",
     {
       onClick: () => setViewMode("list"),
       className: `px-3 py-2 text-sm ${viewMode === "list" ? "bg-blue-600 text-white" : "text-gray-600"}`
     },
     "List"
-  ), /* @__PURE__ */ import_react7.default.createElement(
+  ), /* @__PURE__ */ import_react9.default.createElement(
     "button",
     {
       onClick: () => setViewMode("grid"),
       className: `px-3 py-2 text-sm ${viewMode === "grid" ? "bg-blue-600 text-white" : "text-gray-600"}`
     },
     "Grid"
-  )))), /* @__PURE__ */ import_react7.default.createElement("div", { className: "bg-gradient-to-r from-blue-50 to-amber-50 rounded-lg p-4 border border-blue-200" }, /* @__PURE__ */ import_react7.default.createElement("div", { className: "flex items-center justify-between" }, /* @__PURE__ */ import_react7.default.createElement("div", { className: "flex items-center gap-3" }, /* @__PURE__ */ import_react7.default.createElement(Zap, { className: "w-5 h-5 text-amber-500" }), /* @__PURE__ */ import_react7.default.createElement("div", null, /* @__PURE__ */ import_react7.default.createElement("h4", { className: "font-medium text-gray-900" }, "Price Intelligence Active"), /* @__PURE__ */ import_react7.default.createElement("p", { className: "text-sm text-gray-600" }, "Monitoring for price drops below ", formatPrice(currentFilter.targetPrice || 0)))), /* @__PURE__ */ import_react7.default.createElement("div", { className: "flex items-center gap-2" }, /* @__PURE__ */ import_react7.default.createElement(
+  )))), /* @__PURE__ */ import_react9.default.createElement("div", { className: "bg-gradient-to-r from-blue-50 to-amber-50 rounded-lg p-4 border border-blue-200" }, /* @__PURE__ */ import_react9.default.createElement("div", { className: "flex items-center justify-between" }, /* @__PURE__ */ import_react9.default.createElement("div", { className: "flex items-center gap-3" }, /* @__PURE__ */ import_react9.default.createElement(Zap, { className: "w-5 h-5 text-amber-500" }), /* @__PURE__ */ import_react9.default.createElement("div", null, /* @__PURE__ */ import_react9.default.createElement("h4", { className: "font-medium text-gray-900" }, "Price Intelligence Active"), /* @__PURE__ */ import_react9.default.createElement("p", { className: "text-sm text-gray-600" }, "Monitoring for price drops below ", formatPrice(currentFilter.targetPrice || 0)))), /* @__PURE__ */ import_react9.default.createElement("div", { className: "flex items-center gap-2" }, /* @__PURE__ */ import_react9.default.createElement(
     "button",
     {
       onClick: () => setShowPriceChart(true),
       className: "flex items-center gap-2 px-3 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
     },
-    /* @__PURE__ */ import_react7.default.createElement(ChartColumn, { className: "w-4 h-4" }),
-    /* @__PURE__ */ import_react7.default.createElement("span", { className: "text-sm" }, "Price Chart")
-  ), /* @__PURE__ */ import_react7.default.createElement(
+    /* @__PURE__ */ import_react9.default.createElement(ChartColumn, { className: "w-4 h-4" }),
+    /* @__PURE__ */ import_react9.default.createElement("span", { className: "text-sm" }, "Price Chart")
+  ), /* @__PURE__ */ import_react9.default.createElement(
     "button",
     {
       onClick: () => setShowAlertManager(true),
       className: "flex items-center gap-2 px-3 py-2 bg-amber-600 text-white rounded-lg hover:bg-amber-700 transition-colors"
     },
-    /* @__PURE__ */ import_react7.default.createElement(Bell, { className: "w-4 h-4" }),
-    /* @__PURE__ */ import_react7.default.createElement("span", { className: "text-sm" }, "Alerts")
-  ))))), /* @__PURE__ */ import_react7.default.createElement("div", { className: "space-y-4" }, loading ? /* @__PURE__ */ import_react7.default.createElement("div", { className: "space-y-4" }, [1, 2, 3].map((i) => /* @__PURE__ */ import_react7.default.createElement("div", { key: i, className: "bg-white rounded-lg shadow-sm border border-gray-200 p-6 animate-pulse" }, /* @__PURE__ */ import_react7.default.createElement("div", { className: "flex justify-between items-center" }, /* @__PURE__ */ import_react7.default.createElement("div", { className: "space-y-2" }, /* @__PURE__ */ import_react7.default.createElement("div", { className: "h-4 bg-gray-200 rounded w-32" }), /* @__PURE__ */ import_react7.default.createElement("div", { className: "h-3 bg-gray-200 rounded w-24" })), /* @__PURE__ */ import_react7.default.createElement("div", { className: "h-8 bg-gray-200 rounded w-20" }))))) : sortedResults.map((flight) => /* @__PURE__ */ import_react7.default.createElement("div", { key: flight.id, className: "bg-white rounded-lg shadow-sm border border-gray-200 p-6 hover:shadow-md transition-shadow" }, /* @__PURE__ */ import_react7.default.createElement("div", { className: "flex justify-between items-start" }, /* @__PURE__ */ import_react7.default.createElement("div", { className: "flex-1" }, /* @__PURE__ */ import_react7.default.createElement("div", { className: "flex items-center gap-4 mb-4" }, /* @__PURE__ */ import_react7.default.createElement("div", { className: "flex items-center gap-2" }, /* @__PURE__ */ import_react7.default.createElement("div", { className: "w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center" }, /* @__PURE__ */ import_react7.default.createElement(Plane, { className: "w-4 h-4 text-blue-600" })), /* @__PURE__ */ import_react7.default.createElement("div", null, /* @__PURE__ */ import_react7.default.createElement("h4", { className: "font-medium text-gray-900" }, flight.airline), /* @__PURE__ */ import_react7.default.createElement("p", { className: "text-sm text-gray-500" }, flight.aircraft))), flight.priceTrend === "down" && flight.priceDrop && /* @__PURE__ */ import_react7.default.createElement("div", { className: "flex items-center gap-1 bg-green-100 text-green-800 px-2 py-1 rounded-full text-xs font-medium" }, /* @__PURE__ */ import_react7.default.createElement(TrendingDown, { className: "w-3 h-3" }), flight.priceDrop, "% drop"), flight.dealScore && flight.dealScore > 80 && /* @__PURE__ */ import_react7.default.createElement("div", { className: "flex items-center gap-1 bg-amber-100 text-amber-800 px-2 py-1 rounded-full text-xs font-medium" }, /* @__PURE__ */ import_react7.default.createElement(Star, { className: "w-3 h-3" }), "Great deal")), /* @__PURE__ */ import_react7.default.createElement("div", { className: "grid grid-cols-3 gap-6" }, /* @__PURE__ */ import_react7.default.createElement("div", null, /* @__PURE__ */ import_react7.default.createElement("div", { className: "text-2xl font-bold text-gray-900" }, flight.departure.time), /* @__PURE__ */ import_react7.default.createElement("div", { className: "text-sm text-gray-600" }, flight.departure.airport), /* @__PURE__ */ import_react7.default.createElement("div", { className: "text-xs text-gray-500" }, "Terminal ", flight.departure.terminal)), /* @__PURE__ */ import_react7.default.createElement("div", { className: "text-center" }, /* @__PURE__ */ import_react7.default.createElement("div", { className: "text-sm text-gray-600 mb-1" }, flight.duration), /* @__PURE__ */ import_react7.default.createElement("div", { className: "flex items-center justify-center" }, /* @__PURE__ */ import_react7.default.createElement("div", { className: "flex-1 h-px bg-gray-300" }), /* @__PURE__ */ import_react7.default.createElement(Plane, { className: "w-4 h-4 text-gray-400 mx-2" }), /* @__PURE__ */ import_react7.default.createElement("div", { className: "flex-1 h-px bg-gray-300" })), /* @__PURE__ */ import_react7.default.createElement("div", { className: "text-xs text-gray-500 mt-1" }, flight.stops === 0 ? "Direct" : `${flight.stops} stop${flight.stops > 1 ? "s" : ""}`)), /* @__PURE__ */ import_react7.default.createElement("div", { className: "text-right" }, /* @__PURE__ */ import_react7.default.createElement("div", { className: "text-2xl font-bold text-gray-900" }, flight.arrival.time), /* @__PURE__ */ import_react7.default.createElement("div", { className: "text-sm text-gray-600" }, flight.arrival.airport), /* @__PURE__ */ import_react7.default.createElement("div", { className: "text-xs text-gray-500" }, "Terminal ", flight.arrival.terminal))), /* @__PURE__ */ import_react7.default.createElement("div", { className: "mt-4 flex items-center gap-4 text-sm text-gray-600" }, /* @__PURE__ */ import_react7.default.createElement("span", null, flight.baggage), flight.refundable && /* @__PURE__ */ import_react7.default.createElement("span", { className: "text-green-600 font-medium" }, "Refundable"))), /* @__PURE__ */ import_react7.default.createElement("div", { className: "text-right ml-6" }, /* @__PURE__ */ import_react7.default.createElement("div", { className: "flex items-center gap-2 mb-2" }, flight.originalPrice && /* @__PURE__ */ import_react7.default.createElement("span", { className: "text-sm text-gray-500 line-through" }, formatPrice(flight.originalPrice)), /* @__PURE__ */ import_react7.default.createElement("span", { className: "text-2xl font-bold text-gray-900" }, formatPrice(flight.price))), /* @__PURE__ */ import_react7.default.createElement("div", { className: "space-y-2" }, /* @__PURE__ */ import_react7.default.createElement("button", { className: "w-full bg-blue-600 text-white py-2 px-4 rounded-lg font-medium hover:bg-blue-700 transition-colors" }, "Select"), /* @__PURE__ */ import_react7.default.createElement("div", { className: "flex gap-2" }, /* @__PURE__ */ import_react7.default.createElement("button", { className: "flex-1 bg-gray-100 text-gray-700 py-2 px-3 rounded-lg hover:bg-gray-200 transition-colors text-sm" }, /* @__PURE__ */ import_react7.default.createElement(Heart, { className: "w-4 h-4 mx-auto" })), /* @__PURE__ */ import_react7.default.createElement("button", { className: "flex-1 bg-gray-100 text-gray-700 py-2 px-3 rounded-lg hover:bg-gray-200 transition-colors text-sm" }, /* @__PURE__ */ import_react7.default.createElement(Share2, { className: "w-4 h-4 mx-auto" })))))))))))), showPriceChart && /* @__PURE__ */ import_react7.default.createElement("div", { className: "fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4" }, /* @__PURE__ */ import_react7.default.createElement("div", { className: "bg-white rounded-lg max-w-4xl w-full max-h-[80vh] overflow-hidden" }, /* @__PURE__ */ import_react7.default.createElement("div", { className: "flex items-center justify-between p-6 border-b border-gray-200" }, /* @__PURE__ */ import_react7.default.createElement("h3", { className: "text-lg font-semibold" }, "Price History & Trends"), /* @__PURE__ */ import_react7.default.createElement(
+    /* @__PURE__ */ import_react9.default.createElement(Bell, { className: "w-4 h-4" }),
+    /* @__PURE__ */ import_react9.default.createElement("span", { className: "text-sm" }, "Alerts")
+  ))))), /* @__PURE__ */ import_react9.default.createElement("div", { className: "space-y-4" }, loading ? /* @__PURE__ */ import_react9.default.createElement("div", { className: "space-y-4" }, [1, 2, 3].map((i) => /* @__PURE__ */ import_react9.default.createElement("div", { key: i, className: "bg-white rounded-lg shadow-sm border border-gray-200 p-6 animate-pulse" }, /* @__PURE__ */ import_react9.default.createElement("div", { className: "flex justify-between items-center" }, /* @__PURE__ */ import_react9.default.createElement("div", { className: "space-y-2" }, /* @__PURE__ */ import_react9.default.createElement("div", { className: "h-4 bg-gray-200 rounded w-32" }), /* @__PURE__ */ import_react9.default.createElement("div", { className: "h-3 bg-gray-200 rounded w-24" })), /* @__PURE__ */ import_react9.default.createElement("div", { className: "h-8 bg-gray-200 rounded w-20" }))))) : sortedResults.map((flight) => /* @__PURE__ */ import_react9.default.createElement("div", { key: flight.id, className: "bg-white rounded-lg shadow-sm border border-gray-200 p-6 hover:shadow-md transition-shadow" }, /* @__PURE__ */ import_react9.default.createElement("div", { className: "flex justify-between items-start" }, /* @__PURE__ */ import_react9.default.createElement("div", { className: "flex-1" }, /* @__PURE__ */ import_react9.default.createElement("div", { className: "flex items-center gap-4 mb-4" }, /* @__PURE__ */ import_react9.default.createElement("div", { className: "flex items-center gap-2" }, /* @__PURE__ */ import_react9.default.createElement("div", { className: "w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center" }, /* @__PURE__ */ import_react9.default.createElement(Plane, { className: "w-4 h-4 text-blue-600" })), /* @__PURE__ */ import_react9.default.createElement("div", null, /* @__PURE__ */ import_react9.default.createElement("h4", { className: "font-medium text-gray-900" }, flight.airline), /* @__PURE__ */ import_react9.default.createElement("p", { className: "text-sm text-gray-500" }, flight.aircraft))), flight.priceTrend === "down" && flight.priceDrop && /* @__PURE__ */ import_react9.default.createElement("div", { className: "flex items-center gap-1 bg-green-100 text-green-800 px-2 py-1 rounded-full text-xs font-medium" }, /* @__PURE__ */ import_react9.default.createElement(TrendingDown, { className: "w-3 h-3" }), flight.priceDrop, "% drop"), flight.dealScore && flight.dealScore > 80 && /* @__PURE__ */ import_react9.default.createElement("div", { className: "flex items-center gap-1 bg-amber-100 text-amber-800 px-2 py-1 rounded-full text-xs font-medium" }, /* @__PURE__ */ import_react9.default.createElement(Star, { className: "w-3 h-3" }), "Great deal")), /* @__PURE__ */ import_react9.default.createElement("div", { className: "grid grid-cols-3 gap-6" }, /* @__PURE__ */ import_react9.default.createElement("div", null, /* @__PURE__ */ import_react9.default.createElement("div", { className: "text-2xl font-bold text-gray-900" }, flight.departure.time), /* @__PURE__ */ import_react9.default.createElement("div", { className: "text-sm text-gray-600" }, flight.departure.airport), /* @__PURE__ */ import_react9.default.createElement("div", { className: "text-xs text-gray-500" }, "Terminal ", flight.departure.terminal)), /* @__PURE__ */ import_react9.default.createElement("div", { className: "text-center" }, /* @__PURE__ */ import_react9.default.createElement("div", { className: "text-sm text-gray-600 mb-1" }, flight.duration), /* @__PURE__ */ import_react9.default.createElement("div", { className: "flex items-center justify-center" }, /* @__PURE__ */ import_react9.default.createElement("div", { className: "flex-1 h-px bg-gray-300" }), /* @__PURE__ */ import_react9.default.createElement(Plane, { className: "w-4 h-4 text-gray-400 mx-2" }), /* @__PURE__ */ import_react9.default.createElement("div", { className: "flex-1 h-px bg-gray-300" })), /* @__PURE__ */ import_react9.default.createElement("div", { className: "text-xs text-gray-500 mt-1" }, flight.stops === 0 ? "Direct" : `${flight.stops} stop${flight.stops > 1 ? "s" : ""}`)), /* @__PURE__ */ import_react9.default.createElement("div", { className: "text-right" }, /* @__PURE__ */ import_react9.default.createElement("div", { className: "text-2xl font-bold text-gray-900" }, flight.arrival.time), /* @__PURE__ */ import_react9.default.createElement("div", { className: "text-sm text-gray-600" }, flight.arrival.airport), /* @__PURE__ */ import_react9.default.createElement("div", { className: "text-xs text-gray-500" }, "Terminal ", flight.arrival.terminal))), /* @__PURE__ */ import_react9.default.createElement("div", { className: "mt-4 flex items-center gap-4 text-sm text-gray-600" }, /* @__PURE__ */ import_react9.default.createElement("span", null, flight.baggage), flight.refundable && /* @__PURE__ */ import_react9.default.createElement("span", { className: "text-green-600 font-medium" }, "Refundable"))), /* @__PURE__ */ import_react9.default.createElement("div", { className: "text-right ml-6" }, /* @__PURE__ */ import_react9.default.createElement("div", { className: "flex items-center gap-2 mb-2" }, flight.originalPrice && /* @__PURE__ */ import_react9.default.createElement("span", { className: "text-sm text-gray-500 line-through" }, formatPrice(flight.originalPrice)), /* @__PURE__ */ import_react9.default.createElement("span", { className: "text-2xl font-bold text-gray-900" }, formatPrice(flight.price))), /* @__PURE__ */ import_react9.default.createElement("div", { className: "space-y-2" }, /* @__PURE__ */ import_react9.default.createElement("button", { className: "w-full bg-blue-600 text-white py-2 px-4 rounded-lg font-medium hover:bg-blue-700 transition-colors" }, "Select"), /* @__PURE__ */ import_react9.default.createElement("div", { className: "flex gap-2" }, /* @__PURE__ */ import_react9.default.createElement("button", { className: "flex-1 bg-gray-100 text-gray-700 py-2 px-3 rounded-lg hover:bg-gray-200 transition-colors text-sm" }, /* @__PURE__ */ import_react9.default.createElement(Heart, { className: "w-4 h-4 mx-auto" })), /* @__PURE__ */ import_react9.default.createElement("button", { className: "flex-1 bg-gray-100 text-gray-700 py-2 px-3 rounded-lg hover:bg-gray-200 transition-colors text-sm" }, /* @__PURE__ */ import_react9.default.createElement(Share2, { className: "w-4 h-4 mx-auto" })))))))))))), showPriceChart && /* @__PURE__ */ import_react9.default.createElement("div", { className: "fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4" }, /* @__PURE__ */ import_react9.default.createElement("div", { className: "bg-white rounded-lg max-w-4xl w-full max-h-[80vh] overflow-hidden" }, /* @__PURE__ */ import_react9.default.createElement("div", { className: "flex items-center justify-between p-6 border-b border-gray-200" }, /* @__PURE__ */ import_react9.default.createElement("h3", { className: "text-lg font-semibold" }, "Price History & Trends"), /* @__PURE__ */ import_react9.default.createElement(
     "button",
     {
       onClick: () => setShowPriceChart(false),
       className: "text-gray-400 hover:text-gray-600"
     },
-    /* @__PURE__ */ import_react7.default.createElement(X, { className: "w-6 h-6" })
-  )), /* @__PURE__ */ import_react7.default.createElement("div", { className: "p-6" }, /* @__PURE__ */ import_react7.default.createElement(PriceChart_default, null)))), showAlertManager && /* @__PURE__ */ import_react7.default.createElement("div", { className: "fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4" }, /* @__PURE__ */ import_react7.default.createElement("div", { className: "bg-white rounded-lg max-w-2xl w-full max-h-[80vh] overflow-hidden" }, /* @__PURE__ */ import_react7.default.createElement("div", { className: "flex items-center justify-between p-6 border-b border-gray-200" }, /* @__PURE__ */ import_react7.default.createElement("h3", { className: "text-lg font-semibold" }, "Alert Manager"), /* @__PURE__ */ import_react7.default.createElement(
+    /* @__PURE__ */ import_react9.default.createElement(X, { className: "w-6 h-6" })
+  )), /* @__PURE__ */ import_react9.default.createElement("div", { className: "p-6" }, /* @__PURE__ */ import_react9.default.createElement(PriceChart_default, null)))), showAlertManager && /* @__PURE__ */ import_react9.default.createElement("div", { className: "fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4" }, /* @__PURE__ */ import_react9.default.createElement("div", { className: "bg-white rounded-lg max-w-2xl w-full max-h-[80vh] overflow-hidden" }, /* @__PURE__ */ import_react9.default.createElement("div", { className: "flex items-center justify-between p-6 border-b border-gray-200" }, /* @__PURE__ */ import_react9.default.createElement("h3", { className: "text-lg font-semibold" }, "Alert Manager"), /* @__PURE__ */ import_react9.default.createElement(
     "button",
     {
       onClick: () => setShowAlertManager(false),
       className: "text-gray-400 hover:text-gray-600"
     },
-    /* @__PURE__ */ import_react7.default.createElement(X, { className: "w-6 h-6" })
-  )), /* @__PURE__ */ import_react7.default.createElement("div", { className: "p-6" }, /* @__PURE__ */ import_react7.default.createElement(AlertManager_default, { filter: currentFilter })))), showTravelersModal && /* @__PURE__ */ import_react7.default.createElement("div", { className: "fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4" }, /* @__PURE__ */ import_react7.default.createElement("div", { className: "bg-white rounded-lg max-w-md w-full" }, /* @__PURE__ */ import_react7.default.createElement("div", { className: "flex items-center justify-between p-6 border-b border-gray-200" }, /* @__PURE__ */ import_react7.default.createElement("h3", { className: "text-lg font-semibold" }, "Travelers & Cabin Class"), /* @__PURE__ */ import_react7.default.createElement(
+    /* @__PURE__ */ import_react9.default.createElement(X, { className: "w-6 h-6" })
+  )), /* @__PURE__ */ import_react9.default.createElement("div", { className: "p-6" }, /* @__PURE__ */ import_react9.default.createElement(AlertManager_default, { filter: currentFilter })))), showTravelersModal && /* @__PURE__ */ import_react9.default.createElement("div", { className: "fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4" }, /* @__PURE__ */ import_react9.default.createElement("div", { className: "bg-white rounded-lg max-w-md w-full" }, /* @__PURE__ */ import_react9.default.createElement("div", { className: "flex items-center justify-between p-6 border-b border-gray-200" }, /* @__PURE__ */ import_react9.default.createElement("h3", { className: "text-lg font-semibold" }, "Travelers & Cabin Class"), /* @__PURE__ */ import_react9.default.createElement(
     "button",
     {
       onClick: () => setShowTravelersModal(false),
       className: "text-gray-400 hover:text-gray-600"
     },
-    /* @__PURE__ */ import_react7.default.createElement(X, { className: "w-6 h-6" })
-  )), /* @__PURE__ */ import_react7.default.createElement("div", { className: "p-6 space-y-6" }, /* @__PURE__ */ import_react7.default.createElement("div", { className: "flex items-center justify-between" }, /* @__PURE__ */ import_react7.default.createElement("div", null, /* @__PURE__ */ import_react7.default.createElement("h4", { className: "font-medium text-gray-900" }, "Adults"), /* @__PURE__ */ import_react7.default.createElement("p", { className: "text-sm text-gray-500" }, "12+ years")), /* @__PURE__ */ import_react7.default.createElement("div", { className: "flex items-center space-x-3" }, /* @__PURE__ */ import_react7.default.createElement(
+    /* @__PURE__ */ import_react9.default.createElement(X, { className: "w-6 h-6" })
+  )), /* @__PURE__ */ import_react9.default.createElement("div", { className: "p-6 space-y-6" }, /* @__PURE__ */ import_react9.default.createElement("div", { className: "flex items-center justify-between" }, /* @__PURE__ */ import_react9.default.createElement("div", null, /* @__PURE__ */ import_react9.default.createElement("h4", { className: "font-medium text-gray-900" }, "Adults"), /* @__PURE__ */ import_react9.default.createElement("p", { className: "text-sm text-gray-500" }, "12+ years")), /* @__PURE__ */ import_react9.default.createElement("div", { className: "flex items-center space-x-3" }, /* @__PURE__ */ import_react9.default.createElement(
     "button",
     {
       onClick: () => {
@@ -50285,8 +50950,8 @@ var FlightSearchInterface = ({
       className: "w-8 h-8 rounded-full border border-gray-300 flex items-center justify-center hover:bg-gray-50",
       disabled: currentFilter.passengers.adults <= 1
     },
-    /* @__PURE__ */ import_react7.default.createElement(Minus, { className: "w-4 h-4" })
-  ), /* @__PURE__ */ import_react7.default.createElement("span", { className: "w-8 text-center" }, currentFilter.passengers.adults), /* @__PURE__ */ import_react7.default.createElement(
+    /* @__PURE__ */ import_react9.default.createElement(Minus, { className: "w-4 h-4" })
+  ), /* @__PURE__ */ import_react9.default.createElement("span", { className: "w-8 text-center" }, currentFilter.passengers.adults), /* @__PURE__ */ import_react9.default.createElement(
     "button",
     {
       onClick: () => {
@@ -50296,8 +50961,8 @@ var FlightSearchInterface = ({
       },
       className: "w-8 h-8 rounded-full border border-gray-300 flex items-center justify-center hover:bg-gray-50"
     },
-    /* @__PURE__ */ import_react7.default.createElement(Plus, { className: "w-4 h-4" })
-  ))), /* @__PURE__ */ import_react7.default.createElement("div", { className: "flex items-center justify-between" }, /* @__PURE__ */ import_react7.default.createElement("div", null, /* @__PURE__ */ import_react7.default.createElement("h4", { className: "font-medium text-gray-900" }, "Children"), /* @__PURE__ */ import_react7.default.createElement("p", { className: "text-sm text-gray-500" }, "2-11 years")), /* @__PURE__ */ import_react7.default.createElement("div", { className: "flex items-center space-x-3" }, /* @__PURE__ */ import_react7.default.createElement(
+    /* @__PURE__ */ import_react9.default.createElement(Plus, { className: "w-4 h-4" })
+  ))), /* @__PURE__ */ import_react9.default.createElement("div", { className: "flex items-center justify-between" }, /* @__PURE__ */ import_react9.default.createElement("div", null, /* @__PURE__ */ import_react9.default.createElement("h4", { className: "font-medium text-gray-900" }, "Children"), /* @__PURE__ */ import_react9.default.createElement("p", { className: "text-sm text-gray-500" }, "2-11 years")), /* @__PURE__ */ import_react9.default.createElement("div", { className: "flex items-center space-x-3" }, /* @__PURE__ */ import_react9.default.createElement(
     "button",
     {
       onClick: () => {
@@ -50310,8 +50975,8 @@ var FlightSearchInterface = ({
       className: "w-8 h-8 rounded-full border border-gray-300 flex items-center justify-center hover:bg-gray-50",
       disabled: currentFilter.passengers.children <= 0
     },
-    /* @__PURE__ */ import_react7.default.createElement(Minus, { className: "w-4 h-4" })
-  ), /* @__PURE__ */ import_react7.default.createElement("span", { className: "w-8 text-center" }, currentFilter.passengers.children), /* @__PURE__ */ import_react7.default.createElement(
+    /* @__PURE__ */ import_react9.default.createElement(Minus, { className: "w-4 h-4" })
+  ), /* @__PURE__ */ import_react9.default.createElement("span", { className: "w-8 text-center" }, currentFilter.passengers.children), /* @__PURE__ */ import_react9.default.createElement(
     "button",
     {
       onClick: () => {
@@ -50321,8 +50986,8 @@ var FlightSearchInterface = ({
       },
       className: "w-8 h-8 rounded-full border border-gray-300 flex items-center justify-center hover:bg-gray-50"
     },
-    /* @__PURE__ */ import_react7.default.createElement(Plus, { className: "w-4 h-4" })
-  ))), /* @__PURE__ */ import_react7.default.createElement("div", { className: "flex items-center justify-between" }, /* @__PURE__ */ import_react7.default.createElement("div", null, /* @__PURE__ */ import_react7.default.createElement("h4", { className: "font-medium text-gray-900" }, "Infants"), /* @__PURE__ */ import_react7.default.createElement("p", { className: "text-sm text-gray-500" }, "Under 2 years")), /* @__PURE__ */ import_react7.default.createElement("div", { className: "flex items-center space-x-3" }, /* @__PURE__ */ import_react7.default.createElement(
+    /* @__PURE__ */ import_react9.default.createElement(Plus, { className: "w-4 h-4" })
+  ))), /* @__PURE__ */ import_react9.default.createElement("div", { className: "flex items-center justify-between" }, /* @__PURE__ */ import_react9.default.createElement("div", null, /* @__PURE__ */ import_react9.default.createElement("h4", { className: "font-medium text-gray-900" }, "Infants"), /* @__PURE__ */ import_react9.default.createElement("p", { className: "text-sm text-gray-500" }, "Under 2 years")), /* @__PURE__ */ import_react9.default.createElement("div", { className: "flex items-center space-x-3" }, /* @__PURE__ */ import_react9.default.createElement(
     "button",
     {
       onClick: () => {
@@ -50335,8 +51000,8 @@ var FlightSearchInterface = ({
       className: "w-8 h-8 rounded-full border border-gray-300 flex items-center justify-center hover:bg-gray-50",
       disabled: currentFilter.passengers.infants <= 0
     },
-    /* @__PURE__ */ import_react7.default.createElement(Minus, { className: "w-4 h-4" })
-  ), /* @__PURE__ */ import_react7.default.createElement("span", { className: "w-8 text-center" }, currentFilter.passengers.infants), /* @__PURE__ */ import_react7.default.createElement(
+    /* @__PURE__ */ import_react9.default.createElement(Minus, { className: "w-4 h-4" })
+  ), /* @__PURE__ */ import_react9.default.createElement("span", { className: "w-8 text-center" }, currentFilter.passengers.infants), /* @__PURE__ */ import_react9.default.createElement(
     "button",
     {
       onClick: () => {
@@ -50346,8 +51011,8 @@ var FlightSearchInterface = ({
       },
       className: "w-8 h-8 rounded-full border border-gray-300 flex items-center justify-center hover:bg-gray-50"
     },
-    /* @__PURE__ */ import_react7.default.createElement(Plus, { className: "w-4 h-4" })
-  ))), /* @__PURE__ */ import_react7.default.createElement("div", null, /* @__PURE__ */ import_react7.default.createElement("h4", { className: "font-medium text-gray-900 mb-3" }, "Cabin Class"), /* @__PURE__ */ import_react7.default.createElement("div", { className: "space-y-2" }, ["economy", "premium-economy", "business", "first"].map((cabin) => /* @__PURE__ */ import_react7.default.createElement("label", { key: cabin, className: "flex items-center" }, /* @__PURE__ */ import_react7.default.createElement(
+    /* @__PURE__ */ import_react9.default.createElement(Plus, { className: "w-4 h-4" })
+  ))), /* @__PURE__ */ import_react9.default.createElement("div", null, /* @__PURE__ */ import_react9.default.createElement("h4", { className: "font-medium text-gray-900 mb-3" }, "Cabin Class"), /* @__PURE__ */ import_react9.default.createElement("div", { className: "space-y-2" }, ["economy", "premium-economy", "business", "first"].map((cabin) => /* @__PURE__ */ import_react9.default.createElement("label", { key: cabin, className: "flex items-center" }, /* @__PURE__ */ import_react9.default.createElement(
     "input",
     {
       type: "radio",
@@ -50357,7 +51022,7 @@ var FlightSearchInterface = ({
       onChange: (e) => updateFilter({ cabinClass: e.target.value }),
       className: "mr-3"
     }
-  ), /* @__PURE__ */ import_react7.default.createElement("span", { className: "capitalize" }, cabin.replace("-", " ")))))), /* @__PURE__ */ import_react7.default.createElement(
+  ), /* @__PURE__ */ import_react9.default.createElement("span", { className: "capitalize" }, cabin.replace("-", " ")))))), /* @__PURE__ */ import_react9.default.createElement(
     "button",
     {
       onClick: () => setShowTravelersModal(false),
@@ -50389,7 +51054,7 @@ var flight_search_controller_default = class extends Controller {
     if (this.hasContainerTarget) {
       this.reactRoot = (0, import_client.createRoot)(this.containerTarget);
       this.reactRoot.render(
-        import_react8.default.createElement(FlightSearchInterface_default, {
+        import_react10.default.createElement(FlightSearchInterface_default, {
           onFilterChange: (filter) => this.handleFilterChange(filter),
           onSaveFilter: (filter) => this.handleSaveFilter(filter),
           onTestAlert: (filter) => this.handleTestAlert(filter),
@@ -50560,6 +51225,1069 @@ var flight_search_controller_default = class extends Controller {
   }
 };
 
+// app/javascript/controllers/flight_filter_controller.js
+var import_react17 = __toESM(require_react());
+var import_client2 = __toESM(require_client());
+
+// app/javascript/components/FlightPriceFilter.tsx
+var import_react16 = __toESM(require_react());
+
+// app/javascript/components/steps/Step1RouteDates.tsx
+var import_react11 = __toESM(require_react());
+var Step1RouteDates = ({ filter, updateFilter, errors }) => {
+  const [originSearch, setOriginSearch] = (0, import_react11.useState)("");
+  const [destinationSearch, setDestinationSearch] = (0, import_react11.useState)("");
+  import_react11.default.useEffect(() => {
+    if (filter.origin) {
+      setOriginSearch(`${filter.origin.iata_code} - ${filter.origin.city}`);
+    }
+    if (filter.destination) {
+      setDestinationSearch(`${filter.destination.iata_code} - ${filter.destination.city}`);
+    }
+  }, [filter.origin, filter.destination]);
+  const handleOriginSelect = (airport) => {
+    updateFilter({ origin: airport });
+  };
+  const handleDestinationSelect = (airport) => {
+    updateFilter({ destination: airport });
+  };
+  const getError = (field) => {
+    return errors.find((error2) => error2.field === field)?.message;
+  };
+  const formatDate = (date) => {
+    if (!date) return "";
+    return date.toISOString().split("T")[0];
+  };
+  return /* @__PURE__ */ import_react11.default.createElement("div", { className: "space-y-6" }, /* @__PURE__ */ import_react11.default.createElement("div", null, /* @__PURE__ */ import_react11.default.createElement("h3", { className: "text-lg font-semibold text-gray-900 mb-4" }, "Trip Type"), /* @__PURE__ */ import_react11.default.createElement("div", { className: "grid grid-cols-3 gap-3" }, ["one-way", "round-trip", "multi-city"].map((type) => /* @__PURE__ */ import_react11.default.createElement(
+    "button",
+    {
+      key: type,
+      onClick: () => updateFilter({ tripType: type }),
+      className: `p-4 rounded-lg border-2 transition-colors ${filter.tripType === type ? "border-blue-500 bg-blue-50 text-blue-700" : "border-gray-300 bg-white text-gray-700 hover:border-gray-400"}`
+    },
+    /* @__PURE__ */ import_react11.default.createElement("div", { className: "text-sm font-medium capitalize" }, type.replace("-", " "))
+  )))), /* @__PURE__ */ import_react11.default.createElement("div", { className: "grid grid-cols-1 md:grid-cols-2 gap-6" }, /* @__PURE__ */ import_react11.default.createElement(
+    ResponsiveAirportAutocomplete_default,
+    {
+      value: originSearch,
+      onChange: setOriginSearch,
+      onSelect: handleOriginSelect,
+      placeholder: "Search origin airports...",
+      label: "Origin Airport",
+      error: getError("origin"),
+      selectedAirport: filter.origin,
+      showPopularAirports: true
+    }
+  ), /* @__PURE__ */ import_react11.default.createElement(
+    ResponsiveAirportAutocomplete_default,
+    {
+      value: destinationSearch,
+      onChange: setDestinationSearch,
+      onSelect: handleDestinationSelect,
+      placeholder: "Search destination airports...",
+      label: "Destination Airport",
+      error: getError("destination"),
+      selectedAirport: filter.destination,
+      showPopularAirports: true
+    }
+  )), /* @__PURE__ */ import_react11.default.createElement("div", { className: "grid grid-cols-1 md:grid-cols-2 gap-6" }, /* @__PURE__ */ import_react11.default.createElement("div", null, /* @__PURE__ */ import_react11.default.createElement("label", { className: "block text-sm font-medium text-gray-700 mb-2" }, "Departure Date"), /* @__PURE__ */ import_react11.default.createElement("div", { className: "relative" }, /* @__PURE__ */ import_react11.default.createElement(
+    "input",
+    {
+      type: "date",
+      value: formatDate(filter.departureDate),
+      onChange: (e) => {
+        const date = e.target.value ? new Date(e.target.value) : null;
+        updateFilter({ departureDate: date });
+      },
+      min: (/* @__PURE__ */ new Date()).toISOString().split("T")[0],
+      className: "w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+    }
+  ), /* @__PURE__ */ import_react11.default.createElement(Calendar, { className: "absolute right-3 top-3.5 h-5 w-5 text-gray-400" })), getError("departureDate") && /* @__PURE__ */ import_react11.default.createElement("p", { className: "mt-1 text-sm text-red-600" }, getError("departureDate"))), filter.tripType === "round-trip" && /* @__PURE__ */ import_react11.default.createElement("div", null, /* @__PURE__ */ import_react11.default.createElement("label", { className: "block text-sm font-medium text-gray-700 mb-2" }, "Return Date"), /* @__PURE__ */ import_react11.default.createElement("div", { className: "relative" }, /* @__PURE__ */ import_react11.default.createElement(
+    "input",
+    {
+      type: "date",
+      value: formatDate(filter.returnDate),
+      onChange: (e) => {
+        const date = e.target.value ? new Date(e.target.value) : null;
+        updateFilter({ returnDate: date });
+      },
+      min: filter.departureDate ? filter.departureDate.toISOString().split("T")[0] : (/* @__PURE__ */ new Date()).toISOString().split("T")[0],
+      className: "w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+    }
+  ), /* @__PURE__ */ import_react11.default.createElement(Calendar, { className: "absolute right-3 top-3.5 h-5 w-5 text-gray-400" })), getError("returnDate") && /* @__PURE__ */ import_react11.default.createElement("p", { className: "mt-1 text-sm text-red-600" }, getError("returnDate")))), /* @__PURE__ */ import_react11.default.createElement("div", { className: "bg-blue-50 p-4 rounded-lg" }, /* @__PURE__ */ import_react11.default.createElement("div", { className: "flex items-center justify-between" }, /* @__PURE__ */ import_react11.default.createElement("div", { className: "flex items-center" }, /* @__PURE__ */ import_react11.default.createElement(
+    "input",
+    {
+      type: "checkbox",
+      id: "flexibleDates",
+      checked: filter.flexibleDates,
+      onChange: (e) => updateFilter({ flexibleDates: e.target.checked }),
+      className: "h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+    }
+  ), /* @__PURE__ */ import_react11.default.createElement("label", { htmlFor: "flexibleDates", className: "ml-2 text-sm font-medium text-gray-900" }, "Flexible Dates")), filter.flexibleDates && /* @__PURE__ */ import_react11.default.createElement("div", { className: "flex items-center space-x-2" }, /* @__PURE__ */ import_react11.default.createElement("span", { className: "text-sm text-gray-600" }, "\xB1"), /* @__PURE__ */ import_react11.default.createElement(
+    "select",
+    {
+      value: filter.dateFlexibility,
+      onChange: (e) => updateFilter({ dateFlexibility: parseInt(e.target.value) }),
+      className: "px-3 py-1 border border-gray-300 rounded-md text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+    },
+    /* @__PURE__ */ import_react11.default.createElement("option", { value: 1 }, "1 day"),
+    /* @__PURE__ */ import_react11.default.createElement("option", { value: 2 }, "2 days"),
+    /* @__PURE__ */ import_react11.default.createElement("option", { value: 3 }, "3 days"),
+    /* @__PURE__ */ import_react11.default.createElement("option", { value: 7 }, "1 week")
+  ))), /* @__PURE__ */ import_react11.default.createElement("div", { className: "mt-2 flex items-start" }, /* @__PURE__ */ import_react11.default.createElement(Info, { className: "w-4 h-4 text-blue-500 mr-2 mt-0.5 flex-shrink-0" }), /* @__PURE__ */ import_react11.default.createElement("p", { className: "text-sm text-blue-700" }, filter.flexibleDates ? `We'll search for flights within \xB1${filter.dateFlexibility} days of your preferred dates to find better prices.` : "Enable flexible dates to search for flights within a few days of your preferred dates, often resulting in better prices."))), filter.origin && filter.destination && /* @__PURE__ */ import_react11.default.createElement("div", { className: "bg-green-50 p-4 rounded-lg border border-green-200" }, /* @__PURE__ */ import_react11.default.createElement("div", { className: "flex items-center justify-between" }, /* @__PURE__ */ import_react11.default.createElement("div", { className: "flex items-center space-x-3" }, /* @__PURE__ */ import_react11.default.createElement("div", { className: "w-3 h-3 bg-green-500 rounded-full" }), /* @__PURE__ */ import_react11.default.createElement("span", { className: "font-medium text-green-800" }, "Route: ", filter.origin.iata_code, " \u2192 ", filter.destination.iata_code)), /* @__PURE__ */ import_react11.default.createElement("span", { className: "text-sm text-green-600" }, filter.tripType.replace("-", " ").replace(/\b\w/g, (l) => l.toUpperCase()))), filter.departureDate && /* @__PURE__ */ import_react11.default.createElement("div", { className: "mt-2 text-sm text-green-700" }, "Departure: ", filter.departureDate.toLocaleDateString(), filter.returnDate && ` \u2022 Return: ${filter.returnDate.toLocaleDateString()}`, filter.flexibleDates && ` \u2022 \xB1${filter.dateFlexibility} days flexible`)));
+};
+var Step1RouteDates_default = Step1RouteDates;
+
+// app/javascript/components/steps/Step2FlightPreferences.tsx
+var import_react12 = __toESM(require_react());
+var Step2FlightPreferences = ({ filter, updateFilter, errors }) => {
+  const [showAirlineDropdown, setShowAirlineDropdown] = (0, import_react12.useState)(false);
+  const [airlineSearch, setAirlineSearch] = (0, import_react12.useState)("");
+  const airlines = [
+    "Delta Air Lines",
+    "American Airlines",
+    "United Airlines",
+    "Southwest Airlines",
+    "JetBlue Airways",
+    "Alaska Airlines",
+    "Spirit Airlines",
+    "Frontier Airlines",
+    "British Airways",
+    "Lufthansa",
+    "Air France",
+    "KLM",
+    "Emirates",
+    "Qatar Airways"
+  ];
+  const timeSlots = [
+    { value: "morning", label: "Morning (6AM - 12PM)", icon: "\u{1F305}" },
+    { value: "afternoon", label: "Afternoon (12PM - 6PM)", icon: "\u2600\uFE0F" },
+    { value: "evening", label: "Evening (6PM - 12AM)", icon: "\u{1F306}" },
+    { value: "red-eye", label: "Red-eye (12AM - 6AM)", icon: "\u{1F319}" }
+  ];
+  const cabinClasses = [
+    { value: "economy", label: "Economy", description: "Standard seating", price: "Base" },
+    { value: "premium-economy", label: "Premium Economy", description: "Extra legroom", price: "+$50-150" },
+    { value: "business", label: "Business", description: "Premium service", price: "+$200-500" },
+    { value: "first", label: "First Class", description: "Luxury experience", price: "+$500+" }
+  ];
+  const stopOptions = [
+    { value: "nonstop", label: "Nonstop", description: "Direct flights only" },
+    { value: "1-stop", label: "1 Stop", description: "One connection max" },
+    { value: "2+", label: "2+ Stops", description: "Multiple connections OK" }
+  ];
+  const getError = (field) => {
+    return errors.find((error2) => error2.field === field)?.message;
+  };
+  const updatePassengers = (type, value) => {
+    const newPassengers = { ...filter.passengers, [type]: Math.max(0, value) };
+    updateFilter({ passengers: newPassengers });
+  };
+  const toggleAirline = (airline) => {
+    const current = filter.airlinePreferences;
+    const updated = current.includes(airline) ? current.filter((a) => a !== airline) : [...current, airline];
+    updateFilter({ airlinePreferences: updated });
+  };
+  const toggleTimePreference = (type, time) => {
+    const current = filter.preferredTimes[type];
+    const updated = current.includes(time) ? current.filter((t) => t !== time) : [...current, time];
+    updateFilter({
+      preferredTimes: {
+        ...filter.preferredTimes,
+        [type]: updated
+      }
+    });
+  };
+  const filteredAirlines = airlines.filter(
+    (airline) => airline.toLowerCase().includes(airlineSearch.toLowerCase())
+  );
+  return /* @__PURE__ */ import_react12.default.createElement("div", { className: "space-y-8" }, /* @__PURE__ */ import_react12.default.createElement("div", { className: "bg-gray-50 p-4 rounded-lg" }, /* @__PURE__ */ import_react12.default.createElement("h3", { className: "font-semibold text-gray-900 mb-3 flex items-center" }, /* @__PURE__ */ import_react12.default.createElement(Plane, { className: "w-4 h-4 mr-2" }), "Cabin Class"), /* @__PURE__ */ import_react12.default.createElement("div", { className: "grid grid-cols-1 md:grid-cols-2 gap-3" }, cabinClasses.map((cabin) => /* @__PURE__ */ import_react12.default.createElement(
+    "button",
+    {
+      key: cabin.value,
+      onClick: () => updateFilter({ cabinClass: cabin.value }),
+      className: `p-4 rounded-lg border-2 transition-colors text-left ${filter.cabinClass === cabin.value ? "border-blue-500 bg-blue-50 text-blue-700" : "border-gray-300 bg-white text-gray-700 hover:border-gray-400"}`
+    },
+    /* @__PURE__ */ import_react12.default.createElement("div", { className: "font-medium" }, cabin.label),
+    /* @__PURE__ */ import_react12.default.createElement("div", { className: "text-sm text-gray-600" }, cabin.description),
+    /* @__PURE__ */ import_react12.default.createElement("div", { className: "text-xs font-medium text-blue-600" }, cabin.price)
+  )))), /* @__PURE__ */ import_react12.default.createElement("div", { className: "bg-gray-50 p-4 rounded-lg" }, /* @__PURE__ */ import_react12.default.createElement("h3", { className: "font-semibold text-gray-900 mb-3 flex items-center" }, /* @__PURE__ */ import_react12.default.createElement(Users, { className: "w-4 h-4 mr-2" }), "Passengers"), /* @__PURE__ */ import_react12.default.createElement("div", { className: "grid grid-cols-1 md:grid-cols-3 gap-4" }, ["adults", "children", "infants"].map((type) => /* @__PURE__ */ import_react12.default.createElement("div", { key: type, className: "text-center" }, /* @__PURE__ */ import_react12.default.createElement("label", { className: "block text-sm font-medium text-gray-700 mb-2 capitalize" }, type), /* @__PURE__ */ import_react12.default.createElement("div", { className: "flex items-center justify-center space-x-2" }, /* @__PURE__ */ import_react12.default.createElement(
+    "button",
+    {
+      onClick: () => updatePassengers(type, filter.passengers[type] - 1),
+      disabled: filter.passengers[type] === 0,
+      className: "w-8 h-8 rounded-full bg-gray-200 text-gray-600 hover:bg-gray-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center"
+    },
+    "-"
+  ), /* @__PURE__ */ import_react12.default.createElement("span", { className: "w-12 text-center font-medium text-lg" }, filter.passengers[type]), /* @__PURE__ */ import_react12.default.createElement(
+    "button",
+    {
+      onClick: () => updatePassengers(type, filter.passengers[type] + 1),
+      className: "w-8 h-8 rounded-full bg-blue-500 text-white hover:bg-blue-600 flex items-center justify-center"
+    },
+    "+"
+  )), type === "infants" && /* @__PURE__ */ import_react12.default.createElement("p", { className: "text-xs text-gray-500 mt-1" }, "Must be under 2 years old")))), getError("passengers") && /* @__PURE__ */ import_react12.default.createElement("p", { className: "mt-3 text-sm text-red-600 text-center" }, getError("passengers"))), /* @__PURE__ */ import_react12.default.createElement("div", { className: "bg-gray-50 p-4 rounded-lg" }, /* @__PURE__ */ import_react12.default.createElement("h3", { className: "font-semibold text-gray-900 mb-3" }, "Airline Preferences"), /* @__PURE__ */ import_react12.default.createElement("div", { className: "relative mb-3" }, /* @__PURE__ */ import_react12.default.createElement(
+    "input",
+    {
+      type: "text",
+      value: airlineSearch,
+      onChange: (e) => {
+        setAirlineSearch(e.target.value);
+        setShowAirlineDropdown(true);
+      },
+      onFocus: () => setShowAirlineDropdown(true),
+      placeholder: "Search airlines...",
+      className: "w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+    }
+  ), showAirlineDropdown && /* @__PURE__ */ import_react12.default.createElement("div", { className: "absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded-lg shadow-lg max-h-60 overflow-y-auto" }, filteredAirlines.map((airline) => /* @__PURE__ */ import_react12.default.createElement(
+    "button",
+    {
+      key: airline,
+      onClick: () => toggleAirline(airline),
+      className: "w-full text-left px-4 py-2 hover:bg-gray-50 border-b border-gray-100 last:border-b-0"
+    },
+    /* @__PURE__ */ import_react12.default.createElement("div", { className: "flex items-center" }, /* @__PURE__ */ import_react12.default.createElement(
+      "input",
+      {
+        type: "checkbox",
+        checked: filter.airlinePreferences.includes(airline),
+        readOnly: true,
+        className: "mr-3 h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+      }
+    ), airline)
+  )))), filter.airlinePreferences.length > 0 && /* @__PURE__ */ import_react12.default.createElement("div", { className: "flex flex-wrap gap-2" }, filter.airlinePreferences.map((airline) => /* @__PURE__ */ import_react12.default.createElement(
+    "span",
+    {
+      key: airline,
+      className: "inline-flex items-center px-3 py-1 rounded-full text-sm bg-blue-100 text-blue-800"
+    },
+    airline,
+    /* @__PURE__ */ import_react12.default.createElement(
+      "button",
+      {
+        onClick: () => toggleAirline(airline),
+        className: "ml-2 text-blue-600 hover:text-blue-800"
+      },
+      "\xD7"
+    )
+  ))), /* @__PURE__ */ import_react12.default.createElement("p", { className: "text-sm text-gray-600 mt-2" }, filter.airlinePreferences.length === 0 ? "No specific airline preferences - we'll search all available carriers" : `Preferring ${filter.airlinePreferences.length} airline(s)`)), /* @__PURE__ */ import_react12.default.createElement("div", { className: "bg-gray-50 p-4 rounded-lg" }, /* @__PURE__ */ import_react12.default.createElement("h3", { className: "font-semibold text-gray-900 mb-3" }, "Maximum Stops"), /* @__PURE__ */ import_react12.default.createElement("div", { className: "grid grid-cols-1 md:grid-cols-3 gap-3" }, stopOptions.map((option) => /* @__PURE__ */ import_react12.default.createElement(
+    "button",
+    {
+      key: option.value,
+      onClick: () => updateFilter({ maxStops: option.value }),
+      className: `p-4 rounded-lg border-2 transition-colors text-center ${filter.maxStops === option.value ? "border-blue-500 bg-blue-50 text-blue-700" : "border-gray-300 bg-white text-gray-700 hover:border-gray-400"}`
+    },
+    /* @__PURE__ */ import_react12.default.createElement("div", { className: "font-medium" }, option.label),
+    /* @__PURE__ */ import_react12.default.createElement("div", { className: "text-sm text-gray-600" }, option.description)
+  )))), /* @__PURE__ */ import_react12.default.createElement("div", { className: "bg-gray-50 p-4 rounded-lg" }, /* @__PURE__ */ import_react12.default.createElement("h3", { className: "font-semibold text-gray-900 mb-3 flex items-center" }, /* @__PURE__ */ import_react12.default.createElement(Clock, { className: "w-4 h-4 mr-2" }), "Preferred Times"), /* @__PURE__ */ import_react12.default.createElement("div", { className: "mb-4" }, /* @__PURE__ */ import_react12.default.createElement("h4", { className: "text-sm font-medium text-gray-700 mb-2" }, "Departure Times"), /* @__PURE__ */ import_react12.default.createElement("div", { className: "grid grid-cols-2 md:grid-cols-4 gap-2" }, timeSlots.map((slot) => /* @__PURE__ */ import_react12.default.createElement(
+    "button",
+    {
+      key: slot.value,
+      onClick: () => toggleTimePreference("departure", slot.value),
+      className: `p-3 rounded-lg border-2 transition-colors text-center ${filter.preferredTimes.departure.includes(slot.value) ? "border-blue-500 bg-blue-50 text-blue-700" : "border-gray-300 bg-white text-gray-700 hover:border-gray-400"}`
+    },
+    /* @__PURE__ */ import_react12.default.createElement("div", { className: "text-lg mb-1" }, slot.icon),
+    /* @__PURE__ */ import_react12.default.createElement("div", { className: "text-xs font-medium" }, slot.label)
+  )))), /* @__PURE__ */ import_react12.default.createElement("div", null, /* @__PURE__ */ import_react12.default.createElement("h4", { className: "text-sm font-medium text-gray-700 mb-2" }, "Arrival Times"), /* @__PURE__ */ import_react12.default.createElement("div", { className: "grid grid-cols-2 md:grid-cols-4 gap-2" }, timeSlots.map((slot) => /* @__PURE__ */ import_react12.default.createElement(
+    "button",
+    {
+      key: slot.value,
+      onClick: () => toggleTimePreference("arrival", slot.value),
+      className: `p-3 rounded-lg border-2 transition-colors text-center ${filter.preferredTimes.arrival.includes(slot.value) ? "border-blue-500 bg-blue-50 text-blue-700" : "border-gray-300 bg-white text-gray-700 hover:border-gray-400"}`
+    },
+    /* @__PURE__ */ import_react12.default.createElement("div", { className: "text-lg mb-1" }, slot.icon),
+    /* @__PURE__ */ import_react12.default.createElement("div", { className: "text-xs font-medium" }, slot.label)
+  )))), /* @__PURE__ */ import_react12.default.createElement("div", { className: "mt-3 flex items-start" }, /* @__PURE__ */ import_react12.default.createElement(Info, { className: "w-4 h-4 text-blue-500 mr-2 mt-0.5 flex-shrink-0" }), /* @__PURE__ */ import_react12.default.createElement("p", { className: "text-sm text-blue-700" }, "Select your preferred departure and arrival times. We'll prioritize flights that match your preferences."))), /* @__PURE__ */ import_react12.default.createElement("div", { className: "bg-green-50 p-4 rounded-lg border border-green-200" }, /* @__PURE__ */ import_react12.default.createElement("h3", { className: "font-medium text-green-800 mb-2" }, "Flight Preferences Summary"), /* @__PURE__ */ import_react12.default.createElement("div", { className: "grid grid-cols-1 md:grid-cols-2 gap-4 text-sm text-green-700" }, /* @__PURE__ */ import_react12.default.createElement("div", null, /* @__PURE__ */ import_react12.default.createElement("span", { className: "font-medium" }, "Cabin:"), " ", filter.cabinClass.replace("-", " ").replace(/\b\w/g, (l) => l.toUpperCase())), /* @__PURE__ */ import_react12.default.createElement("div", null, /* @__PURE__ */ import_react12.default.createElement("span", { className: "font-medium" }, "Passengers:"), " ", filter.passengers.adults + filter.passengers.children + filter.passengers.infants), /* @__PURE__ */ import_react12.default.createElement("div", null, /* @__PURE__ */ import_react12.default.createElement("span", { className: "font-medium" }, "Stops:"), " ", filter.maxStops.replace("-", " ").replace(/\b\w/g, (l) => l.toUpperCase())), /* @__PURE__ */ import_react12.default.createElement("div", null, /* @__PURE__ */ import_react12.default.createElement("span", { className: "font-medium" }, "Airlines:"), " ", filter.airlinePreferences.length || "Any"))));
+};
+var Step2FlightPreferences_default = Step2FlightPreferences;
+
+// app/javascript/components/steps/Step3PriceSettings.tsx
+var import_react13 = __toESM(require_react());
+var Step3PriceSettings = ({
+  filter,
+  updateFilter,
+  errors,
+  priceBreakExamples,
+  historicalData
+}) => {
+  const [showFlexibilityOptions, setShowFlexibilityOptions] = (0, import_react13.useState)(false);
+  const currencies = ["USD", "EUR", "GBP", "CAD", "AUD", "JPY"];
+  const confidenceLevels = [
+    { value: "low", label: "Low", description: "Unlikely to hit target", color: "text-red-600", icon: TrendingUp },
+    { value: "medium", label: "Medium", description: "Moderate chance", color: "text-yellow-600", icon: Minus },
+    { value: "high", label: "High", description: "Very likely to hit", color: "text-green-600", icon: TrendingDown }
+  ];
+  const getError = (field) => {
+    return errors.find((error2) => error2.field === field)?.message;
+  };
+  const getPriceBreakConfidenceColor = (confidence) => {
+    switch (confidence) {
+      case "high":
+        return "text-green-600";
+      case "medium":
+        return "text-yellow-600";
+      case "low":
+        return "text-red-600";
+      default:
+        return "text-gray-600";
+    }
+  };
+  const getPriceBreakConfidenceIcon = (confidence) => {
+    switch (confidence) {
+      case "high":
+        return /* @__PURE__ */ import_react13.default.createElement(TrendingDown, { className: "w-4 h-4" });
+      case "medium":
+        return /* @__PURE__ */ import_react13.default.createElement(Minus, { className: "w-4 h-4" });
+      case "low":
+        return /* @__PURE__ */ import_react13.default.createElement(TrendingUp, { className: "w-4 h-4" });
+      default:
+        return /* @__PURE__ */ import_react13.default.createElement(Minus, { className: "w-4 h-4" });
+    }
+  };
+  const updateFlexibilityOption = (option, value) => {
+    updateFilter({
+      instantPriceBreakAlerts: {
+        ...filter.instantPriceBreakAlerts,
+        flexibilityOptions: {
+          ...filter.instantPriceBreakAlerts.flexibilityOptions,
+          [option]: value
+        }
+      }
+    });
+  };
+  return /* @__PURE__ */ import_react13.default.createElement("div", { className: "space-y-8" }, /* @__PURE__ */ import_react13.default.createElement("div", null, /* @__PURE__ */ import_react13.default.createElement("label", { className: "block text-sm font-semibold text-gray-700 mb-4 uppercase tracking-wide" }, "Target Price (USD)"), /* @__PURE__ */ import_react13.default.createElement("div", { className: "grid grid-cols-1 md:grid-cols-2 gap-6" }, /* @__PURE__ */ import_react13.default.createElement("div", null, /* @__PURE__ */ import_react13.default.createElement("label", { className: "block text-sm font-medium text-gray-700 mb-3" }, "Target Price"), /* @__PURE__ */ import_react13.default.createElement("div", { className: "relative" }, /* @__PURE__ */ import_react13.default.createElement(
+    "input",
+    {
+      type: "number",
+      value: filter.targetPrice || "",
+      onChange: (e) => updateFilter({ targetPrice: parseFloat(e.target.value) || 0 }),
+      placeholder: "0.00",
+      min: "0",
+      step: "0.01",
+      className: "w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+    }
+  ), /* @__PURE__ */ import_react13.default.createElement("div", { className: "absolute right-3 top-3.5 text-gray-500" }, filter.currency)), getError("targetPrice") && /* @__PURE__ */ import_react13.default.createElement("p", { className: "mt-1 text-sm text-red-600" }, getError("targetPrice"))), /* @__PURE__ */ import_react13.default.createElement("div", null, /* @__PURE__ */ import_react13.default.createElement("label", { className: "block text-sm font-medium text-gray-700 mb-2" }, "Currency"), /* @__PURE__ */ import_react13.default.createElement(
+    "select",
+    {
+      value: filter.currency,
+      onChange: (e) => updateFilter({ currency: e.target.value }),
+      className: "w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+    },
+    currencies.map((currency) => /* @__PURE__ */ import_react13.default.createElement("option", { key: currency, value: currency }, currency))
+  )))), /* @__PURE__ */ import_react13.default.createElement("div", { className: "bg-gradient-to-r from-blue-50 to-purple-50 p-6 rounded-lg border-2 border-blue-200" }, /* @__PURE__ */ import_react13.default.createElement("div", { className: "flex items-center mb-4" }, /* @__PURE__ */ import_react13.default.createElement(Zap, { className: "w-6 h-6 text-blue-600 mr-2" }), /* @__PURE__ */ import_react13.default.createElement("h3", { className: "text-xl font-bold text-blue-900" }, "\u26A1 INSTANT PRICE BREAK ALERTS")), /* @__PURE__ */ import_react13.default.createElement("div", { className: "mb-4" }, /* @__PURE__ */ import_react13.default.createElement("label", { className: "flex items-center" }, /* @__PURE__ */ import_react13.default.createElement(
+    "input",
+    {
+      type: "checkbox",
+      checked: filter.instantPriceBreakAlerts.enabled,
+      onChange: (e) => updateFilter({
+        instantPriceBreakAlerts: {
+          ...filter.instantPriceBreakAlerts,
+          enabled: e.target.checked
+        }
+      }),
+      className: "h-5 w-5 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+    }
+  ), /* @__PURE__ */ import_react13.default.createElement("span", { className: "ml-2 text-lg font-semibold text-blue-900" }, "Enable instant price break notifications"))), filter.instantPriceBreakAlerts.enabled && /* @__PURE__ */ import_react13.default.createElement("div", { className: "space-y-4" }, /* @__PURE__ */ import_react13.default.createElement("div", { className: "bg-white p-4 rounded-lg border border-blue-200" }, /* @__PURE__ */ import_react13.default.createElement("h4", { className: "font-semibold text-gray-900 mb-3" }, "Alert Type"), /* @__PURE__ */ import_react13.default.createElement("div", { className: "grid grid-cols-1 md:grid-cols-2 gap-3" }, /* @__PURE__ */ import_react13.default.createElement(
+    "button",
+    {
+      onClick: () => updateFilter({
+        instantPriceBreakAlerts: {
+          ...filter.instantPriceBreakAlerts,
+          type: "exact-match"
+        }
+      }),
+      className: `p-4 rounded-lg border-2 transition-colors text-left ${filter.instantPriceBreakAlerts.type === "exact-match" ? "border-green-500 bg-green-50 text-green-700" : "border-gray-300 bg-white text-gray-700 hover:border-gray-400"}`
+    },
+    /* @__PURE__ */ import_react13.default.createElement("div", { className: "font-medium text-lg" }, "\u2705 Exact Match"),
+    /* @__PURE__ */ import_react13.default.createElement("div", { className: "text-sm text-gray-600 mt-1" }, "Alert me when price drops below $", filter.targetPrice, " AND ALL filter criteria match")
+  ), /* @__PURE__ */ import_react13.default.createElement(
+    "button",
+    {
+      onClick: () => updateFilter({
+        instantPriceBreakAlerts: {
+          ...filter.instantPriceBreakAlerts,
+          type: "flexible-match"
+        }
+      }),
+      className: `p-4 rounded-lg border-2 transition-colors text-left ${filter.instantPriceBreakAlerts.type === "flexible-match" ? "border-blue-500 bg-blue-50 text-blue-700" : "border-gray-300 bg-white text-gray-700 hover:border-gray-400"}`
+    },
+    /* @__PURE__ */ import_react13.default.createElement("div", { className: "font-medium text-lg" }, "\u26A1 Flexible Match"),
+    /* @__PURE__ */ import_react13.default.createElement("div", { className: "text-sm text-gray-600 mt-1" }, "Alert me when price drops below $", filter.targetPrice, " EVEN IF some filter criteria don't match")
+  ))), filter.instantPriceBreakAlerts.type === "flexible-match" && /* @__PURE__ */ import_react13.default.createElement("div", { className: "bg-white p-4 rounded-lg border border-blue-200" }, /* @__PURE__ */ import_react13.default.createElement("h4", { className: "font-semibold text-gray-900 mb-3" }, "Flexibility Options"), /* @__PURE__ */ import_react13.default.createElement("p", { className: "text-sm text-gray-600 mb-3" }, "Select which criteria can be flexible for partial match alerts:"), /* @__PURE__ */ import_react13.default.createElement("div", { className: "grid grid-cols-2 md:grid-cols-4 gap-3" }, ["airline", "stops", "times", "dates"].map((option) => /* @__PURE__ */ import_react13.default.createElement("label", { key: option, className: "flex items-center p-3 border border-gray-200 rounded-lg hover:bg-gray-50" }, /* @__PURE__ */ import_react13.default.createElement(
+    "input",
+    {
+      type: "checkbox",
+      checked: filter.instantPriceBreakAlerts.flexibilityOptions[option],
+      onChange: (e) => updateFlexibilityOption(option, e.target.checked),
+      className: "h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+    }
+  ), /* @__PURE__ */ import_react13.default.createElement("span", { className: "ml-2 text-sm font-medium capitalize" }, option === "times" ? "Times" : option))))), /* @__PURE__ */ import_react13.default.createElement("div", { className: "bg-yellow-50 p-4 rounded-lg border border-yellow-200" }, /* @__PURE__ */ import_react13.default.createElement("div", { className: "flex items-start" }, /* @__PURE__ */ import_react13.default.createElement(TriangleAlert, { className: "w-5 h-5 text-yellow-600 mr-2 mt-0.5 flex-shrink-0" }), /* @__PURE__ */ import_react13.default.createElement("div", null, /* @__PURE__ */ import_react13.default.createElement("h4", { className: "font-medium text-yellow-800" }, "High Priority Monitoring"), /* @__PURE__ */ import_react13.default.createElement("p", { className: "text-sm text-yellow-700 mt-1" }, "Instant price break alerts require real-time monitoring, which may increase battery usage and data consumption.")))))), /* @__PURE__ */ import_react13.default.createElement("div", { className: "bg-gray-50 p-4 rounded-lg" }, /* @__PURE__ */ import_react13.default.createElement("h3", { className: "font-semibold text-gray-900 mb-3" }, "Price Drop Percentage Alert"), /* @__PURE__ */ import_react13.default.createElement("div", { className: "flex items-center space-x-4" }, /* @__PURE__ */ import_react13.default.createElement("label", { className: "text-sm font-medium text-gray-700" }, "Alert me on"), /* @__PURE__ */ import_react13.default.createElement(
+    "select",
+    {
+      value: filter.priceDropPercentage,
+      onChange: (e) => updateFilter({ priceDropPercentage: parseInt(e.target.value) }),
+      className: "px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+    },
+    /* @__PURE__ */ import_react13.default.createElement("option", { value: 10 }, "10%"),
+    /* @__PURE__ */ import_react13.default.createElement("option", { value: 15 }, "15%"),
+    /* @__PURE__ */ import_react13.default.createElement("option", { value: 20 }, "20%"),
+    /* @__PURE__ */ import_react13.default.createElement("option", { value: 25 }, "25%"),
+    /* @__PURE__ */ import_react13.default.createElement("option", { value: 30 }, "30%")
+  ), /* @__PURE__ */ import_react13.default.createElement("span", { className: "text-sm text-gray-600" }, "price drop"))), /* @__PURE__ */ import_react13.default.createElement("div", { className: "bg-gray-50 p-4 rounded-lg" }, /* @__PURE__ */ import_react13.default.createElement("h3", { className: "font-semibold text-gray-900 mb-3" }, "Budget Range"), /* @__PURE__ */ import_react13.default.createElement("div", { className: "grid grid-cols-1 md:grid-cols-2 gap-4" }, /* @__PURE__ */ import_react13.default.createElement("div", null, /* @__PURE__ */ import_react13.default.createElement("label", { className: "block text-sm font-medium text-gray-700 mb-2" }, "Minimum Price"), /* @__PURE__ */ import_react13.default.createElement(
+    "input",
+    {
+      type: "number",
+      value: filter.budgetRange.min || "",
+      onChange: (e) => updateFilter({
+        budgetRange: {
+          ...filter.budgetRange,
+          min: parseFloat(e.target.value) || 0
+        }
+      }),
+      placeholder: "0.00",
+      min: "0",
+      step: "0.01",
+      className: "w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+    }
+  )), /* @__PURE__ */ import_react13.default.createElement("div", null, /* @__PURE__ */ import_react13.default.createElement("label", { className: "block text-sm font-medium text-gray-700 mb-2" }, "Maximum Price"), /* @__PURE__ */ import_react13.default.createElement(
+    "input",
+    {
+      type: "number",
+      value: filter.budgetRange.max || "",
+      onChange: (e) => updateFilter({
+        budgetRange: {
+          ...filter.budgetRange,
+          max: parseFloat(e.target.value) || 0
+        }
+      }),
+      placeholder: "1000.00",
+      min: "0",
+      step: "0.01",
+      className: "w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+    }
+  ))), getError("budgetRange") && /* @__PURE__ */ import_react13.default.createElement("p", { className: "mt-2 text-sm text-red-600" }, getError("budgetRange"))), /* @__PURE__ */ import_react13.default.createElement("div", { className: "bg-gray-50 p-4 rounded-lg" }, /* @__PURE__ */ import_react13.default.createElement("h3", { className: "font-semibold text-gray-900 mb-3" }, "Price Break Confidence"), /* @__PURE__ */ import_react13.default.createElement("div", { className: "grid grid-cols-1 md:grid-cols-3 gap-3" }, confidenceLevels.map((level) => {
+    const Icon2 = level.icon;
+    return /* @__PURE__ */ import_react13.default.createElement(
+      "button",
+      {
+        key: level.value,
+        onClick: () => updateFilter({ priceBreakConfidence: level.value }),
+        className: `p-4 rounded-lg border-2 transition-colors text-center ${filter.priceBreakConfidence === level.value ? "border-blue-500 bg-blue-50 text-blue-700" : "border-gray-300 bg-white text-gray-700 hover:border-gray-400"}`
+      },
+      /* @__PURE__ */ import_react13.default.createElement(Icon2, { className: `w-6 h-6 mx-auto mb-2 ${level.color}` }),
+      /* @__PURE__ */ import_react13.default.createElement("div", { className: "font-medium" }, level.label),
+      /* @__PURE__ */ import_react13.default.createElement("div", { className: "text-sm text-gray-600" }, level.description)
+    );
+  }))), /* @__PURE__ */ import_react13.default.createElement("div", { className: "bg-gray-50 p-4 rounded-lg" }, /* @__PURE__ */ import_react13.default.createElement("h3", { className: "font-semibold text-gray-900 mb-3" }, "Historical Price Trends"), /* @__PURE__ */ import_react13.default.createElement("div", { className: "bg-white p-4 rounded-lg border" }, /* @__PURE__ */ import_react13.default.createElement("div", { className: "flex items-center justify-between mb-4" }, /* @__PURE__ */ import_react13.default.createElement("div", { className: "text-sm text-gray-600" }, "Last 5 months price trend"), /* @__PURE__ */ import_react13.default.createElement("div", { className: "text-sm font-medium text-gray-900" }, "Current: $", historicalData[historicalData.length - 1]?.price || 0)), /* @__PURE__ */ import_react13.default.createElement("div", { className: "flex items-end justify-between h-32" }, historicalData.map((data, index) => /* @__PURE__ */ import_react13.default.createElement("div", { key: index, className: "flex flex-col items-center" }, /* @__PURE__ */ import_react13.default.createElement("div", { className: "text-xs text-gray-500 mb-1" }, new Date(data.date).toLocaleDateString("en-US", { month: "short" })), /* @__PURE__ */ import_react13.default.createElement(
+    "div",
+    {
+      className: "w-8 bg-blue-500 rounded-t",
+      style: { height: `${data.price / 500 * 100}%` }
+    }
+  ), /* @__PURE__ */ import_react13.default.createElement("div", { className: "text-xs text-gray-600 mt-1" }, "$", data.price), /* @__PURE__ */ import_react13.default.createElement("div", { className: "mt-1" }, data.trend === "falling" ? /* @__PURE__ */ import_react13.default.createElement(TrendingDown, { className: "w-3 h-3 text-green-600" }) : data.trend === "rising" ? /* @__PURE__ */ import_react13.default.createElement(TrendingUp, { className: "w-3 h-3 text-red-600" }) : /* @__PURE__ */ import_react13.default.createElement(Minus, { className: "w-3 h-3 text-gray-400" }))))))), /* @__PURE__ */ import_react13.default.createElement("div", { className: "bg-gray-50 p-4 rounded-lg" }, /* @__PURE__ */ import_react13.default.createElement("h3", { className: "font-semibold text-gray-900 mb-3" }, "Price Break Examples"), /* @__PURE__ */ import_react13.default.createElement("div", { className: "space-y-3" }, priceBreakExamples.map((example, index) => /* @__PURE__ */ import_react13.default.createElement("div", { key: index, className: "bg-white p-4 rounded-lg border" }, /* @__PURE__ */ import_react13.default.createElement("div", { className: "flex items-center justify-between mb-2" }, /* @__PURE__ */ import_react13.default.createElement("div", { className: "font-medium text-sm" }, example.title), /* @__PURE__ */ import_react13.default.createElement("div", { className: `flex items-center text-xs ${getPriceBreakConfidenceColor(example.confidence)}` }, getPriceBreakConfidenceIcon(example.confidence), /* @__PURE__ */ import_react13.default.createElement("span", { className: "ml-1 capitalize" }, example.confidence, " confidence"))), /* @__PURE__ */ import_react13.default.createElement("div", { className: "text-sm text-gray-600 mb-2" }, example.description), /* @__PURE__ */ import_react13.default.createElement("div", { className: "flex justify-between items-center" }, /* @__PURE__ */ import_react13.default.createElement("span", { className: "text-sm font-semibold text-green-600" }, "$", example.price), /* @__PURE__ */ import_react13.default.createElement("span", { className: "text-xs text-gray-500" }, "Save $", example.savings)), example.differences && /* @__PURE__ */ import_react13.default.createElement("div", { className: "mt-2 text-xs text-gray-500" }, example.differences.map((diff, i) => /* @__PURE__ */ import_react13.default.createElement("div", { key: i, className: "flex items-center" }, /* @__PURE__ */ import_react13.default.createElement(TriangleAlert, { className: "w-3 h-3 mr-1 text-yellow-500" }), diff))))))), /* @__PURE__ */ import_react13.default.createElement("div", { className: "bg-green-50 p-4 rounded-lg border border-green-200" }, /* @__PURE__ */ import_react13.default.createElement("h3", { className: "font-medium text-green-800 mb-2" }, "Price Settings Summary"), /* @__PURE__ */ import_react13.default.createElement("div", { className: "grid grid-cols-1 md:grid-cols-2 gap-4 text-sm text-green-700" }, /* @__PURE__ */ import_react13.default.createElement("div", null, /* @__PURE__ */ import_react13.default.createElement("span", { className: "font-medium" }, "Target Price:"), " ", filter.currency, " ", filter.targetPrice), /* @__PURE__ */ import_react13.default.createElement("div", null, /* @__PURE__ */ import_react13.default.createElement("span", { className: "font-medium" }, "Budget Range:"), " ", filter.currency, " ", filter.budgetRange.min, " - ", filter.currency, " ", filter.budgetRange.max), /* @__PURE__ */ import_react13.default.createElement("div", null, /* @__PURE__ */ import_react13.default.createElement("span", { className: "font-medium" }, "Price Break Alerts:"), " ", filter.instantPriceBreakAlerts.enabled ? "Enabled" : "Disabled"), /* @__PURE__ */ import_react13.default.createElement("div", null, /* @__PURE__ */ import_react13.default.createElement("span", { className: "font-medium" }, "Alert Type:"), " ", filter.instantPriceBreakAlerts.enabled ? filter.instantPriceBreakAlerts.type.replace("-", " ").replace(/\b\w/g, (l) => l.toUpperCase()) : "N/A"))));
+};
+var Step3PriceSettings_default = Step3PriceSettings;
+
+// app/javascript/components/steps/Step4AlertPreferences.tsx
+var import_react14 = __toESM(require_react());
+var Step4AlertPreferences = ({ filter, updateFilter, errors }) => {
+  const monitoringFrequencies = [
+    { value: "real-time", label: "Real-time", description: "Instant notifications", icon: Zap, color: "text-red-600" },
+    { value: "hourly", label: "Hourly", description: "Updates every hour", icon: Clock, color: "text-orange-600" },
+    { value: "daily", label: "Daily", description: "Daily summary", icon: Clock, color: "text-blue-600" },
+    { value: "weekly", label: "Weekly", description: "Weekly summary", icon: Clock, color: "text-gray-600" }
+  ];
+  const alertUrgencyLevels = [
+    { value: "patient", label: "Patient", description: "Relaxed monitoring", icon: Gauge, color: "text-green-600" },
+    { value: "moderate", label: "Moderate", description: "Balanced approach", icon: Gauge, color: "text-yellow-600" },
+    { value: "urgent", label: "Urgent", description: "Aggressive monitoring", icon: TriangleAlert, color: "text-red-600" }
+  ];
+  const instantAlertPriorities = [
+    { value: "normal", label: "Normal", description: "Standard priority", icon: Bell, color: "text-blue-600" },
+    { value: "high", label: "High Priority", description: "Elevated importance", icon: TrendingUp, color: "text-orange-600" },
+    { value: "critical", label: "Critical", description: "Maximum urgency", icon: TriangleAlert, color: "text-red-600" }
+  ];
+  const alertDetailLevels = [
+    { value: "exact-matches-only", label: "Exact Matches Only", description: "Only perfect matches" },
+    { value: "include-near-matches", label: "Include Near Matches", description: "Show similar options with differences highlighted" }
+  ];
+  const notificationMethods = [
+    { key: "email", label: "Email", icon: Mail, description: "Send to your email address" },
+    { key: "sms", label: "SMS", icon: MessageSquare, description: "Text message notifications" },
+    { key: "push", label: "Push Notifications", icon: Smartphone, description: "Mobile app notifications" },
+    { key: "browser", label: "Browser Notifications", icon: Monitor, description: "Desktop browser alerts" }
+  ];
+  const getError = (field) => {
+    return errors.find((error2) => error2.field === field)?.message;
+  };
+  const toggleNotificationMethod = (method) => {
+    updateFilter({
+      notificationMethods: {
+        ...filter.notificationMethods,
+        [method]: !filter.notificationMethods[method]
+      }
+    });
+  };
+  return /* @__PURE__ */ import_react14.default.createElement("div", { className: "space-y-6" }, /* @__PURE__ */ import_react14.default.createElement("div", { className: "text-center mb-6" }, /* @__PURE__ */ import_react14.default.createElement("h2", { className: "text-2xl font-bold text-gray-900 mb-2" }, "Alert Preferences"), /* @__PURE__ */ import_react14.default.createElement("p", { className: "text-gray-600" }, "Configure how and when you want to be notified")), /* @__PURE__ */ import_react14.default.createElement("div", { className: "bg-gray-50 p-4 rounded-lg" }, /* @__PURE__ */ import_react14.default.createElement("h3", { className: "font-semibold text-gray-900 mb-3" }, "Filter Information"), /* @__PURE__ */ import_react14.default.createElement("div", { className: "grid grid-cols-1 md:grid-cols-2 gap-4" }, /* @__PURE__ */ import_react14.default.createElement("div", null, /* @__PURE__ */ import_react14.default.createElement("label", { className: "block text-sm font-medium text-gray-700 mb-2" }, "Filter Name *"), /* @__PURE__ */ import_react14.default.createElement(
+    "input",
+    {
+      type: "text",
+      value: filter.filterName,
+      onChange: (e) => updateFilter({ filterName: e.target.value }),
+      placeholder: "e.g., LAX to NYC Business Travel",
+      className: "w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+    }
+  ), getError("filterName") && /* @__PURE__ */ import_react14.default.createElement("p", { className: "mt-1 text-sm text-red-600" }, getError("filterName"))), /* @__PURE__ */ import_react14.default.createElement("div", null, /* @__PURE__ */ import_react14.default.createElement("label", { className: "block text-sm font-medium text-gray-700 mb-2" }, "Description"), /* @__PURE__ */ import_react14.default.createElement(
+    "textarea",
+    {
+      value: filter.description,
+      onChange: (e) => updateFilter({ description: e.target.value }),
+      placeholder: "Optional description of this filter...",
+      rows: 3,
+      className: "w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+    }
+  )))), /* @__PURE__ */ import_react14.default.createElement("div", { className: "bg-gray-50 p-4 rounded-lg" }, /* @__PURE__ */ import_react14.default.createElement("h3", { className: "font-semibold text-gray-900 mb-3 flex items-center" }, /* @__PURE__ */ import_react14.default.createElement(Clock, { className: "w-4 h-4 mr-2" }), "Monitoring Frequency"), /* @__PURE__ */ import_react14.default.createElement("div", { className: "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3" }, monitoringFrequencies.map((freq) => {
+    const Icon2 = freq.icon;
+    return /* @__PURE__ */ import_react14.default.createElement(
+      "button",
+      {
+        key: freq.value,
+        onClick: () => updateFilter({ monitorFrequency: freq.value }),
+        className: `p-4 rounded-lg border-2 transition-colors text-center ${filter.monitorFrequency === freq.value ? "border-blue-500 bg-blue-50 text-blue-700" : "border-gray-300 bg-white text-gray-700 hover:border-gray-400"}`
+      },
+      /* @__PURE__ */ import_react14.default.createElement(Icon2, { className: `w-6 h-6 mx-auto mb-2 ${freq.color}` }),
+      /* @__PURE__ */ import_react14.default.createElement("div", { className: "font-medium" }, freq.label),
+      /* @__PURE__ */ import_react14.default.createElement("div", { className: "text-sm text-gray-600" }, freq.description)
+    );
+  })), filter.monitorFrequency === "real-time" && /* @__PURE__ */ import_react14.default.createElement("div", { className: "mt-3 p-3 bg-yellow-50 border border-yellow-200 rounded-lg" }, /* @__PURE__ */ import_react14.default.createElement("div", { className: "flex items-start" }, /* @__PURE__ */ import_react14.default.createElement(TriangleAlert, { className: "w-4 h-4 text-yellow-600 mr-2 mt-0.5 flex-shrink-0" }), /* @__PURE__ */ import_react14.default.createElement("div", { className: "text-sm text-yellow-800" }, /* @__PURE__ */ import_react14.default.createElement("strong", null, "Real-time monitoring"), " provides instant alerts but may increase battery usage and data consumption.")))), /* @__PURE__ */ import_react14.default.createElement("div", { className: "bg-gray-50 p-4 rounded-lg" }, /* @__PURE__ */ import_react14.default.createElement("h3", { className: "font-semibold text-gray-900 mb-3 flex items-center" }, /* @__PURE__ */ import_react14.default.createElement(TriangleAlert, { className: "w-4 h-4 mr-2" }), "Alert Urgency Level"), /* @__PURE__ */ import_react14.default.createElement("div", { className: "grid grid-cols-1 md:grid-cols-3 gap-3" }, alertUrgencyLevels.map((level) => {
+    const Icon2 = level.icon;
+    return /* @__PURE__ */ import_react14.default.createElement(
+      "button",
+      {
+        key: level.value,
+        onClick: () => updateFilter({ alertUrgency: level.value }),
+        className: `p-4 rounded-lg border-2 transition-colors text-center ${filter.alertUrgency === level.value ? "border-blue-500 bg-blue-50 text-blue-700" : "border-gray-300 bg-white text-gray-700 hover:border-gray-400"}`
+      },
+      /* @__PURE__ */ import_react14.default.createElement(Icon2, { className: `w-6 h-6 mx-auto mb-2 ${level.color}` }),
+      /* @__PURE__ */ import_react14.default.createElement("div", { className: "font-medium" }, level.label),
+      /* @__PURE__ */ import_react14.default.createElement("div", { className: "text-sm text-gray-600" }, level.description)
+    );
+  }))), filter.instantPriceBreakAlerts.enabled && /* @__PURE__ */ import_react14.default.createElement("div", { className: "bg-gradient-to-r from-orange-50 to-red-50 p-4 rounded-lg border-2 border-orange-200" }, /* @__PURE__ */ import_react14.default.createElement("h3", { className: "font-semibold text-orange-900 mb-3 flex items-center" }, /* @__PURE__ */ import_react14.default.createElement(Zap, { className: "w-5 h-5 mr-2" }), "\u26A1 INSTANT ALERT PRIORITY"), /* @__PURE__ */ import_react14.default.createElement("p", { className: "text-sm text-orange-800 mb-3" }, "When price break alerts are enabled, these settings control notification priority:"), /* @__PURE__ */ import_react14.default.createElement("div", { className: "grid grid-cols-1 md:grid-cols-3 gap-3" }, instantAlertPriorities.map((priority) => {
+    const Icon2 = priority.icon;
+    return /* @__PURE__ */ import_react14.default.createElement(
+      "button",
+      {
+        key: priority.value,
+        onClick: () => updateFilter({ instantAlertPriority: priority.value }),
+        className: `p-4 rounded-lg border-2 transition-colors text-center ${filter.instantAlertPriority === priority.value ? "border-orange-500 bg-orange-50 text-orange-700" : "border-gray-300 bg-white text-gray-700 hover:border-gray-400"}`
+      },
+      /* @__PURE__ */ import_react14.default.createElement(Icon2, { className: `w-6 h-6 mx-auto mb-2 ${priority.color}` }),
+      /* @__PURE__ */ import_react14.default.createElement("div", { className: "font-medium" }, priority.label),
+      /* @__PURE__ */ import_react14.default.createElement("div", { className: "text-sm text-gray-600" }, priority.description)
+    );
+  }))), /* @__PURE__ */ import_react14.default.createElement("div", { className: "bg-gray-50 p-4 rounded-lg" }, /* @__PURE__ */ import_react14.default.createElement("h3", { className: "font-semibold text-gray-900 mb-3" }, "Alert Detail Level"), /* @__PURE__ */ import_react14.default.createElement("div", { className: "grid grid-cols-1 md:grid-cols-2 gap-3" }, alertDetailLevels.map((level) => /* @__PURE__ */ import_react14.default.createElement(
+    "button",
+    {
+      key: level.value,
+      onClick: () => updateFilter({ alertDetailLevel: level.value }),
+      className: `p-4 rounded-lg border-2 transition-colors text-left ${filter.alertDetailLevel === level.value ? "border-blue-500 bg-blue-50 text-blue-700" : "border-gray-300 bg-white text-gray-700 hover:border-gray-400"}`
+    },
+    /* @__PURE__ */ import_react14.default.createElement("div", { className: "font-medium" }, level.label),
+    /* @__PURE__ */ import_react14.default.createElement("div", { className: "text-sm text-gray-600" }, level.description)
+  )))), /* @__PURE__ */ import_react14.default.createElement("div", { className: "bg-gray-50 p-4 rounded-lg" }, /* @__PURE__ */ import_react14.default.createElement("h3", { className: "font-semibold text-gray-900 mb-3 flex items-center" }, /* @__PURE__ */ import_react14.default.createElement(Bell, { className: "w-4 h-4 mr-2" }), "Notification Methods *"), /* @__PURE__ */ import_react14.default.createElement("div", { className: "grid grid-cols-1 md:grid-cols-2 gap-3" }, notificationMethods.map((method) => {
+    const Icon2 = method.icon;
+    return /* @__PURE__ */ import_react14.default.createElement("label", { key: method.key, className: "flex items-start p-4 border border-gray-200 rounded-lg hover:bg-gray-50 cursor-pointer" }, /* @__PURE__ */ import_react14.default.createElement(
+      "input",
+      {
+        type: "checkbox",
+        checked: filter.notificationMethods[method.key],
+        onChange: () => toggleNotificationMethod(method.key),
+        className: "h-5 w-5 text-blue-600 focus:ring-blue-500 border-gray-300 rounded mt-0.5"
+      }
+    ), /* @__PURE__ */ import_react14.default.createElement("div", { className: "ml-3" }, /* @__PURE__ */ import_react14.default.createElement("div", { className: "flex items-center" }, /* @__PURE__ */ import_react14.default.createElement(Icon2, { className: "w-5 h-5 text-gray-600 mr-2" }), /* @__PURE__ */ import_react14.default.createElement("span", { className: "font-medium text-gray-900" }, method.label)), /* @__PURE__ */ import_react14.default.createElement("p", { className: "text-sm text-gray-600 mt-1" }, method.description)));
+  })), getError("notificationMethods") && /* @__PURE__ */ import_react14.default.createElement("p", { className: "mt-3 text-sm text-red-600" }, getError("notificationMethods")), /* @__PURE__ */ import_react14.default.createElement("div", { className: "mt-3 flex items-start" }, /* @__PURE__ */ import_react14.default.createElement(Info, { className: "w-4 h-4 text-blue-500 mr-2 mt-0.5 flex-shrink-0" }), /* @__PURE__ */ import_react14.default.createElement("p", { className: "text-sm text-blue-700" }, "For instant price break alerts, we recommend enabling multiple notification methods to ensure you don't miss important price drops."))), /* @__PURE__ */ import_react14.default.createElement("div", { className: "bg-gray-50 p-4 rounded-lg" }, /* @__PURE__ */ import_react14.default.createElement("h3", { className: "font-semibold text-gray-900 mb-3" }, "Alert Content Preview"), /* @__PURE__ */ import_react14.default.createElement("div", { className: "space-y-3" }, /* @__PURE__ */ import_react14.default.createElement("div", { className: "bg-white p-4 rounded-lg border border-green-200" }, /* @__PURE__ */ import_react14.default.createElement("div", { className: "flex items-center mb-2" }, /* @__PURE__ */ import_react14.default.createElement("div", { className: "w-3 h-3 bg-green-500 rounded-full mr-2" }), /* @__PURE__ */ import_react14.default.createElement("span", { className: "font-medium text-green-800" }, "\u2705 EXACT MATCH: Your ideal flight for $285 (was $340)")), /* @__PURE__ */ import_react14.default.createElement("div", { className: "text-sm text-green-700" }, "Route: LAX \u2192 JFK \u2022 Date: Dec 15, 2024 \u2022 Airline: Delta \u2022 Nonstop")), /* @__PURE__ */ import_react14.default.createElement("div", { className: "bg-white p-4 rounded-lg border border-blue-200" }, /* @__PURE__ */ import_react14.default.createElement("div", { className: "flex items-center mb-2" }, /* @__PURE__ */ import_react14.default.createElement("div", { className: "w-3 h-3 bg-blue-500 rounded-full mr-2" }), /* @__PURE__ */ import_react14.default.createElement("span", { className: "font-medium text-blue-800" }, "\u26A1 PRICE BREAK: $275 flight available - Different airline but meets budget")), /* @__PURE__ */ import_react14.default.createElement("div", { className: "text-sm text-blue-700" }, "Route: LAX \u2192 JFK \u2022 Date: Dec 15, 2024 \u2022 Airline: American \u2022 1 stop"), /* @__PURE__ */ import_react14.default.createElement("div", { className: "text-xs text-gray-600 mt-1" }, "\u26A0\uFE0F Differences: Different airline, 1 stop instead of nonstop")))), /* @__PURE__ */ import_react14.default.createElement("div", { className: "bg-green-50 p-4 rounded-lg border border-green-200" }, /* @__PURE__ */ import_react14.default.createElement("h3", { className: "font-medium text-green-800 mb-2" }, "Alert Preferences Summary"), /* @__PURE__ */ import_react14.default.createElement("div", { className: "grid grid-cols-1 md:grid-cols-2 gap-4 text-sm text-green-700" }, /* @__PURE__ */ import_react14.default.createElement("div", null, /* @__PURE__ */ import_react14.default.createElement("span", { className: "font-medium" }, "Monitoring:"), " ", filter.monitorFrequency.replace("-", " ").replace(/\b\w/g, (l) => l.toUpperCase())), /* @__PURE__ */ import_react14.default.createElement("div", null, /* @__PURE__ */ import_react14.default.createElement("span", { className: "font-medium" }, "Urgency:"), " ", filter.alertUrgency.charAt(0).toUpperCase() + filter.alertUrgency.slice(1)), /* @__PURE__ */ import_react14.default.createElement("div", null, /* @__PURE__ */ import_react14.default.createElement("span", { className: "font-medium" }, "Detail Level:"), " ", filter.alertDetailLevel.replace(/-/g, " ").replace(/\b\w/g, (l) => l.toUpperCase())), /* @__PURE__ */ import_react14.default.createElement("div", null, /* @__PURE__ */ import_react14.default.createElement("span", { className: "font-medium" }, "Notifications:"), " ", Object.values(filter.notificationMethods).filter(Boolean).length, " method(s)")), filter.instantPriceBreakAlerts.enabled && /* @__PURE__ */ import_react14.default.createElement("div", { className: "mt-3 pt-3 border-t border-green-200" }, /* @__PURE__ */ import_react14.default.createElement("div", { className: "text-sm text-green-700" }, /* @__PURE__ */ import_react14.default.createElement("span", { className: "font-medium" }, "\u26A1 Instant Price Break Alerts:"), " ", filter.instantAlertPriority.charAt(0).toUpperCase() + filter.instantAlertPriority.slice(1), " Priority"))));
+};
+var Step4AlertPreferences_default = Step4AlertPreferences;
+
+// app/javascript/components/AlertPreviewModal.tsx
+var import_react15 = __toESM(require_react());
+var AlertPreviewModal = ({ filter, isOpen, onClose }) => {
+  if (!isOpen) return null;
+  const generatePreviewContent = () => {
+    const route = filter.origin && filter.destination ? `${filter.origin.iata_code} \u2192 ${filter.destination.iata_code}` : "Route not set";
+    const departureDate = filter.departureDate ? filter.departureDate.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" }) : "Date not set";
+    const mockCurrentPrice = filter.targetPrice * 0.85;
+    const savings = filter.targetPrice - mockCurrentPrice;
+    const savingsPercentage = (savings / filter.targetPrice * 100).toFixed(1);
+    return {
+      route,
+      departureDate,
+      targetPrice: filter.targetPrice,
+      currentPrice: mockCurrentPrice,
+      savings,
+      savingsPercentage,
+      urgency: savingsPercentage >= 15 ? "urgent" : savingsPercentage >= 8 ? "significant" : "minor"
+    };
+  };
+  const preview = generatePreviewContent();
+  const getUrgencyColor = (urgency) => {
+    switch (urgency) {
+      case "urgent":
+        return "bg-red-50 border-red-200 text-red-800";
+      case "significant":
+        return "bg-orange-50 border-orange-200 text-orange-800";
+      case "minor":
+        return "bg-green-50 border-green-200 text-green-800";
+      default:
+        return "bg-gray-50 border-gray-200 text-gray-800";
+    }
+  };
+  const getUrgencyEmoji = (urgency) => {
+    switch (urgency) {
+      case "urgent":
+        return "\u{1F6A8}";
+      case "significant":
+        return "\u{1F389}";
+      case "minor":
+        return "\u{1F4B0}";
+      default:
+        return "\u{1F4F1}";
+    }
+  };
+  return /* @__PURE__ */ import_react15.default.createElement("div", { className: "fixed inset-0 z-50 overflow-y-auto", "aria-labelledby": "modal-title", role: "dialog", "aria-modal": "true" }, /* @__PURE__ */ import_react15.default.createElement("div", { className: "flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0" }, /* @__PURE__ */ import_react15.default.createElement("div", { className: "fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity", onClick: onClose }), /* @__PURE__ */ import_react15.default.createElement("div", { className: "inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-2xl sm:w-full" }, /* @__PURE__ */ import_react15.default.createElement("div", { className: "bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4" }, /* @__PURE__ */ import_react15.default.createElement("div", { className: "flex items-center justify-between mb-4" }, /* @__PURE__ */ import_react15.default.createElement("h3", { className: "text-2xl font-bold text-gray-900 flex items-center" }, /* @__PURE__ */ import_react15.default.createElement(Bell, { className: "w-6 h-6 mr-2 text-blue-600" }), "Alert Preview"), /* @__PURE__ */ import_react15.default.createElement(
+    "button",
+    {
+      onClick: onClose,
+      className: "text-gray-400 hover:text-gray-500 transition-colors"
+    },
+    /* @__PURE__ */ import_react15.default.createElement(X, { className: "w-6 h-6" })
+  )), /* @__PURE__ */ import_react15.default.createElement("div", { className: "space-y-4" }, /* @__PURE__ */ import_react15.default.createElement("div", { className: `border-2 rounded-xl p-6 ${getUrgencyColor(preview.urgency)}` }, /* @__PURE__ */ import_react15.default.createElement("div", { className: "flex items-center justify-between mb-4" }, /* @__PURE__ */ import_react15.default.createElement("div", { className: "flex items-center" }, /* @__PURE__ */ import_react15.default.createElement("span", { className: "text-3xl mr-2" }, getUrgencyEmoji(preview.urgency)), /* @__PURE__ */ import_react15.default.createElement("div", null, /* @__PURE__ */ import_react15.default.createElement("h4", { className: "text-xl font-bold" }, "Price Drop Alert: ", preview.route), /* @__PURE__ */ import_react15.default.createElement("p", { className: "text-sm opacity-80" }, preview.urgency.charAt(0).toUpperCase() + preview.urgency.slice(1), " Priority"))), /* @__PURE__ */ import_react15.default.createElement(TrendingDown, { className: "w-8 h-8" })), /* @__PURE__ */ import_react15.default.createElement("div", { className: "bg-white rounded-lg p-4 mb-4" }, /* @__PURE__ */ import_react15.default.createElement("div", { className: "grid grid-cols-2 gap-4 mb-4" }, /* @__PURE__ */ import_react15.default.createElement("div", null, /* @__PURE__ */ import_react15.default.createElement("div", { className: "text-sm text-gray-600 mb-1" }, "Route"), /* @__PURE__ */ import_react15.default.createElement("div", { className: "font-semibold text-lg flex items-center" }, /* @__PURE__ */ import_react15.default.createElement(Plane, { className: "w-4 h-4 mr-1" }), preview.route)), /* @__PURE__ */ import_react15.default.createElement("div", null, /* @__PURE__ */ import_react15.default.createElement("div", { className: "text-sm text-gray-600 mb-1" }, "Departure"), /* @__PURE__ */ import_react15.default.createElement("div", { className: "font-semibold text-lg flex items-center" }, /* @__PURE__ */ import_react15.default.createElement(Calendar, { className: "w-4 h-4 mr-1" }), preview.departureDate))), /* @__PURE__ */ import_react15.default.createElement("div", { className: "border-t pt-4" }, /* @__PURE__ */ import_react15.default.createElement("div", { className: "flex items-center justify-between mb-2" }, /* @__PURE__ */ import_react15.default.createElement("span", { className: "text-sm text-gray-600" }, "Target Price"), /* @__PURE__ */ import_react15.default.createElement("span", { className: "text-lg font-semibold line-through text-gray-400" }, "$", preview.targetPrice.toFixed(2))), /* @__PURE__ */ import_react15.default.createElement("div", { className: "flex items-center justify-between mb-2" }, /* @__PURE__ */ import_react15.default.createElement("span", { className: "text-sm text-gray-600" }, "Current Price"), /* @__PURE__ */ import_react15.default.createElement("span", { className: "text-2xl font-bold text-green-600" }, "$", preview.currentPrice.toFixed(2))), /* @__PURE__ */ import_react15.default.createElement("div", { className: "flex items-center justify-between pt-2 border-t" }, /* @__PURE__ */ import_react15.default.createElement("span", { className: "font-semibold" }, "You Save"), /* @__PURE__ */ import_react15.default.createElement("span", { className: "text-xl font-bold text-green-700" }, "$", preview.savings.toFixed(2), " (", preview.savingsPercentage, "%)")))), /* @__PURE__ */ import_react15.default.createElement("div", { className: "bg-white rounded-lg p-3" }, /* @__PURE__ */ import_react15.default.createElement("p", { className: "text-sm" }, preview.urgency === "urgent" && "\u{1F6A8} This is a significant price drop! Book quickly as this price may not last long.", preview.urgency === "significant" && "\u{1F389} This is a good deal worth considering. Review and book within 24 hours.", preview.urgency === "minor" && "\u{1F4B0} Small price drop detected. Monitor for better deals."))), /* @__PURE__ */ import_react15.default.createElement("div", { className: "bg-gray-50 rounded-lg p-4" }, /* @__PURE__ */ import_react15.default.createElement("h5", { className: "font-semibold text-gray-900 mb-3" }, "Notification Methods"), /* @__PURE__ */ import_react15.default.createElement("div", { className: "grid grid-cols-2 gap-3" }, filter.notificationMethods.email && /* @__PURE__ */ import_react15.default.createElement("div", { className: "flex items-center bg-white p-3 rounded-lg" }, /* @__PURE__ */ import_react15.default.createElement(Mail, { className: "w-5 h-5 text-gray-600 mr-2" }), /* @__PURE__ */ import_react15.default.createElement("span", { className: "text-sm" }, "Email")), filter.notificationMethods.sms && /* @__PURE__ */ import_react15.default.createElement("div", { className: "flex items-center bg-white p-3 rounded-lg" }, /* @__PURE__ */ import_react15.default.createElement(MessageSquare, { className: "w-5 h-5 text-gray-600 mr-2" }), /* @__PURE__ */ import_react15.default.createElement("span", { className: "text-sm" }, "SMS")), filter.notificationMethods.push && /* @__PURE__ */ import_react15.default.createElement("div", { className: "flex items-center bg-white p-3 rounded-lg" }, /* @__PURE__ */ import_react15.default.createElement(Smartphone, { className: "w-5 h-5 text-gray-600 mr-2" }), /* @__PURE__ */ import_react15.default.createElement("span", { className: "text-sm" }, "Push")), filter.notificationMethods.browser && /* @__PURE__ */ import_react15.default.createElement("div", { className: "flex items-center bg-white p-3 rounded-lg" }, /* @__PURE__ */ import_react15.default.createElement(Monitor, { className: "w-5 h-5 text-gray-600 mr-2" }), /* @__PURE__ */ import_react15.default.createElement("span", { className: "text-sm" }, "Browser"))), Object.values(filter.notificationMethods).every((v) => !v) && /* @__PURE__ */ import_react15.default.createElement("p", { className: "text-sm text-gray-500 mt-2" }, "No notification methods enabled")), /* @__PURE__ */ import_react15.default.createElement("div", { className: "bg-blue-50 rounded-lg p-4" }, /* @__PURE__ */ import_react15.default.createElement("h5", { className: "font-semibold text-blue-900 mb-2" }, "Alert Settings"), /* @__PURE__ */ import_react15.default.createElement("div", { className: "grid grid-cols-2 gap-2 text-sm text-blue-800" }, /* @__PURE__ */ import_react15.default.createElement("div", null, /* @__PURE__ */ import_react15.default.createElement("span", { className: "font-medium" }, "Monitoring:"), " ", filter.monitorFrequency.replace("-", " ")), /* @__PURE__ */ import_react15.default.createElement("div", null, /* @__PURE__ */ import_react15.default.createElement("span", { className: "font-medium" }, "Urgency:"), " ", filter.alertUrgency), /* @__PURE__ */ import_react15.default.createElement("div", null, /* @__PURE__ */ import_react15.default.createElement("span", { className: "font-medium" }, "Price Drop:"), " ", filter.priceDropPercentage, "%"), /* @__PURE__ */ import_react15.default.createElement("div", null, /* @__PURE__ */ import_react15.default.createElement("span", { className: "font-medium" }, "Detail Level:"), " ", filter.alertDetailLevel.replace(/-/g, " ")))))), /* @__PURE__ */ import_react15.default.createElement("div", { className: "bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse" }, /* @__PURE__ */ import_react15.default.createElement(
+    "button",
+    {
+      type: "button",
+      onClick: onClose,
+      className: "w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-blue-600 text-base font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:ml-3 sm:w-auto sm:text-sm"
+    },
+    "Close Preview"
+  )))));
+};
+var AlertPreviewModal_default = AlertPreviewModal;
+
+// app/javascript/components/FlightPriceFilter.tsx
+var FlightPriceFilter = ({
+  onSaveFilter,
+  onPreviewAlert,
+  onTestAlert,
+  initialFilter
+}) => {
+  const [currentStep, setCurrentStep] = (0, import_react16.useState)(1);
+  const [filter, setFilter] = (0, import_react16.useState)({
+    // Step 1: Route & Dates
+    origin: null,
+    destination: null,
+    tripType: "round-trip",
+    departureDate: null,
+    returnDate: null,
+    flexibleDates: false,
+    dateFlexibility: 3,
+    // Step 2: Flight Preferences
+    cabinClass: "economy",
+    passengers: { adults: 1, children: 0, infants: 0 },
+    airlinePreferences: [],
+    maxStops: "nonstop",
+    preferredTimes: { departure: [], arrival: [] },
+    // Step 3: Price Settings
+    targetPrice: 0,
+    currency: "USD",
+    instantPriceBreakAlerts: {
+      enabled: false,
+      type: "exact-match",
+      flexibilityOptions: {
+        airline: false,
+        stops: false,
+        times: false,
+        dates: false
+      }
+    },
+    priceDropPercentage: 20,
+    budgetRange: { min: 0, max: 1e3 },
+    priceBreakConfidence: "medium",
+    // Step 4: Alert Preferences
+    monitorFrequency: "daily",
+    alertUrgency: "moderate",
+    instantAlertPriority: "high",
+    alertDetailLevel: "exact-matches-only",
+    notificationMethods: {
+      email: true,
+      sms: false,
+      push: true,
+      browser: true
+    },
+    // Metadata
+    filterName: "",
+    description: "",
+    createdAt: /* @__PURE__ */ new Date(),
+    isActive: true,
+    ...initialFilter
+  });
+  const [errors, setErrors] = (0, import_react16.useState)([]);
+  const [showPreviewModal, setShowPreviewModal] = (0, import_react16.useState)(false);
+  const steps = [
+    { id: 1, title: "Route & Dates", icon: MapPin },
+    { id: 2, title: "Flight Preferences", icon: Plane },
+    { id: 3, title: "Price Settings", icon: DollarSign },
+    { id: 4, title: "Alert Preferences", icon: Bell }
+  ];
+  const updateFilter = (updates) => {
+    setFilter((prev) => ({ ...prev, ...updates }));
+  };
+  const validateStep = (step) => {
+    const newErrors = [];
+    switch (step) {
+      case 1:
+        if (!filter.origin) newErrors.push({ field: "origin", message: "Origin airport is required" });
+        if (!filter.destination) newErrors.push({ field: "destination", message: "Destination airport is required" });
+        if (!filter.departureDate) newErrors.push({ field: "departureDate", message: "Departure date is required" });
+        if (filter.tripType === "round-trip" && !filter.returnDate) {
+          newErrors.push({ field: "returnDate", message: "Return date is required for round-trip" });
+        }
+        break;
+      case 2:
+        if (filter.passengers?.adults === 0) newErrors.push({ field: "passengers", message: "At least one adult passenger is required" });
+        break;
+      case 3:
+        if (filter.targetPrice <= 0) newErrors.push({ field: "targetPrice", message: "Target price must be greater than 0" });
+        if (filter.budgetRange?.min >= filter.budgetRange?.max) {
+          newErrors.push({ field: "budgetRange", message: "Minimum budget must be less than maximum budget" });
+        }
+        break;
+      case 4:
+        if (!filter.filterName?.trim()) newErrors.push({ field: "filterName", message: "Filter name is required" });
+        if (!Object.values(filter.notificationMethods || {}).some(Boolean)) {
+          newErrors.push({ field: "notificationMethods", message: "At least one notification method must be selected" });
+        }
+        break;
+    }
+    setErrors(newErrors);
+    return newErrors.length === 0;
+  };
+  const nextStep = () => {
+    if (validateStep(currentStep)) {
+      setCurrentStep((prev) => Math.min(prev + 1, 4));
+    }
+  };
+  const prevStep = () => {
+    setCurrentStep((prev) => Math.max(prev - 1, 1));
+  };
+  const handleSaveFilter = () => {
+    if (validateStep(4) && onSaveFilter) {
+      onSaveFilter(filter);
+    }
+  };
+  const getError = (field) => {
+    return errors.find((error2) => error2.field === field)?.message;
+  };
+  return /* @__PURE__ */ import_react16.default.createElement("div", { className: "w-full max-w-5xl mx-auto px-4 py-8 bg-transparent" }, /* @__PURE__ */ import_react16.default.createElement("div", { className: "text-center mb-10" }, /* @__PURE__ */ import_react16.default.createElement("h1", { className: "text-4xl font-bold text-gray-900 mb-3" }, "Create Flight Price Alert"), /* @__PURE__ */ import_react16.default.createElement("p", { className: "text-lg text-gray-600 max-w-2xl mx-auto" }, "Set up intelligent monitoring and get notified when prices drop below your target")), /* @__PURE__ */ import_react16.default.createElement("div", { className: "mb-10" }, /* @__PURE__ */ import_react16.default.createElement("div", { className: "flex items-center justify-center space-x-2 sm:space-x-4" }, steps.map((step, index) => {
+    const isActive = currentStep === step.id;
+    const isCompleted = currentStep > step.id;
+    return /* @__PURE__ */ import_react16.default.createElement(import_react16.default.Fragment, { key: step.id }, /* @__PURE__ */ import_react16.default.createElement("div", { className: "flex flex-col items-center" }, /* @__PURE__ */ import_react16.default.createElement("div", { className: `w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center text-sm font-semibold transition-all duration-300 ${isActive ? "bg-gradient-to-br from-blue-600 to-blue-700 text-white shadow-lg scale-110" : isCompleted ? "bg-green-500 text-white" : "bg-gray-100 text-gray-400"}` }, isCompleted ? /* @__PURE__ */ import_react16.default.createElement(Check, { className: "w-5 h-5 sm:w-6 sm:h-6" }) : step.id), /* @__PURE__ */ import_react16.default.createElement("span", { className: `mt-2 text-xs sm:text-sm font-medium hidden sm:block ${isActive ? "text-blue-600" : isCompleted ? "text-green-600" : "text-gray-400"}` }, step.title)), index < steps.length - 1 && /* @__PURE__ */ import_react16.default.createElement("div", { className: `flex-1 h-1 mx-2 sm:mx-4 transition-all duration-300 ${isCompleted ? "bg-green-500" : "bg-gray-200"}`, style: { minWidth: "40px", maxWidth: "80px" } }));
+  }))), /* @__PURE__ */ import_react16.default.createElement("div", { className: "bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-100" }, /* @__PURE__ */ import_react16.default.createElement("div", { className: "p-6 sm:p-8 lg:p-10" }, currentStep === 1 && /* @__PURE__ */ import_react16.default.createElement(
+    Step1RouteDates_default,
+    {
+      filter,
+      updateFilter,
+      errors
+    }
+  ), currentStep === 2 && /* @__PURE__ */ import_react16.default.createElement(
+    Step2FlightPreferences_default,
+    {
+      filter,
+      updateFilter,
+      errors
+    }
+  ), currentStep === 3 && /* @__PURE__ */ import_react16.default.createElement(
+    Step3PriceSettings_default,
+    {
+      filter,
+      updateFilter,
+      errors,
+      priceBreakExamples: [],
+      historicalData: []
+    }
+  ), currentStep === 4 && /* @__PURE__ */ import_react16.default.createElement(
+    Step4AlertPreferences_default,
+    {
+      filter,
+      updateFilter,
+      errors
+    }
+  )), /* @__PURE__ */ import_react16.default.createElement("div", { className: "bg-gray-50 border-t border-gray-200 px-6 sm:px-8 lg:px-10 py-6" }, /* @__PURE__ */ import_react16.default.createElement("div", { className: "flex justify-between items-center" }, /* @__PURE__ */ import_react16.default.createElement(
+    "button",
+    {
+      onClick: prevStep,
+      disabled: currentStep === 1,
+      className: "flex items-center px-6 py-3 text-gray-700 bg-white border-2 border-gray-300 rounded-xl hover:bg-gray-50 hover:border-gray-400 disabled:opacity-50 disabled:cursor-not-allowed transition-all font-medium"
+    },
+    /* @__PURE__ */ import_react16.default.createElement(ArrowLeft, { className: "w-4 h-4 mr-2" }),
+    "Previous"
+  ), currentStep < 4 ? /* @__PURE__ */ import_react16.default.createElement(
+    "button",
+    {
+      onClick: nextStep,
+      className: "flex items-center px-8 py-3 bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-xl hover:from-blue-700 hover:to-blue-800 shadow-lg hover:shadow-xl transition-all font-semibold text-base"
+    },
+    "Continue",
+    /* @__PURE__ */ import_react16.default.createElement(ArrowRight, { className: "w-5 h-5 ml-2" })
+  ) : /* @__PURE__ */ import_react16.default.createElement("div", { className: "flex items-center space-x-3" }, /* @__PURE__ */ import_react16.default.createElement(
+    "button",
+    {
+      onClick: () => {
+        if (onPreviewAlert) {
+          onPreviewAlert(filter);
+          setShowPreviewModal(true);
+        }
+      },
+      className: "flex items-center px-6 py-3 bg-gray-100 text-gray-700 rounded-xl hover:bg-gray-200 transition-all font-medium text-base"
+    },
+    "Preview Alert"
+  ), /* @__PURE__ */ import_react16.default.createElement(
+    "button",
+    {
+      onClick: () => {
+        if (onTestAlert) {
+          onTestAlert(filter);
+        }
+      },
+      className: "flex items-center px-6 py-3 bg-blue-100 text-blue-700 rounded-xl hover:bg-blue-200 transition-all font-medium text-base"
+    },
+    "Test Alert"
+  ), /* @__PURE__ */ import_react16.default.createElement(
+    "button",
+    {
+      onClick: handleSaveFilter,
+      className: "flex items-center px-8 py-3 bg-gradient-to-r from-green-600 to-green-700 text-white rounded-xl hover:from-green-700 hover:to-green-800 shadow-lg hover:shadow-xl transition-all font-semibold text-base"
+    },
+    /* @__PURE__ */ import_react16.default.createElement(Search, { className: "w-5 h-5 mr-2" }),
+    "Create Price Alert"
+  ))))), /* @__PURE__ */ import_react16.default.createElement("div", { className: "mt-8 bg-gradient-to-br from-blue-50 to-indigo-50 rounded-2xl p-6 border border-blue-100" }, /* @__PURE__ */ import_react16.default.createElement("h3", { className: "text-lg font-semibold text-gray-900 mb-4 flex items-center" }, /* @__PURE__ */ import_react16.default.createElement(Plane, { className: "w-5 h-5 mr-2 text-blue-600" }), "Filter Summary"), /* @__PURE__ */ import_react16.default.createElement("div", { className: "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 text-sm" }, /* @__PURE__ */ import_react16.default.createElement("div", { className: "flex items-center" }, /* @__PURE__ */ import_react16.default.createElement("span", { className: "font-medium text-gray-700 mr-2" }, "From:"), /* @__PURE__ */ import_react16.default.createElement("span", { className: "text-gray-900" }, filter.origin ? `${filter.origin.iata_code} - ${filter.origin.city}` : "Not selected")), /* @__PURE__ */ import_react16.default.createElement("div", { className: "flex items-center" }, /* @__PURE__ */ import_react16.default.createElement("span", { className: "font-medium text-gray-700 mr-2" }, "To:"), /* @__PURE__ */ import_react16.default.createElement("span", { className: "text-gray-900" }, filter.destination ? `${filter.destination.iata_code} - ${filter.destination.city}` : "Not selected")), /* @__PURE__ */ import_react16.default.createElement("div", { className: "flex items-center" }, /* @__PURE__ */ import_react16.default.createElement("span", { className: "font-medium text-gray-700 mr-2" }, "Trip:"), /* @__PURE__ */ import_react16.default.createElement("span", { className: "text-gray-900 capitalize" }, filter.tripType?.replace("-", " "))), /* @__PURE__ */ import_react16.default.createElement("div", { className: "flex items-center" }, /* @__PURE__ */ import_react16.default.createElement("span", { className: "font-medium text-gray-700 mr-2" }, "Cabin:"), /* @__PURE__ */ import_react16.default.createElement("span", { className: "text-gray-900 capitalize" }, filter.cabinClass?.replace("-", " "))), /* @__PURE__ */ import_react16.default.createElement("div", { className: "flex items-center" }, /* @__PURE__ */ import_react16.default.createElement("span", { className: "font-medium text-gray-700 mr-2" }, "Passengers:"), /* @__PURE__ */ import_react16.default.createElement("span", { className: "text-gray-900" }, (filter.passengers?.adults || 0) + (filter.passengers?.children || 0) + (filter.passengers?.infants || 0))), /* @__PURE__ */ import_react16.default.createElement("div", { className: "flex items-center" }, /* @__PURE__ */ import_react16.default.createElement("span", { className: "font-medium text-gray-700 mr-2" }, "Target Price:"), /* @__PURE__ */ import_react16.default.createElement("span", { className: "text-gray-900 font-semibold" }, "$", filter.targetPrice || 0)))), /* @__PURE__ */ import_react16.default.createElement(
+    AlertPreviewModal_default,
+    {
+      filter,
+      isOpen: showPreviewModal,
+      onClose: () => setShowPreviewModal(false)
+    }
+  ));
+};
+var FlightPriceFilter_default = FlightPriceFilter;
+
+// app/javascript/controllers/flight_filter_controller.js
+var flight_filter_controller_default = class extends Controller {
+  static targets = ["container"];
+  static values = {
+    initialFilter: Object,
+    filterId: Number
+  };
+  connect() {
+    console.log("\u{1F50C} FlightFilterController: Connected!");
+    console.log("\u{1F50C} Has container target:", this.hasContainerTarget);
+    console.log("\u{1F50C} Container element:", this.containerTarget);
+    this.mountReactComponent();
+  }
+  disconnect() {
+    if (this.reactRoot) {
+      this.reactRoot.unmount();
+    }
+  }
+  mountReactComponent() {
+    if (this.hasContainerTarget) {
+      console.log("\u2705 FlightFilterController: Mounting React component...");
+      try {
+        this.reactRoot = (0, import_client2.createRoot)(this.containerTarget);
+        this.reactRoot.render(
+          import_react17.default.createElement(FlightPriceFilter_default, {
+            onSaveFilter: (filter) => this.handleSaveFilter(filter),
+            onPreviewAlert: (filter) => this.handlePreviewAlert(filter),
+            onTestAlert: (filter) => this.handleTestAlert(filter),
+            initialFilter: this.initialFilterValue || {}
+          })
+        );
+        console.log("\u2705 FlightFilterController: React component mounted successfully");
+      } catch (error2) {
+        console.error("\u274C FlightFilterController: Error mounting React component:", error2);
+        this.containerTarget.innerHTML = `
+          <div style="padding: 20px; background: #fed7d7; border: 2px solid #e53e3e; border-radius: 8px; color: #c53030;">
+            <h2>\u274C React Component Error</h2>
+            <p>Error: ${error2.message}</p>
+            <pre>${error2.stack}</pre>
+          </div>
+        `;
+      }
+    } else {
+      console.error("\u274C FlightFilterController: Container target not found");
+    }
+  }
+  handleSaveFilter(filter) {
+    const formData = this.convertFilterToFormData(filter);
+    const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute("content");
+    fetch("/flight_filters", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "X-CSRF-Token": csrfToken,
+        "Accept": "application/json"
+      },
+      body: JSON.stringify({
+        flight_filter: formData
+      })
+    }).then((response) => {
+      if (!response.ok) {
+        return response.json().then((err) => {
+          throw new Error(err.errors ? Object.values(err.errors).flat().join(", ") : "Failed to save filter");
+        });
+      }
+      return response.json();
+    }).then((data) => {
+      if (data.id || data.success) {
+        const filterId = data.id || data.filter?.id;
+        if (filterId) {
+          window.location.href = `/flight_filters/${filterId}`;
+        } else {
+          alert("Filter saved successfully!");
+        }
+      } else if (data.errors) {
+        alert("Error creating filter: " + Object.values(data.errors).flat().join(", "));
+      }
+    }).catch((error2) => {
+      console.error("Error:", error2);
+      alert("Error saving filter: " + (error2.message || "Please try again."));
+    });
+  }
+  handlePreviewAlert(filter) {
+    console.log("Preview alert for filter:", filter);
+  }
+  handleTestAlert(filter) {
+    const formData = this.convertFilterToFormData(filter);
+    const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute("content");
+    if (!this.filterIdValue) {
+      fetch("/flight_filters", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "X-CSRF-Token": csrfToken,
+          "Accept": "application/json"
+        },
+        body: JSON.stringify({
+          flight_filter: formData
+        })
+      }).then((response) => response.json()).then((data) => {
+        if (data.id) {
+          this.performTestAlert(data.id);
+        } else {
+          alert("Error: Could not save filter. Please try again.");
+        }
+      }).catch((error2) => {
+        console.error("Error:", error2);
+        alert("Error saving filter. Please try again.");
+      });
+    } else {
+      this.performTestAlert(this.filterIdValue);
+    }
+  }
+  performTestAlert(filterId) {
+    const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute("content");
+    const loadingMessage = document.createElement("div");
+    loadingMessage.className = "fixed top-4 right-4 bg-blue-600 text-white px-6 py-3 rounded-lg shadow-lg z-50";
+    loadingMessage.innerHTML = "\u{1F504} Testing price check... This may take a moment.";
+    document.body.appendChild(loadingMessage);
+    fetch(`/flight_filters/${filterId}/test_price_check`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "X-CSRF-Token": csrfToken,
+        "Accept": "application/json"
+      }
+    }).then((response) => {
+      if (!response.ok) {
+        return response.json().then((err) => {
+          throw new Error(err.error || "Failed to test alert");
+        });
+      }
+      return response.json();
+    }).then((data) => {
+      if (loadingMessage.parentElement) {
+        document.body.removeChild(loadingMessage);
+      }
+      if (data.success) {
+        const resultsMessage = document.createElement("div");
+        resultsMessage.className = "fixed top-4 right-4 bg-green-600 text-white px-6 py-3 rounded-lg shadow-lg z-50 max-w-md";
+        resultsMessage.innerHTML = `
+          <div class="font-bold mb-2">\u2705 Test Alert Complete!</div>
+          <div class="text-sm">
+            <p><strong>Route:</strong> ${data.route || "N/A"}</p>
+            <p><strong>Latest Prices Found:</strong> ${data.latest_prices?.length || 0}</p>
+            <p><strong>Alerts Triggered:</strong> ${data.alerts_triggered || 0}</p>
+            ${data.monitoring_result?.error ? `<p class="text-yellow-200"><strong>Note:</strong> ${data.monitoring_result.error}</p>` : ""}
+          </div>
+          <button onclick="this.parentElement.remove()" class="mt-2 text-xs underline hover:text-gray-200">Close</button>
+        `;
+        document.body.appendChild(resultsMessage);
+        setTimeout(() => {
+          if (resultsMessage.parentElement) {
+            document.body.removeChild(resultsMessage);
+          }
+        }, 1e4);
+      } else {
+        alert("Test alert completed but no results were found. This is normal if there are no matching flights yet.");
+      }
+    }).catch((error2) => {
+      if (loadingMessage.parentElement) {
+        document.body.removeChild(loadingMessage);
+      }
+      console.error("Error:", error2);
+      alert("Error testing alert: " + (error2.message || "Please try again later."));
+    });
+  }
+  convertFilterToFormData(filter) {
+    const formatArray = (arr) => {
+      return JSON.stringify(arr);
+    };
+    return {
+      name: filter.filterName || "Untitled Filter",
+      description: filter.description || "",
+      trip_type: filter.tripType || "round-trip",
+      origin_airports: filter.origin ? formatArray([filter.origin.iata_code]) : "[]",
+      destination_airports: filter.destination ? formatArray([filter.destination.iata_code]) : "[]",
+      departure_dates: filter.departureDate ? formatArray([filter.departureDate.toISOString().split("T")[0]]) : "[]",
+      return_dates: filter.returnDate ? formatArray([filter.returnDate.toISOString().split("T")[0]]) : "[]",
+      flexible_dates: filter.flexibleDates || false,
+      date_flexibility: filter.dateFlexibility || 3,
+      passenger_details: {
+        adults: filter.passengers?.adults || 1,
+        children: filter.passengers?.children || 0,
+        infants: filter.passengers?.infants || 0
+      },
+      advanced_preferences: {
+        cabin_class: filter.cabinClass || "economy",
+        max_stops: filter.maxStops || "any",
+        airline_preferences: filter.airlinePreferences || [],
+        preferred_times: filter.preferredTimes || { departure: [], arrival: [] }
+      },
+      price_parameters: {
+        target_price: filter.targetPrice || 0,
+        min_price: filter.budgetRange?.min || 0,
+        max_price: filter.budgetRange?.max || 1e3,
+        currency: filter.currency || "USD"
+      },
+      alert_settings: {
+        monitor_frequency: filter.monitorFrequency || "daily",
+        price_drop_threshold: filter.priceDropPercentage || 10,
+        notification_methods: filter.notificationMethods || { email: true, sms: false, push: true, browser: true }
+      },
+      is_active: filter.isActive !== false
+    };
+  }
+};
+
 // app/javascript/controllers/price_alert_controller.js
 var price_alert_controller_default = class extends Controller {
   static targets = ["settings", "checkbox"];
@@ -50615,21 +52343,22 @@ window.Stimulus = application;
 application.register("date-range", date_range_controller_default);
 application.register("firebase-auth", firebase_auth_controller_default);
 application.register("flight-search", flight_search_controller_default);
+application.register("flight-filter", flight_filter_controller_default);
 application.register("price-alert", price_alert_controller_default);
 application.register("price-range", price_range_controller_default);
 
 // app/javascript/application.js
-var import_react11 = __toESM(require_react());
-var import_client2 = __toESM(require_client());
+var import_react20 = __toESM(require_react());
+var import_client3 = __toESM(require_client());
 
 // app/javascript/components/AirportAutocompleteTest.tsx
-var import_react9 = __toESM(require_react());
+var import_react18 = __toESM(require_react());
 var AirportAutocompleteTest = () => {
-  const [originSearch, setOriginSearch] = (0, import_react9.useState)("");
-  const [destinationSearch, setDestinationSearch] = (0, import_react9.useState)("");
-  const [selectedOrigin, setSelectedOrigin] = (0, import_react9.useState)(null);
-  const [selectedDestination, setSelectedDestination] = (0, import_react9.useState)(null);
-  return /* @__PURE__ */ import_react9.default.createElement("div", { className: "space-y-6" }, /* @__PURE__ */ import_react9.default.createElement("div", { className: "grid grid-cols-1 md:grid-cols-2 gap-6" }, /* @__PURE__ */ import_react9.default.createElement("div", null, /* @__PURE__ */ import_react9.default.createElement(
+  const [originSearch, setOriginSearch] = (0, import_react18.useState)("");
+  const [destinationSearch, setDestinationSearch] = (0, import_react18.useState)("");
+  const [selectedOrigin, setSelectedOrigin] = (0, import_react18.useState)(null);
+  const [selectedDestination, setSelectedDestination] = (0, import_react18.useState)(null);
+  return /* @__PURE__ */ import_react18.default.createElement("div", { className: "space-y-6" }, /* @__PURE__ */ import_react18.default.createElement("div", { className: "grid grid-cols-1 md:grid-cols-2 gap-6" }, /* @__PURE__ */ import_react18.default.createElement("div", null, /* @__PURE__ */ import_react18.default.createElement(
     AirportAutocomplete_default,
     {
       value: originSearch,
@@ -50639,7 +52368,7 @@ var AirportAutocompleteTest = () => {
       label: "Origin Airport",
       selectedAirport: selectedOrigin
     }
-  ), selectedOrigin && /* @__PURE__ */ import_react9.default.createElement("div", { className: "mt-3 p-3 bg-green-50 rounded-lg border border-green-200" }, /* @__PURE__ */ import_react9.default.createElement("h4", { className: "font-medium text-green-900 mb-1" }, "Selected Origin:"), /* @__PURE__ */ import_react9.default.createElement("p", { className: "text-sm text-green-800" }, /* @__PURE__ */ import_react9.default.createElement("strong", null, selectedOrigin.iata_code), " - ", selectedOrigin.name), /* @__PURE__ */ import_react9.default.createElement("p", { className: "text-xs text-green-700" }, selectedOrigin.city, ", ", selectedOrigin.country))), /* @__PURE__ */ import_react9.default.createElement("div", null, /* @__PURE__ */ import_react9.default.createElement(
+  ), selectedOrigin && /* @__PURE__ */ import_react18.default.createElement("div", { className: "mt-3 p-3 bg-green-50 rounded-lg border border-green-200" }, /* @__PURE__ */ import_react18.default.createElement("h4", { className: "font-medium text-green-900 mb-1" }, "Selected Origin:"), /* @__PURE__ */ import_react18.default.createElement("p", { className: "text-sm text-green-800" }, /* @__PURE__ */ import_react18.default.createElement("strong", null, selectedOrigin.iata_code), " - ", selectedOrigin.name), /* @__PURE__ */ import_react18.default.createElement("p", { className: "text-xs text-green-700" }, selectedOrigin.city, ", ", selectedOrigin.country))), /* @__PURE__ */ import_react18.default.createElement("div", null, /* @__PURE__ */ import_react18.default.createElement(
     AirportAutocomplete_default,
     {
       value: destinationSearch,
@@ -50649,16 +52378,16 @@ var AirportAutocompleteTest = () => {
       label: "Destination Airport",
       selectedAirport: selectedDestination
     }
-  ), selectedDestination && /* @__PURE__ */ import_react9.default.createElement("div", { className: "mt-3 p-3 bg-green-50 rounded-lg border border-green-200" }, /* @__PURE__ */ import_react9.default.createElement("h4", { className: "font-medium text-green-900 mb-1" }, "Selected Destination:"), /* @__PURE__ */ import_react9.default.createElement("p", { className: "text-sm text-green-800" }, /* @__PURE__ */ import_react9.default.createElement("strong", null, selectedDestination.iata_code), " - ", selectedDestination.name), /* @__PURE__ */ import_react9.default.createElement("p", { className: "text-xs text-green-700" }, selectedDestination.city, ", ", selectedDestination.country)))), selectedOrigin && selectedDestination && /* @__PURE__ */ import_react9.default.createElement("div", { className: "p-4 bg-blue-50 rounded-lg border border-blue-200" }, /* @__PURE__ */ import_react9.default.createElement("h4", { className: "font-medium text-blue-900 mb-2" }, "Route Summary:"), /* @__PURE__ */ import_react9.default.createElement("p", { className: "text-blue-800" }, /* @__PURE__ */ import_react9.default.createElement("strong", null, selectedOrigin.iata_code), " \u2192 ", /* @__PURE__ */ import_react9.default.createElement("strong", null, selectedDestination.iata_code)), /* @__PURE__ */ import_react9.default.createElement("p", { className: "text-sm text-blue-700 mt-1" }, selectedOrigin.city, " \u2192 ", selectedDestination.city)), /* @__PURE__ */ import_react9.default.createElement("div", { className: "space-y-4" }, /* @__PURE__ */ import_react9.default.createElement("h3", { className: "font-semibold text-gray-900" }, "Test Results:"), /* @__PURE__ */ import_react9.default.createElement("div", { className: "grid grid-cols-1 md:grid-cols-2 gap-4" }, /* @__PURE__ */ import_react9.default.createElement("div", { className: "p-4 border rounded-lg" }, /* @__PURE__ */ import_react9.default.createElement("h4", { className: "font-medium text-gray-900 mb-2" }, "Origin Selection"), /* @__PURE__ */ import_react9.default.createElement("pre", { className: "text-xs text-gray-600 bg-gray-50 p-2 rounded overflow-auto" }, JSON.stringify(selectedOrigin, null, 2))), /* @__PURE__ */ import_react9.default.createElement("div", { className: "p-4 border rounded-lg" }, /* @__PURE__ */ import_react9.default.createElement("h4", { className: "font-medium text-gray-900 mb-2" }, "Destination Selection"), /* @__PURE__ */ import_react9.default.createElement("pre", { className: "text-xs text-gray-600 bg-gray-50 p-2 rounded overflow-auto" }, JSON.stringify(selectedDestination, null, 2))))));
+  ), selectedDestination && /* @__PURE__ */ import_react18.default.createElement("div", { className: "mt-3 p-3 bg-green-50 rounded-lg border border-green-200" }, /* @__PURE__ */ import_react18.default.createElement("h4", { className: "font-medium text-green-900 mb-1" }, "Selected Destination:"), /* @__PURE__ */ import_react18.default.createElement("p", { className: "text-sm text-green-800" }, /* @__PURE__ */ import_react18.default.createElement("strong", null, selectedDestination.iata_code), " - ", selectedDestination.name), /* @__PURE__ */ import_react18.default.createElement("p", { className: "text-xs text-green-700" }, selectedDestination.city, ", ", selectedDestination.country)))), selectedOrigin && selectedDestination && /* @__PURE__ */ import_react18.default.createElement("div", { className: "p-4 bg-blue-50 rounded-lg border border-blue-200" }, /* @__PURE__ */ import_react18.default.createElement("h4", { className: "font-medium text-blue-900 mb-2" }, "Route Summary:"), /* @__PURE__ */ import_react18.default.createElement("p", { className: "text-blue-800" }, /* @__PURE__ */ import_react18.default.createElement("strong", null, selectedOrigin.iata_code), " \u2192 ", /* @__PURE__ */ import_react18.default.createElement("strong", null, selectedDestination.iata_code)), /* @__PURE__ */ import_react18.default.createElement("p", { className: "text-sm text-blue-700 mt-1" }, selectedOrigin.city, " \u2192 ", selectedDestination.city)), /* @__PURE__ */ import_react18.default.createElement("div", { className: "space-y-4" }, /* @__PURE__ */ import_react18.default.createElement("h3", { className: "font-semibold text-gray-900" }, "Test Results:"), /* @__PURE__ */ import_react18.default.createElement("div", { className: "grid grid-cols-1 md:grid-cols-2 gap-4" }, /* @__PURE__ */ import_react18.default.createElement("div", { className: "p-4 border rounded-lg" }, /* @__PURE__ */ import_react18.default.createElement("h4", { className: "font-medium text-gray-900 mb-2" }, "Origin Selection"), /* @__PURE__ */ import_react18.default.createElement("pre", { className: "text-xs text-gray-600 bg-gray-50 p-2 rounded overflow-auto" }, JSON.stringify(selectedOrigin, null, 2))), /* @__PURE__ */ import_react18.default.createElement("div", { className: "p-4 border rounded-lg" }, /* @__PURE__ */ import_react18.default.createElement("h4", { className: "font-medium text-gray-900 mb-2" }, "Destination Selection"), /* @__PURE__ */ import_react18.default.createElement("pre", { className: "text-xs text-gray-600 bg-gray-50 p-2 rounded overflow-auto" }, JSON.stringify(selectedDestination, null, 2))))));
 };
 var AirportAutocompleteTest_default = AirportAutocompleteTest;
 
 // app/javascript/components/SimpleTest.tsx
-var import_react10 = __toESM(require_react());
+var import_react19 = __toESM(require_react());
 var SimpleTest = () => {
-  const [inputValue, setInputValue] = (0, import_react10.useState)("");
-  const [clickCount, setClickCount] = (0, import_react10.useState)(0);
-  return /* @__PURE__ */ import_react10.default.createElement("div", { style: { padding: "20px", border: "2px solid #10b981", borderRadius: "8px", backgroundColor: "#ecfdf5" } }, /* @__PURE__ */ import_react10.default.createElement("h2", { style: { color: "#065f46", marginBottom: "16px" } }, "\u2705 React Component is Working!"), /* @__PURE__ */ import_react10.default.createElement("div", { style: { marginBottom: "16px" } }, /* @__PURE__ */ import_react10.default.createElement("label", { style: { display: "block", marginBottom: "8px", color: "#065f46" } }, "Test Input (type something):"), /* @__PURE__ */ import_react10.default.createElement(
+  const [inputValue, setInputValue] = (0, import_react19.useState)("");
+  const [clickCount, setClickCount] = (0, import_react19.useState)(0);
+  return /* @__PURE__ */ import_react19.default.createElement("div", { style: { padding: "20px", border: "2px solid #10b981", borderRadius: "8px", backgroundColor: "#ecfdf5" } }, /* @__PURE__ */ import_react19.default.createElement("h2", { style: { color: "#065f46", marginBottom: "16px" } }, "\u2705 React Component is Working!"), /* @__PURE__ */ import_react19.default.createElement("div", { style: { marginBottom: "16px" } }, /* @__PURE__ */ import_react19.default.createElement("label", { style: { display: "block", marginBottom: "8px", color: "#065f46" } }, "Test Input (type something):"), /* @__PURE__ */ import_react19.default.createElement(
     "input",
     {
       type: "text",
@@ -50673,7 +52402,7 @@ var SimpleTest = () => {
         fontSize: "16px"
       }
     }
-  ), /* @__PURE__ */ import_react10.default.createElement("p", { style: { marginTop: "8px", color: "#047857" } }, "You typed: ", /* @__PURE__ */ import_react10.default.createElement("strong", null, inputValue || "(nothing)"))), /* @__PURE__ */ import_react10.default.createElement("div", { style: { marginBottom: "16px" } }, /* @__PURE__ */ import_react10.default.createElement(
+  ), /* @__PURE__ */ import_react19.default.createElement("p", { style: { marginTop: "8px", color: "#047857" } }, "You typed: ", /* @__PURE__ */ import_react19.default.createElement("strong", null, inputValue || "(nothing)"))), /* @__PURE__ */ import_react19.default.createElement("div", { style: { marginBottom: "16px" } }, /* @__PURE__ */ import_react19.default.createElement(
     "button",
     {
       onClick: () => setClickCount(clickCount + 1),
@@ -50690,7 +52419,7 @@ var SimpleTest = () => {
     "Click Me (Count: ",
     clickCount,
     ")"
-  )), /* @__PURE__ */ import_react10.default.createElement("div", { style: { marginBottom: "16px" } }, /* @__PURE__ */ import_react10.default.createElement("label", { style: { display: "block", marginBottom: "8px", color: "#065f46" } }, "Test Date Input:"), /* @__PURE__ */ import_react10.default.createElement(
+  )), /* @__PURE__ */ import_react19.default.createElement("div", { style: { marginBottom: "16px" } }, /* @__PURE__ */ import_react19.default.createElement("label", { style: { display: "block", marginBottom: "8px", color: "#065f46" } }, "Test Date Input:"), /* @__PURE__ */ import_react19.default.createElement(
     "input",
     {
       type: "date",
@@ -50702,7 +52431,7 @@ var SimpleTest = () => {
         fontSize: "16px"
       }
     }
-  )), /* @__PURE__ */ import_react10.default.createElement("p", { style: { color: "#047857", fontSize: "14px", marginTop: "16px" } }, "If you can see this and interact with the inputs/buttons above, React is working correctly!"));
+  )), /* @__PURE__ */ import_react19.default.createElement("p", { style: { color: "#047857", fontSize: "14px", marginTop: "16px" } }, "If you can see this and interact with the inputs/buttons above, React is working correctly!"));
 };
 var SimpleTest_default = SimpleTest;
 
@@ -50715,8 +52444,8 @@ document.addEventListener("DOMContentLoaded", () => {
     console.log("\u2705 Found flight-search-interface container");
     console.log("\u2705 Mounting Simple Test component...");
     try {
-      const root = (0, import_client2.createRoot)(flightFilterContainer);
-      root.render(import_react11.default.createElement(SimpleTest_default));
+      const root = (0, import_client3.createRoot)(flightFilterContainer);
+      root.render(import_react20.default.createElement(SimpleTest_default));
       console.log("\u2705 Simple Test component mounted successfully");
     } catch (error2) {
       console.error("\u274C Error mounting Simple Test:", error2);
@@ -50731,8 +52460,8 @@ document.addEventListener("DOMContentLoaded", () => {
     console.log("\u2705 Found airport-autocomplete-test container");
     console.log("\u2705 Mounting Airport Autocomplete Test...");
     try {
-      const root = (0, import_client2.createRoot)(airportTestContainer);
-      root.render(import_react11.default.createElement(AirportAutocompleteTest_default));
+      const root = (0, import_client3.createRoot)(airportTestContainer);
+      root.render(import_react20.default.createElement(AirportAutocompleteTest_default));
       console.log("\u2705 Airport Autocomplete Test mounted successfully");
     } catch (error2) {
       console.error("\u274C Error mounting Airport Autocomplete Test:", error2);
@@ -50799,10 +52528,12 @@ lucide-react/dist/esm/shared/src/utils.js:
 lucide-react/dist/esm/defaultAttributes.js:
 lucide-react/dist/esm/Icon.js:
 lucide-react/dist/esm/createLucideIcon.js:
+lucide-react/dist/esm/icons/arrow-left.js:
 lucide-react/dist/esm/icons/arrow-right.js:
 lucide-react/dist/esm/icons/bell.js:
 lucide-react/dist/esm/icons/calendar.js:
 lucide-react/dist/esm/icons/chart-column.js:
+lucide-react/dist/esm/icons/check.js:
 lucide-react/dist/esm/icons/chevron-down.js:
 lucide-react/dist/esm/icons/chevron-up.js:
 lucide-react/dist/esm/icons/circle-check-big.js:
@@ -50811,6 +52542,8 @@ lucide-react/dist/esm/icons/dollar-sign.js:
 lucide-react/dist/esm/icons/download.js:
 lucide-react/dist/esm/icons/eye.js:
 lucide-react/dist/esm/icons/funnel.js:
+lucide-react/dist/esm/icons/gauge.js:
+lucide-react/dist/esm/icons/globe.js:
 lucide-react/dist/esm/icons/heart.js:
 lucide-react/dist/esm/icons/info.js:
 lucide-react/dist/esm/icons/loader-circle.js:
@@ -50818,6 +52551,7 @@ lucide-react/dist/esm/icons/mail.js:
 lucide-react/dist/esm/icons/map-pin.js:
 lucide-react/dist/esm/icons/message-square.js:
 lucide-react/dist/esm/icons/minus.js:
+lucide-react/dist/esm/icons/monitor.js:
 lucide-react/dist/esm/icons/pause.js:
 lucide-react/dist/esm/icons/plane.js:
 lucide-react/dist/esm/icons/play.js:

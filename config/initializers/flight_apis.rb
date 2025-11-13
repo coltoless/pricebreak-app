@@ -73,7 +73,14 @@ Rails.application.config.after_initialize do
     fallback_strategy: :cascade, # cascade, parallel, or priority
     data_quality_threshold: 0.8,
     duplicate_detection_enabled: true,
-    price_validation_enabled: true
+    price_validation_enabled: true,
+    # Mock mode - set to true to use mock data instead of real APIs (no API keys needed)
+    mock_mode: ENV['FLIGHT_API_MOCK_MODE'] == 'true' || Rails.env.development? && ENV['SKYSCANNER_API_KEY'].blank?,
+    # Enable individual providers (useful for testing)
+    enable_skyscanner: ENV['ENABLE_SKYSCANNER'] != 'false',
+    enable_amadeus: ENV['ENABLE_AMADEUS'] != 'false',
+    enable_google_flights: ENV['ENABLE_GOOGLE_FLIGHTS'] != 'false',
+    enable_mock: ENV['ENABLE_MOCK'] != 'false'
   }.freeze
 
   # Currency conversion rates (updated daily)

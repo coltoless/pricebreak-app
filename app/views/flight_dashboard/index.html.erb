@@ -1,0 +1,200 @@
+<div class="min-h-screen bg-gray-100" data-controller="flight-dashboard">
+  <!-- Header -->
+  <header class="bg-white shadow-sm border-b">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center py-6">
+        <div class="flex items-center">
+          <a href="/" class="text-2xl font-bold text-gray-900">priceBreak</a>
+          <span class="ml-4 text-gray-500">Dashboard</span>
+        </div>
+        <div class="flex items-center space-x-4">
+          <%= link_to 'Create Filter', new_flight_filter_path, class: "bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md text-sm font-medium" %>
+          <%= link_to 'My Filters', flight_filters_path, class: "text-gray-500 hover:text-gray-900" %>
+          <%= link_to 'My Alerts', flight_alerts_path, class: "text-gray-500 hover:text-gray-900" %>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <!-- Stats Overview -->
+    <div class="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4 mb-8">
+      <div class="bg-white overflow-hidden shadow rounded-lg">
+        <div class="p-5">
+          <div class="flex items-center">
+            <div class="flex-shrink-0">
+              <svg class="h-6 w-6 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+              </svg>
+            </div>
+            <div class="ml-5 w-0 flex-1">
+              <dl>
+                <dt class="text-sm font-medium text-gray-500 truncate">Total Filters</dt>
+                <dd class="text-lg font-medium text-gray-900"><%= @filter_stats[:total] %></dd>
+              </dl>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-white overflow-hidden shadow rounded-lg">
+        <div class="p-5">
+          <div class="flex items-center">
+            <div class="flex-shrink-0">
+              <svg class="h-6 w-6 text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+            </div>
+            <div class="ml-5 w-0 flex-1">
+              <dl>
+                <dt class="text-sm font-medium text-gray-500 truncate">Active Filters</dt>
+                <dd class="text-lg font-medium text-gray-900"><%= @filter_stats[:active] %></dd>
+              </dl>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-white overflow-hidden shadow rounded-lg">
+        <div class="p-5">
+          <div class="flex items-center">
+            <div class="flex-shrink-0">
+              <svg class="h-6 w-6 text-yellow-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+              </svg>
+            </div>
+            <div class="ml-5 w-0 flex-1">
+              <dl>
+                <dt class="text-sm font-medium text-gray-500 truncate">Triggered Alerts</dt>
+                <dd class="text-lg font-medium text-gray-900"><%= @alert_stats[:triggered] %></dd>
+              </dl>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-white overflow-hidden shadow rounded-lg">
+        <div class="p-5">
+          <div class="flex items-center">
+            <div class="flex-shrink-0">
+              <svg class="h-6 w-6 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+            </div>
+            <div class="ml-5 w-0 flex-1">
+              <dl>
+                <dt class="text-sm font-medium text-gray-500 truncate">Total Savings</dt>
+                <dd class="text-lg font-medium text-gray-900">$<%= number_with_precision(@filter_stats[:total_savings], precision: 0, delimiter: ',') %></dd>
+              </dl>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Content Grid -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <!-- Recent Filters -->
+      <div class="lg:col-span-2">
+        <div class="bg-white shadow rounded-lg">
+          <div class="px-4 py-5 sm:p-6">
+            <div class="flex items-center justify-between mb-4">
+              <h3 class="text-lg font-medium text-gray-900">Recent Flight Filters</h3>
+              <%= link_to 'View All', flight_filters_path, class: "text-sm text-blue-600 hover:text-blue-700" %>
+            </div>
+            
+            <% if @flight_filters.any? %>
+              <div class="space-y-4">
+                <% @flight_filters.each do |filter| %>
+                  <%= render partial: 'shared/filter_card', locals: { filter: filter } %>
+                <% end %>
+              </div>
+            <% else %>
+              <div class="text-center py-12">
+                <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                </svg>
+                <h3 class="mt-2 text-sm font-medium text-gray-900">No filters</h3>
+                <p class="mt-1 text-sm text-gray-500">Get started by creating your first flight filter.</p>
+                <div class="mt-6">
+                  <%= link_to 'Create Filter', new_flight_filter_path, class: "inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700" %>
+                </div>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+
+      <!-- Recent Alerts & Quick Stats -->
+      <div class="space-y-6">
+        <!-- Recent Alerts -->
+        <div class="bg-white shadow rounded-lg">
+          <div class="px-4 py-5 sm:p-6">
+            <div class="flex items-center justify-between mb-4">
+              <h3 class="text-lg font-medium text-gray-900">Recent Alerts</h3>
+              <%= link_to 'View All', flight_alerts_path, class: "text-sm text-blue-600 hover:text-blue-700" %>
+            </div>
+            
+            <% if @flight_alerts.any? %>
+              <div class="space-y-3">
+                <% @flight_alerts.limit(5).each do |alert| %>
+                  <div class="border-l-4 <%= alert.status == 'triggered' ? 'border-green-500' : alert.status == 'active' ? 'border-blue-500' : 'border-gray-300' %> pl-3 py-2">
+                    <p class="text-sm font-medium text-gray-900"><%= alert.origin %> → <%= alert.destination %></p>
+                    <p class="text-xs text-gray-500">
+                      <%= alert.status.humanize %>
+                      <% if alert.status == 'triggered' && alert.current_price %>
+                        - $<%= number_with_precision(alert.current_price, precision: 0) %>
+                      <% end %>
+                    </p>
+                  </div>
+                <% end %>
+              </div>
+            <% else %>
+              <p class="text-sm text-gray-500">No alerts yet</p>
+            <% end %>
+          </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="bg-white shadow rounded-lg">
+          <div class="px-4 py-5 sm:p-6">
+            <h3 class="text-lg font-medium text-gray-900 mb-4">Quick Actions</h3>
+            <div class="space-y-3">
+              <%= link_to 'Create New Filter', new_flight_filter_path, class: "w-full bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md text-sm font-medium text-center block" %>
+              <%= link_to 'View Analytics', analytics_user_dashboard_path, class: "w-full bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded-md text-sm font-medium text-center block" %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Price Trends (if available) -->
+    <% if @price_trends.any? %>
+      <div class="mt-6 bg-white shadow rounded-lg">
+        <div class="px-4 py-5 sm:p-6">
+          <h3 class="text-lg font-medium text-gray-900 mb-4">Price Trends</h3>
+          <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            <% @price_trends.each do |route, data| %>
+              <div class="border rounded-lg p-4">
+                <h4 class="text-sm font-medium text-gray-900 mb-2"><%= route %></h4>
+                <% if data[:trend][:direction] == 'down' %>
+                  <p class="text-green-600 text-sm">↓ <%= data[:trend][:percentage] %>% lower</p>
+                <% elsif data[:trend][:direction] == 'up' %>
+                  <p class="text-red-600 text-sm">↑ <%= data[:trend][:percentage] %>% higher</p>
+                <% else %>
+                  <p class="text-gray-600 text-sm">→ Stable</p>
+                <% end %>
+                <p class="text-xs text-gray-500 mt-1">Current: $<%= number_with_precision(data[:current_price], precision: 0) %></p>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </main>
+
+  <!-- React Dashboard Component Container -->
+  <div id="dashboard-react-root" class="hidden"></div>
+</div>
+
