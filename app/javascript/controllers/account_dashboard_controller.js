@@ -7,6 +7,8 @@ export default class extends Controller {
 
   connect() {
     this.preferredAirports = []
+    this.authChecked = false
+    this.redirecting = false
     this.loadUserData()
     
     // Listen for checkbox changes
@@ -27,8 +29,32 @@ export default class extends Controller {
       
       const auth = getAuth()
       
-      // Wait for auth state
-      onAuthStateChanged(auth, async (user) => {
+      // Wait a bit for Firebase to initialize
+      await new Promise(resolve => setTimeout(resolve, 500))
+      
+      // Wait for auth state - use a timeout to prevent infinite loops
+      const authCheckTimeout = setTimeout(() => {
+        if (!this.authChecked && !this.redirecting) {
+          console.warn('Auth check timeout - user may not be logged in')
+          this.redirecting = true
+          // Only redirect if we're on the account page
+          if (window.location.pathname === '/account' || window.location.pathname.startsWith('/account/')) {
+            window.location.href = '/'
+          }
+        }
+      }, 3000) // 3 second timeout
+      
+      const unsubscribe = onAuthStateChanged(auth, async (user) => {
+        // Clear timeout since we got a response
+        clearTimeout(authCheckTimeout)
+        
+        // Prevent multiple redirects
+        if (this.redirecting) {
+          return
+        }
+        
+        this.authChecked = true
+        
         if (user) {
           // Get ID token and fetch user data from backend
           try {
@@ -60,12 +86,30 @@ export default class extends Controller {
             })
           }
         } else {
-          // Not logged in, redirect to home
-          window.location.href = '/'
+          // Not logged in - only redirect if we're on account page
+          if (!this.redirecting && (window.location.pathname === '/account' || window.location.pathname.startsWith('/account/'))) {
+            this.redirecting = true
+            // Small delay to prevent immediate redirect loops
+            setTimeout(() => {
+              if (window.location.pathname === '/account' || window.location.pathname.startsWith('/account/')) {
+                window.location.href = '/'
+              }
+            }, 100)
+          }
         }
       })
+      
+      // Store unsubscribe for cleanup if needed
+      this.unsubscribe = unsubscribe
     } catch (error) {
       console.error('Error loading user data:', error)
+      // Don't redirect on error - just show error state
+    }
+  }
+  
+  disconnect() {
+    if (this.unsubscribe) {
+      this.unsubscribe()
     }
   }
 
