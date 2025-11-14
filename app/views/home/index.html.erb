@@ -35,12 +35,17 @@
            data-firebase-auth-messaging-sender-id-value="<%= ENV['FIREBASE_MESSAGING_SENDER_ID'] || '' %>"
            data-firebase-auth-app-id-value="<%= ENV['FIREBASE_APP_ID'] || '' %>">
         
-        <!-- Sign In Button - Links to FirebaseUI sign-in page -->
-        <a href="<%= sign_in_path %>" class="auth-button sign-in-btn" 
-           data-firebase-auth-target="signInButton"
-           style="display: inline-block; text-decoration: none; color: white;">
-          🔐 Sign In
-        </a>
+        <!-- Sign In Button - Opens popup -->
+        <button class="auth-button sign-in-btn" 
+                data-firebase-auth-target="signInButton"
+                onclick="window.showSignInPopup && window.showSignInPopup()"
+                style="display: inline-flex; align-items: center; gap: 0.5rem; text-decoration: none; color: white; background: none; border: none; cursor: pointer; font-size: inherit; padding: 0.5rem 1rem; border-radius: 0.5rem; transition: all 0.2s;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0;">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+            <circle cx="12" cy="7" r="4"></circle>
+          </svg>
+          Log in
+        </button>
         
         <!-- Sign Out Button (hidden by default) -->
         <button class="auth-button sign-out-btn" 

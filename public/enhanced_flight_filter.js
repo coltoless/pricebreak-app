@@ -1299,7 +1299,7 @@ var require_react_dom_development = __commonJS({
         return dispatcher;
       }
       "undefined" !== typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ && "function" === typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart && __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart(Error());
-      var React11 = require_react(), Internals = {
+      var React12 = require_react(), Internals = {
         d: {
           f: noop2,
           r: function() {
@@ -1317,7 +1317,7 @@ var require_react_dom_development = __commonJS({
         },
         p: 0,
         findDOMNode: null
-      }, REACT_PORTAL_TYPE = Symbol.for("react.portal"), ReactSharedInternals = React11.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE;
+      }, REACT_PORTAL_TYPE = Symbol.for("react.portal"), ReactSharedInternals = React12.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE;
       "function" === typeof Map && null != Map.prototype && "function" === typeof Map.prototype.forEach && "function" === typeof Set && null != Set.prototype && "function" === typeof Set.prototype.clear && "function" === typeof Set.prototype.forEach || console.error(
         "React depends on Map and Set built-in types. Make sure that you load a polyfill in older browsers. https://reactjs.org/link/react-polyfills"
       );
@@ -2859,7 +2859,7 @@ var require_react_dom_client_development = __commonJS({
         "number" === type && getActiveElement(node.ownerDocument) === node || node.defaultValue === "" + value || (node.defaultValue = "" + value);
       }
       function validateOptionProps(element, props) {
-        null == props.value && ("object" === typeof props.children && null !== props.children ? React11.Children.forEach(props.children, function(child) {
+        null == props.value && ("object" === typeof props.children && null !== props.children ? React12.Children.forEach(props.children, function(child) {
           null == child || "string" === typeof child || "number" === typeof child || "bigint" === typeof child || didWarnInvalidChild || (didWarnInvalidChild = true, console.error(
             "Cannot infer the option value of complex children. Pass a `value` prop or use a plain string as children to <option>."
           ));
@@ -16441,14 +16441,14 @@ var require_react_dom_client_development = __commonJS({
         ));
       }
       "undefined" !== typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ && "function" === typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart && __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart(Error());
-      var Scheduler = require_scheduler(), React11 = require_react(), ReactDOM = require_react_dom(), assign = Object.assign, REACT_LEGACY_ELEMENT_TYPE = Symbol.for("react.element"), REACT_ELEMENT_TYPE = Symbol.for("react.transitional.element"), REACT_PORTAL_TYPE = Symbol.for("react.portal"), REACT_FRAGMENT_TYPE = Symbol.for("react.fragment"), REACT_STRICT_MODE_TYPE = Symbol.for("react.strict_mode"), REACT_PROFILER_TYPE = Symbol.for("react.profiler"), REACT_PROVIDER_TYPE = Symbol.for("react.provider"), REACT_CONSUMER_TYPE = Symbol.for("react.consumer"), REACT_CONTEXT_TYPE = Symbol.for("react.context"), REACT_FORWARD_REF_TYPE = Symbol.for("react.forward_ref"), REACT_SUSPENSE_TYPE = Symbol.for("react.suspense"), REACT_SUSPENSE_LIST_TYPE = Symbol.for("react.suspense_list"), REACT_MEMO_TYPE = Symbol.for("react.memo"), REACT_LAZY_TYPE = Symbol.for("react.lazy");
+      var Scheduler = require_scheduler(), React12 = require_react(), ReactDOM = require_react_dom(), assign = Object.assign, REACT_LEGACY_ELEMENT_TYPE = Symbol.for("react.element"), REACT_ELEMENT_TYPE = Symbol.for("react.transitional.element"), REACT_PORTAL_TYPE = Symbol.for("react.portal"), REACT_FRAGMENT_TYPE = Symbol.for("react.fragment"), REACT_STRICT_MODE_TYPE = Symbol.for("react.strict_mode"), REACT_PROFILER_TYPE = Symbol.for("react.profiler"), REACT_PROVIDER_TYPE = Symbol.for("react.provider"), REACT_CONSUMER_TYPE = Symbol.for("react.consumer"), REACT_CONTEXT_TYPE = Symbol.for("react.context"), REACT_FORWARD_REF_TYPE = Symbol.for("react.forward_ref"), REACT_SUSPENSE_TYPE = Symbol.for("react.suspense"), REACT_SUSPENSE_LIST_TYPE = Symbol.for("react.suspense_list"), REACT_MEMO_TYPE = Symbol.for("react.memo"), REACT_LAZY_TYPE = Symbol.for("react.lazy");
       Symbol.for("react.scope");
       var REACT_ACTIVITY_TYPE = Symbol.for("react.activity");
       Symbol.for("react.legacy_hidden");
       Symbol.for("react.tracing_marker");
       var REACT_MEMO_CACHE_SENTINEL = Symbol.for("react.memo_cache_sentinel");
       Symbol.for("react.view_transition");
-      var MAYBE_ITERATOR_SYMBOL = Symbol.iterator, REACT_CLIENT_REFERENCE = Symbol.for("react.client.reference"), isArrayImpl = Array.isArray, ReactSharedInternals = React11.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE, ReactDOMSharedInternals = ReactDOM.__DOM_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE, NotPending = Object.freeze({
+      var MAYBE_ITERATOR_SYMBOL = Symbol.iterator, REACT_CLIENT_REFERENCE = Symbol.for("react.client.reference"), isArrayImpl = Array.isArray, ReactSharedInternals = React12.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE, ReactDOMSharedInternals = ReactDOM.__DOM_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE, NotPending = Object.freeze({
         pending: false,
         data: null,
         method: null,
@@ -19170,7 +19170,7 @@ var require_react_dom_client_development = __commonJS({
         }
       };
       (function() {
-        var isomorphicReactPackageVersion = React11.version;
+        var isomorphicReactPackageVersion = React12.version;
         if ("19.1.1" !== isomorphicReactPackageVersion)
           throw Error(
             'Incompatible React versions: The "react" and "react-dom" packages must have the exact same version. Instead got:\n  - react:      ' + (isomorphicReactPackageVersion + "\n  - react-dom:  19.1.1\nLearn more: https://react.dev/warnings/version-mismatch")
@@ -19311,11 +19311,11 @@ var require_client = __commonJS({
 });
 
 // app/javascript/packs/enhanced_flight_filter.js
-var import_react12 = __toESM(require_react());
+var import_react13 = __toESM(require_react());
 var import_client = __toESM(require_client());
 
 // app/javascript/components/FlightPriceFilter.tsx
-var import_react11 = __toESM(require_react());
+var import_react12 = __toESM(require_react());
 
 // node_modules/lucide-react/dist/esm/createLucideIcon.js
 var import_react2 = __toESM(require_react());
@@ -19458,7 +19458,7 @@ var __iconNode6 = [
 var X = createLucideIcon("x", __iconNode6);
 
 // app/javascript/components/steps/Step1RouteDates.tsx
-var import_react6 = __toESM(require_react());
+var import_react7 = __toESM(require_react());
 
 // app/javascript/components/ResponsiveAirportAutocomplete.tsx
 var import_react5 = __toESM(require_react());
@@ -21395,8 +21395,8 @@ var HeartbeatServiceImpl = class {
   }
 };
 function getUTCDateString() {
-  const today = /* @__PURE__ */ new Date();
-  return today.toISOString().substring(0, 10);
+  const today2 = /* @__PURE__ */ new Date();
+  return today2.toISOString().substring(0, 10);
 }
 function extractHeartbeatsForHeader(heartbeatsCache, maxSize = MAX_HEADER_BYTES) {
   const heartbeatsToSend = [];
@@ -40526,26 +40526,35 @@ var ResponsiveAirportAutocomplete = ({
 };
 var ResponsiveAirportAutocomplete_default = ResponsiveAirportAutocomplete;
 
-// app/javascript/components/steps/Step2FlightPreferences.tsx
-var import_react7 = __toESM(require_react());
+// app/javascript/components/FlightPriceCalendar.tsx
+var import_react6 = __toESM(require_react());
+var clampToStartOfDay = (value) => {
+  const cloned = new Date(value);
+  cloned.setHours(0, 0, 0, 0);
+  return cloned;
+};
+var today = clampToStartOfDay(/* @__PURE__ */ new Date());
 
-// app/javascript/components/steps/Step3PriceSettings.tsx
+// app/javascript/components/steps/Step2FlightPreferences.tsx
 var import_react8 = __toESM(require_react());
 
-// app/javascript/components/steps/Step4AlertPreferences.tsx
+// app/javascript/components/steps/Step3PriceSettings.tsx
 var import_react9 = __toESM(require_react());
 
-// app/javascript/components/AlertPreviewModal.tsx
+// app/javascript/components/steps/Step4AlertPreferences.tsx
 var import_react10 = __toESM(require_react());
+
+// app/javascript/components/AlertPreviewModal.tsx
+var import_react11 = __toESM(require_react());
 
 // app/javascript/packs/enhanced_flight_filter.js
 function AirportAutocompleteTest() {
-  const [originSearch, setOriginSearch] = import_react12.default.useState("");
-  const [destinationSearch, setDestinationSearch] = import_react12.default.useState("");
-  const [originAirport, setOriginAirport] = import_react12.default.useState(null);
-  const [destinationAirport, setDestinationAirport] = import_react12.default.useState(null);
-  const [searchResults, setSearchResults] = import_react12.default.useState([]);
-  const [isLoading, setIsLoading] = import_react12.default.useState(false);
+  const [originSearch, setOriginSearch] = import_react13.default.useState("");
+  const [destinationSearch, setDestinationSearch] = import_react13.default.useState("");
+  const [originAirport, setOriginAirport] = import_react13.default.useState(null);
+  const [destinationAirport, setDestinationAirport] = import_react13.default.useState(null);
+  const [searchResults, setSearchResults] = import_react13.default.useState([]);
+  const [isLoading, setIsLoading] = import_react13.default.useState(false);
   const handleOriginSelect = (airport) => {
     setOriginAirport(airport);
     if (airport) {
@@ -40578,7 +40587,7 @@ function AirportAutocompleteTest() {
     setOriginAirport(null);
     setDestinationAirport(null);
   };
-  return /* @__PURE__ */ import_react12.default.createElement("div", { className: "space-y-6" }, /* @__PURE__ */ import_react12.default.createElement("div", { className: "grid grid-cols-1 md:grid-cols-2 gap-6" }, /* @__PURE__ */ import_react12.default.createElement("div", null, /* @__PURE__ */ import_react12.default.createElement("label", { className: "block text-sm font-medium text-gray-700 mb-2" }, "Origin Airport"), /* @__PURE__ */ import_react12.default.createElement(
+  return /* @__PURE__ */ import_react13.default.createElement("div", { className: "space-y-6" }, /* @__PURE__ */ import_react13.default.createElement("div", { className: "grid grid-cols-1 md:grid-cols-2 gap-6" }, /* @__PURE__ */ import_react13.default.createElement("div", null, /* @__PURE__ */ import_react13.default.createElement("label", { className: "block text-sm font-medium text-gray-700 mb-2" }, "Origin Airport"), /* @__PURE__ */ import_react13.default.createElement(
     ResponsiveAirportAutocomplete_default,
     {
       value: originSearch,
@@ -40590,7 +40599,7 @@ function AirportAutocompleteTest() {
       size: "lg",
       variant: "outlined"
     }
-  )), /* @__PURE__ */ import_react12.default.createElement("div", null, /* @__PURE__ */ import_react12.default.createElement("label", { className: "block text-sm font-medium text-gray-700 mb-2" }, "Destination Airport"), /* @__PURE__ */ import_react12.default.createElement(
+  )), /* @__PURE__ */ import_react13.default.createElement("div", null, /* @__PURE__ */ import_react13.default.createElement("label", { className: "block text-sm font-medium text-gray-700 mb-2" }, "Destination Airport"), /* @__PURE__ */ import_react13.default.createElement(
     ResponsiveAirportAutocomplete_default,
     {
       value: destinationSearch,
@@ -40602,7 +40611,7 @@ function AirportAutocompleteTest() {
       size: "lg",
       variant: "outlined"
     }
-  ))), /* @__PURE__ */ import_react12.default.createElement("div", { className: "bg-gray-50 rounded-lg p-4" }, /* @__PURE__ */ import_react12.default.createElement("h4", { className: "text-sm font-medium text-gray-900 mb-3" }, "Quick Search Test"), /* @__PURE__ */ import_react12.default.createElement("div", { className: "flex flex-wrap gap-2" }, ["JFK", "London", "Tokyo", "Dubai", "Sydney", "Brazil", "Germany"].map((term) => /* @__PURE__ */ import_react12.default.createElement(
+  ))), /* @__PURE__ */ import_react13.default.createElement("div", { className: "bg-gray-50 rounded-lg p-4" }, /* @__PURE__ */ import_react13.default.createElement("h4", { className: "text-sm font-medium text-gray-900 mb-3" }, "Quick Search Test"), /* @__PURE__ */ import_react13.default.createElement("div", { className: "flex flex-wrap gap-2" }, ["JFK", "London", "Tokyo", "Dubai", "Sydney", "Brazil", "Germany"].map((term) => /* @__PURE__ */ import_react13.default.createElement(
     "button",
     {
       key: term,
@@ -40610,18 +40619,18 @@ function AirportAutocompleteTest() {
       className: "px-3 py-1 text-xs bg-blue-100 text-blue-700 rounded-full hover:bg-blue-200 transition-colors"
     },
     term
-  ))), isLoading && /* @__PURE__ */ import_react12.default.createElement("div", { className: "mt-3 text-center" }, /* @__PURE__ */ import_react12.default.createElement("div", { className: "inline-block h-4 w-4 border-2 border-blue-500 border-t-transparent rounded-full animate-spin" }), /* @__PURE__ */ import_react12.default.createElement("span", { className: "ml-2 text-sm text-gray-600" }, "Searching...")), searchResults.length > 0 && /* @__PURE__ */ import_react12.default.createElement("div", { className: "mt-3" }, /* @__PURE__ */ import_react12.default.createElement("h5", { className: "text-xs font-medium text-gray-700 mb-2" }, "Search Results:"), /* @__PURE__ */ import_react12.default.createElement("div", { className: "space-y-1" }, searchResults.map((airport, index) => /* @__PURE__ */ import_react12.default.createElement("div", { key: index, className: "text-xs bg-white p-2 rounded border" }, /* @__PURE__ */ import_react12.default.createElement("span", { className: "font-semibold" }, airport.iata_code), " - ", airport.city, ", ", airport.country))))), (originAirport || destinationAirport) && /* @__PURE__ */ import_react12.default.createElement("div", { className: "bg-green-50 rounded-lg p-4" }, /* @__PURE__ */ import_react12.default.createElement("h4", { className: "text-sm font-medium text-green-900 mb-3" }, "Selected Airports"), /* @__PURE__ */ import_react12.default.createElement("div", { className: "grid grid-cols-1 md:grid-cols-2 gap-4" }, originAirport && /* @__PURE__ */ import_react12.default.createElement("div", { className: "bg-white p-3 rounded border" }, /* @__PURE__ */ import_react12.default.createElement("div", { className: "text-sm font-semibold text-gray-900" }, "Origin"), /* @__PURE__ */ import_react12.default.createElement("div", { className: "text-xs text-gray-600" }, originAirport.iata_code, " - ", originAirport.name), /* @__PURE__ */ import_react12.default.createElement("div", { className: "text-xs text-gray-500" }, originAirport.city, ", ", originAirport.country)), destinationAirport && /* @__PURE__ */ import_react12.default.createElement("div", { className: "bg-white p-3 rounded border" }, /* @__PURE__ */ import_react12.default.createElement("div", { className: "text-sm font-semibold text-gray-900" }, "Destination"), /* @__PURE__ */ import_react12.default.createElement("div", { className: "text-xs text-gray-600" }, destinationAirport.iata_code, " - ", destinationAirport.name), /* @__PURE__ */ import_react12.default.createElement("div", { className: "text-xs text-gray-500" }, destinationAirport.city, ", ", destinationAirport.country))), /* @__PURE__ */ import_react12.default.createElement(
+  ))), isLoading && /* @__PURE__ */ import_react13.default.createElement("div", { className: "mt-3 text-center" }, /* @__PURE__ */ import_react13.default.createElement("div", { className: "inline-block h-4 w-4 border-2 border-blue-500 border-t-transparent rounded-full animate-spin" }), /* @__PURE__ */ import_react13.default.createElement("span", { className: "ml-2 text-sm text-gray-600" }, "Searching...")), searchResults.length > 0 && /* @__PURE__ */ import_react13.default.createElement("div", { className: "mt-3" }, /* @__PURE__ */ import_react13.default.createElement("h5", { className: "text-xs font-medium text-gray-700 mb-2" }, "Search Results:"), /* @__PURE__ */ import_react13.default.createElement("div", { className: "space-y-1" }, searchResults.map((airport, index) => /* @__PURE__ */ import_react13.default.createElement("div", { key: index, className: "text-xs bg-white p-2 rounded border" }, /* @__PURE__ */ import_react13.default.createElement("span", { className: "font-semibold" }, airport.iata_code), " - ", airport.city, ", ", airport.country))))), (originAirport || destinationAirport) && /* @__PURE__ */ import_react13.default.createElement("div", { className: "bg-green-50 rounded-lg p-4" }, /* @__PURE__ */ import_react13.default.createElement("h4", { className: "text-sm font-medium text-green-900 mb-3" }, "Selected Airports"), /* @__PURE__ */ import_react13.default.createElement("div", { className: "grid grid-cols-1 md:grid-cols-2 gap-4" }, originAirport && /* @__PURE__ */ import_react13.default.createElement("div", { className: "bg-white p-3 rounded border" }, /* @__PURE__ */ import_react13.default.createElement("div", { className: "text-sm font-semibold text-gray-900" }, "Origin"), /* @__PURE__ */ import_react13.default.createElement("div", { className: "text-xs text-gray-600" }, originAirport.iata_code, " - ", originAirport.name), /* @__PURE__ */ import_react13.default.createElement("div", { className: "text-xs text-gray-500" }, originAirport.city, ", ", originAirport.country)), destinationAirport && /* @__PURE__ */ import_react13.default.createElement("div", { className: "bg-white p-3 rounded border" }, /* @__PURE__ */ import_react13.default.createElement("div", { className: "text-sm font-semibold text-gray-900" }, "Destination"), /* @__PURE__ */ import_react13.default.createElement("div", { className: "text-xs text-gray-600" }, destinationAirport.iata_code, " - ", destinationAirport.name), /* @__PURE__ */ import_react13.default.createElement("div", { className: "text-xs text-gray-500" }, destinationAirport.city, ", ", destinationAirport.country))), /* @__PURE__ */ import_react13.default.createElement(
     "button",
     {
       onClick: clearResults,
       className: "mt-3 px-3 py-1 text-xs bg-red-100 text-red-700 rounded hover:bg-red-200 transition-colors"
     },
     "Clear All"
-  )), /* @__PURE__ */ import_react12.default.createElement("div", { className: "bg-blue-50 rounded-lg p-4" }, /* @__PURE__ */ import_react12.default.createElement("h4", { className: "text-sm font-medium text-blue-900 mb-3" }, "Database Statistics"), /* @__PURE__ */ import_react12.default.createElement("div", { className: "grid grid-cols-2 md:grid-cols-4 gap-4 text-center" }, /* @__PURE__ */ import_react12.default.createElement("div", null, /* @__PURE__ */ import_react12.default.createElement("div", { className: "text-lg font-bold text-blue-600" }, "6,218"), /* @__PURE__ */ import_react12.default.createElement("div", { className: "text-xs text-blue-700" }, "Total Airports")), /* @__PURE__ */ import_react12.default.createElement("div", null, /* @__PURE__ */ import_react12.default.createElement("div", { className: "text-lg font-bold text-blue-600" }, "195+"), /* @__PURE__ */ import_react12.default.createElement("div", { className: "text-xs text-blue-700" }, "Countries")), /* @__PURE__ */ import_react12.default.createElement("div", null, /* @__PURE__ */ import_react12.default.createElement("div", { className: "text-lg font-bold text-blue-600" }, "<50ms"), /* @__PURE__ */ import_react12.default.createElement("div", { className: "text-xs text-blue-700" }, "Search Speed")), /* @__PURE__ */ import_react12.default.createElement("div", null, /* @__PURE__ */ import_react12.default.createElement("div", { className: "text-lg font-bold text-blue-600" }, "100%"), /* @__PURE__ */ import_react12.default.createElement("div", { className: "text-xs text-blue-700" }, "Coverage")))));
+  )), /* @__PURE__ */ import_react13.default.createElement("div", { className: "bg-blue-50 rounded-lg p-4" }, /* @__PURE__ */ import_react13.default.createElement("h4", { className: "text-sm font-medium text-blue-900 mb-3" }, "Database Statistics"), /* @__PURE__ */ import_react13.default.createElement("div", { className: "grid grid-cols-2 md:grid-cols-4 gap-4 text-center" }, /* @__PURE__ */ import_react13.default.createElement("div", null, /* @__PURE__ */ import_react13.default.createElement("div", { className: "text-lg font-bold text-blue-600" }, "6,218"), /* @__PURE__ */ import_react13.default.createElement("div", { className: "text-xs text-blue-700" }, "Total Airports")), /* @__PURE__ */ import_react13.default.createElement("div", null, /* @__PURE__ */ import_react13.default.createElement("div", { className: "text-lg font-bold text-blue-600" }, "195+"), /* @__PURE__ */ import_react13.default.createElement("div", { className: "text-xs text-blue-700" }, "Countries")), /* @__PURE__ */ import_react13.default.createElement("div", null, /* @__PURE__ */ import_react13.default.createElement("div", { className: "text-lg font-bold text-blue-600" }, "<50ms"), /* @__PURE__ */ import_react13.default.createElement("div", { className: "text-xs text-blue-700" }, "Search Speed")), /* @__PURE__ */ import_react13.default.createElement("div", null, /* @__PURE__ */ import_react13.default.createElement("div", { className: "text-lg font-bold text-blue-600" }, "100%"), /* @__PURE__ */ import_react13.default.createElement("div", { className: "text-xs text-blue-700" }, "Coverage")))));
 }
 function EnhancedFlightFilterDemo() {
-  const [currentStep, setCurrentStep] = import_react12.default.useState(1);
-  const [filter, setFilter] = import_react12.default.useState({
+  const [currentStep, setCurrentStep] = import_react13.default.useState(1);
+  const [filter, setFilter] = import_react13.default.useState({
     origin: null,
     destination: null,
     tripType: "round-trip",
@@ -40664,8 +40673,8 @@ function EnhancedFlightFilterDemo() {
     createdAt: /* @__PURE__ */ new Date(),
     isActive: true
   });
-  const [originSearch, setOriginSearch] = import_react12.default.useState("");
-  const [destinationSearch, setDestinationSearch] = import_react12.default.useState("");
+  const [originSearch, setOriginSearch] = import_react13.default.useState("");
+  const [destinationSearch, setDestinationSearch] = import_react13.default.useState("");
   const updateFilter = (updates) => {
     setFilter((prev) => ({ ...prev, ...updates }));
   };
@@ -40687,15 +40696,15 @@ function EnhancedFlightFilterDemo() {
     maxDate.setFullYear(maxDate.getFullYear() + 1);
     return maxDate.toISOString().split("T")[0];
   };
-  return /* @__PURE__ */ import_react12.default.createElement("div", { className: "max-w-4xl mx-auto" }, /* @__PURE__ */ import_react12.default.createElement("div", { className: "mb-8" }, /* @__PURE__ */ import_react12.default.createElement("div", { className: "flex items-center justify-center space-x-4" }, [1, 2, 3, 4].map((step) => /* @__PURE__ */ import_react12.default.createElement("div", { key: step, className: "flex items-center" }, /* @__PURE__ */ import_react12.default.createElement("div", { className: `w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium ${step === currentStep ? "bg-blue-600 text-white" : step < currentStep ? "bg-green-500 text-white" : "bg-gray-200 text-gray-600"}` }, step < currentStep ? "\u2713" : step), step < 4 && /* @__PURE__ */ import_react12.default.createElement("div", { className: `w-16 h-1 mx-2 ${step < currentStep ? "bg-green-500" : "bg-gray-200"}` })))), /* @__PURE__ */ import_react12.default.createElement("div", { className: "text-center mt-4" }, /* @__PURE__ */ import_react12.default.createElement("h2", { className: "text-xl font-semibold text-gray-900" }, currentStep === 1 && "Route & Dates", currentStep === 2 && "Flight Preferences", currentStep === 3 && "Price Settings", currentStep === 4 && "Alert Preferences"))), /* @__PURE__ */ import_react12.default.createElement("div", { className: "bg-white rounded-lg shadow-lg p-8" }, currentStep === 1 && /* @__PURE__ */ import_react12.default.createElement("div", { className: "space-y-6" }, /* @__PURE__ */ import_react12.default.createElement("div", null, /* @__PURE__ */ import_react12.default.createElement("h3", { className: "text-lg font-semibold text-gray-900 mb-4" }, "Trip Type"), /* @__PURE__ */ import_react12.default.createElement("div", { className: "grid grid-cols-3 gap-3" }, ["one-way", "round-trip", "multi-city"].map((type) => /* @__PURE__ */ import_react12.default.createElement(
+  return /* @__PURE__ */ import_react13.default.createElement("div", { className: "max-w-4xl mx-auto" }, /* @__PURE__ */ import_react13.default.createElement("div", { className: "mb-8" }, /* @__PURE__ */ import_react13.default.createElement("div", { className: "flex items-center justify-center space-x-4" }, [1, 2, 3, 4].map((step) => /* @__PURE__ */ import_react13.default.createElement("div", { key: step, className: "flex items-center" }, /* @__PURE__ */ import_react13.default.createElement("div", { className: `w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium ${step === currentStep ? "bg-blue-600 text-white" : step < currentStep ? "bg-green-500 text-white" : "bg-gray-200 text-gray-600"}` }, step < currentStep ? "\u2713" : step), step < 4 && /* @__PURE__ */ import_react13.default.createElement("div", { className: `w-16 h-1 mx-2 ${step < currentStep ? "bg-green-500" : "bg-gray-200"}` })))), /* @__PURE__ */ import_react13.default.createElement("div", { className: "text-center mt-4" }, /* @__PURE__ */ import_react13.default.createElement("h2", { className: "text-xl font-semibold text-gray-900" }, currentStep === 1 && "Route & Dates", currentStep === 2 && "Flight Preferences", currentStep === 3 && "Price Settings", currentStep === 4 && "Alert Preferences"))), /* @__PURE__ */ import_react13.default.createElement("div", { className: "bg-white rounded-lg shadow-lg p-8" }, currentStep === 1 && /* @__PURE__ */ import_react13.default.createElement("div", { className: "space-y-6" }, /* @__PURE__ */ import_react13.default.createElement("div", null, /* @__PURE__ */ import_react13.default.createElement("h3", { className: "text-lg font-semibold text-gray-900 mb-4" }, "Trip Type"), /* @__PURE__ */ import_react13.default.createElement("div", { className: "grid grid-cols-3 gap-3" }, ["one-way", "round-trip", "multi-city"].map((type) => /* @__PURE__ */ import_react13.default.createElement(
     "button",
     {
       key: type,
       onClick: () => updateFilter({ tripType: type }),
       className: `p-4 rounded-lg border-2 transition-colors ${filter.tripType === type ? "border-blue-500 bg-blue-50 text-blue-700" : "border-gray-300 bg-white text-gray-700 hover:border-gray-400"}`
     },
-    /* @__PURE__ */ import_react12.default.createElement("div", { className: "text-sm font-medium capitalize" }, type.replace("-", " "))
-  )))), /* @__PURE__ */ import_react12.default.createElement("div", { className: "grid grid-cols-1 md:grid-cols-2 gap-6" }, /* @__PURE__ */ import_react12.default.createElement(
+    /* @__PURE__ */ import_react13.default.createElement("div", { className: "text-sm font-medium capitalize" }, type.replace("-", " "))
+  )))), /* @__PURE__ */ import_react13.default.createElement("div", { className: "grid grid-cols-1 md:grid-cols-2 gap-6" }, /* @__PURE__ */ import_react13.default.createElement(
     ResponsiveAirportAutocomplete_default,
     {
       value: originSearch,
@@ -40708,7 +40717,7 @@ function EnhancedFlightFilterDemo() {
       size: "lg",
       variant: "outlined"
     }
-  ), /* @__PURE__ */ import_react12.default.createElement(
+  ), /* @__PURE__ */ import_react13.default.createElement(
     ResponsiveAirportAutocomplete_default,
     {
       value: destinationSearch,
@@ -40721,7 +40730,7 @@ function EnhancedFlightFilterDemo() {
       size: "lg",
       variant: "outlined"
     }
-  )), /* @__PURE__ */ import_react12.default.createElement("div", { className: "grid grid-cols-1 md:grid-cols-2 gap-6" }, /* @__PURE__ */ import_react12.default.createElement("div", null, /* @__PURE__ */ import_react12.default.createElement("label", { className: "block text-sm font-medium text-gray-700 mb-2" }, "Departure Date"), /* @__PURE__ */ import_react12.default.createElement(
+  )), /* @__PURE__ */ import_react13.default.createElement("div", { className: "grid grid-cols-1 md:grid-cols-2 gap-6" }, /* @__PURE__ */ import_react13.default.createElement("div", null, /* @__PURE__ */ import_react13.default.createElement("label", { className: "block text-sm font-medium text-gray-700 mb-2" }, "Departure Date"), /* @__PURE__ */ import_react13.default.createElement(
     "input",
     {
       type: "date",
@@ -40731,7 +40740,7 @@ function EnhancedFlightFilterDemo() {
       max: getMaxDate(),
       className: "w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
     }
-  )), filter.tripType === "round-trip" && /* @__PURE__ */ import_react12.default.createElement("div", null, /* @__PURE__ */ import_react12.default.createElement("label", { className: "block text-sm font-medium text-gray-700 mb-2" }, "Return Date"), /* @__PURE__ */ import_react12.default.createElement(
+  )), filter.tripType === "round-trip" && /* @__PURE__ */ import_react13.default.createElement("div", null, /* @__PURE__ */ import_react13.default.createElement("label", { className: "block text-sm font-medium text-gray-700 mb-2" }, "Return Date"), /* @__PURE__ */ import_react13.default.createElement(
     "input",
     {
       type: "date",
@@ -40741,7 +40750,7 @@ function EnhancedFlightFilterDemo() {
       max: getMaxDate(),
       className: "w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
     }
-  ))), /* @__PURE__ */ import_react12.default.createElement("div", { className: "flex items-center space-x-3" }, /* @__PURE__ */ import_react12.default.createElement(
+  ))), /* @__PURE__ */ import_react13.default.createElement("div", { className: "flex items-center space-x-3" }, /* @__PURE__ */ import_react13.default.createElement(
     "input",
     {
       type: "checkbox",
@@ -40750,15 +40759,15 @@ function EnhancedFlightFilterDemo() {
       onChange: (e) => updateFilter({ flexibleDates: e.target.checked }),
       className: "h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
     }
-  ), /* @__PURE__ */ import_react12.default.createElement("label", { htmlFor: "flexibleDates", className: "text-sm text-gray-700" }, "Flexible dates (\xB1", filter.dateFlexibility, " days)"))), currentStep === 2 && /* @__PURE__ */ import_react12.default.createElement("div", { className: "space-y-6" }, /* @__PURE__ */ import_react12.default.createElement("h3", { className: "text-lg font-semibold text-gray-900" }, "Flight Preferences"), /* @__PURE__ */ import_react12.default.createElement("div", null, /* @__PURE__ */ import_react12.default.createElement("label", { className: "block text-sm font-medium text-gray-700 mb-2" }, "Cabin Class"), /* @__PURE__ */ import_react12.default.createElement("div", { className: "grid grid-cols-4 gap-3" }, ["economy", "premium-economy", "business", "first"].map((cabin) => /* @__PURE__ */ import_react12.default.createElement(
+  ), /* @__PURE__ */ import_react13.default.createElement("label", { htmlFor: "flexibleDates", className: "text-sm text-gray-700" }, "Flexible dates (\xB1", filter.dateFlexibility, " days)"))), currentStep === 2 && /* @__PURE__ */ import_react13.default.createElement("div", { className: "space-y-6" }, /* @__PURE__ */ import_react13.default.createElement("h3", { className: "text-lg font-semibold text-gray-900" }, "Flight Preferences"), /* @__PURE__ */ import_react13.default.createElement("div", null, /* @__PURE__ */ import_react13.default.createElement("label", { className: "block text-sm font-medium text-gray-700 mb-2" }, "Cabin Class"), /* @__PURE__ */ import_react13.default.createElement("div", { className: "grid grid-cols-4 gap-3" }, ["economy", "premium-economy", "business", "first"].map((cabin) => /* @__PURE__ */ import_react13.default.createElement(
     "button",
     {
       key: cabin,
       onClick: () => updateFilter({ cabinClass: cabin }),
       className: `p-3 rounded-lg border-2 transition-colors ${filter.cabinClass === cabin ? "border-blue-500 bg-blue-50 text-blue-700" : "border-gray-300 bg-white text-gray-700 hover:border-gray-400"}`
     },
-    /* @__PURE__ */ import_react12.default.createElement("div", { className: "text-sm font-medium capitalize" }, cabin.replace("-", " "))
-  )))), /* @__PURE__ */ import_react12.default.createElement("div", null, /* @__PURE__ */ import_react12.default.createElement("label", { className: "block text-sm font-medium text-gray-700 mb-2" }, "Passengers"), /* @__PURE__ */ import_react12.default.createElement("div", { className: "grid grid-cols-3 gap-4" }, ["adults", "children", "infants"].map((type) => /* @__PURE__ */ import_react12.default.createElement("div", { key: type, className: "flex items-center justify-between" }, /* @__PURE__ */ import_react12.default.createElement("span", { className: "text-sm text-gray-700 capitalize" }, type), /* @__PURE__ */ import_react12.default.createElement("div", { className: "flex items-center space-x-2" }, /* @__PURE__ */ import_react12.default.createElement(
+    /* @__PURE__ */ import_react13.default.createElement("div", { className: "text-sm font-medium capitalize" }, cabin.replace("-", " "))
+  )))), /* @__PURE__ */ import_react13.default.createElement("div", null, /* @__PURE__ */ import_react13.default.createElement("label", { className: "block text-sm font-medium text-gray-700 mb-2" }, "Passengers"), /* @__PURE__ */ import_react13.default.createElement("div", { className: "grid grid-cols-3 gap-4" }, ["adults", "children", "infants"].map((type) => /* @__PURE__ */ import_react13.default.createElement("div", { key: type, className: "flex items-center justify-between" }, /* @__PURE__ */ import_react13.default.createElement("span", { className: "text-sm text-gray-700 capitalize" }, type), /* @__PURE__ */ import_react13.default.createElement("div", { className: "flex items-center space-x-2" }, /* @__PURE__ */ import_react13.default.createElement(
     "button",
     {
       onClick: () => updateFilter({
@@ -40770,7 +40779,7 @@ function EnhancedFlightFilterDemo() {
       className: "w-8 h-8 rounded-full border border-gray-300 flex items-center justify-center hover:bg-gray-50"
     },
     "-"
-  ), /* @__PURE__ */ import_react12.default.createElement("span", { className: "w-8 text-center" }, filter.passengers[type]), /* @__PURE__ */ import_react12.default.createElement(
+  ), /* @__PURE__ */ import_react13.default.createElement("span", { className: "w-8 text-center" }, filter.passengers[type]), /* @__PURE__ */ import_react13.default.createElement(
     "button",
     {
       onClick: () => updateFilter({
@@ -40782,15 +40791,15 @@ function EnhancedFlightFilterDemo() {
       className: "w-8 h-8 rounded-full border border-gray-300 flex items-center justify-center hover:bg-gray-50"
     },
     "+"
-  )))))), /* @__PURE__ */ import_react12.default.createElement("div", null, /* @__PURE__ */ import_react12.default.createElement("label", { className: "block text-sm font-medium text-gray-700 mb-2" }, "Maximum Stops"), /* @__PURE__ */ import_react12.default.createElement("div", { className: "grid grid-cols-3 gap-3" }, ["nonstop", "1-stop", "2+"].map((stops) => /* @__PURE__ */ import_react12.default.createElement(
+  )))))), /* @__PURE__ */ import_react13.default.createElement("div", null, /* @__PURE__ */ import_react13.default.createElement("label", { className: "block text-sm font-medium text-gray-700 mb-2" }, "Maximum Stops"), /* @__PURE__ */ import_react13.default.createElement("div", { className: "grid grid-cols-3 gap-3" }, ["nonstop", "1-stop", "2+"].map((stops) => /* @__PURE__ */ import_react13.default.createElement(
     "button",
     {
       key: stops,
       onClick: () => updateFilter({ maxStops: stops }),
       className: `p-3 rounded-lg border-2 transition-colors ${filter.maxStops === stops ? "border-blue-500 bg-blue-50 text-blue-700" : "border-gray-300 bg-white text-gray-700 hover:border-gray-400"}`
     },
-    /* @__PURE__ */ import_react12.default.createElement("div", { className: "text-sm font-medium" }, stops)
-  ))))), currentStep === 3 && /* @__PURE__ */ import_react12.default.createElement("div", { className: "space-y-6" }, /* @__PURE__ */ import_react12.default.createElement("h3", { className: "text-lg font-semibold text-gray-900" }, "Price Settings"), /* @__PURE__ */ import_react12.default.createElement("div", null, /* @__PURE__ */ import_react12.default.createElement("label", { className: "block text-sm font-medium text-gray-700 mb-2" }, "Target Price (USD)"), /* @__PURE__ */ import_react12.default.createElement(
+    /* @__PURE__ */ import_react13.default.createElement("div", { className: "text-sm font-medium" }, stops)
+  ))))), currentStep === 3 && /* @__PURE__ */ import_react13.default.createElement("div", { className: "space-y-6" }, /* @__PURE__ */ import_react13.default.createElement("h3", { className: "text-lg font-semibold text-gray-900" }, "Price Settings"), /* @__PURE__ */ import_react13.default.createElement("div", null, /* @__PURE__ */ import_react13.default.createElement("label", { className: "block text-sm font-medium text-gray-700 mb-2" }, "Target Price (USD)"), /* @__PURE__ */ import_react13.default.createElement(
     "input",
     {
       type: "number",
@@ -40799,7 +40808,7 @@ function EnhancedFlightFilterDemo() {
       className: "w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500",
       placeholder: "Enter your target price"
     }
-  )), /* @__PURE__ */ import_react12.default.createElement("div", { className: "grid grid-cols-2 gap-4" }, /* @__PURE__ */ import_react12.default.createElement("div", null, /* @__PURE__ */ import_react12.default.createElement("label", { className: "block text-sm font-medium text-gray-700 mb-2" }, "Min Budget (USD)"), /* @__PURE__ */ import_react12.default.createElement(
+  )), /* @__PURE__ */ import_react13.default.createElement("div", { className: "grid grid-cols-2 gap-4" }, /* @__PURE__ */ import_react13.default.createElement("div", null, /* @__PURE__ */ import_react13.default.createElement("label", { className: "block text-sm font-medium text-gray-700 mb-2" }, "Min Budget (USD)"), /* @__PURE__ */ import_react13.default.createElement(
     "input",
     {
       type: "number",
@@ -40812,7 +40821,7 @@ function EnhancedFlightFilterDemo() {
       }),
       className: "w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
     }
-  )), /* @__PURE__ */ import_react12.default.createElement("div", null, /* @__PURE__ */ import_react12.default.createElement("label", { className: "block text-sm font-medium text-gray-700 mb-2" }, "Max Budget (USD)"), /* @__PURE__ */ import_react12.default.createElement(
+  )), /* @__PURE__ */ import_react13.default.createElement("div", null, /* @__PURE__ */ import_react13.default.createElement("label", { className: "block text-sm font-medium text-gray-700 mb-2" }, "Max Budget (USD)"), /* @__PURE__ */ import_react13.default.createElement(
     "input",
     {
       type: "number",
@@ -40825,7 +40834,7 @@ function EnhancedFlightFilterDemo() {
       }),
       className: "w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
     }
-  ))), /* @__PURE__ */ import_react12.default.createElement("div", null, /* @__PURE__ */ import_react12.default.createElement("label", { className: "block text-sm font-medium text-gray-700 mb-2" }, "Price Drop Alert (%)"), /* @__PURE__ */ import_react12.default.createElement(
+  ))), /* @__PURE__ */ import_react13.default.createElement("div", null, /* @__PURE__ */ import_react13.default.createElement("label", { className: "block text-sm font-medium text-gray-700 mb-2" }, "Price Drop Alert (%)"), /* @__PURE__ */ import_react13.default.createElement(
     "input",
     {
       type: "range",
@@ -40835,15 +40844,15 @@ function EnhancedFlightFilterDemo() {
       onChange: (e) => updateFilter({ priceDropPercentage: parseInt(e.target.value) }),
       className: "w-full"
     }
-  ), /* @__PURE__ */ import_react12.default.createElement("div", { className: "text-center text-sm text-gray-600 mt-1" }, "Alert when price drops by ", filter.priceDropPercentage, "%"))), currentStep === 4 && /* @__PURE__ */ import_react12.default.createElement("div", { className: "space-y-6" }, /* @__PURE__ */ import_react12.default.createElement("h3", { className: "text-lg font-semibold text-gray-900" }, "Alert Preferences"), /* @__PURE__ */ import_react12.default.createElement("div", null, /* @__PURE__ */ import_react12.default.createElement("label", { className: "block text-sm font-medium text-gray-700 mb-2" }, "Monitor Frequency"), /* @__PURE__ */ import_react12.default.createElement("div", { className: "grid grid-cols-4 gap-3" }, ["real-time", "hourly", "daily", "weekly"].map((frequency) => /* @__PURE__ */ import_react12.default.createElement(
+  ), /* @__PURE__ */ import_react13.default.createElement("div", { className: "text-center text-sm text-gray-600 mt-1" }, "Alert when price drops by ", filter.priceDropPercentage, "%"))), currentStep === 4 && /* @__PURE__ */ import_react13.default.createElement("div", { className: "space-y-6" }, /* @__PURE__ */ import_react13.default.createElement("h3", { className: "text-lg font-semibold text-gray-900" }, "Alert Preferences"), /* @__PURE__ */ import_react13.default.createElement("div", null, /* @__PURE__ */ import_react13.default.createElement("label", { className: "block text-sm font-medium text-gray-700 mb-2" }, "Monitor Frequency"), /* @__PURE__ */ import_react13.default.createElement("div", { className: "grid grid-cols-4 gap-3" }, ["real-time", "hourly", "daily", "weekly"].map((frequency) => /* @__PURE__ */ import_react13.default.createElement(
     "button",
     {
       key: frequency,
       onClick: () => updateFilter({ monitorFrequency: frequency }),
       className: `p-3 rounded-lg border-2 transition-colors ${filter.monitorFrequency === frequency ? "border-blue-500 bg-blue-50 text-blue-700" : "border-gray-300 bg-white text-gray-700 hover:border-gray-400"}`
     },
-    /* @__PURE__ */ import_react12.default.createElement("div", { className: "text-sm font-medium capitalize" }, frequency)
-  )))), /* @__PURE__ */ import_react12.default.createElement("div", null, /* @__PURE__ */ import_react12.default.createElement("label", { className: "block text-sm font-medium text-gray-700 mb-2" }, "Notification Methods"), /* @__PURE__ */ import_react12.default.createElement("div", { className: "space-y-3" }, ["email", "sms", "push", "browser"].map((method) => /* @__PURE__ */ import_react12.default.createElement("div", { key: method, className: "flex items-center space-x-3" }, /* @__PURE__ */ import_react12.default.createElement(
+    /* @__PURE__ */ import_react13.default.createElement("div", { className: "text-sm font-medium capitalize" }, frequency)
+  )))), /* @__PURE__ */ import_react13.default.createElement("div", null, /* @__PURE__ */ import_react13.default.createElement("label", { className: "block text-sm font-medium text-gray-700 mb-2" }, "Notification Methods"), /* @__PURE__ */ import_react13.default.createElement("div", { className: "space-y-3" }, ["email", "sms", "push", "browser"].map((method) => /* @__PURE__ */ import_react13.default.createElement("div", { key: method, className: "flex items-center space-x-3" }, /* @__PURE__ */ import_react13.default.createElement(
     "input",
     {
       type: "checkbox",
@@ -40857,7 +40866,7 @@ function EnhancedFlightFilterDemo() {
       }),
       className: "h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
     }
-  ), /* @__PURE__ */ import_react12.default.createElement("label", { htmlFor: method, className: "text-sm text-gray-700 capitalize" }, method === "push" ? "Push Notifications" : method))))), /* @__PURE__ */ import_react12.default.createElement("div", null, /* @__PURE__ */ import_react12.default.createElement("label", { className: "block text-sm font-medium text-gray-700 mb-2" }, "Filter Name"), /* @__PURE__ */ import_react12.default.createElement(
+  ), /* @__PURE__ */ import_react13.default.createElement("label", { htmlFor: method, className: "text-sm text-gray-700 capitalize" }, method === "push" ? "Push Notifications" : method))))), /* @__PURE__ */ import_react13.default.createElement("div", null, /* @__PURE__ */ import_react13.default.createElement("label", { className: "block text-sm font-medium text-gray-700 mb-2" }, "Filter Name"), /* @__PURE__ */ import_react13.default.createElement(
     "input",
     {
       type: "text",
@@ -40866,7 +40875,7 @@ function EnhancedFlightFilterDemo() {
       className: "w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500",
       placeholder: "Give your filter a name"
     }
-  ))), /* @__PURE__ */ import_react12.default.createElement("div", { className: "flex justify-between mt-8 pt-6 border-t border-gray-200" }, /* @__PURE__ */ import_react12.default.createElement(
+  ))), /* @__PURE__ */ import_react13.default.createElement("div", { className: "flex justify-between mt-8 pt-6 border-t border-gray-200" }, /* @__PURE__ */ import_react13.default.createElement(
     "button",
     {
       onClick: () => setCurrentStep(Math.max(1, currentStep - 1)),
@@ -40874,14 +40883,14 @@ function EnhancedFlightFilterDemo() {
       className: "px-6 py-3 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
     },
     "Previous"
-  ), currentStep < 4 ? /* @__PURE__ */ import_react12.default.createElement(
+  ), currentStep < 4 ? /* @__PURE__ */ import_react13.default.createElement(
     "button",
     {
       onClick: () => setCurrentStep(Math.min(4, currentStep + 1)),
       className: "px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
     },
     "Next"
-  ) : /* @__PURE__ */ import_react12.default.createElement(
+  ) : /* @__PURE__ */ import_react13.default.createElement(
     "button",
     {
       onClick: () => {
@@ -40891,18 +40900,18 @@ function EnhancedFlightFilterDemo() {
       className: "px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700"
     },
     "Save Filter"
-  ))), /* @__PURE__ */ import_react12.default.createElement("div", { className: "mt-8 bg-gray-50 rounded-lg p-6" }, /* @__PURE__ */ import_react12.default.createElement("h3", { className: "text-lg font-semibold text-gray-900 mb-4" }, "Current Filter Summary"), /* @__PURE__ */ import_react12.default.createElement("div", { className: "grid grid-cols-1 md:grid-cols-2 gap-4 text-sm" }, /* @__PURE__ */ import_react12.default.createElement("div", null, /* @__PURE__ */ import_react12.default.createElement("span", { className: "font-medium" }, "Origin:"), " ", filter.origin ? `${filter.origin.iata_code} - ${filter.origin.city}` : "Not selected"), /* @__PURE__ */ import_react12.default.createElement("div", null, /* @__PURE__ */ import_react12.default.createElement("span", { className: "font-medium" }, "Destination:"), " ", filter.destination ? `${filter.destination.iata_code} - ${filter.destination.city}` : "Not selected"), /* @__PURE__ */ import_react12.default.createElement("div", null, /* @__PURE__ */ import_react12.default.createElement("span", { className: "font-medium" }, "Trip Type:"), " ", filter.tripType), /* @__PURE__ */ import_react12.default.createElement("div", null, /* @__PURE__ */ import_react12.default.createElement("span", { className: "font-medium" }, "Cabin Class:"), " ", filter.cabinClass), /* @__PURE__ */ import_react12.default.createElement("div", null, /* @__PURE__ */ import_react12.default.createElement("span", { className: "font-medium" }, "Passengers:"), " ", filter.passengers.adults + filter.passengers.children + filter.passengers.infants), /* @__PURE__ */ import_react12.default.createElement("div", null, /* @__PURE__ */ import_react12.default.createElement("span", { className: "font-medium" }, "Target Price:"), " $", filter.targetPrice))));
+  ))), /* @__PURE__ */ import_react13.default.createElement("div", { className: "mt-8 bg-gray-50 rounded-lg p-6" }, /* @__PURE__ */ import_react13.default.createElement("h3", { className: "text-lg font-semibold text-gray-900 mb-4" }, "Current Filter Summary"), /* @__PURE__ */ import_react13.default.createElement("div", { className: "grid grid-cols-1 md:grid-cols-2 gap-4 text-sm" }, /* @__PURE__ */ import_react13.default.createElement("div", null, /* @__PURE__ */ import_react13.default.createElement("span", { className: "font-medium" }, "Origin:"), " ", filter.origin ? `${filter.origin.iata_code} - ${filter.origin.city}` : "Not selected"), /* @__PURE__ */ import_react13.default.createElement("div", null, /* @__PURE__ */ import_react13.default.createElement("span", { className: "font-medium" }, "Destination:"), " ", filter.destination ? `${filter.destination.iata_code} - ${filter.destination.city}` : "Not selected"), /* @__PURE__ */ import_react13.default.createElement("div", null, /* @__PURE__ */ import_react13.default.createElement("span", { className: "font-medium" }, "Trip Type:"), " ", filter.tripType), /* @__PURE__ */ import_react13.default.createElement("div", null, /* @__PURE__ */ import_react13.default.createElement("span", { className: "font-medium" }, "Cabin Class:"), " ", filter.cabinClass), /* @__PURE__ */ import_react13.default.createElement("div", null, /* @__PURE__ */ import_react13.default.createElement("span", { className: "font-medium" }, "Passengers:"), " ", filter.passengers.adults + filter.passengers.children + filter.passengers.infants), /* @__PURE__ */ import_react13.default.createElement("div", null, /* @__PURE__ */ import_react13.default.createElement("span", { className: "font-medium" }, "Target Price:"), " $", filter.targetPrice))));
 }
 document.addEventListener("DOMContentLoaded", function() {
   const flightFilterDemo = document.getElementById("flight-filter-demo");
   if (flightFilterDemo) {
     const root = (0, import_client.createRoot)(flightFilterDemo);
-    root.render(/* @__PURE__ */ import_react12.default.createElement(EnhancedFlightFilterDemo, null));
+    root.render(/* @__PURE__ */ import_react13.default.createElement(EnhancedFlightFilterDemo, null));
   }
   const airportTest = document.getElementById("airport-autocomplete-test");
   if (airportTest) {
     const root = (0, import_client.createRoot)(airportTest);
-    root.render(/* @__PURE__ */ import_react12.default.createElement(AirportAutocompleteTest, null));
+    root.render(/* @__PURE__ */ import_react13.default.createElement(AirportAutocompleteTest, null));
   }
 });
 /*! Bundled license information:

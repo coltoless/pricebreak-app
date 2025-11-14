@@ -1,5 +1,5 @@
 import { Controller } from "@hotwired/stimulus"
-import { initializeApp } from 'firebase/app'
+import { initializeApp, getApps } from 'firebase/app'
 import { getAuth, onAuthStateChanged, signInWithPopup, GoogleAuthProvider, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from 'firebase/auth'
 
 // Firebase Authentication Controller
@@ -36,12 +36,32 @@ export default class extends Controller {
     }
 
     try {
-      this.app = initializeApp(firebaseConfig)
-      this.auth = getAuth(this.app)
+      // Check if Firebase is already initialized (from firebase.ts)
+      const existingApps = getApps()
+      if (existingApps.length > 0) {
+        // Use the existing Firebase app
+        this.app = existingApps[0]
+        this.auth = getAuth(this.app)
+        console.log('✅ Using existing Firebase app instance')
+      } else {
+        // Initialize Firebase if not already initialized
+        this.app = initializeApp(firebaseConfig)
+        this.auth = getAuth(this.app)
+        console.log('✅ Firebase initialized in controller')
+      }
       this.setupAuthStateListener()
     } catch (error) {
       console.error('Firebase initialization error:', error)
-      this.showError('Failed to initialize authentication.')
+      // Try to get existing app if initialization failed due to duplicate
+      const existingApps = getApps()
+      if (existingApps.length > 0) {
+        this.app = existingApps[0]
+        this.auth = getAuth(this.app)
+        this.setupAuthStateListener()
+        console.log('✅ Recovered using existing Firebase app')
+      } else {
+        this.showError('Failed to initialize authentication.')
+      }
     }
   }
 

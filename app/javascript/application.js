@@ -13,6 +13,7 @@ import SimpleTest from './components/SimpleTest'
 
 // Export FirebaseUI initialization for use in views
 export { initializeFirebaseUI } from './lib/firebaseui'
+export { showSignInPopup } from './lib/signInPopup'
 
 console.log('🚀 priceBreak - JavaScript loading with React support...')
 

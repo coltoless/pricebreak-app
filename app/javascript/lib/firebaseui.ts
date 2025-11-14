@@ -63,15 +63,7 @@ export const initializeFirebaseUI = (containerId: string, options?: any) => {
     signInSuccessUrl: '/', // Redirect after successful sign-in
     signInOptions: [
       firebase.auth.GoogleAuthProvider.PROVIDER_ID,
-      firebase.auth.FacebookAuthProvider.PROVIDER_ID,
-      firebase.auth.TwitterAuthProvider.PROVIDER_ID,
-      firebase.auth.GithubAuthProvider.PROVIDER_ID,
       firebase.auth.EmailAuthProvider.PROVIDER_ID,
-      firebase.auth.PhoneAuthProvider.PROVIDER_ID,
-      // Optional: Add more providers
-      // firebase.auth.MicrosoftAuthProvider.PROVIDER_ID,
-      // firebase.auth.YahooAuthProvider.PROVIDER_ID,
-      // firebase.auth.AppleAuthProvider.PROVIDER_ID,
     ],
     // Terms of service url
     tosUrl: '/terms',

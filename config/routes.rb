@@ -55,14 +55,16 @@ Rails.application.routes.draw do
   # Firebase Authentication routes
   get 'sign-in', to: 'auth#sign_in', as: :sign_in
   
+  # Account Dashboard routes
+  get 'account', to: 'account#index', as: :account
+  get 'account/settings', to: 'account#settings', as: :account_settings
+  
   namespace :api do
-    namespace :auth do
-      post 'login', to: 'auth#login'
-      post 'register', to: 'auth#register'
-      delete 'logout', to: 'auth#logout'
-      get 'me', to: 'auth#me'
-      put 'profile', to: 'auth#update_profile'
-    end
+    post 'auth/login', to: 'auth#login'
+    post 'auth/register', to: 'auth#register'
+    delete 'auth/logout', to: 'auth#logout'
+    get 'auth/me', to: 'auth#me'
+    put 'auth/profile', to: 'auth#update_profile'
     
     # Flight Filter API routes
     resources :flight_filters, only: [:index, :show, :create, :update, :destroy] do

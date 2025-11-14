@@ -48,6 +48,15 @@
     
     <%# Include our built JavaScript bundle (which includes Firebase SDK via imports) %>
     <script type="module" src="/application.js?v=<%= Time.current.to_i %>"></script>
+    
+    <%# Make sign-in popup available globally %>
+    <script type="module">
+      import('/application.js').then(module => {
+        if (module.showSignInPopup) {
+          window.showSignInPopup = module.showSignInPopup;
+        }
+      }).catch(err => console.error('Error loading sign-in popup:', err));
+    </script>
   </head>
 
   <body>

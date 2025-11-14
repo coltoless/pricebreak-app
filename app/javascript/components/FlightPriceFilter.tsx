@@ -439,7 +439,7 @@ const FlightPriceFilter: React.FC<FlightPriceFilterProps> = ({
           <div className="flex items-center">
             <span className="mr-2 font-medium text-white/70">Target Price:</span>
             <span className="font-semibold">
-              ${filter.targetPrice || 0}
+              ${filter.targetPrice ? filter.targetPrice : 0}
             </span>
           </div>
         </div>
@@ -451,7 +451,6 @@ const FlightPriceFilter: React.FC<FlightPriceFilterProps> = ({
         isOpen={showPreviewModal}
         onClose={() => setShowPreviewModal(false)}
       />
-    </div>
     </div>
   );
 };
