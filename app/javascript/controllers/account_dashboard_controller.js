@@ -9,6 +9,20 @@ export default class extends Controller {
     this.preferredAirports = []
     this.authChecked = false
     this.redirecting = false
+    
+    // Check sessionStorage to prevent redirect loops
+    const redirectKey = 'account_redirect_attempted'
+    const redirectTimestamp = sessionStorage.getItem(redirectKey)
+    const now = Date.now()
+    
+    // If we tried to redirect in the last 5 seconds, don't try again
+    if (redirectTimestamp && (now - parseInt(redirectTimestamp)) < 5000) {
+      console.warn('Recent redirect attempt detected, skipping auth check to prevent loop')
+      // Show a message instead of redirecting
+      this.showErrorMessage('Please sign in to access your account.')
+      return
+    }
+    
     this.loadUserData()
     
     // Listen for checkbox changes
@@ -17,6 +31,24 @@ export default class extends Controller {
         this.savePreferences()
       })
     }
+  }
+
+  showErrorMessage(message) {
+    // Show error message in the page instead of redirecting
+    const errorDiv = document.createElement('div')
+    errorDiv.style.cssText = 'position: fixed; top: 20px; left: 50%; transform: translateX(-50%); background: #FEE; border: 2px solid #FCC; padding: 1rem; border-radius: 8px; z-index: 10000; max-width: 500px;'
+    errorDiv.innerHTML = `
+      <p style="margin: 0; color: #C33; font-weight: 600;">${message}</p>
+      <a href="/" style="display: inline-block; margin-top: 0.5rem; color: #2563EB; text-decoration: underline;">Go to Home</a>
+    `
+    document.body.appendChild(errorDiv)
+    
+    // Remove after 10 seconds
+    setTimeout(() => {
+      if (errorDiv.parentNode) {
+        errorDiv.parentNode.removeChild(errorDiv)
+      }
+    }, 10000)
   }
 
   async loadUserData() {
@@ -30,71 +62,44 @@ export default class extends Controller {
       const auth = getAuth()
       
       // Wait a bit for Firebase to initialize
-      await new Promise(resolve => setTimeout(resolve, 500))
+      await new Promise(resolve => setTimeout(resolve, 1000))
       
-      // Wait for auth state - use a timeout to prevent infinite loops
-      const authCheckTimeout = setTimeout(() => {
-        if (!this.authChecked && !this.redirecting) {
-          console.warn('Auth check timeout - user may not be logged in')
-          this.redirecting = true
-          // Only redirect if we're on the account page
-          if (window.location.pathname === '/account' || window.location.pathname.startsWith('/account/')) {
-            window.location.href = '/'
-          }
-        }
-      }, 3000) // 3 second timeout
+      // Check current user first before setting up listener
+      const currentUser = auth.currentUser
+      if (currentUser) {
+        // User is already logged in, load their data
+        await this.loadUserDataFromFirebase(currentUser)
+        return
+      }
       
+      // Set up auth state listener - but only redirect once
+      let hasRedirected = false
       const unsubscribe = onAuthStateChanged(auth, async (user) => {
-        // Clear timeout since we got a response
-        clearTimeout(authCheckTimeout)
-        
         // Prevent multiple redirects
-        if (this.redirecting) {
+        if (hasRedirected || this.redirecting) {
           return
         }
         
         this.authChecked = true
         
         if (user) {
-          // Get ID token and fetch user data from backend
-          try {
-            const idToken = await user.getIdToken()
-            const response = await fetch('/api/auth/me', {
-              headers: {
-                'Authorization': `Bearer ${idToken}`,
-                'Content-Type': 'application/json'
-              }
-            })
-            
-            if (response.ok) {
-              const data = await response.json()
-              this.preferredAirports = data.user.preferred_airports || []
-              this.updateUserInfo(data.user)
-            } else {
-              // If backend fails, use Firebase user data
-              this.updateUserInfo({
-                email: user.email,
-                name: user.displayName || user.email?.split('@')[0] || 'User'
-              })
-            }
-          } catch (error) {
-            console.error('Error fetching user data:', error)
-            // Fallback to Firebase user data
-            this.updateUserInfo({
-              email: user.email,
-              name: user.displayName || user.email?.split('@')[0] || 'User'
-            })
-          }
+          // User is logged in, load their data
+          await this.loadUserDataFromFirebase(user)
         } else {
-          // Not logged in - only redirect if we're on account page
-          if (!this.redirecting && (window.location.pathname === '/account' || window.location.pathname.startsWith('/account/'))) {
+          // Not logged in - only redirect once and only if on account page
+          if (!hasRedirected && (window.location.pathname === '/account' || window.location.pathname.startsWith('/account/'))) {
+            hasRedirected = true
             this.redirecting = true
-            // Small delay to prevent immediate redirect loops
+            
+            // Mark in sessionStorage to prevent loops
+            sessionStorage.setItem('account_redirect_attempted', Date.now().toString())
+            
+            // Redirect after a delay
             setTimeout(() => {
               if (window.location.pathname === '/account' || window.location.pathname.startsWith('/account/')) {
                 window.location.href = '/'
               }
-            }, 100)
+            }, 500)
           }
         }
       })
@@ -104,6 +109,38 @@ export default class extends Controller {
     } catch (error) {
       console.error('Error loading user data:', error)
       // Don't redirect on error - just show error state
+      this.showErrorMessage('Error loading account data. Please try refreshing the page.')
+    }
+  }
+  
+  async loadUserDataFromFirebase(user) {
+    try {
+      const idToken = await user.getIdToken()
+      const response = await fetch('/api/auth/me', {
+        headers: {
+          'Authorization': `Bearer ${idToken}`,
+          'Content-Type': 'application/json'
+        }
+      })
+      
+      if (response.ok) {
+        const data = await response.json()
+        this.preferredAirports = data.user.preferred_airports || []
+        this.updateUserInfo(data.user)
+      } else {
+        // If backend fails, use Firebase user data
+        this.updateUserInfo({
+          email: user.email,
+          name: user.displayName || user.email?.split('@')[0] || 'User'
+        })
+      }
+    } catch (error) {
+      console.error('Error fetching user data:', error)
+      // Fallback to Firebase user data
+      this.updateUserInfo({
+        email: user.email,
+        name: user.displayName || user.email?.split('@')[0] || 'User'
+      })
     }
   }
   
