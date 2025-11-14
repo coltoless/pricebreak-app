@@ -163,8 +163,8 @@ export default class extends Controller {
       this.updateAirportsList(user.preferred_airports || [])
     }
     
-    // Show logout button (it's controlled by firebase-auth controller, but we can ensure it's visible)
-    const logoutBtn = document.querySelector('[data-firebase-auth-target="signOutButton"]')
+    // Show logout button
+    const logoutBtn = document.querySelector('.account-logout-btn')
     if (logoutBtn) {
       logoutBtn.style.display = 'block'
     }
@@ -268,6 +268,33 @@ export default class extends Controller {
       this.preferredAirports.push(airportCode.toUpperCase())
       this.updateAirportsList(this.preferredAirports)
       this.savePreferences()
+    }
+  }
+
+  async signOut() {
+    try {
+      const auth = getAuth()
+      if (auth.currentUser) {
+        const { signOut } = await import('firebase/auth')
+        await signOut(auth)
+        
+        // Also notify backend
+        try {
+          await fetch('/api/auth/logout', {
+            method: 'DELETE',
+            headers: {
+              'Content-Type': 'application/json'
+            }
+          })
+        } catch (e) {
+          // Ignore backend logout errors
+        }
+        
+        // Redirect to home after sign out
+        window.location.href = '/'
+      }
+    } catch (error) {
+      console.error('Sign-out error:', error)
     }
   }
 

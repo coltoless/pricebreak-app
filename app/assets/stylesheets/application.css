@@ -258,12 +258,30 @@
 }
 
 .user-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
   background: rgba(255, 255, 255, 0.1);
   padding: 0.75rem 1rem;
   border-radius: 6px;
   border: 1px solid rgba(255, 255, 255, 0.2);
   color: white;
   font-size: 0.875rem;
+}
+
+.user-info-content {
+  margin-bottom: 0.5rem;
+}
+
+.user-account-link {
+  color: white !important;
+  text-decoration: none !important;
+}
+
+.user-account-link:hover {
+  background: rgba(255, 255, 255, 0.25) !important;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .user-info p {
