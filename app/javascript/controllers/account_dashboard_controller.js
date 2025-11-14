@@ -10,18 +10,8 @@ export default class extends Controller {
     this.authChecked = false
     this.redirecting = false
     
-    // Check sessionStorage to prevent redirect loops
-    const redirectKey = 'account_redirect_attempted'
-    const redirectTimestamp = sessionStorage.getItem(redirectKey)
-    const now = Date.now()
-    
-    // If we tried to redirect in the last 5 seconds, don't try again
-    if (redirectTimestamp && (now - parseInt(redirectTimestamp)) < 5000) {
-      console.warn('Recent redirect attempt detected, skipping auth check to prevent loop')
-      // Show a message instead of redirecting
-      this.showErrorMessage('Please sign in to access your account.')
-      return
-    }
+    // COMPLETELY DISABLE REDIRECTS - just load data and show message if needed
+    console.log('Account dashboard controller connected - redirects DISABLED')
     
     this.loadUserData()
     
@@ -35,20 +25,22 @@ export default class extends Controller {
 
   showErrorMessage(message) {
     // Show error message in the page instead of redirecting
-    const errorDiv = document.createElement('div')
-    errorDiv.style.cssText = 'position: fixed; top: 20px; left: 50%; transform: translateX(-50%); background: #FEE; border: 2px solid #FCC; padding: 1rem; border-radius: 8px; z-index: 10000; max-width: 500px;'
+    // Check if message already exists to prevent duplicates
+    let errorDiv = document.getElementById('account-error-message')
+    if (errorDiv) {
+      return // Already showing message
+    }
+    
+    errorDiv = document.createElement('div')
+    errorDiv.id = 'account-error-message'
+    errorDiv.style.cssText = 'position: fixed; top: 20px; left: 50%; transform: translateX(-50%); background: #FEE; border: 2px solid #FCC; padding: 1rem; border-radius: 8px; z-index: 10000; max-width: 500px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);'
     errorDiv.innerHTML = `
       <p style="margin: 0; color: #C33; font-weight: 600;">${message}</p>
       <a href="/" style="display: inline-block; margin-top: 0.5rem; color: #2563EB; text-decoration: underline;">Go to Home</a>
     `
     document.body.appendChild(errorDiv)
     
-    // Remove after 10 seconds
-    setTimeout(() => {
-      if (errorDiv.parentNode) {
-        errorDiv.parentNode.removeChild(errorDiv)
-      }
-    }, 10000)
+    // Don't auto-remove - let user dismiss it
   }
 
   async loadUserData() {
@@ -72,11 +64,10 @@ export default class extends Controller {
         return
       }
       
-      // Set up auth state listener - but only redirect once
-      let hasRedirected = false
+      // Set up auth state listener - DISABLED REDIRECTS TO PREVENT LOOPS
       const unsubscribe = onAuthStateChanged(auth, async (user) => {
-        // Prevent multiple redirects
-        if (hasRedirected || this.redirecting) {
+        // Prevent multiple checks
+        if (this.redirecting) {
           return
         }
         
@@ -86,21 +77,12 @@ export default class extends Controller {
           // User is logged in, load their data
           await this.loadUserDataFromFirebase(user)
         } else {
-          // Not logged in - only redirect once and only if on account page
-          if (!hasRedirected && (window.location.pathname === '/account' || window.location.pathname.startsWith('/account/'))) {
-            hasRedirected = true
-            this.redirecting = true
-            
-            // Mark in sessionStorage to prevent loops
-            sessionStorage.setItem('account_redirect_attempted', Date.now().toString())
-            
-            // Redirect after a delay
-            setTimeout(() => {
-              if (window.location.pathname === '/account' || window.location.pathname.startsWith('/account/')) {
-                window.location.href = '/'
-              }
-            }, 500)
-          }
+          // Not logged in - SHOW MESSAGE INSTEAD OF REDIRECTING
+          console.log('User not logged in, showing message instead of redirecting')
+          this.showErrorMessage('Please sign in to access your account. <a href="/" style="color: #2563EB; text-decoration: underline;">Go to Home</a>')
+          
+          // DISABLED: No redirect to prevent loops
+          // The user can manually navigate away if needed
         }
       })
       
