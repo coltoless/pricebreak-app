@@ -68,6 +68,8 @@ class Api::AuthController < ApplicationController
         email: current_user.email,
         name: current_user.name,
         firebase_uid: current_user.firebase_uid,
+        email_subscription: current_user.email_subscription || false,
+        preferred_airports: current_user.preferred_airports || [],
         created_at: current_user.created_at,
         updated_at: current_user.updated_at
       }
@@ -85,12 +87,35 @@ class Api::AuthController < ApplicationController
           id: current_user.id,
           email: current_user.email,
           name: current_user.name,
-          firebase_uid: current_user.firebase_uid
+          firebase_uid: current_user.firebase_uid,
+          email_subscription: current_user.email_subscription || false,
+          preferred_airports: current_user.preferred_airports || []
         }
       }
     else
       render json: {
         error: "Profile update failed",
+        errors: current_user.errors.full_messages
+      }, status: :unprocessable_entity
+    end
+  end
+  
+  # PUT /api/auth/preferences
+  def update_preferences
+    require_firebase_user!
+    
+    if current_user.update(preferences_params)
+      render json: {
+        message: "Preferences updated successfully",
+        user: {
+          id: current_user.id,
+          email_subscription: current_user.email_subscription || false,
+          preferred_airports: current_user.preferred_airports || []
+        }
+      }
+    else
+      render json: {
+        error: "Preferences update failed",
         errors: current_user.errors.full_messages
       }, status: :unprocessable_entity
     end
@@ -254,6 +279,10 @@ class Api::AuthController < ApplicationController
 
   def user_params
     params.require(:user).permit(:name)
+  end
+  
+  def preferences_params
+    params.permit(:email_subscription, preferred_airports: [])
   end
 end
 

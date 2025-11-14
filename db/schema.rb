@@ -10,70 +10,70 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_11_05_052646) do
+ActiveRecord::Schema[8.1].define(version: 2025_11_14_045655) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
   create_table "auto_buy_settings", force: :cascade do |t|
-    t.bigint "price_alert_id", null: false
-    t.bigint "user_id", null: false
-    t.boolean "enabled", default: false
-    t.integer "max_attempts", default: 3
     t.integer "attempts_count", default: 0
-    t.string "payment_method_type"
-    t.string "payment_method_id"
     t.text "billing_address"
     t.datetime "created_at", null: false
+    t.boolean "enabled", default: false
+    t.integer "max_attempts", default: 3
+    t.string "payment_method_id"
+    t.string "payment_method_type"
+    t.bigint "price_alert_id", null: false
     t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
     t.index ["price_alert_id", "user_id"], name: "index_auto_buy_settings_on_price_alert_id_and_user_id", unique: true
     t.index ["price_alert_id"], name: "index_auto_buy_settings_on_price_alert_id"
     t.index ["user_id"], name: "index_auto_buy_settings_on_user_id"
   end
 
   create_table "events", force: :cascade do |t|
-    t.string "name"
-    t.text "description"
-    t.string "venue"
     t.string "category"
-    t.string "subcategory"
-    t.decimal "price"
-    t.datetime "date"
-    t.string "image_url"
-    t.string "ticket_url"
     t.datetime "created_at", null: false
+    t.datetime "date"
+    t.text "description"
+    t.string "image_url"
+    t.string "name"
+    t.decimal "price"
+    t.string "subcategory"
+    t.string "ticket_url"
     t.datetime "updated_at", null: false
+    t.string "venue"
   end
 
   create_table "flight_alerts", force: :cascade do |t|
-    t.bigint "user_id", null: false
-    t.string "origin", null: false
-    t.string "destination", null: false
-    t.date "departure_date", null: false
-    t.date "return_date"
-    t.integer "passengers", default: 1
-    t.string "cabin_class", default: "economy"
-    t.decimal "price_min", precision: 10, scale: 2
-    t.decimal "price_max", precision: 10, scale: 2
-    t.decimal "target_price", precision: 10, scale: 2, null: false
-    t.string "notification_method", default: "email"
-    t.boolean "wedding_mode", default: false
-    t.date "wedding_date"
-    t.integer "guest_count", default: 1
-    t.string "status", default: "active"
-    t.jsonb "auto_buy_settings", default: {}
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.bigint "flight_filter_id"
-    t.decimal "current_price", precision: 10, scale: 2
-    t.decimal "price_drop_percentage", precision: 5, scale: 2
-    t.jsonb "alert_triggers", default: {}
-    t.jsonb "notification_history", default: {}
-    t.jsonb "booking_actions", default: {}
-    t.datetime "next_check_scheduled"
     t.decimal "alert_quality_score", precision: 3, scale: 2, default: "1.0"
-    t.datetime "last_checked"
     t.string "alert_status"
+    t.jsonb "alert_triggers", default: {}
+    t.jsonb "auto_buy_settings", default: {}
+    t.jsonb "booking_actions", default: {}
+    t.string "cabin_class", default: "economy"
+    t.datetime "created_at", null: false
+    t.decimal "current_price", precision: 10, scale: 2
+    t.date "departure_date", null: false
+    t.string "destination", null: false
+    t.bigint "flight_filter_id"
+    t.integer "guest_count", default: 1
+    t.datetime "last_checked"
+    t.datetime "next_check_scheduled"
+    t.jsonb "notification_history", default: {}
+    t.string "notification_method", default: "email"
+    t.string "origin", null: false
+    t.integer "passengers", default: 1
     t.decimal "price_drop_amount"
+    t.decimal "price_drop_percentage", precision: 5, scale: 2
+    t.decimal "price_max", precision: 10, scale: 2
+    t.decimal "price_min", precision: 10, scale: 2
+    t.date "return_date"
+    t.string "status", default: "active"
+    t.decimal "target_price", precision: 10, scale: 2, null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.date "wedding_date"
+    t.boolean "wedding_mode", default: false
     t.index ["alert_triggers"], name: "index_flight_alerts_on_alert_triggers", using: :gin
     t.index ["auto_buy_settings"], name: "index_flight_alerts_on_auto_buy_settings", using: :gin
     t.index ["booking_actions"], name: "index_flight_alerts_on_booking_actions", using: :gin
@@ -89,23 +89,23 @@ ActiveRecord::Schema[8.0].define(version: 2025_11_05_052646) do
   end
 
   create_table "flight_filters", force: :cascade do |t|
-    t.bigint "user_id", null: false
-    t.string "name", null: false
-    t.text "description"
-    t.text "origin_airports", null: false
-    t.text "destination_airports", null: false
-    t.string "trip_type", default: "round-trip", null: false
-    t.text "departure_dates", null: false
-    t.text "return_dates"
-    t.boolean "flexible_dates", default: false
-    t.integer "date_flexibility", default: 3
-    t.jsonb "passenger_details", default: {}, null: false
-    t.jsonb "price_parameters", default: {}, null: false
     t.jsonb "advanced_preferences", default: {}, null: false
     t.jsonb "alert_settings", default: {}, null: false
-    t.boolean "is_active", default: true
     t.datetime "created_at", null: false
+    t.integer "date_flexibility", default: 3
+    t.text "departure_dates", null: false
+    t.text "description"
+    t.text "destination_airports", null: false
+    t.boolean "flexible_dates", default: false
+    t.boolean "is_active", default: true
+    t.string "name", null: false
+    t.text "origin_airports", null: false
+    t.jsonb "passenger_details", default: {}, null: false
+    t.jsonb "price_parameters", default: {}, null: false
+    t.text "return_dates"
+    t.string "trip_type", default: "round-trip", null: false
     t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
     t.index ["advanced_preferences"], name: "index_flight_filters_on_advanced_preferences", using: :gin
     t.index ["alert_settings"], name: "index_flight_filters_on_alert_settings", using: :gin
     t.index ["is_active"], name: "index_flight_filters_on_is_active"
@@ -116,15 +116,15 @@ ActiveRecord::Schema[8.0].define(version: 2025_11_05_052646) do
   end
 
   create_table "flight_price_histories", force: :cascade do |t|
-    t.string "route", null: false
-    t.date "date", null: false
-    t.string "provider", null: false
-    t.decimal "price", precision: 10, scale: 2, null: false
     t.string "booking_class", null: false
-    t.datetime "timestamp", null: false
-    t.decimal "data_quality_score", precision: 3, scale: 2, default: "1.0"
-    t.string "price_validation_status", default: "valid"
     t.datetime "created_at", null: false
+    t.decimal "data_quality_score", precision: 3, scale: 2, default: "1.0"
+    t.date "date", null: false
+    t.decimal "price", precision: 10, scale: 2, null: false
+    t.string "price_validation_status", default: "valid"
+    t.string "provider", null: false
+    t.string "route", null: false
+    t.datetime "timestamp", null: false
     t.datetime "updated_at", null: false
     t.index ["data_quality_score"], name: "index_flight_price_histories_on_data_quality_score"
     t.index ["date"], name: "index_flight_price_histories_on_date"
@@ -137,16 +137,16 @@ ActiveRecord::Schema[8.0].define(version: 2025_11_05_052646) do
   end
 
   create_table "flight_provider_data", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "data_timestamp", null: false
+    t.string "duplicate_group_id"
     t.string "flight_identifier", null: false
+    t.jsonb "pricing", default: {}, null: false
     t.string "provider", null: false
     t.string "route", null: false
     t.jsonb "schedule", default: {}, null: false
-    t.jsonb "pricing", default: {}, null: false
-    t.datetime "data_timestamp", null: false
-    t.string "validation_status", default: "pending"
-    t.string "duplicate_group_id"
-    t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "validation_status", default: "pending"
     t.index ["data_timestamp"], name: "index_flight_provider_data_on_data_timestamp"
     t.index ["duplicate_group_id"], name: "index_flight_provider_data_on_duplicate_group_id"
     t.index ["flight_identifier", "provider"], name: "index_flight_provider_data_on_flight_identifier_and_provider", unique: true
@@ -159,54 +159,56 @@ ActiveRecord::Schema[8.0].define(version: 2025_11_05_052646) do
   end
 
   create_table "launch_subscribers", force: :cascade do |t|
-    t.string "email"
     t.datetime "created_at", null: false
+    t.string "email"
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_launch_subscribers_on_email", unique: true
   end
 
   create_table "price_alerts", force: :cascade do |t|
-    t.bigint "user_id", null: false
-    t.string "query"
-    t.string "category", default: [], array: true
-    t.string "venue_type", default: [], array: true
     t.string "artist"
-    t.string "team"
-    t.string "from"
-    t.string "to"
-    t.decimal "price_min", precision: 10, scale: 2
-    t.decimal "price_max", precision: 10, scale: 2
-    t.decimal "target_price", precision: 10, scale: 2, null: false
-    t.string "notification_method", null: false
-    t.string "status", default: "active", null: false
-    t.datetime "triggered_at"
+    t.string "category", default: [], array: true
     t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.decimal "min_price", precision: 10, scale: 2
+    t.string "from"
     t.decimal "max_price", precision: 10, scale: 2
+    t.decimal "min_price", precision: 10, scale: 2
+    t.string "notification_method", null: false
+    t.decimal "price_max", precision: 10, scale: 2
+    t.decimal "price_min", precision: 10, scale: 2
+    t.string "query"
+    t.string "status", default: "active", null: false
+    t.decimal "target_price", precision: 10, scale: 2, null: false
+    t.string "team"
+    t.string "to"
+    t.datetime "triggered_at"
+    t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.string "venue_type", default: [], array: true
     t.index ["status"], name: "index_price_alerts_on_status"
     t.index ["user_id", "status"], name: "index_price_alerts_on_user_id_and_status"
     t.index ["user_id"], name: "index_price_alerts_on_user_id"
   end
 
   create_table "subscribers", force: :cascade do |t|
+    t.datetime "created_at", null: false
     t.string "email", null: false
     t.string "status", default: "active"
-    t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_subscribers_on_email", unique: true
   end
 
   create_table "users", force: :cascade do |t|
-    t.string "email", default: "", null: false
-    t.string "encrypted_password", default: "", null: false
-    t.string "reset_password_token"
-    t.datetime "reset_password_sent_at"
-    t.datetime "remember_created_at"
     t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.string "email", default: "", null: false
+    t.boolean "email_subscription", default: false
+    t.string "encrypted_password", default: "", null: false
     t.string "firebase_uid"
     t.string "name"
+    t.jsonb "preferred_airports", default: []
+    t.datetime "remember_created_at"
+    t.datetime "reset_password_sent_at"
+    t.string "reset_password_token"
+    t.datetime "updated_at", null: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["firebase_uid"], name: "index_users_on_firebase_uid", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true

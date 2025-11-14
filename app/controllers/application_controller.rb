@@ -14,6 +14,8 @@ class ApplicationController < ActionController::Base
     return if controller_path.start_with?('devise/')
     # Allow Firebase authentication
     return if controller_name == 'auth'
+    # Allow Account dashboard
+    return if controller_name == 'account'
     # ENABLED for local development
     return if controller_name == 'flight_filters'
     return if controller_name == 'flight_alerts'

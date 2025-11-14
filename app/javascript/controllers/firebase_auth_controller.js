@@ -252,6 +252,9 @@ export default class extends Controller {
   }
 
   onUserSignedOut() {
+    // Redirect to home page after sign out
+    window.location.href = '/'
+    
     // Update UI to show signed-out state
     if (this.hasSignInButtonTarget) {
       this.signInButtonTarget.style.display = 'block'

@@ -65,6 +65,7 @@ Rails.application.routes.draw do
     delete 'auth/logout', to: 'auth#logout'
     get 'auth/me', to: 'auth#me'
     put 'auth/profile', to: 'auth#update_profile'
+    put 'auth/preferences', to: 'auth#update_preferences'
     
     # Flight Filter API routes
     resources :flight_filters, only: [:index, :show, :create, :update, :destroy] do
