@@ -1,6 +1,10 @@
 // Import Rails and Stimulus
-import "@hotwired/turbo-rails"
+// TEMPORARILY DISABLED TURBO TO DEBUG REFRESH LOOP
+// import "@hotwired/turbo-rails"
 import "./controllers"
+
+// Import Firebase early to ensure it's initialized and available globally
+import './lib/firebase'
 
 // Import React and components
 import React from 'react'
@@ -14,6 +18,8 @@ import SimpleTest from './components/SimpleTest'
 // Export FirebaseUI initialization for use in views
 export { initializeFirebaseUI } from './lib/firebaseui'
 export { showSignInPopup } from './lib/signInPopup'
+// Export Firebase initialization function
+export { initializeFirebaseApp } from './lib/firebase'
 
 console.log('🚀 priceBreak - JavaScript loading with React support...')
 

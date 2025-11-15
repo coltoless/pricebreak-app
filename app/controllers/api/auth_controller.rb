@@ -76,6 +76,119 @@ class Api::AuthController < ApplicationController
     }
   end
 
+  # GET /api/auth/dashboard
+  def dashboard
+    require_firebase_user!
+    
+    # Get user preferences
+    preferences = {
+      email: current_user.email,
+      name: current_user.name,
+      home_city: current_user.home_city,
+      currency: current_user.currency || 'USD',
+      language: current_user.language || 'en',
+      timezone: current_user.timezone || 'UTC',
+      email_subscription: current_user.email_subscription || false,
+      preferred_airports: current_user.preferred_airports || []
+    }
+    
+    # Get active price alerts
+    active_alerts = current_user.flight_alerts.active.order(created_at: :desc).limit(50).map do |alert|
+      {
+        id: alert.id,
+        origin: alert.origin,
+        destination: alert.destination,
+        departure_date: alert.departure_date,
+        return_date: alert.return_date,
+        target_price: alert.target_price,
+        current_price: alert.current_price,
+        status: alert.status,
+        notification_method: alert.notification_method,
+        created_at: alert.created_at,
+        is_urgent: alert.is_urgent?,
+        route_description: alert.route_description,
+        wedding_mode: alert.wedding_mode,
+        wedding_date: alert.wedding_date
+      }
+    end
+    
+    # Get all alerts (for stats)
+    all_alerts = current_user.flight_alerts.order(created_at: :desc)
+    alerts_stats = {
+      total: all_alerts.count,
+      active: all_alerts.where(status: 'active').count,
+      triggered: all_alerts.where(status: 'triggered').count,
+      paused: all_alerts.where(status: 'paused').count,
+      expired: all_alerts.where(status: 'expired').count
+    }
+    
+    # Get saved searches (flight filters)
+    saved_searches = current_user.flight_filters.order(created_at: :desc).limit(50).map do |filter|
+      {
+        id: filter.id,
+        name: filter.name,
+        description: filter.description,
+        origin_airports: filter.origin_airports_array,
+        destination_airports: filter.destination_airports_array,
+        trip_type: filter.trip_type,
+        departure_dates: filter.departure_dates_array,
+        return_dates: filter.return_dates_array,
+        is_active: filter.is_active,
+        created_at: filter.created_at,
+        route_description: filter.route_description,
+        passenger_count: filter.passenger_count,
+        target_price: filter.target_price,
+        cabin_class: filter.cabin_class
+      }
+    end
+    
+    # Get future trips (flight filters with future dates)
+    future_trips = current_user.flight_filters.active.select do |filter|
+      dates = filter.departure_dates_array
+      dates.any? do |date_str|
+        begin
+          Date.parse(date_str) >= Date.current
+        rescue
+          false
+        end
+      end
+    end.map do |filter|
+      {
+        id: filter.id,
+        name: filter.name,
+        description: filter.description,
+        origin_airports: filter.origin_airports_array,
+        destination_airports: filter.destination_airports_array,
+        trip_type: filter.trip_type,
+        departure_dates: filter.departure_dates_array,
+        return_dates: filter.return_dates_array,
+        created_at: filter.created_at,
+        route_description: filter.route_description,
+        passenger_count: filter.passenger_count,
+        target_price: filter.target_price,
+        cabin_class: filter.cabin_class,
+        is_urgent: filter.is_urgent?
+      }
+    end.sort_by { |trip| 
+      earliest_date = trip[:departure_dates].map { |d| Date.parse(d) rescue Date.today }.min
+      earliest_date
+    }
+    
+    # Generate suggested alerts based on user patterns
+    suggested_alerts = generate_suggested_alerts(current_user)
+    
+    render json: {
+      preferences: preferences,
+      alerts: {
+        active: active_alerts,
+        stats: alerts_stats
+      },
+      saved_searches: saved_searches,
+      future_trips: future_trips,
+      suggested_alerts: suggested_alerts
+    }
+  end
+
   # PUT /api/auth/profile
   def update_profile
     require_firebase_user!
@@ -110,7 +223,11 @@ class Api::AuthController < ApplicationController
         user: {
           id: current_user.id,
           email_subscription: current_user.email_subscription || false,
-          preferred_airports: current_user.preferred_airports || []
+          preferred_airports: current_user.preferred_airports || [],
+          home_city: current_user.home_city,
+          currency: current_user.currency,
+          language: current_user.language,
+          timezone: current_user.timezone
         }
       }
     else
@@ -282,7 +399,74 @@ class Api::AuthController < ApplicationController
   end
   
   def preferences_params
-    params.permit(:email_subscription, preferred_airports: [])
+    params.permit(:email_subscription, :home_city, :currency, :language, :timezone, preferred_airports: [])
+  end
+  
+  def generate_suggested_alerts(user)
+    suggestions = []
+    
+    # Suggest alerts based on frequently searched routes
+    frequent_routes = user.flight_filters
+      .group_by { |f| "#{f.origin_airports_array.first}→#{f.destination_airports_array.first}" }
+      .sort_by { |_, filters| -filters.count }
+      .first(3)
+    
+    frequent_routes.each do |route, filters|
+      next if filters.empty?
+      
+      filter = filters.first
+      existing_alert = user.flight_alerts.active.find_by(
+        origin: filter.origin_airports_array.first,
+        destination: filter.destination_airports_array.first
+      )
+      
+      next if existing_alert # Don't suggest if alert already exists
+      
+      suggestions << {
+        type: 'frequent_route',
+        reason: "You've searched this route #{filters.count} times",
+        origin: filter.origin_airports_array.first,
+        destination: filter.destination_airports_array.first,
+        suggested_target_price: filter.target_price,
+        priority: 'medium'
+      }
+    end
+    
+    # Suggest alerts for future trips without active alerts
+    user.flight_filters.active.each do |filter|
+      dates = filter.departure_dates_array
+      future_dates = dates.select do |date_str|
+        begin
+          Date.parse(date_str) >= Date.current
+        rescue
+          false
+        end
+      end
+      
+      next if future_dates.empty?
+      
+      origin = filter.origin_airports_array.first
+      destination = filter.destination_airports_array.first
+      
+      existing_alert = user.flight_alerts.active.find_by(
+        origin: origin,
+        destination: destination
+      )
+      
+      next if existing_alert
+      
+      suggestions << {
+        type: 'future_trip',
+        reason: "You have a planned trip but no active alert",
+        origin: origin,
+        destination: destination,
+        departure_date: future_dates.first,
+        suggested_target_price: filter.target_price,
+        priority: filter.is_urgent? ? 'high' : 'medium'
+      }
+    end
+    
+    suggestions.uniq { |s| "#{s[:origin]}#{s[:destination]}" }
   end
 end
 

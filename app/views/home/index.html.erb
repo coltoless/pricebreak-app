@@ -25,19 +25,12 @@
         <a href="#get-started" class="nav-button">Get Started →</a>
       </nav>
       
-      <!-- Firebase Authentication -->
-      <div class="auth-section" 
-           data-controller="firebase-auth"
-           data-firebase-auth-api-key-value="<%= ENV['FIREBASE_API_KEY'] || '' %>"
-           data-firebase-auth-auth-domain-value="<%= ENV['FIREBASE_AUTH_DOMAIN'] || '' %>"
-           data-firebase-auth-project-id-value="<%= ENV['FIREBASE_PROJECT_ID'] || '' %>"
-           data-firebase-auth-storage-bucket-value="<%= ENV['FIREBASE_STORAGE_BUCKET'] || '' %>"
-           data-firebase-auth-messaging-sender-id-value="<%= ENV['FIREBASE_MESSAGING_SENDER_ID'] || '' %>"
-           data-firebase-auth-app-id-value="<%= ENV['FIREBASE_APP_ID'] || '' %>">
+      <!-- Firebase Authentication - Simple UI update without controller -->
+      <!-- The auth controller causes loops - using lightweight script instead -->
+      <div class="auth-section" id="auth-section">
         
-        <!-- Sign In Button - Opens popup -->
-        <button class="auth-button sign-in-btn" 
-                data-firebase-auth-target="signInButton"
+        <!-- Sign In Button - Opens popup (no controller needed) -->
+        <button class="auth-button sign-in-btn" id="sign-in-btn"
                 onclick="window.showSignInPopup && window.showSignInPopup()"
                 style="display: inline-flex; align-items: center; gap: 0.5rem; text-decoration: none; color: white; background: none; border: none; cursor: pointer; font-size: inherit; padding: 0.5rem 1rem; border-radius: 0.5rem; transition: all 0.2s;">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0;">
@@ -47,20 +40,193 @@
           Log in
         </button>
         
-        <!-- Sign Out Button (hidden by default) -->
-        <button class="auth-button sign-out-btn" 
-                data-firebase-auth-target="signOutButton"
-                data-action="click->firebase-auth#signOut"
-                style="display: none;">
-          🚪 Sign Out
-        </button>
-        
-        <!-- User Info (hidden by default) -->
-        <div class="user-info" 
-             data-firebase-auth-target="userInfo"
-             style="display: none;">
+        <!-- User Info (hidden by default, shown when signed in) - Avatar with first letter -->
+        <div id="user-info" style="display: none; align-items: center;">
         </div>
       </div>
+      
+      <!-- Simple script to check auth state and update UI (no controller, no loops) -->
+      <script>
+        // Wait for Firebase to be available and update UI
+        (function() {
+          let checkCount = 0;
+          const maxChecks = 40; // Stop after 20 seconds (increased from 10)
+          
+          function updateAuthUI() {
+            checkCount++;
+            
+            // Try to get Firebase function using waitForFirebase if available
+            if (window.waitForFirebase && !window.initializeFirebase && checkCount === 1) {
+              window.waitForFirebase().then((initFn) => {
+                if (initFn) {
+                  window.initializeFirebase = initFn;
+                  console.log('✅ Got Firebase function via waitForFirebase');
+                  // Try to initialize
+                  if (window.firebaseConfig && window.firebaseConfig.apiKey) {
+                    try {
+                      const result = initFn();
+                      if (result && result.auth) {
+                        window.firebaseAuthInstance = result.auth;
+                        console.log('✅ Firebase initialized via waitForFirebase');
+                      }
+                    } catch (e) {
+                      console.error('Error initializing via waitForFirebase:', e);
+                    }
+                  }
+                  updateAuthUI();
+                }
+              }).catch(err => console.error('waitForFirebase error:', err));
+            }
+            
+            // Try to initialize Firebase if the function is available and config exists
+            if (window.initializeFirebase && window.firebaseConfig && window.firebaseConfig.apiKey && !window.firebaseAuthInstance) {
+              try {
+                const result = window.initializeFirebase();
+                if (result && result.auth) {
+                  window.firebaseAuthInstance = result.auth;
+                  console.log('✅ Firebase initialized via initializeFirebase call');
+                }
+              } catch (e) {
+                console.error('Error calling initializeFirebase:', e);
+              }
+            }
+            
+            // Try to get Firebase auth - check both compat and modular APIs
+            let auth = null;
+            try {
+              // Try modular API first (used by firebase.ts)
+              if (window.firebaseAuthInstance) {
+                auth = window.firebaseAuthInstance;
+              }
+              // Try compat API (used by firebaseui)
+              else if (typeof firebase !== 'undefined' && firebase.auth) {
+                auth = firebase.auth();
+              }
+            } catch (e) {
+              // Silently continue checking
+            }
+            
+            if (!auth && checkCount < maxChecks) {
+              // Check more frequently at the start, then slow down
+              const delay = checkCount < 10 ? 250 : 500;
+              setTimeout(updateAuthUI, delay);
+              return;
+            }
+            
+            if (!auth) {
+              console.log('Firebase auth not available after', checkCount, 'attempts');
+              // Check if Firebase config is available
+              if (window.firebaseConfig && window.firebaseConfig.apiKey) {
+                console.warn('⚠️ Firebase config exists but auth instance not available. Module may not have loaded.');
+                console.warn('⚠️ Available:', {
+                  hasFirebaseConfig: !!window.firebaseConfig,
+                  hasApiKey: !!window.firebaseConfig.apiKey,
+                  hasInitializeFunction: !!window.initializeFirebase,
+                  hasAuthInstance: !!window.firebaseAuthInstance,
+                  hasFirebaseCompat: typeof firebase !== 'undefined'
+                });
+              }
+              return;
+            }
+            
+            try {
+              const user = auth.currentUser;
+              const signInBtn = document.getElementById('sign-in-btn');
+              const userInfo = document.getElementById('user-info');
+              
+              if (user) {
+                // User is signed in - show avatar with first letter, hide sign-in button
+                if (signInBtn) signInBtn.style.display = 'none';
+                if (userInfo) {
+                  userInfo.style.display = 'flex';
+                  const displayName = user.displayName || user.email || 'User';
+                  const firstLetter = displayName.charAt(0).toUpperCase();
+                  // Generate a color based on the first letter for consistent avatar colors
+                  const colors = ['#2563EB', '#7C3AED', '#DC2626', '#059669', '#D97706', '#BE185D', '#0891B2', '#CA8A04'];
+                  const colorIndex = firstLetter.charCodeAt(0) % colors.length;
+                  const avatarColor = colors[colorIndex];
+                  
+                  userInfo.innerHTML = `
+                    <div class="user-info" style="display: flex; align-items: center; gap: 0.75rem;">
+                      <a href="/account" style="display: flex; align-items: center; gap: 0.5rem; text-decoration: none; position: relative;" title="${displayName}">
+                        <div style="width: 40px; height: 40px; border-radius: 50%; background: ${avatarColor}; display: flex; align-items: center; justify-content: center; color: white; font-weight: 600; font-size: 1rem; border: 2px solid rgba(255, 255, 255, 0.3); cursor: pointer; transition: all 0.2s;" 
+                             onmouseover="this.style.transform='scale(1.1)'; this.style.borderColor='rgba(255,255,255,0.5)'" 
+                             onmouseout="this.style.transform='scale(1)'; this.style.borderColor='rgba(255,255,255,0.3)'">
+                          ${firstLetter}
+                        </div>
+                      </a>
+                      <button onclick="(function(){const a=typeof firebase!=='undefined'&&firebase.auth?firebase.auth():window.firebaseAuthInstance;if(a){a.signOut().then(()=>{console.log('✅ Signed out successfully');const signInBtn=document.getElementById('sign-in-btn');const userInfo=document.getElementById('user-info');if(signInBtn)signInBtn.style.display='inline-flex';if(userInfo)userInfo.style.display='none';});}})()" 
+                              style="display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.5rem 0.75rem; background: rgba(255, 255, 255, 0.1); border-radius: 0.375rem; color: white; border: 1px solid rgba(255, 255, 255, 0.2); cursor: pointer; font-size: 0.875rem; transition: all 0.2s;" 
+                              onmouseover="this.style.background='rgba(255,255,255,0.15)'" 
+                              onmouseout="this.style.background='rgba(255,255,255,0.1)'">
+                        Sign Out
+                      </button>
+                    </div>
+                  `;
+                }
+                console.log('✅ User signed in:', displayName);
+              } else {
+                // User is not signed in - show sign-in button, hide user info
+                if (signInBtn) signInBtn.style.display = 'inline-flex';
+                if (userInfo) userInfo.style.display = 'none';
+                console.log('ℹ️ User not signed in');
+              }
+            } catch (error) {
+              console.error('Error updating auth UI:', error);
+            }
+          }
+          
+          // Listen for Firebase function ready event (fires when initializeFirebase is available)
+          window.addEventListener('firebaseFunctionReady', function(event) {
+            console.log('✅ Firebase function ready event received');
+            if (event.detail && event.detail.initializeFunction) {
+              window.initializeFirebase = event.detail.initializeFunction;
+              // If auth is already available, set it
+              if (event.detail.auth) {
+                window.firebaseAuthInstance = event.detail.auth;
+              }
+              // Try to initialize if config is available
+              if (window.firebaseConfig && window.firebaseConfig.apiKey && !window.firebaseAuthInstance) {
+                try {
+                  const result = event.detail.initializeFunction();
+                  if (result && result.auth) {
+                    window.firebaseAuthInstance = result.auth;
+                    console.log('✅ Firebase initialized via event handler');
+                  }
+                } catch (e) {
+                  console.error('Error initializing Firebase in event handler:', e);
+                }
+              }
+            }
+            updateAuthUI();
+          });
+          
+          // Listen for Firebase ready event (fires when auth instance is available)
+          window.addEventListener('firebaseReady', function(event) {
+            console.log('✅ Firebase ready event received');
+            if (event.detail && event.detail.auth) {
+              window.firebaseAuthInstance = event.detail.auth;
+            }
+            updateAuthUI();
+          });
+          
+          // Listen for auth state changes (from sign-in/sign-out) without reloading
+          window.addEventListener('authStateChanged', function(event) {
+            console.log('✅ Auth state changed event received');
+            // Update UI immediately without reload
+            updateAuthUI();
+          });
+          
+          // Start checking immediately, then continue checking if not found
+          // This ensures we catch Firebase as soon as it's available
+          updateAuthUI();
+          
+          // Also check after sign-in popup might have closed (but only once, not a loop)
+          window.addEventListener('focus', function() {
+            setTimeout(updateAuthUI, 500);
+          }, { once: true });
+        })();
+      </script>
       
       <!-- Navigation removed for coming soon mode (production) -->
       <!-- <nav class="nav">

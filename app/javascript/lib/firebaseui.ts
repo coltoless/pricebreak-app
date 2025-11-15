@@ -43,6 +43,13 @@ const initializeFirebase = () => {
   }
 
   auth = firebase.auth();
+  
+  // Expose Firebase globally for inline scripts
+  if (typeof window !== 'undefined') {
+    (window as any).firebase = firebase;
+    (window as any).firebaseAuthInstance = auth;
+  }
+  
   return { app, auth };
 };
 
@@ -87,8 +94,15 @@ export const initializeFirebaseUI = (containerId: string, options?: any) => {
           }).then(response => {
             if (response.ok) {
               console.log('✅ Backend authentication successful');
-              // Redirect after successful authentication
-              window.location.href = redirectUrl || '/';
+              // Dispatch event instead of redirecting to prevent loops
+              window.dispatchEvent(new CustomEvent('authStateChanged', { detail: { user: authResult.user } }));
+              // Only redirect if explicitly requested and not on home page
+              if (redirectUrl && redirectUrl !== '/' && window.location.pathname !== redirectUrl) {
+                window.location.href = redirectUrl;
+              } else {
+                // Just update UI on home page
+                console.log('✅ Authentication successful, UI will update automatically');
+              }
             } else {
               console.error('❌ Backend authentication failed');
             }
@@ -124,11 +138,19 @@ export const initializeFirebaseUI = (containerId: string, options?: any) => {
   // Merge with custom options
   const uiConfig = { ...defaultUiConfig, ...options };
 
-  // Initialize FirebaseUI
-  const ui = new firebaseui.auth.AuthUI(auth);
+  // Initialize FirebaseUI - check if instance already exists
+  let ui: firebaseui.auth.AuthUI;
+  try {
+    ui = firebaseui.auth.AuthUI.getInstance() || new firebaseui.auth.AuthUI(auth);
+  } catch (e) {
+    // If getInstance throws, create a new instance
+    ui = new firebaseui.auth.AuthUI(auth);
+  }
   
-  // Start FirebaseUI
-  ui.start(`#${containerId}`, uiConfig);
+  // Start FirebaseUI - only if not already started
+  if (!document.querySelector(`#${containerId} .firebaseui-container`)) {
+    ui.start(`#${containerId}`, uiConfig);
+  }
 
   return ui;
 };

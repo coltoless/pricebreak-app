@@ -30,6 +30,116 @@
     
     <%# Firebase Configuration - must be loaded before application.js %>
     <script>
+      // AGGRESSIVE: Prevent refresh loops - block ALL redirects/reloads for first 10 seconds
+      window.pageLoadTime = Date.now();
+      window.allowRedirects = false;
+      window.blockedRedirects = [];
+      window.blockedReloads = [];
+      
+      console.log('🛡️ Page load protection activated at', window.pageLoadTime);
+      
+      // Track page loads to detect reloads
+      if (window.pageLoadCount === undefined) {
+        window.pageLoadCount = 0;
+      }
+      window.pageLoadCount++;
+      console.log('📊 Page load count:', window.pageLoadCount);
+      
+      if (window.pageLoadCount > 1) {
+        console.error('⚠️ WARNING: Page has loaded', window.pageLoadCount, 'times! This indicates a reload loop.');
+        console.trace('This is load number', window.pageLoadCount);
+      }
+      
+      // Store original methods
+      const originalReload = window.location.reload.bind(window.location);
+      const originalReplace = window.location.replace.bind(window.location);
+      const originalAssign = window.location.assign.bind(window.location);
+      
+      // Override reload
+      window.location.reload = function(forcedReload) {
+        const timeSinceLoad = Date.now() - window.pageLoadTime;
+        if (timeSinceLoad < 10000 && !window.allowRedirects) {
+          window.blockedReloads.push({time: timeSinceLoad, stack: new Error().stack});
+          console.error('🚫 BLOCKED page reload - too soon after page load (', timeSinceLoad, 'ms)');
+          console.trace('Reload blocked at:');
+          return;
+        }
+        return originalReload(forcedReload);
+      };
+      
+      // Override replace
+      window.location.replace = function(url) {
+        const timeSinceLoad = Date.now() - window.pageLoadTime;
+        if (timeSinceLoad < 10000 && !window.allowRedirects) {
+          window.blockedRedirects.push({url: url, time: timeSinceLoad, method: 'replace', stack: new Error().stack});
+          console.error('🚫 BLOCKED location.replace to', url, '- too soon after page load (', timeSinceLoad, 'ms)');
+          console.trace('Replace blocked at:');
+          return;
+        }
+        return originalReplace(url);
+      };
+      
+      // Override assign
+      window.location.assign = function(url) {
+        const timeSinceLoad = Date.now() - window.pageLoadTime;
+        if (timeSinceLoad < 10000 && !window.allowRedirects) {
+          window.blockedRedirects.push({url: url, time: timeSinceLoad, method: 'assign', stack: new Error().stack});
+          console.error('🚫 BLOCKED location.assign to', url, '- too soon after page load (', timeSinceLoad, 'ms)');
+          console.trace('Assign blocked at:');
+          return;
+        }
+        return originalAssign(url);
+      };
+      
+      // Intercept href assignments - try to override, but if it fails, use a wrapper function
+      try {
+        let currentHref = window.location.href;
+        Object.defineProperty(window.location, 'href', {
+          get: function() {
+            return currentHref;
+          },
+          set: function(value) {
+            const timeSinceLoad = Date.now() - window.pageLoadTime;
+            if (timeSinceLoad < 10000 && !window.allowRedirects) {
+              window.blockedRedirects.push({url: value, time: timeSinceLoad, method: 'href', stack: new Error().stack});
+              console.error('🚫 BLOCKED location.href =', value, '- too soon after page load (', timeSinceLoad, 'ms)');
+              console.trace('Href assignment blocked at:');
+              return;
+            }
+            currentHref = value;
+            // Use replace to actually navigate
+            originalReplace(value);
+          },
+          configurable: true
+        });
+      } catch(e) {
+        console.log('⚠️ Could not override location.href (using wrapper functions instead)');
+        // If we can't override href, we'll rely on reload/replace/assign overrides
+      }
+      
+      // Allow redirects after 10 seconds
+      setTimeout(() => {
+        window.allowRedirects = true;
+        console.log('✅ Redirects now allowed after 10 seconds');
+        console.log('📊 Blocked', window.blockedRedirects.length, 'redirects and', window.blockedReloads.length, 'reloads during initial load');
+        if (window.blockedRedirects.length > 0) {
+          console.group('🚫 Blocked Redirects:');
+          window.blockedRedirects.forEach((block, i) => {
+            console.log(`${i+1}. ${block.method} to ${block.url} at ${block.time}ms`);
+            if (block.stack) console.log(block.stack);
+          });
+          console.groupEnd();
+        }
+        if (window.blockedReloads.length > 0) {
+          console.group('🚫 Blocked Reloads:');
+          window.blockedReloads.forEach((block, i) => {
+            console.log(`${i+1}. Reload at ${block.time}ms`);
+            if (block.stack) console.log(block.stack);
+          });
+          console.groupEnd();
+        }
+      }, 10000);
+      
       window.firebaseConfig = {
         apiKey: '<%= ENV["FIREBASE_API_KEY"] || "" %>',
         authDomain: '<%= ENV["FIREBASE_AUTH_DOMAIN"] || "" %>',
@@ -44,22 +154,74 @@
         console.warn('⚠️ Firebase not configured. Please set environment variables: FIREBASE_API_KEY, FIREBASE_AUTH_DOMAIN, FIREBASE_PROJECT_ID, etc.');
         console.warn('Authentication features will be limited until Firebase is configured.');
       }
+      
+      // Set up a function to wait for and expose Firebase initialization
+      // This ensures it's available even if the module loads late
+      window.waitForFirebase = function() {
+        return new Promise((resolve) => {
+          if (window.initializeFirebase) {
+            resolve(window.initializeFirebase);
+            return;
+          }
+          // Listen for the event
+          const handler = (event) => {
+            if (event.detail && event.detail.initializeFunction) {
+              window.initializeFirebase = event.detail.initializeFunction;
+              window.removeEventListener('firebaseFunctionReady', handler);
+              resolve(event.detail.initializeFunction);
+            }
+          };
+          window.addEventListener('firebaseFunctionReady', handler);
+          // Also check periodically as fallback
+          let checks = 0;
+          const interval = setInterval(() => {
+            checks++;
+            if (window.initializeFirebase) {
+              clearInterval(interval);
+              window.removeEventListener('firebaseFunctionReady', handler);
+              resolve(window.initializeFirebase);
+            } else if (checks > 40) {
+              clearInterval(interval);
+              window.removeEventListener('firebaseFunctionReady', handler);
+              resolve(null);
+            }
+          }, 250);
+        });
+      };
     </script>
     
     <%# Include our built JavaScript bundle (which includes Firebase SDK via imports) %>
     <script type="module" src="/application.js?v=<%= Time.current.to_i %>"></script>
     
-    <%# Make sign-in popup available globally %>
+    <%# Make sign-in popup and Firebase initialization available globally %>
     <script type="module">
       import('/application.js').then(module => {
         if (module.showSignInPopup) {
           window.showSignInPopup = module.showSignInPopup;
         }
-      }).catch(err => console.error('Error loading sign-in popup:', err));
+        // Expose Firebase initialization function
+        if (module.initializeFirebaseApp) {
+          window.initializeFirebase = module.initializeFirebaseApp;
+          console.log('✅ Firebase initialization function exposed globally');
+          // Try to initialize if config is available
+          if (window.firebaseConfig && window.firebaseConfig.apiKey) {
+            try {
+              const result = module.initializeFirebaseApp();
+              if (result && result.auth) {
+                console.log('✅ Firebase initialized via exposed function');
+              }
+            } catch (e) {
+              console.error('Error initializing Firebase:', e);
+            }
+          }
+        } else {
+          console.warn('⚠️ initializeFirebaseApp not found in module');
+        }
+      }).catch(err => console.error('Error loading application module:', err));
     </script>
   </head>
 
-  <body>
+  <body data-turbo="false">
     <%= yield %>
   </body>
 </html>

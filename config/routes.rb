@@ -64,6 +64,7 @@ Rails.application.routes.draw do
     post 'auth/register', to: 'auth#register'
     delete 'auth/logout', to: 'auth#logout'
     get 'auth/me', to: 'auth#me'
+    get 'auth/dashboard', to: 'auth#dashboard'
     put 'auth/profile', to: 'auth#update_profile'
     put 'auth/preferences', to: 'auth#update_preferences'
     

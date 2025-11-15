@@ -1,5 +1,5 @@
 // Firebase configuration and initialization
-import { initializeApp } from 'firebase/app';
+import { initializeApp, getApps } from 'firebase/app';
 import { getFirestore, collection, query, where, orderBy, limit, getDocs } from 'firebase/firestore';
 import { getAuth } from 'firebase/auth';
 import { Airport } from '../types/flight-filter';
@@ -20,23 +20,114 @@ const firebaseConfig = {
 let app: any = null;
 let db: any = null;
 let auth: any = null;
+let initializationAttempted = false;
 
-try {
-  // Check if Firebase config is available
-  if (firebaseConfig.apiKey && firebaseConfig.projectId) {
-    app = initializeApp(firebaseConfig);
-    db = getFirestore(app);
-    auth = getAuth(app);
-    console.log('✅ Firebase initialized successfully');
-  } else {
-    console.log('⚠️ Firebase config not available, using mock data');
+// Function to initialize Firebase (can be called multiple times safely)
+function initializeFirebaseApp() {
+  // If already successfully initialized, return existing instances
+  if (auth) {
+    return { app, db, auth };
   }
-} catch (error) {
-  console.error('❌ Firebase initialization failed:', error);
-  console.log('⚠️ Falling back to mock data');
+  
+  // If we've already attempted and failed, try again (config might be available now)
+  if (initializationAttempted) {
+    initializationAttempted = false; // Allow retry
+  }
+  
+  initializationAttempted = true;
+  
+  try {
+    // Re-read config in case it wasn't available at module load time
+    const currentConfig = {
+      apiKey: window.firebaseConfig?.apiKey || '',
+      authDomain: window.firebaseConfig?.authDomain || '',
+      projectId: window.firebaseConfig?.projectId || '',
+      storageBucket: window.firebaseConfig?.storageBucket || '',
+      messagingSenderId: window.firebaseConfig?.messagingSenderId || '',
+      appId: window.firebaseConfig?.appId || ''
+    };
+    
+    // Check if Firebase config is available
+    if (currentConfig.apiKey && currentConfig.projectId) {
+      // Check if Firebase is already initialized
+      const existingApps = getApps();
+      
+      if (existingApps.length > 0) {
+        app = existingApps[0];
+        console.log('✅ Using existing Firebase app instance');
+      } else {
+        app = initializeApp(currentConfig);
+        console.log('✅ Firebase initialized successfully');
+      }
+      
+      db = getFirestore(app);
+      auth = getAuth(app);
+      
+      // Expose auth globally for inline scripts and compatibility
+      if (typeof window !== 'undefined') {
+        window.firebaseAuthInstance = auth;
+        console.log('✅ Firebase auth instance exposed globally');
+      }
+      
+      return { app, db, auth };
+    } else {
+      console.log('⚠️ Firebase config not available, using mock data');
+      return { app: null, db: null, auth: null };
+    }
+  } catch (error) {
+    console.error('❌ Firebase initialization failed:', error);
+    console.log('⚠️ Falling back to mock data');
+    return { app: null, db: null, auth: null };
+  }
 }
 
-export { db, auth };
+// Try to initialize immediately
+const initResult = initializeFirebaseApp();
+app = initResult.app;
+db = initResult.db;
+auth = initResult.auth;
+
+// Always expose initialization function globally for manual initialization
+// Use setTimeout to ensure window is fully available and listeners are set up
+if (typeof window !== 'undefined') {
+  // Set immediately
+  (window as any).initializeFirebase = initializeFirebaseApp;
+  console.log('✅ Firebase initialization function set on window.initializeFirebase');
+  
+  // Also set auth instance if available
+  if (auth) {
+    (window as any).firebaseAuthInstance = auth;
+    console.log('✅ Firebase auth instance set on window.firebaseAuthInstance');
+  }
+  
+  // Dispatch events after a small delay to ensure listeners are set up
+  setTimeout(() => {
+    // Dispatch a custom event when Firebase function is available
+    // This allows inline scripts to know when they can call initializeFirebase
+    try {
+      window.dispatchEvent(new CustomEvent('firebaseFunctionReady', { 
+        detail: { initializeFunction: initializeFirebaseApp, auth } 
+      }));
+      console.log('✅ Dispatched firebaseFunctionReady event');
+    } catch (e) {
+      console.error('Error dispatching firebaseFunctionReady:', e);
+    }
+    
+    // Also dispatch when auth is ready (if it already is)
+    if (auth) {
+      try {
+        window.dispatchEvent(new CustomEvent('firebaseReady', { detail: { auth } }));
+        console.log('✅ Dispatched firebaseReady event');
+      } catch (e) {
+        console.error('Error dispatching firebaseReady:', e);
+      }
+    }
+  }, 100);
+} else {
+  console.warn('⚠️ Window object not available when setting Firebase globals');
+}
+
+export { db, auth, initializeFirebaseApp };
 
 // Airport service for autocomplete functionality
 export class AirportService {
@@ -355,6 +446,9 @@ declare global {
       messagingSenderId: string;
       appId: string;
     };
+    firebaseAuthInstance?: any;
+    firebase?: any;
+    initializeFirebase?: () => { app: any; db: any; auth: any };
   }
 }
 

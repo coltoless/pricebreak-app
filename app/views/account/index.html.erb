@@ -1,46 +1,172 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Account - priceBreak</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <style>
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      margin: 0;
-      padding: 2rem;
-      background: #FFFFFF;
-    }
-    .container {
-      max-width: 800px;
-      margin: 0 auto;
-    }
-    h1 {
-      color: #111827;
-      margin-bottom: 2rem;
-    }
-    .message {
-      padding: 1rem;
-      background: #F3F4F6;
-      border-radius: 0.5rem;
-      margin-bottom: 1rem;
-    }
-    a {
-      color: #2563EB;
-      text-decoration: none;
-    }
-    a:hover {
-      text-decoration: underline;
-    }
-  </style>
-</head>
-<body>
-  <div class="container">
-    <h1>Account Dashboard</h1>
-    <div class="message">
-      <p><strong>Account page is temporarily disabled to stop redirect loop.</strong></p>
-      <p>Please <a href="/">go back to home</a> or contact support if you need assistance.</p>
+<div data-controller="account-dashboard" style="min-height: 100vh; background: linear-gradient(to bottom, #1F2937, #111827); padding: 2rem;">
+  <div style="max-width: 1200px; margin: 0 auto;">
+    <!-- Error message container -->
+    <div id="account-error-message" style="display: none;"></div>
+    
+    <!-- Account Dashboard Header -->
+    <div style="margin-bottom: 2rem;">
+      <h1 style="color: white; font-size: 2rem; font-weight: 700; margin-bottom: 0.5rem;">Account Dashboard</h1>
+      <p style="color: #9CA3AF; font-size: 1rem;">Manage your account settings and preferences</p>
+    </div>
+    
+    <!-- User Info Section -->
+    <div style="background: rgba(255, 255, 255, 0.05); border-radius: 1rem; padding: 2rem; margin-bottom: 2rem; border: 1px solid rgba(255, 255, 255, 0.1);">
+      <h2 style="color: white; font-size: 1.5rem; font-weight: 600; margin-bottom: 1.5rem;">Profile Information</h2>
+      
+      <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem;">
+        <div data-account-dashboard-target="avatar" 
+             style="width: 64px; height: 64px; border-radius: 50%; background: #2563EB; display: flex; align-items: center; justify-content: center; color: white; font-weight: 600; font-size: 1.5rem; border: 2px solid rgba(255, 255, 255, 0.3);">
+          U
+        </div>
+        <div>
+          <div data-account-dashboard-target="greeting" style="color: white; font-size: 1.25rem; font-weight: 600;">
+            Loading...
+          </div>
+          <div data-account-dashboard-target="email" style="color: #9CA3AF; font-size: 0.875rem; margin-top: 0.25rem;">
+            Loading...
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Preferences Section -->
+    <div style="background: rgba(255, 255, 255, 0.05); border-radius: 1rem; padding: 2rem; margin-bottom: 2rem; border: 1px solid rgba(255, 255, 255, 0.1);">
+      <h2 style="color: white; font-size: 1.5rem; font-weight: 600; margin-bottom: 1.5rem;">Preferences</h2>
+      
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; margin-bottom: 1.5rem;">
+        <div>
+          <label style="display: block; color: #9CA3AF; font-size: 0.875rem; margin-bottom: 0.5rem;">Home City</label>
+          <input type="text" 
+                 data-account-dashboard-target="homeCity" 
+                 placeholder="e.g., New York"
+                 style="width: 100%; padding: 0.75rem; background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 0.5rem; color: white; font-size: 1rem;">
+        </div>
+        
+        <div>
+          <label style="display: block; color: #9CA3AF; font-size: 0.875rem; margin-bottom: 0.5rem;">Currency</label>
+          <select data-account-dashboard-target="currency" 
+                  style="width: 100%; padding: 0.75rem; background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 0.5rem; color: white; font-size: 1rem;">
+            <option value="USD">USD - US Dollar</option>
+            <option value="EUR">EUR - Euro</option>
+            <option value="GBP">GBP - British Pound</option>
+            <option value="CAD">CAD - Canadian Dollar</option>
+            <option value="AUD">AUD - Australian Dollar</option>
+            <option value="JPY">JPY - Japanese Yen</option>
+          </select>
+        </div>
+        
+        <div>
+          <label style="display: block; color: #9CA3AF; font-size: 0.875rem; margin-bottom: 0.5rem;">Language</label>
+          <select data-account-dashboard-target="language" 
+                  style="width: 100%; padding: 0.75rem; background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 0.5rem; color: white; font-size: 1rem;">
+            <option value="en">English</option>
+            <option value="es">Español</option>
+            <option value="fr">Français</option>
+            <option value="de">Deutsch</option>
+            <option value="it">Italiano</option>
+            <option value="pt">Português</option>
+          </select>
+        </div>
+        
+        <div>
+          <label style="display: block; color: #9CA3AF; font-size: 0.875rem; margin-bottom: 0.5rem;">Timezone</label>
+          <select data-account-dashboard-target="timezone" 
+                  style="width: 100%; padding: 0.75rem; background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 0.5rem; color: white; font-size: 1rem;">
+            <option value="UTC">UTC</option>
+            <option value="America/New_York">America/New_York (EST)</option>
+            <option value="America/Chicago">America/Chicago (CST)</option>
+            <option value="America/Denver">America/Denver (MST)</option>
+            <option value="America/Los_Angeles">America/Los_Angeles (PST)</option>
+            <option value="Europe/London">Europe/London (GMT)</option>
+            <option value="Europe/Paris">Europe/Paris (CET)</option>
+            <option value="Asia/Tokyo">Asia/Tokyo (JST)</option>
+          </select>
+        </div>
+      </div>
+      
+      <div style="margin-bottom: 1rem;">
+        <label style="display: flex; align-items: center; gap: 0.75rem; color: white; cursor: pointer;">
+          <input type="checkbox" 
+                 data-account-dashboard-target="emailSubscription" 
+                 style="width: 1.25rem; height: 1.25rem; cursor: pointer;">
+          <span>Email notifications for price alerts</span>
+        </label>
+      </div>
+      
+      <button data-action="click->account-dashboard#savePreferences" 
+              style="padding: 0.75rem 1.5rem; background: #2563EB; border: none; border-radius: 0.5rem; color: white; cursor: pointer; font-weight: 500; transition: all 0.2s;"
+              onmouseover="this.style.background='#1D4ED8'"
+              onmouseout="this.style.background='#2563EB'">
+        Save Preferences
+      </button>
+    </div>
+    
+    <!-- Preferred Airports Section -->
+    <div style="background: rgba(255, 255, 255, 0.05); border-radius: 1rem; padding: 2rem; margin-bottom: 2rem; border: 1px solid rgba(255, 255, 255, 0.1);">
+      <h2 style="color: white; font-size: 1.5rem; font-weight: 600; margin-bottom: 1.5rem;">Preferred Airports</h2>
+      <div data-account-dashboard-target="airportsList" style="color: #9CA3AF; margin-bottom: 1rem;">
+        No preferred airports set
+      </div>
+    </div>
+    
+    <!-- Price Alerts Section -->
+    <div style="background: rgba(255, 255, 255, 0.05); border-radius: 1rem; padding: 2rem; margin-bottom: 2rem; border: 1px solid rgba(255, 255, 255, 0.1);">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+        <h2 style="color: white; font-size: 1.5rem; font-weight: 600;">Price Alerts</h2>
+        <div data-account-dashboard-target="alertsStats" style="color: #9CA3AF; font-size: 0.875rem;">
+          Loading...
+        </div>
+      </div>
+      <div data-account-dashboard-target="alertsList" style="color: #9CA3AF;">
+        Loading alerts...
+      </div>
+    </div>
+    
+    <!-- Saved Searches Section -->
+    <div style="background: rgba(255, 255, 255, 0.05); border-radius: 1rem; padding: 2rem; margin-bottom: 2rem; border: 1px solid rgba(255, 255, 255, 0.1);">
+      <h2 style="color: white; font-size: 1.5rem; font-weight: 600; margin-bottom: 1.5rem;">Saved Searches</h2>
+      <div data-account-dashboard-target="savedSearchesList" style="color: #9CA3AF;">
+        Loading saved searches...
+      </div>
+    </div>
+    
+    <!-- Future Trips Section -->
+    <div style="background: rgba(255, 255, 255, 0.05); border-radius: 1rem; padding: 2rem; margin-bottom: 2rem; border: 1px solid rgba(255, 255, 255, 0.1);">
+      <h2 style="color: white; font-size: 1.5rem; font-weight: 600; margin-bottom: 1.5rem;">Future Trips</h2>
+      <p style="color: #9CA3AF; font-size: 0.875rem; margin-bottom: 1rem;">Trips you're planning for AI insights and suggested alerts</p>
+      <div data-account-dashboard-target="futureTripsList" style="color: #9CA3AF;">
+        Loading future trips...
+      </div>
+    </div>
+    
+    <!-- Suggested Alerts Section -->
+    <div style="background: rgba(255, 255, 255, 0.05); border-radius: 1rem; padding: 2rem; margin-bottom: 2rem; border: 1px solid rgba(255, 255, 255, 0.1);">
+      <h2 style="color: white; font-size: 1.5rem; font-weight: 600; margin-bottom: 1.5rem;">Suggested Alerts</h2>
+      <p style="color: #9CA3AF; font-size: 0.875rem; margin-bottom: 1rem;">AI-powered suggestions based on your search patterns</p>
+      <div data-account-dashboard-target="suggestedAlertsList" style="color: #9CA3AF;">
+        Loading suggestions...
+      </div>
+    </div>
+    
+    <!-- Actions Section -->
+    <div style="background: rgba(255, 255, 255, 0.05); border-radius: 1rem; padding: 2rem; border: 1px solid rgba(255, 255, 255, 0.1);">
+      <h2 style="color: white; font-size: 1.5rem; font-weight: 600; margin-bottom: 1.5rem;">Account Actions</h2>
+      
+      <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+        <button onclick="(function(){const a=typeof firebase!=='undefined'&&firebase.auth?firebase.auth():window.firebaseAuthInstance;if(a){a.signOut().then(()=>{window.location.href='/';});}})()" 
+                style="padding: 0.75rem 1.5rem; background: rgba(220, 38, 38, 0.2); border: 1px solid rgba(220, 38, 38, 0.5); border-radius: 0.5rem; color: #FCA5A5; cursor: pointer; font-weight: 500; transition: all 0.2s;"
+                onmouseover="this.style.background='rgba(220, 38, 38, 0.3)'"
+                onmouseout="this.style.background='rgba(220, 38, 38, 0.2)'">
+          Sign Out
+        </button>
+        
+        <a href="/" 
+           style="padding: 0.75rem 1.5rem; background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 0.5rem; color: white; text-decoration: none; font-weight: 500; transition: all 0.2s; display: inline-block;"
+           onmouseover="this.style.background='rgba(255, 255, 255, 0.15)'"
+           onmouseout="this.style.background='rgba(255, 255, 255, 0.1)'">
+          Back to Home
+        </a>
+      </div>
     </div>
   </div>
-</body>
-</html>
+</div>

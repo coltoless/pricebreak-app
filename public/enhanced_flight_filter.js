@@ -21222,6 +21222,9 @@ function getApp(name4 = DEFAULT_ENTRY_NAME2) {
   }
   return app2;
 }
+function getApps() {
+  return Array.from(_apps.values());
+}
 function registerVersion(libraryKeyOrName, version4, variant) {
   let library = PLATFORM_LOG_STRING[libraryKeyOrName] ?? libraryKeyOrName;
   if (variant) {
@@ -39788,18 +39791,81 @@ var firebaseConfig = {
 var app = null;
 var db = null;
 var auth = null;
-try {
-  if (firebaseConfig.apiKey && firebaseConfig.projectId) {
-    app = initializeApp(firebaseConfig);
-    db = getFirestore(app);
-    auth = getAuth(app);
-    console.log("\u2705 Firebase initialized successfully");
-  } else {
-    console.log("\u26A0\uFE0F Firebase config not available, using mock data");
+var initializationAttempted = false;
+function initializeFirebaseApp() {
+  if (auth) {
+    return { app, db, auth };
   }
-} catch (error) {
-  console.error("\u274C Firebase initialization failed:", error);
-  console.log("\u26A0\uFE0F Falling back to mock data");
+  if (initializationAttempted) {
+    initializationAttempted = false;
+  }
+  initializationAttempted = true;
+  try {
+    const currentConfig = {
+      apiKey: window.firebaseConfig?.apiKey || "",
+      authDomain: window.firebaseConfig?.authDomain || "",
+      projectId: window.firebaseConfig?.projectId || "",
+      storageBucket: window.firebaseConfig?.storageBucket || "",
+      messagingSenderId: window.firebaseConfig?.messagingSenderId || "",
+      appId: window.firebaseConfig?.appId || ""
+    };
+    if (currentConfig.apiKey && currentConfig.projectId) {
+      const existingApps = getApps();
+      if (existingApps.length > 0) {
+        app = existingApps[0];
+        console.log("\u2705 Using existing Firebase app instance");
+      } else {
+        app = initializeApp(currentConfig);
+        console.log("\u2705 Firebase initialized successfully");
+      }
+      db = getFirestore(app);
+      auth = getAuth(app);
+      if (typeof window !== "undefined") {
+        window.firebaseAuthInstance = auth;
+        console.log("\u2705 Firebase auth instance exposed globally");
+      }
+      return { app, db, auth };
+    } else {
+      console.log("\u26A0\uFE0F Firebase config not available, using mock data");
+      return { app: null, db: null, auth: null };
+    }
+  } catch (error) {
+    console.error("\u274C Firebase initialization failed:", error);
+    console.log("\u26A0\uFE0F Falling back to mock data");
+    return { app: null, db: null, auth: null };
+  }
+}
+var initResult = initializeFirebaseApp();
+app = initResult.app;
+db = initResult.db;
+auth = initResult.auth;
+if (typeof window !== "undefined") {
+  window.initializeFirebase = initializeFirebaseApp;
+  console.log("\u2705 Firebase initialization function set on window.initializeFirebase");
+  if (auth) {
+    window.firebaseAuthInstance = auth;
+    console.log("\u2705 Firebase auth instance set on window.firebaseAuthInstance");
+  }
+  setTimeout(() => {
+    try {
+      window.dispatchEvent(new CustomEvent("firebaseFunctionReady", {
+        detail: { initializeFunction: initializeFirebaseApp, auth }
+      }));
+      console.log("\u2705 Dispatched firebaseFunctionReady event");
+    } catch (e) {
+      console.error("Error dispatching firebaseFunctionReady:", e);
+    }
+    if (auth) {
+      try {
+        window.dispatchEvent(new CustomEvent("firebaseReady", { detail: { auth } }));
+        console.log("\u2705 Dispatched firebaseReady event");
+      } catch (e) {
+        console.error("Error dispatching firebaseReady:", e);
+      }
+    }
+  }, 100);
+} else {
+  console.warn("\u26A0\uFE0F Window object not available when setting Firebase globals");
 }
 var AirportService = class {
   static COLLECTION_NAME = "airports";
